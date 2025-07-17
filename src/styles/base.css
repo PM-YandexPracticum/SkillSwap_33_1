@@ -1,13 +1,16 @@
 /* Базовые стили и сбросы для приложения */
 
-/* 1. Сброс box-sizing для всех элементов */
+/* 1. Подключение шрифтов */
+@import './fonts.css';
+
+/* 2. Сброс box-sizing для всех элементов */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* 2. Сброс margin/padding и базовые стили для html/body */
+/* 3. Сброс margin/padding и базовые стили для html/body */
 html,
 body {
   margin: 0;
@@ -24,7 +27,7 @@ body {
     color 0.2s;
 }
 
-/* 3. Сбросы для типографики */
+/* 4. Сбросы для типографики */
 h1,
 h2,
 h3,
@@ -57,14 +60,14 @@ p {
   margin: 0 0 1em 0;
 }
 
-/* 4. Сбросы для списков */
+/* 5. Сбросы для списков */
 ul,
 ol {
   margin: 0;
   padding-left: 1.5em;
 }
 
-/* 5. Сбросы для ссылок */
+/* 6. Сбросы для ссылок */
 a {
   color: var(--color-link);
   text-decoration: none;
@@ -75,7 +78,7 @@ a:focus {
   text-decoration: underline;
 }
 
-/* 6. Сбросы для кнопок */
+/* 7. Сбросы для кнопок */
 button {
   font-family: inherit;
   font-size: inherit;
@@ -88,7 +91,7 @@ button {
     color 0.2s;
 }
 
-/* 7. Сбросы для изображений */
+/* 8. Сбросы для изображений */
 img,
 svg {
   display: block;
@@ -96,23 +99,7 @@ svg {
   height: auto;
 }
 
-/* 8. Сбросы для форм */
-input,
-textarea,
-select {
-  font-family: inherit;
-  font-size: inherit;
-  outline: none;
-  border-radius: 0;
-  border: none;
-  background: none;
-  color: inherit;
-}
-
-/* 9. Подключение шрифтов */
-@import './fonts.css';
-
-/* 10. Сбросы для форм */
+/* 9. Сбросы для форм */
 input,
 textarea,
 select {
