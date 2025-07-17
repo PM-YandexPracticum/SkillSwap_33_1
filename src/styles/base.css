@@ -1,0 +1,126 @@
+/* Базовые стили и сбросы для приложения */
+
+/* 1. Сброс box-sizing для всех элементов */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Сброс margin/padding и базовые стили для html/body */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: var(--font-body, 'Roboto', sans-serif);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 24px);
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+/* 3. Сбросы для типографики */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-heading, 'Jost', sans-serif);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+}
+h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+}
+h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+}
+h4 {
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+}
+
+p {
+  margin: 0 0 1em 0;
+}
+
+/* 4. Сбросы для списков */
+ul,
+ol {
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+/* 5. Сбросы для ссылок */
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+/* 6. Сбросы для кнопок */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+/* 7. Сбросы для изображений */
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 8. Сбросы для форм */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  border-radius: 0;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* 9. Подключение шрифтов */
+@import './fonts.css';
+
+/* 10. Сбросы для форм */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  border-radius: 0;
+  border: none;
+  background: none;
+  color: inherit;
+}
