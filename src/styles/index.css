@@ -1,0 +1,4 @@
+/* Главный файл для импорта всех стилей приложения */
+
+@import url('../app/theme.css');
+@import url('./base.css');
