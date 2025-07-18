@@ -1,0 +1,13 @@
+.heading {
+	font-weight: 600;
+	font-size: 64px;
+}
+
+.icon {
+	transition: fill 0.3s ease-in-out;
+	fill: black;
+}
+
+.link:hover .icon {
+	fill: plum;
+}
