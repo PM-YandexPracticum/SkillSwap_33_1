@@ -1,2 +1,216 @@
-// Мок-данные пользователей для тестирования аутентификации и профиля
-[]
+[
+  {
+    "id": 1,
+    "avatarUrl": "/src/media/profiles/Image1.svg",
+    "name": "Иван",
+    "location": "Санкт-Петербург",
+    "age": "34 года",
+    "gender": "Мужской",
+    "skillCanTeach": {
+      "id": 209,
+      "name": "Игра на барабанах",
+      "description": "Привет! Я играю на барабанах уже больше 10 лет — от репетиций в гараже до выступлений на сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры."
+    },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 2,
+    "avatarUrl": "/src/media/profiles/Image2.svg",
+    "name": "Анна",
+    "location": "Казань",
+    "age": "26 лет",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 301, "name": "Английский язык", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 3,
+    "avatarUrl": "/src/media/profiles/Image3.svg",
+    "name": "Максим",
+    "location": "Москва",
+    "age": "23 года",
+    "gender": "Мужской",
+    "skillCanTeach": { "id": 109, "name": "Бизнес-план", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 4,
+    "avatarUrl": "/src/media/profiles/Image4.svg",
+    "name": "Илона",
+    "location": "Екатеринбург",
+    "age": "33 года",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 301, "name": "Английский язык", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 5,
+    "avatarUrl": "/src/media/profiles/Image5.svg",
+    "name": "Михаил",
+    "location": "Новосибирск",
+    "age": "29 лет",
+    "gender": "Мужской",
+    "skillCanTeach": { "id": 301, "name": "Английский язык", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 6,
+    "avatarUrl": "/src/media/profiles/Image6.svg",
+    "name": "Мария",
+    "location": "Краснодар",
+    "age": "21 год",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 301, "name": "Английский язык", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 7,
+    "avatarUrl": "/src/media/profiles/Image7.svg",
+    "name": "Виктория",
+    "location": "Кемерово",
+    "age": "30 лет",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 8,
+    "avatarUrl": "/src/media/profiles/Image8.svg",
+    "name": "Елизавета",
+    "location": "Владивосток",
+    "age": "25 лет",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 9,
+    "avatarUrl": "/src/media/profiles/Image9.svg",
+    "name": "Виктория",
+    "location": "Сочи",
+    "age": "31 год",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 10,
+    "avatarUrl": "/src/media/profiles/Image10.svg",
+    "name": "Елена",
+    "location": "Красноярск",
+    "age": "28 лет",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 11,
+    "avatarUrl": "/src/media/profiles/Image11.svg",
+    "name": "Константин",
+    "location": "Иркутск",
+    "age": "36 лет",
+    "gender": "Мужской",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 12,
+    "avatarUrl": "/src/media/profiles/Image12.svg",
+    "name": "София",
+    "location": "Абакан",
+    "age": "24 года",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 13,
+    "avatarUrl": "/src/media/profiles/Image13.svg",
+    "name": "Екатерина",
+    "location": "Пермь",
+    "age": "33 года",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 14,
+    "avatarUrl": "/src/media/profiles/Image14.svg",
+    "name": "Дарья",
+    "location": "Ярославль",
+    "age": "26 лет",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  },
+  {
+    "id": 15,
+    "avatarUrl": "/src/media/profiles/Image15.svg",
+    "name": "Алла",
+    "location": "Архангельск",
+    "age": "22 года",
+    "gender": "Женский",
+    "skillCanTeach": { "id": 209, "name": "Игра на барабанах", "description": "" },
+    "images": [],
+    "subcategoriesWantToLearn": [
+      { "id": 106, "name": "Тайм-менеджмент" },
+      { "id": 501, "name": "Медитация" }
+    ]
+  }
+]
