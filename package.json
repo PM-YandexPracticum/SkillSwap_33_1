@@ -1,38 +1,88 @@
 {
-  "name": "skillswap_33_1",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PM-YandexPracticum/SkillSwap_33_1.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/PM-YandexPracticum/SkillSwap_33_1/issues"
-  },
-  "homepage": "https://github.com/PM-YandexPracticum/SkillSwap_33_1#readme",
-  "devDependencies": {
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "html-webpack-plugin": "^5.6.3",
-    "stylelint-order": "^7.0.0",
-    "ts-loader": "^9.5.2",
-    "typescript": "^5.8.3",
-    "webpack": "^5.100.2",
-    "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2"
-  },
-  "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  }
+	"name": "skillswap-33-1",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --open",
+		"build": "tsc -b && vite build",
+		"prepare": "husky",
+		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+		"lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+		"stylelint": "stylelint src/**/*.{css,scss} --aei",
+		"stylelint:fix": "stylelint src/**/*.{css,scss} --aei --fix",
+		"format": "prettier . --write --ignore-unknown --ignore-path .prettierignore",
+		"preview": "vite preview",
+		"test:jest": "jest --verbose",
+		"cypress:open": "cypress open",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build",
+		"check": "npm run lint:fix && npm run stylelint:fix && npm run format"
+	},
+	"lint-staged": {
+		"src/**/*.{css,scss}": "stylelint --aei --fix",
+		"src/**/*.{js,jsx,ts,tsx}": "eslint --fix",
+		"*": "prettier . --write --ignore-unknown --ignore-path .prettierignore"
+	},
+	"dependencies": {
+		"@reduxjs/toolkit": "^2.8.2",
+		"clsx": "^2.1.1",
+		"lodash": "^4.17.21",
+		"motion": "^12.23.6",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"react-redux": "^9.2.0",
+		"react-router-dom": "^7.7.0",
+		"redux": "^5.0.1"
+	},
+	"devDependencies": {
+		"@chromatic-com/storybook": "^4.0.1",
+		"@commitizen/cz-conventional-changelog": "^1.2.0",
+		"@eslint/js": "^9.30.1",
+		"@jest/globals": "^30.0.4",
+		"@storybook/addon-a11y": "^9.0.17",
+		"@storybook/addon-docs": "^9.0.17",
+		"@storybook/addon-onboarding": "^9.0.17",
+		"@storybook/addon-vitest": "^9.0.17",
+		"@storybook/react-vite": "^9.0.17",
+		"@types/jest": "^30.0.0",
+		"@types/node": "^24.0.14",
+		"@types/react": "^19.1.8",
+		"@types/react-dom": "^19.1.6",
+		"@types/react-router-dom": "^5.3.3",
+		"@vitejs/plugin-react": "^4.6.0",
+		"@vitest/browser": "^3.2.4",
+		"@vitest/coverage-v8": "^3.2.4",
+		"commitizen": "^4.3.1",
+		"cypress": "^14.5.2",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^9.30.1",
+		"eslint-config-prettier": "^10.1.5",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^5.2.0",
+		"eslint-plugin-react-refresh": "^0.4.20",
+		"eslint-plugin-storybook": "^9.0.17",
+		"eslint-plugin-unused-imports": "^4.1.4",
+		"globals": "^16.3.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.1.2",
+		"playwright": "^1.54.1",
+		"prettier": "^3.6.2",
+		"storybook": "^9.0.17",
+		"stylelint": "^16.21.1",
+		"stylelint-config-standard": "^38.0.0",
+		"stylelint-order": "^7.0.0",
+		"ts-jest": "^29.4.0",
+		"ts-node": "^10.9.2",
+		"typescript": "~5.8.3",
+		"typescript-eslint": "^8.35.1",
+		"vite": "^7.0.4",
+		"vite-plugin-svgr": "^4.3.0",
+		"vitest": "^3.2.4"
+	},
+	"config": {
+		"commitizen": {
+			"path": "@commitizen/cz-conventional-changelog"
+		}
+	}
 }
