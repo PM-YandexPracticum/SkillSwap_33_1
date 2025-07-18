@@ -1,7 +1,7 @@
 /* Базовые стили и сбросы для приложения */
 
 /* 1. Подключение шрифтов */
-@import './fonts.css';
+@import url('./fonts.css');
 
 /* 2. Сброс box-sizing для всех элементов */
 *,
@@ -43,21 +43,24 @@ h1 {
   font-size: var(--font-size-h1);
   line-height: var(--line-height-h1);
 }
+
 h2 {
   font-size: var(--font-size-h2);
   line-height: var(--line-height-h2);
 }
+
 h3 {
   font-size: var(--font-size-h3);
   line-height: var(--line-height-h3);
 }
+
 h4 {
   font-size: var(--font-size-h4);
   line-height: var(--line-height-h4);
 }
 
 p {
-  margin: 0 0 1em 0;
+  margin: 0 0 1em;
 }
 
 /* 5. Сбросы для списков */
@@ -73,6 +76,7 @@ a {
   text-decoration: none;
   transition: color 0.2s;
 }
+
 a:hover,
 a:focus {
   text-decoration: underline;
