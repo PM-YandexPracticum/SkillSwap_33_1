@@ -18,8 +18,10 @@
 - `npm run build` — сборка проекта
 - `npm run lint` — проверка стиля кода
 - `npm run format` — автоформатирование
-- `npm run test` — запуск тестов
-- `npm run lint:css` — проверка CSS-стилей Stylelint
+- `npm run check` — проверка CSS стилей, ts, tsx файлов и фикс ошибок (перед пушем делать)
+- `npm run test:jest` — запуск jest тестов
+- `npm run cypress:open` — открыть cypress тесты
+- `npm run storybook` — открыть storybook
 
 ## Структура проекта
 
