@@ -2,6 +2,7 @@ import styles from './HomePage.module.css';
 import ClockIcon from '@icons/clock.svg?react';
 import EditIcon from '@icons/edit.svg?react';
 import BookIcon from '@icons/book.svg?react';
+import { Button } from '@shared/ui/button';
 
 export const HomePage = () => {
 	return (
@@ -25,6 +26,9 @@ export const HomePage = () => {
 					<EditIcon className={styles.icon} />
 				</a>
 			</div>
+			<div>
+				<Button fullWidth>Подробнее</Button>
+			</div>
 		</>
 	);
-}
+};

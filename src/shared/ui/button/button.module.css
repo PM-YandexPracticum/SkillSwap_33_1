@@ -1,0 +1,45 @@
+.button {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	height: 48px;
+	padding: 12px 24px;
+	font-size: 16px;
+	font-family: inherit;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+/* Варианты кнопок */
+
+.variant-primary {
+	color: #000000;
+	background: rgb(171 210 122);
+}
+
+.variant-primary:hover {
+	background: rgb(222 235 197);
+}
+
+.variant-primary:active {
+	background: rgb(80 136 38);
+}
+
+.variant-secondary {
+	color: #000000;
+	background: #f0f0f0;
+}
+
+.variant-outlined {
+	color: rgb(171 210 122);
+	background: transparent;
+	border: 2px solid rgb(171 210 122);
+}
+
+/* Полная ширина */
+
+.fullWidth {
+	width: 100%;
+}
