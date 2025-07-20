@@ -2,10 +2,12 @@ import styles from './HomePage.module.css';
 import ClockIcon from '@icons/clock.svg?react';
 import EditIcon from '@icons/edit.svg?react';
 import BookIcon from '@icons/book.svg?react';
+import Header from '@/components/Header/Header';
 
 export const HomePage = () => {
 	return (
 		<>
+			<Header variant='guest' />
 			<h1 className={styles.heading}>Home Page</h1>
 			<div>
 				<img src='assets/icons/testIcon.svg' alt='' />
@@ -27,4 +29,4 @@ export const HomePage = () => {
 			</div>
 		</>
 	);
-}
+};

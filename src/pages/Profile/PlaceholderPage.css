@@ -1,0 +1,44 @@
+/* PlaceholderPage Component Styles */
+
+.placeholder-container {
+	flex: 1;
+	padding: 2rem;
+}
+
+.placeholder-content {
+	max-width: 64rem;
+	margin: 0 auto;
+}
+
+.placeholder-card {
+	padding: 2rem;
+	text-align: center;
+	background-color: white;
+	border-radius: 1rem;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%);
+}
+
+.placeholder-title {
+	margin-bottom: 1rem;
+	color: #111827;
+	font-weight: 700;
+	font-size: 1.88rem;
+}
+
+.placeholder-description {
+	margin-bottom: 2rem;
+	color: #4b5563;
+	font-size: 1.13rem;
+}
+
+.placeholder-development {
+	margin-top: 2rem;
+	padding: 1.5rem;
+	background-color: #f9fafb;
+	border-radius: 0.5rem;
+}
+
+.placeholder-development-text {
+	margin: 0;
+	color: #6b7280;
+}
