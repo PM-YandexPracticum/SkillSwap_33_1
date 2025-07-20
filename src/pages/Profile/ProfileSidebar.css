@@ -1,0 +1,46 @@
+.profile-sidebar {
+	min-width: 20.25rem;
+	background-color: white;
+	border-radius: 1rem;
+}
+
+.sidebar-nav {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 2.2rem;
+}
+
+.sidebar-nav-item {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.73rem 1.45rem;
+	color: #253017;
+	font-weight: 500;
+	text-decoration: none;
+	border-radius: 0.5rem;
+	transition: all 0.2s;
+}
+
+.sidebar-nav-item:hover {
+	background-color: #deebc5;
+}
+
+.sidebar-nav-item:active {
+	color: white;
+	background-color: #508826;
+	border: 1px solid #508826;
+}
+
+.sidebar-nav-item.active {
+	color: #253017;
+	background-color: #deebc5;
+	border: 1px solid #deebc5;
+}
+
+.sidebar-nav-icon {
+	flex-shrink: 0;
+	width: 1.5rem;
+	height: 1.5rem;
+}
