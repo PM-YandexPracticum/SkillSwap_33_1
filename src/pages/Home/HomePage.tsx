@@ -2,7 +2,9 @@ import styles from './HomePage.module.css';
 import ClockIcon from '@icons/clock.svg?react';
 import EditIcon from '@icons/edit.svg?react';
 import BookIcon from '@icons/book.svg?react';
+import Done from '../../shared/assets/icons/Done.svg';
 import { Button } from '@shared/ui/button';
+import { Modal } from '../../components/modal/modal';
 
 export const HomePage = () => {
 	return (
@@ -29,6 +31,13 @@ export const HomePage = () => {
 			<div>
 				<Button fullWidth>Подробнее</Button>
 			</div>
+			<Modal
+				isOpen={true}
+				onClose={() => {}}
+				title='Заглушка'
+				message='Текст-заглушка'
+				icon={Done}
+			/>
 		</>
 	);
 };

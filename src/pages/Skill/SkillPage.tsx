@@ -6,4 +6,4 @@ export const SkillPage = () => {
 			<h1>Skill Page</h1>
 		</>
 	);
-}
+};
