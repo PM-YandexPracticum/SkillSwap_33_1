@@ -5,21 +5,29 @@ import '@appStyles/global.css';
 import '@appStyles/theme.css';
 
 import { Route, Routes } from 'react-router-dom';
-import ProfilePage from '@/pages/Profile/ProfilePage';
-import ProfileLayout from '@/pages/Profile/ProfileLayout';
-import PlaceholderPage from '@/pages/Profile/PlaceholderPage';
-import Layout from '@/widgets/Layout/Layout';
 
+import ProfilePage from '@/pages/Profile/ProfilePage';
+import PlaceholderPage from '@/pages/Profile/PlaceholderPage';
+
+import RegisterLayout from '@/pages/Register/RegisterLayout';
+import RegisterStep1 from '@/pages/Register/RegisterStep1';
+import RegisterStep2 from '@/pages/Register/RegisterStep2';
+import RegisterStep3 from '@/pages/Register/RegisterStep3';
+import { RegisterProvider } from '@/pages/Register/RegisterContext';
+
+import Layout from '@/widgets/Layout/Layout';
 import { ThemeProvider } from '@app/styles/ThemeProvider';
 
 const App = () => {
 	return (
 		<ThemeProvider>
-			<Routes /*location={backgroundLocation || location}*/>
+			<Routes>
+				{/* Общий Layout с Header/Footer и условным Sidebar */}
 				<Route element={<Layout />}>
 					<Route path='/' element={<HomePage />} />
-					<Route path='*' element={<NotFound404 />} />
-					<Route path='/profile' element={<ProfileLayout />}>
+
+					{/* Профиль и вложенные страницы */}
+					<Route path='/profile'>
 						<Route index element={<ProfilePage />} />
 						<Route
 							path='applications'
@@ -58,6 +66,24 @@ const App = () => {
 							}
 						/>
 					</Route>
+
+					{/* Страница 404 */}
+					<Route path='*' element={<NotFound404 />} />
+				</Route>
+
+				{/* Регистрация — отдельный layout без Header/Footer */}
+				<Route
+					path='/register/*'
+					element={
+						<RegisterProvider>
+							<RegisterLayout />
+						</RegisterProvider>
+					}
+				>
+					<Route index element={<RegisterStep1 />} />
+					<Route path='step-1' element={<RegisterStep1 />} />
+					<Route path='step-2' element={<RegisterStep2 />} />
+					<Route path='step-3' element={<RegisterStep3 />} />
 				</Route>
 			</Routes>
 		</ThemeProvider>
