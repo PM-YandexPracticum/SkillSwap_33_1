@@ -1,0 +1,40 @@
+{
+  "id": "usr_test",
+  "name": "Мария",
+  "email": "Mariia@gmail.com",
+  "password": "password123",
+  "location": "Москва",
+  "gender": "Женский",
+  "age": "28.10.1995",
+  "description": "Люблю учиться новому, особенно если это можно делать за чаем и в пижаме. Всегда готова пообщаться и обменяться чем‑то интересным!",
+  "skillCanTeach": [
+    {
+      "skill": "Игра на барабанах",
+			"categoryId": 2,
+      "subcategory": 209
+    }
+  ],
+	"subcategoriesWantToLearn": [
+    {
+      "skill": "Тайм менеджмент",
+      "categoryId": 1,
+      "subcategory": 106
+    },
+    {
+      "skill": "Йога и Медитация",
+      "categoryId": 6,
+      "subcategory": 601
+    },
+    {
+			"skill": "Навыки преподавания",
+      "categoryId": 4,
+      "subcategory": 405
+    },
+    {
+      "skill": "Питание и ЗОЖ",
+      "categoryId": 6,
+      "subcategory": 602
+    }
+  ],
+  "avatarUrl": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
+}

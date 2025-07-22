@@ -51,7 +51,7 @@
 
 .form-input {
 	width: 100%;
-	height: 48px;
+	height: 50px;
 	padding: 1rem;
 	border: 1px solid #69735d;
 	border-radius: 0.5rem;
@@ -112,108 +112,6 @@
 	color: #6b7280;
 }
 
-/* DatePicker Styles */
-
-.datepicker-wrapper {
-	position: relative;
-}
-
-.datepicker-wrapper .react-datepicker-wrapper {
-	width: 100%;
-}
-
-.datepicker-wrapper .react-datepicker__input-container input {
-	width: 100%;
-	padding: 0.75rem 1rem;
-	border: 1px solid #69735d;
-	border-radius: 0.5rem;
-	outline: none;
-	transition: all 0.2s;
-}
-
-/* Custom DatePicker Styles */
-
-.react-datepicker {
-	font-family: inherit;
-	border: 1px solid #69735d;
-	border-radius: 0.5rem;
-	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
-}
-
-.react-datepicker__header {
-	background-color: #f9fafb;
-	border-bottom: 1px solid #69735d;
-	border-radius: 0.5rem 0.5rem 0 0;
-}
-
-.react-datepicker__current-month {
-	color: #111827;
-	font-weight: 600;
-}
-
-.react-datepicker__day-name {
-	color: #6b7280;
-	font-weight: 500;
-}
-
-.react-datepicker__day {
-	color: #374151;
-	border-radius: 0.25rem;
-	transition: all 0.2s;
-}
-
-.react-datepicker__day:hover {
-	background-color: #f3f4f6;
-}
-
-.react-datepicker__day--selected {
-	color: white !important;
-	background-color: #abd27a !important;
-}
-
-.react-datepicker__day--selected:hover {
-	background-color: #059669 !important;
-}
-
-.react-datepicker__day--keyboard-selected {
-	color: #abd27a;
-	background-color: #dcfce7;
-}
-
-.react-datepicker__day--outside-month {
-	color: #d1d5db;
-}
-
-.react-datepicker__day--disabled {
-	color: #d1d5db;
-	cursor: not-allowed;
-}
-
-.react-datepicker__month-dropdown,
-.react-datepicker__year-dropdown {
-	background-color: white;
-	border: 1px solid #d1d5db;
-	border-radius: 0.25rem;
-	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
-}
-
-.react-datepicker__month-option,
-.react-datepicker__year-option {
-	padding: 0.5rem;
-	transition: background-color 0.2s;
-}
-
-.react-datepicker__month-option:hover,
-.react-datepicker__year-option:hover {
-	background-color: #f3f4f6;
-}
-
-.react-datepicker__month-option--selected,
-.react-datepicker__year-option--selected {
-	color: white;
-	background-color: #abd27a;
-}
-
 .chevron-icon {
 	position: absolute;
 	top: 50%;
@@ -235,7 +133,7 @@
 }
 
 .change-password-link:hover {
-	color: #047857;
+	color: #ABD27A;
 }
 
 .form-row {
