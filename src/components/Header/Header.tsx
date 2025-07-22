@@ -1,10 +1,10 @@
-import MoonIcon from '../../shared/assets/icons/moon.svg?react';
 import LikeIcon from '../../shared/assets/icons/like.svg?react';
 import NotificationIcon from '../../shared/assets/icons/Notification.svg?react';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import SearchIcon from '../../shared/assets/icons/search.svg?react';
 import './Header.css';
 import Logo from '../Logo/Logo';
+import ThemeToggleButton from '@/app/styles/ThemeToggleButton';
 
 interface HeaderProps {
 	variant?: 'guest' | 'user';
@@ -46,11 +46,9 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 
 				{variant === 'guest' && (
 					<div className='auth-actions'>
-						<button className='theme-toggle'>
-							<MoonIcon className='w-5 h-5' />
-						</button>
-						<button className='auth-button auth-button--login'>Войти</button>
-						<button className='auth-button auth-button--register'>
+						<ThemeToggleButton className='theme-toggle' />
+						<button className='auth-button auth-button__login'>Войти</button>
+						<button className='auth-button auth-button__register'>
 							Зарегистрироваться
 						</button>
 					</div>
@@ -58,9 +56,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 
 				{variant === 'user' && (
 					<div className='user-actions'>
-						<button className='action-button'>
-							<MoonIcon className='w-5 h-5' />
-						</button>
+						<ThemeToggleButton className='action-button' />
 						<button className='action-button'>
 							<NotificationIcon className='w-5 h-5' />
 						</button>
