@@ -1,4 +1,5 @@
 import { HomePage, NotFound404 } from '@/pages';
+import { Error500 } from '@/pages/Error500/Error500';
 import '@appStyles/fonts.css';
 import '@appStyles/normalize.css';
 import '@appStyles/global.css';
@@ -14,6 +15,7 @@ const App = () => {
 			<Routes /*location={backgroundLocation || location}*/>
 				<Route path='/' element={<HomePage />} />
 				<Route path='*' element={<NotFound404 />} />
+				<Route path='/error-500' element={<Error500 />} />
 				<Route path='/profile' element={<ProfileLayout />}>
 					<Route index element={<ProfilePage />} />
 					<Route
