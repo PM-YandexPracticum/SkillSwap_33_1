@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import LikeIcon from '../../shared/assets/icons/like.svg?react';
-import NotificationIcon from '../../shared/assets/icons/Notification.svg?react';
-import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import SearchIcon from '../../shared/assets/icons/search.svg?react';
+import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
+import NotificationIcon from '../../shared/assets/icons/notification.svg?react';
+import LikeIcon from '../../shared/assets/icons/like.svg?react';
+
 import './Header.css';
 import Logo from '../Logo/Logo';
 import ThemeToggleButton from '@/app/styles/ThemeToggleButton';

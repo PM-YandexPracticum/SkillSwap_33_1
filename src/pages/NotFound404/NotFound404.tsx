@@ -5,4 +5,4 @@ export const NotFound404 = () => {
 			<img src='assets/images/error-404.svg' alt='' />
 		</>
 	);
-}
+};
