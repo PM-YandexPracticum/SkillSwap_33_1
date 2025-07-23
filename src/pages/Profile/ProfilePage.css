@@ -14,6 +14,7 @@
 .profile-layout {
 	display: flex;
 	gap: 2rem;
+	margin: 2rem 2.25rem 0 0;
 }
 
 .profile-form {
@@ -133,7 +134,7 @@
 }
 
 .change-password-link:hover {
-	color: #ABD27A;
+	color: #abd27a;
 }
 
 .form-row {

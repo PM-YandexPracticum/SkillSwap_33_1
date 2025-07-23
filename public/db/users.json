@@ -11,31 +11,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Я играю на барабанах уже больше 10 лет — от репетиций в гараже до выступлений на сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры.",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": [ "https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
-        "https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
-        "https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
+			"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+			"https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
 			{
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
-			{ 
+			{
 				"skill": "Когнитивные техники",
-        "categoryId": 4,
-        "subcategory": 403
+				"categoryId": 4,
+				"subcategory": 403
 			},
-			{ 
+			{
 				"skill": "Японский",
-        "categoryId": 3,
-        "subcategory": 306
+				"categoryId": 3,
+				"subcategory": 306
 			}
 		]
 	},
@@ -51,31 +53,33 @@
 			"skill": "Английский язык",
 			"skill_description": "Привет! Я свободно владею английским языком уже больше 5 лет — от первых слов до уверенного общения на любые темы: будь то повседневные разговоры, работа, путешествия или даже шутки, которые действительно смешные. Помогу освоить разговорную речь, понимание на слух, грамматику без зубрёжки и научу говорить естественно, а не как в учебнике. Будем учиться через реальные диалоги, фильмы, музыку и живое общение — так, чтобы английский стал частью жизни, а не просто предметом.",
 			"categoryId": 3,
-      "subcategory": 301
+			"subcategory": 301
 		},
-		"images": ["https://images.pexels.com/photos/159581/dictionary-reference-book-learning-meaning-159581.jpeg",
-		"https://images.pexels.com/photos/15863757/pexels-photo-15863757.jpeg",
-		"https://images.pexels.com/photos/8363086/pexels-photo-8363086.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/159581/dictionary-reference-book-learning-meaning-159581.jpeg",
+			"https://images.pexels.com/photos/15863757/pexels-photo-15863757.jpeg",
+			"https://images.pexels.com/photos/8363086/pexels-photo-8363086.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
 			{
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
-			{ 
+			{
 				"skill": "Приготовление еды",
-        "categoryId": 5,
-        "subcategory": 503
+				"categoryId": 5,
+				"subcategory": 503
 			},
 			{
-        "skill": "Баланс жизни и работы",
-        "categoryId": 6,
-        "subcategory": 607
+				"skill": "Баланс жизни и работы",
+				"categoryId": 6,
+				"subcategory": 607
 			}
 		]
 	},
@@ -89,34 +93,36 @@
 		"description": "Бизнес-тренер и коуч",
 		"skillCanTeach": {
 			"skill": "Бизнес-план",
-		  "skill_description": "Привет! Я более 3 лет работаю бизнес-тренером и коучем — от первых тренингов в небольших командах до масштабных корпоративных программ и индивидуального коучинга топ-менеджеров. Помогаю раскрывать потенциал, выстраивать эффективные коммуникации, ставить цели, которые реально достигать, и принимать решения с ясностью, а не с тревогой. На моих сессиях ты научишься управлять собой, своей командой и своими ресурсами так, чтобы результат шёл за процессом без переутомления. Будем работать с мышлением, привычками и стратегией — не только менять действия, но и видеть возможности там, где раньше был тупик.",
+			"skill_description": "Привет! Я более 3 лет работаю бизнес-тренером и коучем — от первых тренингов в небольших командах до масштабных корпоративных программ и индивидуального коучинга топ-менеджеров. Помогаю раскрывать потенциал, выстраивать эффективные коммуникации, ставить цели, которые реально достигать, и принимать решения с ясностью, а не с тревогой. На моих сессиях ты научишься управлять собой, своей командой и своими ресурсами так, чтобы результат шёл за процессом без переутомления. Будем работать с мышлением, привычками и стратегией — не только менять действия, но и видеть возможности там, где раньше был тупик.",
 			"categoryId": 1,
-      "subcategory": 109
+			"subcategory": 109
 		},
 
-		"images": ["https://images.pexels.com/photos/1709003/pexels-photo-1709003.jpeg",
-		"https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg",
-		"https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/1709003/pexels-photo-1709003.jpeg",
+			"https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg",
+			"https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
 			{
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
-			{ 
+			{
 				"skill": "Приготовление еды",
-        "categoryId": 5,
-        "subcategory": 503
+				"categoryId": 5,
+				"subcategory": 503
 			},
 			{
-        "skill": "Баланс жизни и работы",
-        "categoryId": 6,
-        "subcategory": 607
+				"skill": "Баланс жизни и работы",
+				"categoryId": 6,
+				"subcategory": 607
 			}
 		]
 	},
@@ -132,32 +138,33 @@
 			"skill": "Английский язык",
 			"skill_description": "Привет! Я свободно говорю на английском уже больше 12 лет — от первых неуверенных фраз до общения на работе, путешествий и обсуждения сложных тем без словаря. Помогу освоить разговорную речь, понимание на слух, грамматику в контексте и научу выражать мысли легко и естественно — как в повседневной жизни, так и в деловой среде. Будем учиться через реальные ситуации, фильмы, диалоги и даже юмор — чтобы английский зашёл без зубрёжки и звучал уверенно.",
 			"categoryId": 3,
-      "subcategory": 301
-
+			"subcategory": 301
 		},
-		"images": ["https://images.pexels.com/photos/10549488/pexels-photo-10549488.jpeg",
-		"https://images.pexels.com/photos/6502823/pexels-photo-6502823.jpeg",
-		"https://images.pexels.com/photos/8762786/pexels-photo-8762786.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/10549488/pexels-photo-10549488.jpeg",
+			"https://images.pexels.com/photos/6502823/pexels-photo-6502823.jpeg",
+			"https://images.pexels.com/photos/8762786/pexels-photo-8762786.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-		 { 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		 {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Когнитивные техники",
-        "categoryId": 4,
-        "subcategory": 403
+				"categoryId": 4,
+				"subcategory": 403
 			},
-			{ 
+			{
 				"skill": "Японский",
-        "categoryId": 3,
-        "subcategory": 306
+				"categoryId": 3,
+				"subcategory": 306
 			}
 		]
 	},
@@ -168,37 +175,38 @@
 		"location": "Новосибирск",
 		"age": "29 лет",
 		"gender": "Мужской",
-    "description": "IT-специалист, увлекаюсь английским",
+		"description": "IT-специалист, увлекаюсь английским",
 		"skillCanTeach": {
 			"skill": "Английский язык",
 			"skill_description": "Привет! Говорю на английском свободно — живу и работаю в англоязычной среде уже более 6 лет. Начинал с базовых фраз, а теперь общаюсь на любые темы: от бытовых разговоров до деловых переговоров и культурных нюансов. На моих занятиях ты начнёшь говорить с первого дня, научишься понимать речь без акцента, перестанешь бояться ошибок и будешь чувствовать себя уверенно — в путешествиях, на собеседованиях или просто в разговоре с носителем. Учим живой язык, а не заученные шаблоны.",
 			"categoryId": 3,
-      "subcategory": 301
-
+			"subcategory": 301
 		},
-		"images": ["https://images.pexels.com/photos/4440720/pexels-photo-4440720.jpeg",
-		"https://images.pexels.com/photos/29242209/pexels-photo-29242209.jpeg",
-		"https://images.pexels.com/photos/31713620/pexels-photo-31713620.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/4440720/pexels-photo-4440720.jpeg",
+			"https://images.pexels.com/photos/29242209/pexels-photo-29242209.jpeg",
+			"https://images.pexels.com/photos/31713620/pexels-photo-31713620.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Видеомонтаж",
-        "categoryId": 2,
-        "subcategory": 203
+				"categoryId": 2,
+				"subcategory": 203
 			},
-			{ 
+			{
 				"skill": "Домашние финансы",
-        "categoryId": 5,
-        "subcategory": 501
+				"categoryId": 5,
+				"subcategory": 501
 			}
 		]
 	},
@@ -214,31 +222,33 @@
 			"skill": "Английский язык",
 			"skill_description": "Привет! Я студентка, увлечённо изучаю иностранные языки — уже несколько лет активно осваиваю английский и другие языки, сочетая учёбу, практику и погружение в культуру. Через общение с носителями, просмотр сериалов, чтение и путешествия научилась понимать речь на слух и свободно выражать свои мысли. С радостью помогу начинающим: освоить базовую лексику, разговорные фразы, преодолеть страх говорить и сделать процесс обучения живым, интересным и максимально приближенным к реальной жизни. Учимся легко, без стресса и по-настоящему эффективно!",
 			"categoryId": 3,
-      "subcategory": 301
+			"subcategory": 301
 		},
-		"images": ["https://images.pexels.com/photos/31713620/pexels-photo-31713620.jpeg",
-		"https://images.pexels.com/photos/6502823/pexels-photo-6502823.jpeg",
-		"https://images.pexels.com/photos/159581/dictionary-reference-book-learning-meaning-159581.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/31713620/pexels-photo-31713620.jpeg",
+			"https://images.pexels.com/photos/6502823/pexels-photo-6502823.jpeg",
+			"https://images.pexels.com/photos/159581/dictionary-reference-book-learning-meaning-159581.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Видеомонтаж",
-        "categoryId": 2,
-        "subcategory": 203
+				"categoryId": 2,
+				"subcategory": 203
 			},
-			{ 
+			{
 				"skill": "Фотография",
-        "categoryId": 2,
-        "subcategory": 202
+				"categoryId": 2,
+				"subcategory": 202
 			}
 		]
 	},
@@ -254,31 +264,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Я играю на барабанах уже больше 13 лет — с первых ритмов в детской комнате до выступлений на сцене с разными музыкальными проектами. Для меня барабаны — это не просто инструмент, а способ выражать эмоции, энергию и ритм жизни. Научу тебя с нуля: как держать палочки, не уставать за ударной установкой, чётко попадать по такту и чувствовать бит. Разберём основы техники, простые и сложные ритмы, научимся играть под песни, импровизировать и звучать мощно — даже если ты сел за барабаны впервые. Главное — желание и чувство ритма, остальное приложится!",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/237464/pexels-photo-237464.jpeg",
-		"https://images.pexels.com/photos/4087992/pexels-photo-4087992.jpeg",
-		"https://images.pexels.com/photos/1601464/pexels-photo-1601464.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/237464/pexels-photo-237464.jpeg",
+			"https://images.pexels.com/photos/4087992/pexels-photo-4087992.jpeg",
+			"https://images.pexels.com/photos/1601464/pexels-photo-1601464.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Питание и ЗОЖ",
-        "categoryId": 6,
-        "subcategory": 602
+				"categoryId": 6,
+				"subcategory": 602
 			},
-			{ 
+			{
 				"skill": "Домашние финансы",
-        "categoryId": 5,
-        "subcategory": 501
+				"categoryId": 5,
+				"subcategory": 501
 			}
 		]
 	},
@@ -294,31 +306,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Я играю на бараканах уже более 3 лет — с первых неуверенных стуков до уверенных ритмов на сцене, в студии и в живых выступлениях с разными музыкантами. Барабаны для меня — это драйв, дисциплина и полная свобода в одном. С радостью научу тебя с азов: как сидеть правильно, чтобы не уставать, как держать палочки, чтобы не мешали, и как слушать музыку так, чтобы чувствовать каждый акцент. Разберём базовые биты, паузы, переходы, будем играть под настоящие песни, учиться импровизировать и зажигать — даже без опыта. Главное — начать. Остальное прийдёт с ритмом!",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/1601464/pexels-photo-1601464.jpeg",
-		"https://images.pexels.com/photos/1481244/pexels-photo-1481244.jpeg",
-		"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/1601464/pexels-photo-1601464.jpeg",
+			"https://images.pexels.com/photos/1481244/pexels-photo-1481244.jpeg",
+			"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Питание и ЗОЖ",
-        "categoryId": 6,
-        "subcategory": 602
+				"categoryId": 6,
+				"subcategory": 602
 			},
-			{ 
+			{
 				"skill": "Домашние финансы",
-        "categoryId": 5,
-        "subcategory": 501
+				"categoryId": 5,
+				"subcategory": 501
 			}
 		]
 	},
@@ -334,31 +348,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Я играю на барабанах больше десяти лет — с первых робких попыток в гараже до полноценных выступлений, записи в студии и работы с разными жанрами — от рока до джаза и электроники. За это время не просто освоила технику, а научилась чувствовать музыку изнутри: как вести группу, как поддерживать энергию и как сделать так, чтобы каждый удар звучал точно и мощно. Теперь с радостью делюсь своим опытом — особенно с теми, кто только начинает. На занятиях мы разберём основы: работу рук и ног, чувство времени, простые и крутые ритмы, будем играть под любимые треки и учиться импровизировать. Главное — не бояться начать. А ритм найдётся у каждого!",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
-		"https://images.pexels.com/photos/4087992/pexels-photo-4087992.jpeg",
-		"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
+			"https://images.pexels.com/photos/4087992/pexels-photo-4087992.jpeg",
+			"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Актёрское мастерство",
-        "categoryId": 2,
-        "subcategory": 205
+				"categoryId": 2,
+				"subcategory": 205
 			},
-			{ 
+			{
 				"skill": "Домашние растения",
-        "categoryId": 5,
-        "subcategory": 504
+				"categoryId": 5,
+				"subcategory": 504
 			}
 		]
 	},
@@ -374,32 +390,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Играю на барабанах больше 5 лет — от первых ритмов до сцены и студии. Помогу освоить основы: как держать палочки, чувствовать такт, играть чётко и без усталости. Разберём любимые песни, научимся простым и крутым битам, добавим импровизации. Уроки — практика, прогресс и удовольствие от игры. Начинаем с любого уровня!",
 			"categoryId": 2,
-      "subcategory": 209
-
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
-		"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
-		"https://images.pexels.com/photos/11018964/pexels-photo-11018964.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+			"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+			"https://images.pexels.com/photos/11018964/pexels-photo-11018964.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Актёрское мастерство",
-        "categoryId": 2,
-        "subcategory": 205
+				"categoryId": 2,
+				"subcategory": 205
 			},
-			{ 
+			{
 				"skill": "Домашние растения",
-        "categoryId": 5,
-        "subcategory": 504
+				"categoryId": 5,
+				"subcategory": 504
 			}
 		]
 	},
@@ -415,31 +432,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Играю на барабанах уже 10+ лет — от первых аккордов ритма до живых выступлений и записи треков. Научу тебя чувствовать бит, держать темп и играть уверенно — даже с нуля. Покажу основы техники, разберём крутые ритмы под любимые песни и научимся не теряться за установкой. Всё просто, понятно и по делу — без воды, только практика и прогресс!",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
-		"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
-		"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+			"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
+			"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Когнитивные техники",
-        "categoryId": 4,
-        "subcategory": 403
+				"categoryId": 4,
+				"subcategory": 403
 			},
-			{ 
-				"skill": "Актёрское мастерство" ,
-        "categoryId": 2,
-        "subcategory": 205
+			{
+				"skill": "Актёрское мастерство",
+				"categoryId": 2,
+				"subcategory": 205
 			}
 		]
 	},
@@ -455,31 +474,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Играю на барабанах уже 10+ лет — от первых аккордов ритма до живых выступлений и записи треков. Научу тебя чувствовать бит, держать темп и играть уверенно — даже с нуля. Покажу основы техники, разберём крутые ритмы под любимые песни и научимся не теряться за установкой. Всё просто, понятно и по делу — без воды, только практика и прогресс!",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
-		"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
-		"https://images.pexels.com/photos/11018964/pexels-photo-11018964.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+			"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+			"https://images.pexels.com/photos/11018964/pexels-photo-11018964.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Когнитивные техники",
-        "categoryId": 4,
-        "subcategory": 403
+				"categoryId": 4,
+				"subcategory": 403
 			},
-			{ 
-				"skill": "Актёрское мастерство" ,
-        "categoryId": 2,
-        "subcategory": 205
+			{
+				"skill": "Актёрское мастерство",
+				"categoryId": 2,
+				"subcategory": 205
 			}
 		]
 	},
@@ -495,31 +516,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Играю на барабанах больше 14 лет — от первых ударов до сцены и студии. Покажу, как освоить ритм легко: основы техники, правильную посадку, работу с метрономом и игру под настоящие песни. Научишься держать бит, не уставать и чувствовать музыку. Подойдёт даже новичкам — главное, желание начать. Коротко, чётко, по делу!",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
-        "https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
-        "https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
+			"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+			"https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Личный бренд",
-        "categoryId": 1,
-        "subcategory": 104
+				"categoryId": 1,
+				"subcategory": 104
 			},
-			{ 
+			{
 				"skill": "Французский",
-        "categoryId": 3,
-        "subcategory": 303
+				"categoryId": 3,
+				"subcategory": 303
 			}
 		]
 	},
@@ -535,31 +558,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Я — ударница в музыкальной группе с многолетним стажем: сцена, репетиции, запись альбомов — всё это мой каждый день. За годы игры научилась не просто чётко держать ритм, но и чувствовать настроение песни, поддерживать энергию коллектива и звучать мощно в любом жанре — от рока до инди и фанка. Теперь делюсь опытом: помогу освоить основы, улучшить технику, играть в команде и уверенно чувствовать себя за установкой — даже на сцене. Уроки практические, без лишней теории: разбираем реальные треки, работаем с битами, переходим к импровизации. Если хочешь не просто бить по тарелкам, а *играть* — приходи, будем расти вместе!",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
-		"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
-		"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+			"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
+			"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Личный бренд",
-        "categoryId": 1,
-        "subcategory": 104
+				"categoryId": 1,
+				"subcategory": 104
 			},
-			{ 
+			{
 				"skill": "Французский",
-        "categoryId": 3,
-        "subcategory": 303
+				"categoryId": 3,
+				"subcategory": 303
 			}
 		]
 	},
@@ -575,31 +600,33 @@
 			"skill": "Игра на барабанах",
 			"skill_description": "Привет! Я барабанщица с опытом записи в студии — играю чётко, чувствую ритм и знаю, как важно попадать в каждый такт. Помогу освоить основы или прокачать игру для тех, кто хочет звучать уверенно — особенно в студии. Работаем с метрономом, правильной техникой и реальными треками. Кратко, понятно, по делу — без лишнего, только результат.",
 			"categoryId": 2,
-      "subcategory": 209
+			"subcategory": 209
 		},
-		"images": ["https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
-        "https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
-        "https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"],
+		"images": [
+			"https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
+			"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+			"https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"
+		],
 		"subcategoriesWantToLearn": [
-			{ 
+			{
 				"skill": "Тайм менеджмент",
-        "categoryId": 1,
-        "subcategory": 106
+				"categoryId": 1,
+				"subcategory": 106
 			},
-		  {
-        "skill": "Йога и Медитация",
-        "categoryId": 6,
-        "subcategory": 601
+			{
+				"skill": "Йога и Медитация",
+				"categoryId": 6,
+				"subcategory": 601
 			},
 			{
 				"skill": "Японский",
-        "categoryId": 13,
-        "subcategory": 306
+				"categoryId": 13,
+				"subcategory": 306
 			},
-			{ 
-				"skill": "Навыки преподавания" ,
-        "categoryId": 4,
-        "subcategory": 405
+			{
+				"skill": "Навыки преподавания",
+				"categoryId": 4,
+				"subcategory": 405
 			}
 		]
 	}
