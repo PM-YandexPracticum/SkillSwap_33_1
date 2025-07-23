@@ -1,1 +1,5 @@
-// Типы и интерфейсы для сущности Skill
+export interface Skill {
+	id: number;
+	name: string;
+	description: string;
+}
