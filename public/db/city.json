@@ -1,0 +1,96 @@
+{
+	"cities": [
+		{
+			"id": "city1",
+			"city-name": "Москва"
+		},
+		{
+			"id": "city2",
+			"city-name": "Санкт-Петербург"
+		},
+		{
+			"id": "city3",
+			"city-name": "Новосибирск"
+		},
+		{
+			"id": "city4",
+			"city-name": "Екатеринбург"
+		},
+		{
+			"id": "city5",
+			"city-name": "Казань"
+		},
+		{
+			"id": "city6",
+			"city-name": "Нижний Новгород"
+		},
+		{
+			"id": "city7",
+			"city-name": "Челябинск"
+		},
+		{
+			"id": "city8",
+			"city-name": "Самара"
+		},
+		{
+			"id": "city9",
+			"city-name": "Омск"
+		},
+		{
+			"id": "city10",
+			"city-name": "Ростов-на-Дону"
+		},
+		{
+			"id": "city11",
+			"city-name": "Уфа"
+		},
+		{
+			"id": "city12",
+			"city-name": "Красноярск"
+		},
+		{
+			"id": "city13",
+			"city-name": "Воронеж"
+		},
+		{
+			"id": "city14",
+			"city-name": "Пермь"
+		},
+		{
+			"id": "city15",
+			"city-name": "Волгоград"
+		},
+		{
+			"id": "city16",
+			"city-name": "Краснодар"
+		},
+		{
+			"id": "city17",
+			"city-name": "Кемерово"
+		},
+		{
+			"id": "city18",
+			"city-name": "Владивосток"
+		},
+		{
+			"id": "city19",
+			"city-name": "Иркутск"
+		},
+		{
+			"id": "city20",
+			"city-name": "Абакан"
+		},
+		{
+			"id": "city21",
+			"city-name": "Ярославль"
+		},
+		{
+			"id": "city22",
+			"city-name": "Архангельск"
+		},
+		{
+			"id": "city23",
+			"city-name": "Сочи"
+		}
+	]
+}

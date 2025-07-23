@@ -1,20 +1,32 @@
 import { useState } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ProfilePage.css';
 import EditIcon from '../../shared/assets/icons/edit.svg';
 import EditPhotoIcon from '../../shared/assets/icons/edit.svg';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
+import citiesData from '../../../public/db/city.json';
+import DatePicker from '@/components/DatePicker/DatePicker';
+import type { CitiesResponse } from '@/types';
+import { useUser } from '@/shared/hooks/useUser';
+
+const cities = (citiesData as CitiesResponse).cities;
 
 const ProfilePage = () => {
+	const { email, name, age, gender, location, description, avatarUrl } =
+		useUser();
+
+	const parseDate = (dateString: string): Date => {
+		const [day, month, year] = dateString.split('.').map(Number);
+		return new Date(year, month - 1, day);
+	};
+
 	const [formData, setFormData] = useState({
-		email: 'Mariia@gmail.com',
-		name: 'Мария',
-		birthDate: new Date('1995-10-28'),
-		gender: 'Женский',
-		city: 'Москва',
-		about:
-			'Люблю учиться новому, особенно если это можно делать за чаем и в пижаме. Всегда готова пообщаться и обменяться чем-то интересным!',
+		email: email || '',
+		name: name || '',
+		birthDate: age ? parseDate(age) : new Date(),
+		gender: gender || 'Не указан',
+		city: location || '',
+		about: description || '',
 	});
 
 	const handleInputChange = (field: string, value: string | Date) => {
@@ -23,7 +35,6 @@ const ProfilePage = () => {
 
 	const handleSave = () => {
 		console.log('Сохранение данных:', formData);
-		// Здесь будет логика сохранения
 	};
 
 	return (
@@ -32,6 +43,7 @@ const ProfilePage = () => {
 				<div className='profile-layout'>
 					<div className='profile-form'>
 						<div className='form-fields'>
+							{/* Почта */}
 							<div className='form-group'>
 								<label className='form-label'>Почта</label>
 								<div className='input-wrapper'>
@@ -50,6 +62,7 @@ const ProfilePage = () => {
 								</a>
 							</div>
 
+							{/* Имя */}
 							<div className='form-group'>
 								<label className='form-label'>Имя</label>
 								<div className='input-wrapper'>
@@ -65,24 +78,19 @@ const ProfilePage = () => {
 								</div>
 							</div>
 
+							{/* Дата рождения и Пол */}
 							<div className='form-row'>
 								<div className='form-group'>
 									<label className='form-label'>Дата рождения</label>
-									<div className='datepicker-wrapper'>
-										<DatePicker
-											selected={formData.birthDate}
-											onChange={(date) =>
-												handleInputChange('birthDate', date || new Date())
-											}
-											dateFormat='dd.MM.yyyy'
-											placeholderText='Выберите дату'
-											className='form-input'
-											showYearDropdown
-											showMonthDropdown
-											dropdownMode='select'
-											maxDate={new Date()}
-										/>
-									</div>
+									<DatePicker
+										selected={formData.birthDate}
+										onChange={(date: any) =>
+											handleInputChange('birthDate', date || new Date())
+										}
+										placeholder='Выберите дату'
+										maxDate={new Date()}
+										className='form-datepicker'
+									/>
 								</div>
 
 								<div className='form-group'>
@@ -104,6 +112,7 @@ const ProfilePage = () => {
 								</div>
 							</div>
 
+							{/* Город */}
 							<div className='form-group'>
 								<label className='form-label'>Город</label>
 								<div className='input-wrapper'>
@@ -112,15 +121,17 @@ const ProfilePage = () => {
 										onChange={(e) => handleInputChange('city', e.target.value)}
 										className='form-select'
 									>
-										<option value='Москва'>Москва</option>
-										<option value='Санкт-Петербург'>Санкт-Петербург</option>
-										<option value='Казань'>Казань</option>
-										<option value='Новосибирск'>Новосибирск</option>
+										{cities.map((city) => (
+											<option key={city.id} value={city['city-name']}>
+												{city['city-name']}
+											</option>
+										))}
 									</select>
 									<ChevronDownIcon className='chevron-icon' />
 								</div>
 							</div>
 
+							{/* О себе */}
 							<div className='form-group'>
 								<label className='form-label'>О себе</label>
 								<div className='input-wrapper'>
@@ -136,22 +147,25 @@ const ProfilePage = () => {
 								</div>
 							</div>
 
+							{/* Кнопка сохранить */}
 							<button onClick={handleSave} className='save-button'>
 								Сохранить
 							</button>
 						</div>
 
+						{/* Секция аватара */}
 						<div className='avatar-section'>
 							<div className='avatar-container'>
 								<div className='avatar-wrapper'>
 									<div className='avatar-image'>
 										<img
-											src='https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400'
+											src={avatarUrl}
 											alt='User Avatar'
+											className='w-full h-full'
 										/>
 									</div>
 									<button className='avatar-edit-button'>
-										<img src={EditPhotoIcon} alt='Edit' className='w-56 h-56' />
+										<img src={EditPhotoIcon} alt='Edit' className='w-5 h-5' />
 									</button>
 								</div>
 							</div>
