@@ -1,0 +1,117 @@
+/* CSS-переменные для светлой и тёмной темы приложения SkillSwap */
+
+:root[data-theme='light'] {
+	/* Типографика — шрифты и начертания */
+	--font-heading: 'Jost', sans-serif; /* Шрифт для заголовков (Jost Medium) */
+	--font-body:
+		'Roboto', sans-serif; /* Шрифт для основного текста (Roboto Regular) */
+
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+
+	/* Типографика — размеры шрифтов и межстрочный интервал */
+	--font-size-h1: 32px;
+	--line-height-h1: 40px;
+	--font-size-h2: 24px;
+	--line-height-h2: 32px;
+	--font-size-h3: 20px;
+	--line-height-h3: 24px;
+	--font-size-h4: 16px;
+	--line-height-h4: 24px;
+	--font-size-body: 16px;
+	--line-height-body: 24px;
+	--font-size-caption: 12px;
+	--line-height-caption: 16px;
+
+	/* Цвета текста */
+	--color-text: #253017;
+	--color-text-caption: #69735d;
+	--color-text-disabled: #9ca197;
+
+	/* Цвета фона и поверхностей */
+	--color-background: #f9faf7;
+	--color-surface: #ffffff;
+	--color-surface-disabled: #e4e8df;
+	--color-border: #e4e8df;
+
+	/* Цвета бренда и акцентов */
+	--color-accent: #abd27a;
+	--color-link: #508826;
+
+	/* Цвета кнопок */
+	--color-button-bg: #abd27a;
+	--color-button-hover: #deebc5;
+	--color-button-pressed: #508826;
+	--color-button-text: #253017;
+	--color-button-disabled: #e4e8df;
+	--color-button-text-disabled: #9ca197;
+
+	/* Статусы */
+	--color-error: #bf3920;
+	--color-alert: #e0796e;
+	--color-success: #508826;
+
+	/* Теги */
+	--color-tag-business: #eee7f7;
+	--color-tag-art: #f7e7f2;
+	--color-tag-languages: #ebe5c5;
+	--color-tag-education: #e7f2f6;
+	--color-tag-home: #f7ebe5;
+	--color-tag-lifestyle: #e9f7e7;
+	--color-tag-more: #e8ecf7;
+
+	/* Эффекты */
+	--shadow-card: 0 1px 4px rgb(0 0 0 / 10%);
+	--shadow-popup: 0 4px 8px rgb(0 0 0 / 15%);
+	--transition-fast: 0.2s ease-in-out;
+	--opacity-disabled: 0.5;
+}
+
+:root[data-theme='dark'] {
+	--font-heading: 'Jost', sans-serif;
+	--font-body: 'Roboto', sans-serif;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-size-h1: 32px;
+	--line-height-h1: 40px;
+	--font-size-h2: 24px;
+	--line-height-h2: 32px;
+	--font-size-h3: 20px;
+	--line-height-h3: 24px;
+	--font-size-h4: 16px;
+	--line-height-h4: 24px;
+	--font-size-body: 16px;
+	--line-height-body: 24px;
+	--font-size-caption: 12px;
+	--line-height-caption: 16px;
+	--color-text: #f9faf7;
+	--color-text-caption: #bfc5b8;
+	--color-text-disabled: #7f8579;
+	--color-background: #1a1c16;
+	--color-surface: #2c2f27;
+	--color-surface-disabled: #1f211b;
+	--color-border: #34382d;
+	--color-accent: #abd27a;
+	--color-link: #abd27a;
+	--color-button-bg: #abd27a;
+	--color-button-hover: #deebc5;
+	--color-button-pressed: #508826;
+	--color-button-text: #253017;
+	--color-button-text-inverse: #ffffff;
+	--color-button-disabled: #2c2f27;
+	--color-button-text-disabled: #7f8579;
+	--color-error: #ff6a4d;
+	--color-alert: #e79a92;
+	--color-success: #85cf5a;
+	--color-tag-business: #301e47;
+	--color-tag-art: #471e3a;
+	--color-tag-languages: #47411e;
+	--color-tag-education: #1c3d49;
+	--color-tag-home: #4c2a19;
+	--color-tag-lifestyle: #1f4c19;
+	--color-tag-more: #1e2947;
+	--shadow-card: 0 1px 4px rgb(0 0 0 / 6%);
+	--shadow-popup: 0 4px 8px rgb(0 0 0 / 8%);
+	--transition-fast: 0.2s ease-in-out;
+	--opacity-disabled: 0.5;
+}

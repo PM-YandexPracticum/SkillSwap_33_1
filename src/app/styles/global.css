@@ -1,14 +1,15 @@
 :root {
-	--background-color: #ffffff;
+	--background-color: var(--color-background);
+	--text-color-primary: var(--color-text);
 	--font-family-primary: roboto, sans-serif;
-
-	/* --font-family-secondary: Jost, sans-serif; */
-	--text-color-primary: #000000;
 }
 
-html {
+html,
+body {
 	color: var(--text-color-primary);
-	font-weight: 400;
-	font-size: 16px;
 	font-family: var(--font-family-primary, 'sans-serif');
+	background-color: var(--background-color);
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease;
 }

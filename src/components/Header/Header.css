@@ -1,244 +1,244 @@
 .header {
-  width: 100%;
-  padding-top: 2.4rem;
-  padding-bottom: 1.25rem;
+	width: 100%;
+	padding-top: 2.4rem;
+	padding-bottom: 1.25rem;
 }
 
 .header-container {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin: 0 1.2rem 0 2.25rem;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	margin: 0 1.2rem 0 2.25rem;
 }
 
 .header-left {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
 }
 
 .nav-container {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
 }
 
 .nav-link {
-  color: #374151;
-  text-decoration: none;
-  transition: color 0.2s;
+	color: #374151;
+	text-decoration: none;
+	transition: color 0.2s;
 }
 
 .nav-link:hover {
-  color: #111827;
+	color: #111827;
 }
 
 .nav-dropdown {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: #374151;
-  cursor: pointer;
-  transition: color 0.2s;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	color: #374151;
+	cursor: pointer;
+	transition: color 0.2s;
 }
 
 .nav-dropdown:hover {
-  color: #111827;
+	color: #111827;
 }
 
 .search-container {
-  flex: 1;
-  max-width: 40.5rem;
+	flex: 1;
+	max-width: 40.5rem;
 }
 
 .search-wrapper {
-  position: relative;
-  background-color: #FFFFFF;
-  border-radius: 0.5rem;
+	position: relative;
+	background-color: #ffffff;
+	border-radius: 0.5rem;
 }
 
 .search-icon {
-  position: absolute;
-  top: 50%;
-  left: 0.75rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  color: #9ca3af;
-  transform: translateY(-50%);
+	position: absolute;
+	top: 50%;
+	left: 0.75rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	color: #9ca3af;
+	transform: translateY(-50%);
 }
 
 .search-input {
-  width: 100%;
-  padding: 0.7rem 1rem 0.7rem 2.5rem;
-  border: 1px solid transparent;
-  border-radius: 0.5rem;
-  outline: none;
-  transition: all 0.2s;
+	width: 100%;
+	padding: 0.7rem 1rem 0.7rem 2.5rem;
+	border: 1px solid transparent;
+	border-radius: 0.5rem;
+	outline: none;
+	transition: all 0.2s;
 }
 
 .search-input:focus {
-  border-color: #69735D;
-  box-shadow: 0 0 0 2px rgb(16 185 129 / 20%);
+	border-color: #69735d;
+	box-shadow: 0 0 0 2px rgb(16 185 129 / 20%);
 }
 
 .search-input::placeholder {
-  color: #69735D;
+	color: #69735d;
 }
 
 /* Guest Auth Actions */
 
 .auth-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
 }
 
 .theme-toggle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem;
-  color: #6b7280;
-  background: none;
-  border: none;
-  border-radius: 0.38rem;
-  cursor: pointer;
-  transition: color 0.2s ease;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5rem;
+	color: #6b7280;
+	background: none;
+	border: none;
+	border-radius: 0.38rem;
+	cursor: pointer;
+	transition: color 0.2s ease;
 }
 
 .theme-toggle:hover {
-  color: #374151;
-  background-color: #DEEBC5;
+	color: #374151;
+	background-color: #deebc5;
 }
 
 .auth-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 3rem;
-  padding: 0.63rem 2.1rem;
-  font-weight: 500;
-  font-size: 0.9rem;
-  text-decoration: none;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 3rem;
+	padding: 0.63rem 2.1rem;
+	font-weight: 500;
+	font-size: 0.9rem;
+	text-decoration: none;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
 }
 
 .auth-button__login {
-  width: 5.75rem;
-  color: #253017;
-  background: none;
-  border: 1px solid #ABD27A;
+	width: 5.75rem;
+	color: #253017;
+	background: none;
+	border: 1px solid #abd27a;
 }
 
 .auth-button__login:hover {
-  color: #253017;
-  background-color: #DEEBC5;
+	color: #253017;
+	background-color: #deebc5;
 }
 
 .auth-button__register {
-  color: #253017;
-  background-color: #ABD27A;
-  border: 1px solid #ABD27A;
+	color: #253017;
+	background-color: #abd27a;
+	border: 1px solid #abd27a;
 }
 
 .auth-button__register:hover {
-  background-color: #DEEBC5;
-  border-color: #DEEBC5;
+	background-color: #deebc5;
+	border-color: #deebc5;
 }
 
 /* User Actions */
 
 .user-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 1.4rem;
+	display: flex;
+	justify-content: space-between;
+	gap: 1.4rem;
 }
 
 .action-button {
-  color: #6b7280;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s;
+	color: #6b7280;
+	background: none;
+	border: none;
+	cursor: pointer;
+	transition: color 0.2s;
 }
 
 .action-button:hover {
-  color: #374151;
+	color: #374151;
 }
 
 .user-info {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
 }
 
 .user-name {
-  color: #374151;
-  font-weight: 500;
+	color: #374151;
+	font-weight: 500;
 }
 
 .user-avatar {
-  width: 3rem;
-  height: 3rem;
-  overflow: hidden;
-  border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+	overflow: hidden;
+	border-radius: 50%;
 }
 
 .user-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 /* Responsive Design */
 
 @media (width <= 1024px) {
-  .header-container {
-    gap: 1rem;
-    margin: 0 1rem;
-  }
-  
-  .search-container {
-    max-width: 30rem;
-    margin: 0 1rem;
-  }
-  
-  .nav-container {
-    gap: 1rem;
-  }
+	.header-container {
+		gap: 1rem;
+		margin: 0 1rem;
+	}
+
+	.search-container {
+		max-width: 30rem;
+		margin: 0 1rem;
+	}
+
+	.nav-container {
+		gap: 1rem;
+	}
 }
 
 @media (width <= 768px) {
-  .header {
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
-  }
-  
-  .header-container {
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-  
-  .search-container {
-    flex-basis: 100%;
-    order: 3;
-    max-width: none;
-    margin: 0;
-  }
-  
-  .nav-container {
-    display: none;
-  }
-  
-  .auth-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-  }
-  
-  .user-name {
-    display: none;
-  }
+	.header {
+		padding-top: 1.5rem;
+		padding-bottom: 1rem;
+	}
+
+	.header-container {
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.search-container {
+		flex-basis: 100%;
+		order: 3;
+		max-width: none;
+		margin: 0;
+	}
+
+	.nav-container {
+		display: none;
+	}
+
+	.auth-button {
+		padding: 0.5rem 1rem;
+		font-size: 0.8rem;
+	}
+
+	.user-name {
+		display: none;
+	}
 }
