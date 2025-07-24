@@ -5,21 +5,21 @@ import CrossIcon from '@icons/cross.svg?react';
 
 const infoContent = {
 	'step-1': {
-		img: '/assets/images/light-bulb.svg',
+		iconName: 'light-bulb',
 		title: 'Добро пожаловать в SkillSwap!',
-		text: 'Обменивайтесь знаниями и навыками с другими людьми',
+		text: 'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
 		stepNumber: 1,
 	},
 	'step-2': {
-		img: '/assets/images/user-info.svg',
+		iconName: 'user-info',
 		title: 'Расскажите немного о себе',
-		text: 'Это поможет другим людям лучше вас узнать',
+		text: 'Это поможет другим людям лучше вас узнать, чтобы выбрать для обмена',
 		stepNumber: 2,
 	},
 	'step-3': {
-		img: '/assets/images/school-board.svg',
+		iconName: 'school-board',
 		title: 'Укажите, чем вы готовы поделиться',
-		text: 'Так другие люди смогут найти вас для обмена навыками',
+		text: 'Так другие люди смогут увидеть ваши предложения и предложить вам обмен!',
 		stepNumber: 3,
 	},
 } as const;
@@ -38,7 +38,16 @@ const RegisterLayout = () => {
 			? stepRaw
 			: 'step-1';
 
-	const { img, title, text, stepNumber } = infoContent[step];
+	const stepData = infoContent[step];
+	const { title, text, stepNumber } = stepData;
+
+	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+	console.log('Текущая тема:', theme);
+
+	const img =
+		(stepData.iconName
+			? `/assets/images/${stepData.iconName}-${theme}.svg`
+			: stepData.img) ?? '';
 
 	return (
 		<div className={styles['auth-page']}>
@@ -50,7 +59,6 @@ const RegisterLayout = () => {
 				</button>
 			</div>
 
-			{/* Надпись с номером шага, по центру над колонками */}
 			<h2 className={styles['step-indicator']}>Шаг {stepNumber} из 3</h2>
 
 			<div className={styles['auth-card']}>
@@ -59,7 +67,12 @@ const RegisterLayout = () => {
 				</div>
 
 				<div className={styles['auth-info-section']}>
-					<img src={img} alt={title} className={styles['info-image']} />
+					<img
+						src={img}
+						alt={title}
+						className={styles['info-image']}
+						onError={() => console.error('Ошибка загрузки изображения:', img)}
+					/>
 					<h3>{title}</h3>
 					<p>{text}</p>
 				</div>

@@ -1,7 +1,11 @@
 .footer {
 	margin-top: 3.75rem;
 	padding-top: 2.15rem;
-	background-color: #ffffff;
+	color: var(--color-text);
+	background-color: var(--color-surface);
+	transition:
+		background-color var(--transition-fast),
+		color var(--transition-fast);
 }
 
 .footer-container {
@@ -32,18 +36,18 @@
 }
 
 .footer-link {
-	color: #6b7280;
+	color: var(--color-text-caption);
 	text-decoration: none;
-	transition: color 0.2s;
+	transition: color var(--transition-fast);
 }
 
 .footer-link:hover {
-	color: #111827;
+	color: var(--color-link);
 }
 
 .footer-copyright {
 	margin-bottom: 32px;
 	padding-top: 0.2rem;
-	color: #69735d;
-	font-size: 0.75rem;
+	color: var(--color-text-caption);
+	font-size: var(--font-size-caption);
 }

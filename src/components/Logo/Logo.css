@@ -12,7 +12,7 @@
 }
 
 .logo-text {
-	color: #111827;
+	color: var(--color-text);
 	font-weight: 600;
 	font-size: 1.4rem;
 }

@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
 import GoogleIcon from '@icons/google.svg?react';
-import AppleIcon from '@icons/apple.svg?react';
+import AppleLightIcon from '@icons/apple-light.svg?react';
+import AppleDarkIcon from '@icons/apple-dark.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
 
@@ -23,12 +24,17 @@ const RegisterStep1 = () => {
 		navigate('/register/step-2');
 	};
 
+	// Получаем текущую тему из <html data-theme="light|dark">
+	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+	const AppleIcon = theme === 'dark' ? AppleDarkIcon : AppleLightIcon;
+
 	return (
 		<>
 			<button className={`${styles['social-button']} ${styles.google}`}>
 				<GoogleIcon className={styles.icon} />
 				Продолжить с Google
 			</button>
+
 			<button className={`${styles['social-button']} ${styles.apple}`}>
 				<AppleIcon className={styles.icon} />
 				Продолжить с Apple
@@ -47,6 +53,7 @@ const RegisterStep1 = () => {
 						required
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						className={styles.input}
 					/>
 				</label>
 
@@ -59,6 +66,7 @@ const RegisterStep1 = () => {
 							required
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
+							className={styles.input}
 						/>
 						<button
 							type='button'

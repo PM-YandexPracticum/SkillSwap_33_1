@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegister } from './RegisterContext';
-import AddIcon from '@icons/icon-add.svg?react';
+import { useTheme } from '../../app/styles/ThemeProvider'; // Импортируем хук для темы
+import AddIconLight from '@icons/icon-add-light.svg?react'; // Иконка для светлой темы
+import AddIconDark from '@icons/icon-add-dark.svg?react'; // Иконка для тёмной темы
 import CalendarIcon from '@icons/calendar.svg?react';
 import CustomDatePicker from './CustomDatePicker';
 import styles from './RegisterPage.module.css';
@@ -9,6 +11,7 @@ import styles from './RegisterPage.module.css';
 const RegisterStep2 = () => {
 	const navigate = useNavigate();
 	const { data, setStep2Data } = useRegister();
+	const { theme } = useTheme(); // Получаем текущую тему
 
 	const [fullName, setFullName] = useState(data.fullName || '');
 	const [birthDate, setBirthDate] = useState<Date | null>(
@@ -39,10 +42,12 @@ const RegisterStep2 = () => {
 
 	const handleBack = () => navigate('/register/step-1');
 
+	// Выбираем иконку в зависимости от темы
+	const AddIcon = theme === 'light' ? AddIconLight : AddIconDark;
+
 	return (
 		<>
-			<AddIcon />
-
+			<AddIcon /> {/* Иконка меняется в зависимости от темы */}
 			<form className={styles['auth-form']} onSubmit={handleSubmit}>
 				<label>
 					<span>Имя</span>
