@@ -1,0 +1,22 @@
+[
+	{
+		"userId": "usr_2",
+		"targetUserId": "usr_1",
+		"createdAt": "2024-06-01T12:00:00Z"
+	},
+	{
+		"userId": "usr_2",
+		"targetUserId": "usr_3",
+		"createdAt": "2024-06-02T09:00:00Z"
+	},
+	{
+		"userId": "usr_3",
+		"targetUserId": "usr_1",
+		"createdAt": "2024-06-03T15:30:00Z"
+	},
+	{
+		"userId": "usr_4",
+		"targetUserId": "usr_2",
+		"createdAt": "2024-06-04T11:20:00Z"
+	}
+]
