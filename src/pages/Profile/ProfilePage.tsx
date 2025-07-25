@@ -8,12 +8,14 @@ import citiesData from '../../../public/db/city.json';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import type { CitiesResponse } from '@/types';
 import { useUser } from '@/shared/hooks/useUser';
+import { useTheme } from '@/app/styles/ThemeProvider';
 
 const cities = (citiesData as CitiesResponse).cities;
 
 const ProfilePage = () => {
 	const { email, name, age, gender, location, description, avatarUrl } =
 		useUser();
+	const { theme } = useTheme();
 
 	const parseDate = (dateString: string): Date => {
 		const [day, month, year] = dateString.split('.').map(Number);
@@ -38,7 +40,7 @@ const ProfilePage = () => {
 	};
 
 	return (
-		<div className='profile-container'>
+		<div className={'profile-container profile-container--${theme}'}>
 			<div className='profile-content'>
 				<div className='profile-layout'>
 					<div className='profile-form'>
@@ -51,9 +53,11 @@ const ProfilePage = () => {
 										type='email'
 										value={formData.email}
 										onChange={(e) => handleInputChange('email', e.target.value)}
-										className='form-input'
+										className={`form-input ${theme === 'dark' ? 'form-input--dark' : ''}`}
 									/>
-									<button className='edit-button'>
+									<button
+										className={`edit-button ${theme === 'dark' ? 'edit-button--dark' : ''}`}
+									>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -70,9 +74,11 @@ const ProfilePage = () => {
 										type='text'
 										value={formData.name}
 										onChange={(e) => handleInputChange('name', e.target.value)}
-										className='form-input'
+										className={`form-input ${theme === 'dark' ? 'form-input--dark' : ''}`}
 									/>
-									<button className='edit-button'>
+									<button
+										className={`edit-button ${theme === 'dark' ? 'edit-button--dark' : ''}`}
+									>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -101,7 +107,7 @@ const ProfilePage = () => {
 											onChange={(e) =>
 												handleInputChange('gender', e.target.value)
 											}
-											className='form-select'
+											className={`form-select ${theme === 'dark' ? 'form-select--dark' : ''}`}
 										>
 											<option value='Женский'>Женский</option>
 											<option value='Мужской'>Мужской</option>
@@ -119,7 +125,7 @@ const ProfilePage = () => {
 									<select
 										value={formData.city}
 										onChange={(e) => handleInputChange('city', e.target.value)}
-										className='form-select'
+										className={`form-select ${theme === 'dark' ? 'form-select--dark' : ''}`}
 									>
 										{cities.map((city) => (
 											<option key={city.id} value={city['city-name']}>
@@ -139,16 +145,21 @@ const ProfilePage = () => {
 										value={formData.about}
 										onChange={(e) => handleInputChange('about', e.target.value)}
 										rows={4}
-										className='form-textarea'
+										className={`form-textarea ${theme === 'dark' ? 'form-textarea--dark' : ''}`}
 									/>
-									<button className='edit-button-textarea'>
+									<button
+										className={`edit-button ${theme === 'dark' ? 'edit-button--dark' : ''}`}
+									>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
 							</div>
 
 							{/* Кнопка сохранить */}
-							<button onClick={handleSave} className='save-button'>
+							<button
+								onClick={handleSave}
+								className={`save-button ${theme === 'dark' ? 'save-button--dark' : ''}`}
+							>
 								Сохранить
 							</button>
 						</div>

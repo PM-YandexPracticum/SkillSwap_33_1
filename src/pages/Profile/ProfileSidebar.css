@@ -1,7 +1,7 @@
 .profile-sidebar {
 	min-width: 20.25rem;
 	margin: 2rem 0 0 2.25rem;
-	background-color: white;
+	background-color: var(--color-surface);
 	border-radius: 1rem;
 }
 
@@ -17,7 +17,7 @@
 	align-items: center;
 	gap: 0.75rem;
 	padding: 0.73rem 1.45rem;
-	color: #253017;
+	color: var(--color-action-button);
 	font-weight: 500;
 	text-decoration: none;
 	border-radius: 0.5rem;
