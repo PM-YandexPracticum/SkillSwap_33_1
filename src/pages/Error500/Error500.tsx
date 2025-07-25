@@ -1,31 +1,21 @@
-import { useTheme } from '../../app/styles/ThemeProvider';
-import React from 'react';
-import styles from './NotFound404.module.css';
+import styles from './Error500.module.css';
 import { Header } from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-export const NotFound404 = () => {
-	const { theme } = useTheme();
-
-	const error404Image =
-		theme === 'dark'
-			? 'assets/images/error-404-dark.svg'
-			: 'assets/images/error-404-light.svg';
-
+export const Error500 = () => {
 	return (
 		<>
 			<Header variant='guest' />
 			<div className={styles.content}>
 				<img
 					className={styles.image}
-					src={error404Image}
-					alt='Error 404 - Page not found'
+					src='assets/images/error-500.svg'
+					alt='Error 500 - Internal Server Error'
 				/>
 				<div className={styles.error}>
-					<h2 className={styles.title}>Страница не найдена</h2>
+					<h2 className={styles.title}>На сервере произошла ошибка</h2>
 					<p className={styles.message}>
-						К сожалению, эта страница недоступна. Вернитесь на главную страницу
-						или попробуйте позже
+						Попробуйте позже или вернитесь на главную страницу
 					</p>
 				</div>
 				<div className={styles.buttons}>

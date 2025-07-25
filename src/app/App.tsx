@@ -1,4 +1,5 @@
 import { HomePage, NotFound404 } from '@/pages';
+import { Error500 } from '@/pages/Error500/Error500';
 import '@appStyles/fonts.css';
 import '@appStyles/normalize.css';
 import '@appStyles/global.css';
@@ -67,7 +68,8 @@ const App = () => {
 						/>
 					</Route>
 
-					{/* Страница 404 */}
+					{/* Страницы ошибок */}
+					<Route path='/error-500' element={<Error500 />} />
 					<Route path='*' element={<NotFound404 />} />
 				</Route>
 

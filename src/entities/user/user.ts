@@ -1,1 +1,5 @@
-// Типы и интерфейсы для сущности User
+export interface User {
+	id: number;
+	name: string;
+	email: string;
+}

@@ -30,22 +30,23 @@ const RegisterStep1 = () => {
 
 	return (
 		<>
-			<button className={`${styles['social-button']} ${styles.google}`}>
-				<GoogleIcon className={styles.icon} />
-				Продолжить с Google
-			</button>
-
-			<button className={`${styles['social-button']} ${styles.apple}`}>
-				<AppleIcon className={styles.icon} />
-				Продолжить с Apple
-			</button>
+			<div className={styles.socialBtnContainer}>
+				<button className={`${styles.socialBtn} ${styles.button}`}>
+					<GoogleIcon />
+					Продолжить с Google
+				</button>
+				<button className={`${styles.button} ${styles.socialBtn}`}>
+					<AppleIcon />
+					Продолжить с Apple
+				</button>
+			</div>
 
 			<div className={styles.divider}>
 				<span>или</span>
 			</div>
 
-			<form className={styles['auth-form']} onSubmit={handleSubmit}>
-				<label>
+			<form className={styles.form} onSubmit={handleSubmit}>
+				<label className={styles.inputLabel}>
 					<span>Email</span>
 					<input
 						type='email'
@@ -57,9 +58,9 @@ const RegisterStep1 = () => {
 					/>
 				</label>
 
-				<label className={styles['password-wrapper']}>
+				<label className={styles.passwordWrapper}>
 					<span>Пароль</span>
-					<div className={styles['input-with-icon']}>
+					<div className={styles.inputWithIcon}>
 						<input
 							type={showPassword ? 'text' : 'password'}
 							placeholder='Придумайте надёжный пароль'
@@ -71,7 +72,7 @@ const RegisterStep1 = () => {
 						<button
 							type='button'
 							onClick={togglePasswordVisibility}
-							className={styles['eye-icon']}
+							className={styles.eyeIcon}
 							aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
 						>
 							{showPassword ? <EyeSlashIcon /> : <EyeIcon />}
@@ -81,7 +82,7 @@ const RegisterStep1 = () => {
 
 				<button
 					type='submit'
-					className={`${styles.button} ${styles['button-primary']}`}
+					className={`${styles.button} ${styles.buttonPrimary}`}
 				>
 					Далее
 				</button>
