@@ -1,7 +1,8 @@
 .storybook-button {
 	display: inline-block;
 	font-weight: 700;
-	font-family: 'Nunito Sans', 'Helvetica Neue', "Helvetica", "Arial", sans-serif;
+	font-family:
+		'Nunito Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 	line-height: 1;
 	border: 0;
 	border-radius: 3em;

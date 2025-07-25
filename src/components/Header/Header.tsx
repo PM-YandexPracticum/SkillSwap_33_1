@@ -1,10 +1,11 @@
-import MoonIcon from '../../shared/assets/icons/moon.svg?react';
-import LikeIcon from '../../shared/assets/icons/like.svg?react';
-import NotificationIcon from '../../shared/assets/icons/Notification.svg?react';
-import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
+import { Link } from 'react-router-dom';
 import SearchIcon from '../../shared/assets/icons/search.svg?react';
+import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
+import NotificationIcon from '../../shared/assets/icons/notification.svg?react';
+import LikeIcon from '../../shared/assets/icons/like.svg?react';
 import './Header.css';
 import Logo from '../Logo/Logo';
+import ThemeToggleButton from '@/app/styles/ThemeToggleButton';
 
 interface HeaderProps {
 	variant?: 'guest' | 'user';
@@ -19,9 +20,9 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 		<header className='header'>
 			<div className='header-container'>
 				<div className='header-left'>
-					<a href='/' className='logo-link'>
+					<Link to='/' className='logo-link'>
 						<Logo />
-					</a>
+					</Link>
 					<nav className='nav-container'>
 						<a href='#' className='nav-link'>
 							О проекте
@@ -46,21 +47,19 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 
 				{variant === 'guest' && (
 					<div className='auth-actions'>
-						<button className='theme-toggle'>
-							<MoonIcon className='w-5 h-5' />
-						</button>
-						<button className='auth-button auth-button--login'>Войти</button>
-						<button className='auth-button auth-button--register'>
+						<ThemeToggleButton className='theme-toggle' />
+						<Link to='/login' className='auth-button auth-button__login'>
+							Войти
+						</Link>
+						<Link to='/register' className='auth-button auth-button__register'>
 							Зарегистрироваться
-						</button>
+						</Link>
 					</div>
 				)}
 
-				{variant === 'user' && (
+				{variant === 'user' && userInfo && (
 					<div className='user-actions'>
-						<button className='action-button'>
-							<MoonIcon className='w-5 h-5' />
-						</button>
+						<ThemeToggleButton className='action-button' />
 						<button className='action-button'>
 							<NotificationIcon className='w-5 h-5' />
 						</button>
@@ -69,17 +68,9 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 						</button>
 
 						<div className='user-info'>
-							<span className='user-name'>
-								{userInfo?.name || 'Пользователь'}
-							</span>
+							<span className='user-name'>{userInfo.name}</span>
 							<div className='user-avatar'>
-								<img
-									src={
-										userInfo?.avatar ||
-										'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400'
-									}
-									alt='Profile'
-								/>
+								<img src={userInfo.avatar} alt='Profile' />
 							</div>
 						</div>
 					</div>
