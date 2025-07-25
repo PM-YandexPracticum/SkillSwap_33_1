@@ -1,22 +1,21 @@
-import styles from './NotFound404.module.css';
+import styles from './Error500.module.css';
 import { Header } from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-export const NotFound404 = () => {
+export const Error500 = () => {
 	return (
 		<>
 			<Header variant='guest' />
 			<div className={styles.content}>
 				<img
 					className={styles.image}
-					src='assets/images/error-404.svg'
-					alt='Error 404 - Page not found'
+					src='assets/images/error-500.svg'
+					alt='Error 500 - Internal Server Error'
 				/>
 				<div className={styles.error}>
-					<h2 className={styles.title}>Страница не найдена</h2>
+					<h2 className={styles.title}>На сервере произошла ошибка</h2>
 					<p className={styles.message}>
-						К сожалению, эта страница недоступна. Вернитесь на главную страницу
-						или попробуйте позже
+						Попробуйте позже или вернитесь на главную страницу
 					</p>
 				</div>
 				<div className={styles.buttons}>
