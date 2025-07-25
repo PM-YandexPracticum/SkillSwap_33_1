@@ -5,7 +5,7 @@ interface RegisterData {
 	email: string;
 	password: string;
 	fullName?: string;
-	birthDate?: string;
+	birthDate?: string | undefined;
 	gender?: string;
 	city?: string;
 	skillCategory?: string;
@@ -13,6 +13,7 @@ interface RegisterData {
 	skillName?: string;
 	description?: string;
 	files?: FileList | null;
+	avatar?: File;
 }
 
 interface RegisterContextProps {
@@ -28,6 +29,7 @@ interface RegisterContextProps {
 			| 'city'
 			| 'skillCategory'
 			| 'skillSubcategory'
+			| 'avatar'
 		>
 	) => void;
 	setStep3Data: (
@@ -65,6 +67,7 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
 			| 'city'
 			| 'skillCategory'
 			| 'skillSubcategory'
+			| 'avatar'
 		>
 	) => {
 		setData((prev) => ({ ...prev, ...payload }));
