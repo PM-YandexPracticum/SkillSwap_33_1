@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import userReducer from '@/entities/user/userSlice';
 
 import {
 	type TypedUseSelectorHook,
@@ -7,6 +8,7 @@ import {
 } from 'react-redux';
 
 const rootReducer = combineReducers({
+	user: userReducer,
 	// app: appSlice,
 });
 
