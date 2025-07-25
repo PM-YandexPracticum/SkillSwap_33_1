@@ -46,6 +46,7 @@
 	--color-button-disabled: #ffffff; /* Цвет фона неактивной кнопки */
 	--color-button-text-disabled: #9ca197; /* Цвет текста неактивной кнопки */
 	--color-button-theme-toggle: #f9faf7;
+	--color-action-button: #000000;
 
 	/* Цвета статусов (ошибки, уведомления и успех) */
 	--color-error: #bf3920; /* Цвет ошибки (красный) */
@@ -113,6 +114,7 @@
 	--color-button-disabled: #2c2f27; /* Фон неактивной кнопки (в тон общему фону) */
 	--color-button-text-disabled: #7f8579; /* Текст неактивной кнопки (тусклый) */
 	--color-button-theme-toggle: #abd27a;
+	--color-action-button: #ffffff;
 
 	/* Цвета статусов (контрастные на тёмном фоне) */
 	--color-error: #ff6a4d; /* Ошибка (ярко-красный/оранжевый, хорошо виден на тёмном) */
