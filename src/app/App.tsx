@@ -1,20 +1,94 @@
 import { HomePage, NotFound404 } from '@/pages';
+import { Error500 } from '@/pages/Error500/Error500';
 import '@appStyles/fonts.css';
 import '@appStyles/normalize.css';
 import '@appStyles/global.css';
+import '@appStyles/theme.css';
 
 import { Route, Routes } from 'react-router-dom';
 
+import ProfilePage from '@/pages/Profile/ProfilePage';
+import PlaceholderPage from '@/pages/Profile/PlaceholderPage';
+
+import RegisterLayout from '@/pages/Register/RegisterLayout';
+import RegisterStep1 from '@/pages/Register/RegisterStep1';
+import RegisterStep2 from '@/pages/Register/RegisterStep2';
+import RegisterStep3 from '@/pages/Register/RegisterStep3';
+import { RegisterProvider } from '@/pages/Register/RegisterContext';
+
+import Layout from '@/widgets/Layout/Layout';
+import { ThemeProvider } from '@app/styles/ThemeProvider';
+
 const App = () => {
 	return (
-		<>
-			<Routes /*location={backgroundLocation || location}*/>
-				<Route /*element={<Layout />}*/>
+		<ThemeProvider>
+			<Routes>
+				{/* Общий Layout с Header/Footer и условным Sidebar */}
+				<Route element={<Layout />}>
 					<Route path='/' element={<HomePage />} />
+
+					{/* Профиль и вложенные страницы */}
+					<Route path='/profile'>
+						<Route index element={<ProfilePage />} />
+						<Route
+							path='applications'
+							element={
+								<PlaceholderPage
+									title='Заявки'
+									description='Здесь будут отображаться ваши заявки на обмен навыками'
+								/>
+							}
+						/>
+						<Route
+							path='exchanges'
+							element={
+								<PlaceholderPage
+									title='Мои обмены'
+									description='Здесь вы увидите все ваши активные и завершенные обмены'
+								/>
+							}
+						/>
+						<Route
+							path='favorites'
+							element={
+								<PlaceholderPage
+									title='Избранное'
+									description='Ваши избранные навыки и пользователи'
+								/>
+							}
+						/>
+						<Route
+							path='skills'
+							element={
+								<PlaceholderPage
+									title='Мои навыки'
+									description='Управление вашими навыками и их описанием'
+								/>
+							}
+						/>
+					</Route>
+
+					{/* Страницы ошибок */}
+					<Route path='/error-500' element={<Error500 />} />
 					<Route path='*' element={<NotFound404 />} />
 				</Route>
+
+				{/* Регистрация — отдельный layout без Header/Footer */}
+				<Route
+					path='/register/*'
+					element={
+						<RegisterProvider>
+							<RegisterLayout />
+						</RegisterProvider>
+					}
+				>
+					<Route index element={<RegisterStep1 />} />
+					<Route path='step-1' element={<RegisterStep1 />} />
+					<Route path='step-2' element={<RegisterStep2 />} />
+					<Route path='step-3' element={<RegisterStep3 />} />
+				</Route>
 			</Routes>
-		</>
+		</ThemeProvider>
 	);
 };
 

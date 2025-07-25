@@ -2,11 +2,22 @@ import styles from './HomePage.module.css';
 import ClockIcon from '@icons/clock.svg?react';
 import EditIcon from '@icons/edit.svg?react';
 import BookIcon from '@icons/book.svg?react';
-import Done from '../../shared/assets/icons/Done.svg';
 import { Button } from '@shared/ui/button';
-import { Modal } from '../../components/modal/modal';
+import { useState } from 'react';
+import { ModalUI } from '@shared/ui/modal';
 
 export const HomePage = () => {
+	{
+		/* Проверка открытия модального окна при нажатии на кнопку*/
+	}
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
+
 	return (
 		<>
 			<h1 className={styles.heading}>Home Page</h1>
@@ -17,7 +28,6 @@ export const HomePage = () => {
 				<img src='assets/images/light-bulb.svg' alt='' />
 			</div>
 			<div>
-				{/* <img src={TestIcon} alt="" /> */}
 				<a className={styles.link} href='#'>
 					<ClockIcon className={styles.icon} />
 				</a>
@@ -28,16 +38,20 @@ export const HomePage = () => {
 					<EditIcon className={styles.icon} />
 				</a>
 			</div>
+			{/* Проверка открытия модального окна при нажатии на кнопку*/}
 			<div>
-				<Button fullWidth>Подробнее</Button>
+				<Button fullWidth onClick={openModal}>
+					Подробнее
+				</Button>
+				{/* Модальное окно */}
+				<ModalUI
+					isOpen={isModalOpen}
+					onClose={closeModal}
+					title='Пример заголовка'
+					message='Это сообщение в модальном окне'
+					icon='/path/to/icon.png'
+				/>
 			</div>
-			<Modal
-				isOpen={true}
-				onClose={() => {}}
-				title='Заглушка'
-				message='Текст-заглушка'
-				icon={Done}
-			/>
 		</>
 	);
 };

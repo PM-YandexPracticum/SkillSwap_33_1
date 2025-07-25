@@ -1,0 +1,412 @@
+/* === Общая страница === */
+
+.page {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 100vh;
+	padding: 84px 36px 172px;
+	background-color: var(--color-background);
+}
+
+/* === Верхняя панель === */
+
+.topBar {
+	position: fixed;
+	top: 36px;
+	right: 36px;
+	left: 40px;
+	z-index: 100;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 40px;
+}
+
+/* === Сброс лишней обводки у кастомного DatePicker === */
+
+.customDateWrapper {
+	display: flex;
+	align-items: center;
+	height: 48px;
+	padding: 0 12px;
+	background: white;
+	border: 1px solid #69735d;
+	border-radius: 8px;
+}
+
+/* Убираем внутреннюю обводку кастомного календаря */
+
+.customDateWrapper :global(.datepicker__input) {
+	height: auto;
+	padding: 0;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.customDateWrapper :global(.datepicker__select) {
+	height: auto;
+	padding: 0;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	box-shadow: none;
+}
+
+.closeBtn {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	height: 48px;
+	padding: 0 16px;
+	background: var(--color-surface);
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+/* === Индикатор шага === */
+
+.stepIndicator {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 24px;
+}
+
+.stepText {
+	color: var(--color-text);
+	font-weight: 500;
+	font-size: 16px;
+}
+
+.stepLine {
+	height: 4px;
+	margin-top: 8px;
+}
+
+/* === Контейнер карточки регистрации === */
+
+.card {
+	display: flex;
+	flex-direction: row;
+	gap: 24px;
+	margin: 32px 152px;
+}
+
+/* === Левая и правая секции === */
+
+.section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	min-height: 692px;
+	padding: 0 60px;
+	background-color: var(--color-surface);
+	border-radius: 12px;
+}
+
+/* === Блок формы === */
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.inputLabel {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+/* Основные инпуты и селекты */
+
+.inputField {
+	width: 100%;
+	height: 48px;
+	padding: 0 12px;
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	background: white;
+	border: 1px solid #69735d;
+	border-radius: 8px;
+}
+
+/* Для select внутри кастомного DatePicker убираем бордер, но сохраняем стрелку */
+
+.customDateWrapper :global(select) {
+	height: auto;
+	padding: 0;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	box-shadow: none;
+}
+
+/* Для остальных селектов - стандартный бордер */
+
+.passwordWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-bottom: 32px;
+}
+
+.inputWithIcon {
+	display: flex;
+	align-items: center;
+	height: 48px;
+	padding: 0 12px;
+	background: white;
+	border: 1px solid #69735d;
+	border-radius: 8px;
+}
+
+.inputWithIcon input {
+	flex: 1;
+	height: 100%;
+	background: transparent;
+	border: none;
+}
+
+.eyeIcon {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.infoContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	text-align: center;
+}
+
+.infoText {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.sectionTitle {
+	font-weight: 500;
+	font-size: 24px;
+	font-family: 'Jost', sans-serif;
+}
+
+.sectionText {
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+}
+
+/* === Социальные кнопки === */
+
+.socialBtnContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.socialBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	height: 48px;
+	padding: 0 12px;
+	font-weight: 500;
+	background-color: white;
+	border: 1px solid #69735d;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.divider {
+	position: relative;
+	margin: 16px 0;
+	color: #253017;
+	font-size: 14px;
+	text-align: center;
+}
+
+.divider span {
+	position: relative;
+	z-index: 1;
+	padding: 0 8px;
+	background: var(--color-surface);
+}
+
+.divider::before {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	left: 0;
+	height: 1px;
+	background-color: #e0e0e0;
+	content: '';
+}
+
+/* === Основная кнопка === */
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 48px;
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+/* ЗЕЛЁНЫЕ КНОПКИ - текст #253017 */
+
+.buttonPrimary {
+	color: #253017;
+	background-color: var(--color-accent);
+	border: none;
+}
+
+.buttonBack {
+	background-color: #ffffffff;
+	border: 1px solid #abd27a;
+}
+
+/* Аналогично для кнопок календаря с зелёным фоном */
+
+.datepicker__button--select {
+	color: #253017;
+	background-color: #a5d36b;
+	border: 1px solid #a5d36b;
+}
+
+.datepicker__button--select:hover {
+	color: #253017;
+	background-color: #deebe5;
+	border-color: #deebe5;
+}
+
+.infoImage {
+	width: 300px;
+	height: 300px;
+}
+
+.row {
+	display: flex;
+	gap: 16px;
+	width: 100%;
+}
+
+/* Аватар — круглая заглушка для загрузки */
+
+.avatarUpload {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 64px;
+	height: 64px;
+	margin: 0 auto 24px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+/* Текстовая область (textarea) */
+
+.textArea {
+	width: 100%;
+	min-height: 96px;
+	padding: 12px;
+	font-size: 14px;
+	border: 1px solid #69735d;
+	border-radius: 8px;
+	resize: none;
+}
+
+/* Контейнер загрузки изображений */
+
+.uploadBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+	min-height: 96px;
+	padding: 12px;
+	text-align: center;
+	background-color: var(--color-surface);
+	border: 1px dashed #69735d;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.uploadLabel {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: #508817;
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	cursor: pointer;
+}
+
+/* === Состояние при перетаскивании файла === */
+
+.dragging {
+	background-color: #f1f3ef;
+	border: 1px solid #69735d;
+}
+
+/* === Список загруженных файлов === */
+
+.uploadFileItem {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	border: none;
+}
+
+.fileName {
+	overflow: hidden;
+	color: var(--color-text);
+	font-size: 14px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* Иконка "галерея" в списке файлов */
+
+.uploadIcon {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+/* Кнопки Назад / Продолжить вместе */
+
+.form-buttons {
+	display: flex;
+	gap: 16px;
+	width: 100%;
+	margin-top: 8px;
+}
+
+/* Мелкий фикс для иконок внутри инпутов (например, календаря) */
+
+.inputWithIcon svg {
+	width: 20px;
+	height: 20px;
+	color: var(--color-icon);
+}

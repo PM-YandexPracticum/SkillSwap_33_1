@@ -1,0 +1,59 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 124px;
+	margin-bottom: 84px;
+}
+
+.image {
+	padding-bottom: 40px;
+}
+
+.error {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	max-width: 460px;
+}
+
+.title {
+	margin-bottom: 4px;
+	font-weight: 500;
+	font-size: 24px;
+	font-family: 'Jost', sans-serif;
+}
+
+.message {
+	margin-bottom: 32px;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.5;
+	text-align: center;
+}
+
+.buttons {
+	display: flex;
+	gap: 24px;
+}
+
+.reportButton {
+	background-color: #ffffff;
+	border: solid 1px #abd27a;
+}
+
+.commonButton {
+	display: inline-block;
+	min-width: 218px;
+	padding: 12px 24px;
+	color: #253017;
+	background-color: #ffffff;
+	border-radius: 12px;
+	cursor: pointer;
+}
+
+.onMainButton {
+	background-color: #abd27a;
+	border: solid 1px transparent;
+}
