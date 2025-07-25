@@ -22,7 +22,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	min-width: 420px;
+	min-width: 400px;
 }
 
 .descriptionBlock {
@@ -51,7 +51,7 @@
 	font-size: 16px;
 	font-family: 'Roboto', sans-serif;
 	line-height: 1.5;
-	-webkit-line-clamp: 6;
+	-webkit-line-clamp: 7;
 	-webkit-box-orient: vertical;
 }
 
