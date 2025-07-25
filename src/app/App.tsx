@@ -15,7 +15,7 @@ import RegisterStep1 from '@/pages/Register/RegisterStep1';
 import RegisterStep2 from '@/pages/Register/RegisterStep2';
 import RegisterStep3 from '@/pages/Register/RegisterStep3';
 import { RegisterProvider } from '@/pages/Register/RegisterContext';
-import LoginPage from '@pages/Login/LoginPage';
+import LoginPage from '@/pages/Login/LoginPage';
 
 import Layout from '@/widgets/Layout/Layout';
 import { ThemeProvider } from '@app/styles/ThemeProvider';

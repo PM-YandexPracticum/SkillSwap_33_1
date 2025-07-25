@@ -16,98 +16,108 @@ const LoginPage = () => {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		// Здесь будет логика входа
 		console.log('Login data:', { email, password });
 		navigate('/profile');
 	};
 
-	const togglePasswordVisibility = () => setShowPassword(!showPassword);
-	const handleClose = () => navigate('/');
-
 	return (
-		<div className={styles['auth-page']}>
-			<div className={styles['auth-top-bar']}>
+		<div className={styles.page}>
+			<div className={styles.topBar}>
 				<Logo />
-				<button className={styles['auth-close']} onClick={handleClose}>
+				<button className={styles.closeBtn} onClick={() => navigate('/')}>
 					Закрыть
-					<CrossIcon className={styles['auth-close-icon']} />
+					<CrossIcon />
 				</button>
 			</div>
-
-			<div className={styles['auth-card']}>
-				<div className={styles['auth-form-section']}>
-					<button className={`${styles['social-button']} ${styles.google}`}>
-						<GoogleIcon className={styles.icon} />
-						Продолжить с Google
-					</button>
-					<button className={`${styles['social-button']} ${styles.apple}`}>
-						<AppleIcon className={styles.icon} />
-						Продолжить с Apple
-					</button>
+			<div className={styles.authTitleContainer}>
+				<h2 className={styles.authTitle}>Вход</h2>
+			</div>
+			<div className={styles.card}>
+				<div className={styles.section}>
+					<div className={styles.socialBtnContainer}>
+						<button className={styles.socialBtn}>
+							<GoogleIcon />
+							Продолжить с Google
+						</button>
+						<button className={styles.socialBtn}>
+							<AppleIcon />
+							Продолжить с Apple
+						</button>
+					</div>
 
 					<div className={styles.divider}>
 						<span>или</span>
 					</div>
 
-					<form className={styles['auth-form']} onSubmit={handleSubmit}>
-						<label>
-							<span>Email</span>
+					<form className={styles.form} onSubmit={handleSubmit}>
+						<label className={styles.inputLabel}>
+							Email
 							<input
 								type='email'
+								className={styles.inputField}
 								placeholder='Введите email'
-								required
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
+								required
 							/>
 						</label>
 
-						<label className={styles['password-wrapper']}>
-							<span>Пароль</span>
-							<div className={styles['input-with-icon']}>
+						<label className={styles.inputLabel}>
+							Пароль
+							<div className={styles.inputWithIcon}>
 								<input
 									type={showPassword ? 'text' : 'password'}
 									placeholder='Введите пароль'
-									required
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
+									required
 								/>
 								<button
 									type='button'
-									onClick={togglePasswordVisibility}
-									className={styles['eye-icon']}
+									className={styles.eyeIcon}
+									onClick={() => setShowPassword(!showPassword)}
 								>
 									{showPassword ? <EyeSlashIcon /> : <EyeIcon />}
 								</button>
 							</div>
 						</label>
-
-						<button
-							type='submit'
-							className={`${styles.button} ${styles['button-primary']}`}
-						>
-							Войти
-						</button>
-
-						<div className={styles['register-link']}>
+						<div className={styles.containerBtn}>
 							<button
-								type='button'
-								className={styles['link-button']}
-								onClick={() => navigate('/register')}
+								type='submit'
+								className={`${styles.button} ${styles.buttonPrimary}`}
 							>
-								Зарегистрироваться
+								Войти
 							</button>
+
+							<div style={{ textAlign: 'center', marginTop: '16px' }}>
+								<button
+									type='button'
+									className={styles.uploadLabel}
+									onClick={() => navigate('/register')}
+								>
+									Зарегистрироваться
+								</button>
+							</div>
 						</div>
 					</form>
 				</div>
 
-				<div className={styles['auth-info-section']}>
-					<img
-						src='/assets/images/light-bulb.svg'
-						alt='Добро пожаловать'
-						className={styles['info-image']}
-					/>
-					<h3>С возвращением в SkillSwap!</h3>
-					<p>Обменивайтесь знаниями и навыками с другими людьми</p>
+				<div className={styles.section}>
+					<div className={styles.infoContent}>
+						<img
+							src='/assets/images/light-bulb.svg'
+							alt='Добро пожаловать'
+							className={styles.infoImage}
+						/>
+						<div className={styles.infoText}>
+							<h3 className={styles.sectionTitle}>
+								С возвращением в SkillSwap!
+							</h3>
+							<p className={styles.sectionText}>
+								Обменийвайтесь знаниями и навыками с другими людьми
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
