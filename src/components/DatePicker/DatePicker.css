@@ -81,7 +81,6 @@
 	display: flex;
 	justify-content: center;
 	gap: 2rem;
-	padding: 0 45px;
 	color: #111827;
 	font-weight: 600;
 	font-size: 1rem;
@@ -133,11 +132,11 @@
 	border-radius: 50%;
 }
 
-.datepicker__day--other-month {
+.datepicker__day-other-month {
 	color: #9ca197;
 }
 
-.datepicker__day--selected {
+.datepicker__day-selected {
 	color: white;
 	background-color: #a5d36b !important;
 	border-radius: 50%;

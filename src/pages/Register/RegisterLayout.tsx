@@ -2,24 +2,27 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 import Logo from '@/components/Logo/Logo';
 import CrossIcon from '@icons/cross.svg?react';
+import StepLine1 from '@icons/step-1-line.svg?react';
+import StepLine2 from '@icons/step-2-line.svg?react';
+import StepLine3 from '@icons/step-3-line.svg?react';
 
 const infoContent = {
 	'step-1': {
 		img: '/assets/images/light-bulb.svg',
 		title: 'Добро пожаловать в SkillSwap!',
-		text: 'Обменивайтесь знаниями и навыками с другими людьми',
+		text: 'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
 		stepNumber: 1,
 	},
 	'step-2': {
 		img: '/assets/images/user-info.svg',
 		title: 'Расскажите немного о себе',
-		text: 'Это поможет другим людям лучше вас узнать',
+		text: 'Это поможет другим людям лучше вас узнать, чтобы выбрать для обмена',
 		stepNumber: 2,
 	},
 	'step-3': {
 		img: '/assets/images/school-board.svg',
 		title: 'Укажите, чем вы готовы поделиться',
-		text: 'Так другие люди смогут найти вас для обмена навыками',
+		text: 'Так другие люди смогут увидеть ваши предложения и предложить вам обмен!',
 		stepNumber: 3,
 	},
 } as const;
@@ -41,27 +44,37 @@ const RegisterLayout = () => {
 	const { img, title, text, stepNumber } = infoContent[step];
 
 	return (
-		<div className={styles['auth-page']}>
-			<div className={styles['auth-top-bar']}>
+		<div className={styles.page}>
+			<div className={styles.topBar}>
 				<Logo />
-				<button className={styles['auth-close']} onClick={handleClose}>
+				<button className={styles.closeBtn} onClick={handleClose}>
 					Закрыть
-					<CrossIcon className={styles['auth-close-icon']} />
+					<CrossIcon />
 				</button>
 			</div>
 
-			{/* Надпись с номером шага, по центру над колонками */}
-			<h2 className={styles['step-indicator']}>Шаг {stepNumber} из 3</h2>
+			<div className={styles.stepIndicator}>
+				<h2 className={styles.stepText}>Шаг {stepNumber} из 3</h2>
+				<div className={styles.stepLine}>
+					{stepNumber === 1 && <StepLine1 />}
+					{stepNumber === 2 && <StepLine2 />}
+					{stepNumber === 3 && <StepLine3 />}
+				</div>
+			</div>
 
-			<div className={styles['auth-card']}>
-				<div className={styles['auth-form-section']}>
+			<div className={styles.card}>
+				<div className={styles.section}>
 					<Outlet />
 				</div>
 
-				<div className={styles['auth-info-section']}>
-					<img src={img} alt={title} className={styles['info-image']} />
-					<h3>{title}</h3>
-					<p>{text}</p>
+				<div className={styles.section}>
+					<div className={styles.infoContent}>
+						<img src={img} alt={title} className={styles.infoImage} />
+						<div className={styles.infoText}>
+							<h3 className={styles.sectionTitle}>{title}</h3>
+							<p className={styles.sectionText}>{text}</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

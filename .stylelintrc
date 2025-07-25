@@ -16,7 +16,12 @@
 		],
 		"declaration-block-no-shorthand-property-overrides": true,
 		"block-no-empty": true,
-		"selector-pseudo-class-no-unknown": true,
+		"selector-pseudo-class-no-unknown": [
+			true,
+			{
+				"ignorePseudoClasses": ["global"]
+			}
+		],
 		"selector-pseudo-element-no-unknown": true,
 		"selector-type-no-unknown": true,
 		"media-feature-name-no-unknown": true,
@@ -44,7 +49,7 @@
 			"line-height": []
 		},
 		"selector-class-pattern": [
-			"^(react-datepicker__.*|[a-z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?)$",
+			"^(react-datepicker__.*|datepicker__.*|[a-z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?)$",
 			{
 				"message": "Expected class name to be in BEM format or allowed external format"
 			}
