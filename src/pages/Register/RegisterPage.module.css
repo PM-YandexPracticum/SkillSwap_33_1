@@ -276,7 +276,7 @@
 	align-items: center;
 	height: 48px;
 	padding: 0 12px;
-	background: white;
+	background: var(--color-surface);
 	border: 1px solid #69735d;
 	border-radius: 8px;
 }
@@ -284,6 +284,7 @@
 .inputWithIcon input {
 	flex: 1;
 	height: 100%;
+	color: var(--color-action-button);
 	background: transparent;
 	border: none;
 }
@@ -337,7 +338,7 @@
 	height: 48px;
 	padding: 0 12px;
 	font-weight: 500;
-	background-color: white;
+	background-color: var(--color-button-disabled);
 	border: 1px solid #69735d;
 	border-radius: 8px;
 	cursor: pointer;

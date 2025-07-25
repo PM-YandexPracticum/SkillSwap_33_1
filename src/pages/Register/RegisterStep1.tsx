@@ -7,8 +7,11 @@ import AppleLightIcon from '@icons/apple-light.svg?react';
 import AppleDarkIcon from '@icons/apple-dark.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
+import { useTheme } from '@/app/styles/ThemeProvider';
 
 const RegisterStep1 = () => {
+	const { theme } = useTheme();
+	const AppleIcon = theme === 'dark' ? AppleDarkIcon : AppleLightIcon;
 	const navigate = useNavigate();
 	const { setStep1Data } = useRegister();
 
@@ -24,14 +27,10 @@ const RegisterStep1 = () => {
 		navigate('/register/step-2');
 	};
 
-	// Получаем текущую тему из <html data-theme="light|dark">
-	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
-	const AppleIcon = theme === 'dark' ? AppleDarkIcon : AppleLightIcon;
-
 	return (
 		<>
 			<div className={styles.socialBtnContainer}>
-				<button className={`${styles.socialBtn} ${styles.button}`}>
+				<button className={`${styles.button} ${styles.socialBtn}`}>
 					<GoogleIcon />
 					Продолжить с Google
 				</button>
