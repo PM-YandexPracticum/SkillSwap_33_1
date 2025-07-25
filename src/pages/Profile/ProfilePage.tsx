@@ -5,27 +5,31 @@ import EditIcon from '../../shared/assets/icons/edit.svg';
 import EditPhotoIcon from '../../shared/assets/icons/edit.svg';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import citiesData from '../../../public/db/city.json';
+import genderData from '../../../public/db/gender.json';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import type { CitiesResponse } from '@/types';
 import { useUser } from '@/shared/hooks/useUser';
 
 const cities = (citiesData as CitiesResponse).cities;
+const genders = genderData.genders;
 
 const ProfilePage = () => {
-	const { email, name, age, gender, location, description, avatarUrl } =
-		useUser();
-
-	const parseDate = (dateString: string): Date => {
-		const [day, month, year] = dateString.split('.').map(Number);
-		return new Date(year, month - 1, day);
-	};
+	const {
+		email,
+		name,
+		birthDate,
+		genderId,
+		locationId,
+		description,
+		avatarUrl,
+	} = useUser();
 
 	const [formData, setFormData] = useState({
 		email: email || '',
 		name: name || '',
-		birthDate: age ? parseDate(age) : new Date(),
-		gender: gender || 'Не указан',
-		city: location || '',
+		birthDate: birthDate ? new Date(birthDate) : new Date(),
+		genderId: genderId || 'unspecified',
+		locationId: locationId || '',
 		about: description || '',
 	});
 
@@ -97,15 +101,17 @@ const ProfilePage = () => {
 									<label className='form-label'>Пол</label>
 									<div className='input-wrapper'>
 										<select
-											value={formData.gender}
+											value={formData.genderId}
 											onChange={(e) =>
-												handleInputChange('gender', e.target.value)
+												handleInputChange('genderId', e.target.value)
 											}
 											className='form-select'
 										>
-											<option value='Женский'>Женский</option>
-											<option value='Мужской'>Мужской</option>
-											<option value='Не указан'>Не указан</option>
+											{genders.map((gender) => (
+												<option key={gender.id} value={gender.id}>
+													{gender.label}
+												</option>
+											))}
 										</select>
 										<ChevronDownIcon className='chevron-icon' />
 									</div>
@@ -117,12 +123,14 @@ const ProfilePage = () => {
 								<label className='form-label'>Город</label>
 								<div className='input-wrapper'>
 									<select
-										value={formData.city}
-										onChange={(e) => handleInputChange('city', e.target.value)}
+										value={formData.locationId}
+										onChange={(e) =>
+											handleInputChange('locationId', e.target.value)
+										}
 										className='form-select'
 									>
 										{cities.map((city) => (
-											<option key={city.id} value={city['city-name']}>
+											<option key={city.id} value={city.id}>
 												{city['city-name']}
 											</option>
 										))}

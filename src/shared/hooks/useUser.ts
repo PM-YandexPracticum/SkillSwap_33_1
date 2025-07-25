@@ -1,26 +1,23 @@
 import userData from '../../../public/db/user.json';
-import type { User, UserSkill } from '@/types';
 
 const DEFAULT_AVATAR = '/src/shared/assets/icons/user.svg';
 
 export const useUser = () => {
-	const user = userData as User;
-
-	const normalizeSkills = (skills: UserSkill | UserSkill[]): UserSkill[] => {
-		return Array.isArray(skills) ? skills : [skills];
-	};
+	// userData теперь массив, берём первого пользователя для примера
+	const user = Array.isArray(userData) ? userData[0] : userData;
 
 	return {
 		id: user.id,
 		name: user.name,
 		email: user.email,
-		location: user.location,
-		gender: user.gender,
-		age: user.age,
-		description: user.description,
+		password: user.password,
 		avatarUrl: user.avatarUrl?.trim() || DEFAULT_AVATAR,
-		skillsCanTeach: normalizeSkills(user.skillCanTeach),
-		skillsToLearn: user.subcategoriesWantToLearn,
-		images: user.images || [],
+		birthDate: user.birthDate,
+		genderId: user.genderId,
+		locationId: user.locationId,
+		description: user.description,
+		createdAt: user.createdAt,
+		skillsCanTeach: user.skillsCanTeach || [],
+		skillsWantToLearn: user.skillsWantToLearn || [],
 	};
 };
