@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import { useRegister } from './RegisterContext';
-import { useTheme } from '../../app/styles/ThemeProvider'; // Импортируем хук для темы
-import AddIconLight from '@icons/icon-add-light.svg?react'; // Иконка для светлой темы
-import AddIconDark from '@icons/icon-add-dark.svg?react'; // Иконка для тёмной темы
-import styles from './RegisterPage.module.css'; // Один импорт стилей
+import { useTheme } from '../../app/styles/ThemeProvider';
+import AddIconLight from '@icons/icon-add-light.svg?react';
+import AddIconDark from '@icons/icon-add-dark.svg?react';
+import styles from './RegisterPage.module.css';
 
 const RegisterStep2 = () => {
 	const navigate = useNavigate();
