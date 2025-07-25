@@ -25,6 +25,7 @@
 }
 
 .sidebar-nav-item:hover {
+	color: black;
 	background-color: #deebc5;
 }
 
