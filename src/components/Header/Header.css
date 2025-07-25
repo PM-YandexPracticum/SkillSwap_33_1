@@ -166,6 +166,7 @@
 }
 
 .action-button:hover {
+	color: #000000;
 	background-color: #deebc5;
 }
 
