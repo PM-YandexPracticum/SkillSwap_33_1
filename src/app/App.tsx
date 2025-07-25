@@ -14,6 +14,7 @@ import RegisterStep1 from '@/pages/Register/RegisterStep1';
 import RegisterStep2 from '@/pages/Register/RegisterStep2';
 import RegisterStep3 from '@/pages/Register/RegisterStep3';
 import { RegisterProvider } from '@/pages/Register/RegisterContext';
+import LoginPage from '@pages/Login/LoginPage';
 
 import Layout from '@/widgets/Layout/Layout';
 import { ThemeProvider } from '@app/styles/ThemeProvider';
@@ -85,6 +86,8 @@ const App = () => {
 					<Route path='step-2' element={<RegisterStep2 />} />
 					<Route path='step-3' element={<RegisterStep3 />} />
 				</Route>
+				{/* Страница Логина */}
+				<Route path='/login' element={<LoginPage />} />
 			</Routes>
 		</ThemeProvider>
 	);

@@ -1,0 +1,296 @@
+/* Основные стили */
+
+.auth-page {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Inter', sans-serif;
+	background-color: #f9faf6;
+}
+
+.auth-top-bar {
+	position: absolute;
+	top: 24px;
+	right: 40px;
+	left: 40px;
+	z-index: 10;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 40px;
+}
+
+.auth-card {
+	display: flex;
+	gap: 24px;
+	width: 100%;
+	max-width: 960px;
+	background-color: transparent;
+	border-radius: 12px;
+	box-shadow: 0 4px 24px rgb(0 0 0 / 5%);
+}
+
+.auth-form-section,
+.auth-info-section {
+	flex: 1;
+	box-sizing: border-box;
+	min-width: 556px;
+	min-height: 692px;
+	padding: 112px 60px;
+	background-color: #ffffff;
+	border-radius: 12px;
+}
+
+.auth-info-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-top: 132px;
+	text-align: center;
+}
+
+.auth-info-section h3 {
+	margin-bottom: 12px;
+	color: #222222;
+	font-size: 20px;
+}
+
+.auth-info-section p {
+	max-width: 260px;
+	color: #555555;
+	font-size: 14px;
+}
+
+.info-image {
+	width: 300px;
+	height: 300px;
+	object-fit: contain;
+	margin-bottom: 20px;
+}
+
+/* Форма */
+
+.auth-form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.auth-form label {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	color: #222222;
+	font-size: 14px;
+}
+
+.auth-form input {
+	box-sizing: border-box;
+	height: 40px;
+	padding: 10px 12px;
+	font-size: 14px;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	border-radius: 8px;
+}
+
+/* Пароль */
+
+.password-wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.input-with-icon {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.input-with-icon input {
+	flex: 1;
+	width: 100%;
+	padding-right: 40px;
+}
+
+.eye-icon {
+	position: absolute;
+	right: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 24px;
+	height: 24px;
+	color: #888888;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+/* Кнопки */
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	padding: 12px;
+	font-weight: 500;
+	font-size: 15px;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	cursor: pointer;
+	transition:
+		background 0.2s,
+		color 0.2s,
+		border-color 0.2s;
+}
+
+.button-primary {
+	color: #253017;
+	background-color: #a4d470;
+	border: none;
+}
+
+.button-primary:hover {
+	background-color: #92c466;
+}
+
+/* Социальные кнопки */
+
+.social-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	padding: 12px;
+	font-weight: 500;
+	font-size: 15px;
+	background: #ffffff;
+	border: 1px solid #dddddd;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.social-button.google:hover,
+.social-button.apple:hover {
+	background-color: #f0f0f0;
+	border-color: #c1c1c1;
+}
+
+/* Разделитель */
+
+.divider {
+	position: relative;
+	margin: 16px 0;
+	color: #999999;
+	font-size: 14px;
+	text-align: center;
+}
+
+.divider span {
+	position: relative;
+	z-index: 1;
+	padding: 0 8px;
+	background: #ffffff;
+}
+
+.divider::before {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	left: 0;
+	z-index: 0;
+	height: 1px;
+	background-color: #e0e0e0;
+	content: '';
+}
+
+/* Дополнительные опции */
+
+.login-options {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 8px 0;
+}
+
+.remember-me {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.remember-me input {
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	cursor: pointer;
+}
+
+.forgot-password {
+	padding: 0;
+	color: #508830;
+	font-size: 14px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.forgot-password:hover {
+	text-decoration: underline;
+}
+
+.register-link {
+	margin-top: 16px;
+	color: #555555;
+	font-size: 14px;
+	text-align: center;
+}
+
+.link-button {
+	padding: 0;
+	color: #508830;
+	font-weight: 500;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.link-button:hover {
+	text-decoration: underline;
+}
+
+/* Иконки */
+
+.auth-close {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0;
+	color: #444444;
+	font-size: 16px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.auth-close-icon {
+	flex-shrink: 0;
+	width: 24px;
+	height: 24px;
+}
+
+.icon {
+	width: 20px;
+	height: 20px;
+}
