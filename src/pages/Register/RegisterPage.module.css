@@ -370,7 +370,7 @@
 	margin-right: 8px;
 }
 
-/* ===== 🌒 Dark Theme Overrides ===== */
+/* ===== 🌒 Dark Theme ===== */
 
 :root[data-theme='dark'] .auth-page {
 	background-color: var(--color-background);
