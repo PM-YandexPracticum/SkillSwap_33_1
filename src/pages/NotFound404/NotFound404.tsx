@@ -1,5 +1,4 @@
 import { useTheme } from '../../app/styles/ThemeProvider';
-import React from 'react';
 import styles from './NotFound404.module.css';
 import { Header } from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
