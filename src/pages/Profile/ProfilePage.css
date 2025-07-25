@@ -148,17 +148,17 @@
 	width: 100%;
 	margin-top: 5px;
 	padding: 1rem 1.5rem;
-	color: #b2b9a9;
+	color: #253017;
 	font-weight: 500;
-	background-color: #e4e8df;
-	border: none;
+	background-color: var(--color-accent);
+	border: 1px solid #abd27a;
 	border-radius: 0.5rem;
 	cursor: pointer;
 	transition: background-color 0.2s;
 }
 
 .save-button:hover {
-	background-color: #deebc5;
+	background-color: var(--color-button-hover);
 }
 
 /* Avatar Section */
