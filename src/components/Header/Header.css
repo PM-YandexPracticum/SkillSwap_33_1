@@ -98,8 +98,8 @@
 	justify-content: center;
 	align-items: center;
 	padding: 0.5rem;
-	color: #6b7280;
-	background: var(--color-button-theme-toggle);
+	color: var(--color-text);
+	background: none;
 	border: none;
 	border-radius: 0.38rem;
 	cursor: pointer;
@@ -108,7 +108,7 @@
 
 .theme-toggle:hover {
 	color: #374151;
-	background-color: #abd27a;
+	background-color: #deebc5;
 }
 
 .auth-button {
@@ -134,8 +134,8 @@
 
 .auth-button__login {
 	width: 5.75rem;
-	color: #253017;
-	background: none;
+	color: var(--color-text);
+	background: var(--color-button-disabled);
 	border: 1px solid #abd27a;
 }
 
@@ -157,7 +157,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: 0.5rem;
-	color: #6b7280;
+	color: var(--color-action-button);
 	background: none;
 	border: none;
 	border-radius: 0.38rem;
@@ -167,6 +167,14 @@
 
 .action-button:hover {
 	background-color: #deebc5;
+}
+
+.action-button-like {
+	color: var(--color-action-button);
+}
+
+.action-button-like:hover {
+	color: #000000;
 }
 
 .user-info {
