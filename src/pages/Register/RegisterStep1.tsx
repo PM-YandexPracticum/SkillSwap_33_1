@@ -18,13 +18,51 @@ const RegisterStep1 = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [passwordError, setPasswordError] = useState<string | null>(null);
+	const [emailError, setEmailError] = useState<string | null>(null); // Для ошибок email
+	const [passwordStrength, setPasswordStrength] = useState<string | null>(null);
 
 	const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
+	const validatePassword = (password: string) => {
+		if (password.length < 8) {
+			setPasswordStrength(null);
+			setPasswordError('Пароль должен содержать не менее 8 знаков');
+		} else {
+			setPasswordError(null);
+			setPasswordStrength('Надежный');
+		}
+	};
+
+	const validateEmail = (email: string) => {
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		if (!email) {
+			setEmailError('Email не может быть пустым');
+		} else if (!emailRegex.test(email)) {
+			setEmailError('Введите корректный email');
+		} else {
+			setEmailError(null);
+		}
+	};
+
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newPassword = e.target.value;
+		setPassword(newPassword);
+		validatePassword(newPassword);
+	};
+
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newEmail = e.target.value;
+		setEmail(newEmail);
+		validateEmail(newEmail);
+	};
+
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		setStep1Data({ email, password });
-		navigate('/register/step-2');
+		if (!emailError && !passwordError) {
+			setStep1Data({ email, password });
+			navigate('/register/step-2');
+		}
 	};
 
 	return (
@@ -45,16 +83,20 @@ const RegisterStep1 = () => {
 			</div>
 
 			<form className={styles.form} onSubmit={handleSubmit}>
-				<label className={styles.inputLabel}>
+				{/* Поле Email с ошибкой */}
+				<label className={styles.passwordWrapper}>
 					<span>Email</span>
-					<input
-						type='email'
-						placeholder='Введите email'
-						required
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						className={styles.input}
-					/>
+					<div className={styles.inputWithIcon}>
+						<input
+							type='email'
+							placeholder='Введите email'
+							required
+							value={email}
+							onChange={handleEmailChange}
+							className={styles.input}
+						/>
+					</div>
+					{emailError && <p className={styles.emailError}>{emailError}</p>}
 				</label>
 
 				<label className={styles.passwordWrapper}>
@@ -65,7 +107,7 @@ const RegisterStep1 = () => {
 							placeholder='Придумайте надёжный пароль'
 							required
 							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={handlePasswordChange}
 							className={styles.input}
 						/>
 						<button
@@ -77,11 +119,18 @@ const RegisterStep1 = () => {
 							{showPassword ? <EyeSlashIcon /> : <EyeIcon />}
 						</button>
 					</div>
+					{passwordError && (
+						<p className={styles.passwordError}>{passwordError}</p>
+					)}
+					{passwordStrength && (
+						<p className={styles.passwordStrength}>{passwordStrength}</p>
+					)}
 				</label>
 
 				<button
 					type='submit'
 					className={`${styles.button} ${styles.buttonPrimary}`}
+					disabled={!!emailError || !!passwordError} // Отключаем кнопку, если есть ошибки
 				>
 					Далее
 				</button>
