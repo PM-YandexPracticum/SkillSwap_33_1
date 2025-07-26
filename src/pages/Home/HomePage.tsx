@@ -2,12 +2,13 @@ import styles from './HomePage.module.css';
 import ClockIcon from '@icons/clock.svg?react';
 import EditIcon from '@icons/edit.svg?react';
 import BookIcon from '@icons/book.svg?react';
-import { useTheme } from '../../app/styles/ThemeProvider';
+import { useTheme } from '../../app/styles/ThemeProvider'; // Используем тему
 import { Button } from '@shared/ui/button';
 import { useState } from 'react';
 import { ModalUI } from '@shared/ui/modal';
 
 export const HomePage = () => {
+	// Логика с темой
 	const { theme } = useTheme();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,6 +47,7 @@ export const HomePage = () => {
 					<EditIcon className={styles.icon} />
 				</a>
 			</div>
+
 			{/* Кнопка для открытия модального окна */}
 			<div>
 				<Button fullWidth onClick={openModal}>
