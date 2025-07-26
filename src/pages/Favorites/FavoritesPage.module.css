@@ -1,0 +1,11 @@
+/* Страница избранного */
+
+.favoritesPage {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	width: 100%;
+	max-width: 1020px;
+	margin: 0;
+	padding: 0;
+}

@@ -1,4 +1,5 @@
-import { HomePage, NotFound404 } from '@/pages';
+import { NotFound404 } from '@/pages';
+import { HomePage } from '@/pages/Home/HomePage';
 import { Error500 } from '@/pages/Error500/Error500';
 import '@appStyles/fonts.css';
 import '@appStyles/normalize.css';
@@ -16,17 +17,21 @@ import RegisterStep2 from '@/pages/Register/RegisterStep2';
 import RegisterStep3 from '@/pages/Register/RegisterStep3';
 import { RegisterProvider } from '@/pages/Register/RegisterContext';
 
-import Layout from '@/widgets/Layout/Layout';
+import { Layout } from '@/widgets/Layout/Layout';
+import { LayoutWithFilters } from '@/widgets/Layout/LayoutWithFilters';
 import { ThemeProvider } from '@app/styles/ThemeProvider';
 
 const App = () => {
 	return (
 		<ThemeProvider>
 			<Routes>
+				{/* Главная страница с фильтрами */}
+				<Route element={<LayoutWithFilters />}>
+					<Route path='/' element={<HomePage />} />
+				</Route>
+
 				{/* Общий Layout с Header/Footer и условным Sidebar */}
 				<Route element={<Layout />}>
-					<Route path='/' element={<HomePage />} />
-
 					{/* Профиль и вложенные страницы */}
 					<Route path='/profile'>
 						<Route index element={<ProfilePage />} />

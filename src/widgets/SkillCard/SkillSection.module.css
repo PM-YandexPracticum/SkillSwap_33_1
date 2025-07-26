@@ -1,0 +1,94 @@
+/* Основная секция */
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 100%;
+}
+
+/* Заголовок секции */
+
+.sectionHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.sectionTitle {
+	display: flex;
+	flex: none;
+	flex-grow: 0;
+	order: 0;
+	align-items: center;
+	width: 179px;
+	height: 40px;
+	margin: 0;
+	color: #253017;
+	font-weight: 500;
+	font-size: 32px;
+	font-family: 'Jost', sans-serif;
+	font-style: normal;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+
+/* Кнопка "Смотреть все" */
+
+.viewAllButton {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	width: 187px;
+	height: 48px;
+	margin: 0;
+	padding: 12px 24px;
+	background: #ffffff;
+	border: none;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
+	cursor: pointer;
+	transition:
+		box-shadow 0.2s,
+		background 0.2s;
+}
+
+.viewAllButton:hover {
+	background: #f5f7f2;
+	box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
+}
+
+.viewAllText {
+	color: #253017;
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+}
+
+.viewAllIcon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 24px;
+	height: 24px;
+}
+
+.viewAllIcon svg {
+	width: 24px;
+	height: 24px;
+}
+
+/* Контейнер с карточками */
+
+.cardsContainer {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+	width: 100%;
+}
