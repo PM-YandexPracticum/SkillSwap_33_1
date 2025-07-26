@@ -1,0 +1,179 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	max-width: 1024px;
+	height: 100%;
+	padding: 40px 52px;
+	color: #253017;
+	background: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+	transition: all 0.3s ease;
+}
+
+.cardContent {
+	display: flex;
+	justify-content: space-between;
+	gap: 77px;
+}
+
+.textBlock {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-width: 400px;
+}
+
+.descriptionBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.skillTitle {
+	font-weight: 500;
+	font-size: 32px;
+	font-family: 'Jost', 'Roboto', sans-serif;
+	line-height: 1.25;
+}
+
+.skillSubtitle {
+	color: #69735d;
+	font-size: 12px;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.33;
+}
+
+.skillDescription {
+	display: -webkit-box;
+	overflow: hidden;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.5;
+	-webkit-line-clamp: 7;
+	-webkit-box-orient: vertical;
+}
+
+.image {
+	display: block;
+	object-fit: cover;
+	border: none;
+	border-radius: 12px;
+}
+
+.imageGrid {
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: repeat(4, 1fr);
+	gap: 24px;
+	overflow: hidden;
+}
+
+.imageGrid > :nth-child(1) {
+	grid-row: 1 / 4;
+	grid-column: 1 / 4;
+	min-width: 324px;
+	height: 324px;
+}
+
+.imageGrid > :nth-child(2) {
+	grid-row: 1;
+	grid-column: 4;
+	min-width: 92px;
+	height: 92px;
+}
+
+.imageGrid > :nth-child(3) {
+	grid-row: 2;
+	grid-column: 4;
+	min-width: 92px;
+	height: 92px;
+}
+
+.imageGrid > :nth-child(4) {
+	grid-row: 3;
+	grid-column: 4;
+	min-width: 92px;
+	height: 92px;
+}
+
+.smallImageWrapper {
+	position: relative;
+}
+
+.imageCounter {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	background: #ffffff80;
+	border-radius: 12px;
+}
+
+.buttonsBlock {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding-bottom: 40px;
+	text-align: center;
+}
+
+.popUpTitle {
+	font-weight: 500;
+	font-size: 24px;
+	font-family: 'Jost', 'Roboto', sans-serif;
+}
+
+.popUpSubtitle {
+	font-size: 12px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.headerButtons {
+	display: flex;
+	justify-content: end;
+	gap: 16px;
+	padding-bottom: 24px;
+}
+
+/* временные стили кнопки, заменить на кномпонент */
+
+.button {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	height: 48px;
+	padding: 12px 24px;
+	color: #000000;
+	font-size: 16px;
+	font-family: inherit;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.primaryButton {
+	background: rgb(171 210 122);
+}
+
+.primaryButton:hover {
+	background: rgb(222 235 197);
+}
+
+.primaryButton:active {
+	background: rgb(80 136 38);
+}
+
+.secondaryButton {
+	background: #f0f0f0;
+}
