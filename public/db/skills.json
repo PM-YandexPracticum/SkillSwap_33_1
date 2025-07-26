@@ -3,6 +3,7 @@
 		"id": 1,
 		"name": "Бизнес и карьера",
 		"icon": "src/shared/assets/icons/briefcase.svg",
+		"color": "#FFD700",
 		"skills": [
 			{ "id": 101, "name": "Управление командой" },
 			{ "id": 102, "name": "Маркетинг и реклама" },
@@ -19,6 +20,7 @@
 		"id": 2,
 		"name": "Творчество и искусство",
 		"icon": "C:src/shared/assets/icons/palette.svg",
+		"color": "#FF69B4",
 		"skills": [
 			{ "id": 201, "name": "Рисование и иллюстрация" },
 			{ "id": 202, "name": "Фотография" },
@@ -35,6 +37,7 @@
 		"id": 3,
 		"name": "Иностранные языки",
 		"icon": "C:src/shared/assets/icons/global.svg",
+		"color": "#87CEEB",
 		"skills": [
 			{ "id": 301, "name": "Английский язык" },
 			{ "id": 302, "name": "Испанский" },
@@ -49,6 +52,7 @@
 		"id": 4,
 		"name": "Образование и развитие",
 		"icon": "src/shared/assets/icons/book.svg",
+		"color": "#32CD32",
 		"skills": [
 			{ "id": 401, "name": "Личностное развитие" },
 			{ "id": 402, "name": "Навыки обучения" },
@@ -63,6 +67,7 @@
 		"id": 5,
 		"name": "Дом и уют",
 		"icon": "/src/shared/assets/icons/home.svg",
+		"color": "#FFA500",
 		"skills": [
 			{ "id": 501, "name": "Уборка и организация" },
 			{ "id": 502, "name": "Домашние финансы" },
@@ -76,6 +81,7 @@
 		"id": 6,
 		"name": "Здоровье и лайфстайл",
 		"icon": "src/shared/assets/icons/lifestyle.svg",
+		"color": "#8A2BE2",
 		"skills": [
 			{ "id": 601, "name": "Йога и медитация" },
 			{ "id": 602, "name": "Питание и ЗОЖ" },

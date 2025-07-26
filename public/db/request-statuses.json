@@ -1,0 +1,9 @@
+{
+	"statuses": [
+		{ "id": 1, "code": "pending", "label": "Ожидает ответа" },
+		{ "id": 2, "code": "accepted", "label": "Принята" },
+		{ "id": 3, "code": "inProgress", "label": "В процессе" },
+		{ "id": 4, "code": "done", "label": "Завершена" },
+		{ "id": 5, "code": "rejected", "label": "Отклонена" }
+	]
+}

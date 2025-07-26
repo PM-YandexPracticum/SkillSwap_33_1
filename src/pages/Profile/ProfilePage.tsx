@@ -5,29 +5,34 @@ import EditIcon from '../../shared/assets/icons/edit.svg';
 import EditPhotoIcon from '../../shared/assets/icons/edit.svg';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import citiesData from '../../../public/db/city.json';
+import genderData from '../../../public/db/gender.json';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import type { CitiesResponse } from '@/types';
 import { useUser } from '@/shared/hooks/useUser';
 import { useTheme } from '@/app/styles/ThemeProvider';
 
 const cities = (citiesData as CitiesResponse).cities;
+const genders = genderData.genders;
 
 const ProfilePage = () => {
-	const { email, name, age, gender, location, description, avatarUrl } =
-		useUser();
-	const { theme } = useTheme();
+	const { theme } = useTheme(); // Используем хук для получения текущей темы
 
-	const parseDate = (dateString: string): Date => {
-		const [day, month, year] = dateString.split('.').map(Number);
-		return new Date(year, month - 1, day);
-	};
+	const {
+		email,
+		name,
+		birthDate,
+		genderId,
+		locationId,
+		description,
+		avatarUrl,
+	} = useUser();
 
 	const [formData, setFormData] = useState({
 		email: email || '',
 		name: name || '',
-		birthDate: age ? parseDate(age) : new Date(),
-		gender: gender || 'Не указан',
-		city: location || '',
+		birthDate: birthDate ? new Date(birthDate) : new Date(),
+		genderId: genderId || 'unspecified',
+		locationId: locationId || '',
 		about: description || '',
 	});
 
@@ -39,8 +44,11 @@ const ProfilePage = () => {
 		console.log('Сохранение данных:', formData);
 	};
 
+	// Динамическое определение классов в зависимости от темы
+	const themeClass = theme === 'dark' ? 'dark' : 'light';
+
 	return (
-		<div className={'profile-container profile-container--${theme}'}>
+		<div className={`profile-container ${themeClass}`}>
 			<div className='profile-content'>
 				<div className='profile-layout'>
 					<div className='profile-form'>
@@ -48,16 +56,14 @@ const ProfilePage = () => {
 							{/* Почта */}
 							<div className='form-group'>
 								<label className='form-label'>Почта</label>
-								<div className='input-wrapper'>
+								<div className={`input-wrapper ${themeClass}`}>
 									<input
 										type='email'
 										value={formData.email}
 										onChange={(e) => handleInputChange('email', e.target.value)}
-										className={`form-input ${theme === 'dark' ? 'form-input--dark' : ''}`}
+										className={`form-input ${themeClass}`}
 									/>
-									<button
-										className={`edit-button ${theme === 'dark' ? 'edit-button--dark' : ''}`}
-									>
+									<button className={`edit-button ${themeClass}`}>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -69,16 +75,14 @@ const ProfilePage = () => {
 							{/* Имя */}
 							<div className='form-group'>
 								<label className='form-label'>Имя</label>
-								<div className='input-wrapper'>
+								<div className={`input-wrapper ${themeClass}`}>
 									<input
 										type='text'
 										value={formData.name}
 										onChange={(e) => handleInputChange('name', e.target.value)}
-										className={`form-input ${theme === 'dark' ? 'form-input--dark' : ''}`}
+										className={`form-input ${themeClass}`}
 									/>
-									<button
-										className={`edit-button ${theme === 'dark' ? 'edit-button--dark' : ''}`}
-									>
+									<button className={`edit-button ${themeClass}`}>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -95,25 +99,27 @@ const ProfilePage = () => {
 										}
 										placeholder='Выберите дату'
 										maxDate={new Date()}
-										className='form-datepicker'
+										className={`form-datepicker ${themeClass}`}
 									/>
 								</div>
 
 								<div className='form-group'>
 									<label className='form-label'>Пол</label>
-									<div className='input-wrapper'>
+									<div className={`input-wrapper ${themeClass}`}>
 										<select
-											value={formData.gender}
+											value={formData.genderId}
 											onChange={(e) =>
-												handleInputChange('gender', e.target.value)
+												handleInputChange('genderId', e.target.value)
 											}
-											className={`form-select ${theme === 'dark' ? 'form-select--dark' : ''}`}
+											className={`form-select ${themeClass}`}
 										>
-											<option value='Женский'>Женский</option>
-											<option value='Мужской'>Мужской</option>
-											<option value='Не указан'>Не указан</option>
+											{genders.map((gender) => (
+												<option key={gender.id} value={gender.id}>
+													{gender.label}
+												</option>
+											))}
 										</select>
-										<ChevronDownIcon className='chevron-icon' />
+										<ChevronDownIcon className={`chevron-icon ${themeClass}`} />
 									</div>
 								</div>
 							</div>
@@ -121,35 +127,35 @@ const ProfilePage = () => {
 							{/* Город */}
 							<div className='form-group'>
 								<label className='form-label'>Город</label>
-								<div className='input-wrapper'>
+								<div className={`input-wrapper ${themeClass}`}>
 									<select
-										value={formData.city}
-										onChange={(e) => handleInputChange('city', e.target.value)}
-										className={`form-select ${theme === 'dark' ? 'form-select--dark' : ''}`}
+										value={formData.locationId}
+										onChange={(e) =>
+											handleInputChange('locationId', e.target.value)
+										}
+										className={`form-select ${themeClass}`}
 									>
 										{cities.map((city) => (
-											<option key={city.id} value={city['city-name']}>
+											<option key={city.id} value={city.id}>
 												{city['city-name']}
 											</option>
 										))}
 									</select>
-									<ChevronDownIcon className='chevron-icon' />
+									<ChevronDownIcon className={`chevron-icon ${themeClass}`} />
 								</div>
 							</div>
 
 							{/* О себе */}
 							<div className='form-group'>
 								<label className='form-label'>О себе</label>
-								<div className='input-wrapper'>
+								<div className={`input-wrapper ${themeClass}`}>
 									<textarea
 										value={formData.about}
 										onChange={(e) => handleInputChange('about', e.target.value)}
 										rows={4}
-										className={`form-textarea ${theme === 'dark' ? 'form-textarea--dark' : ''}`}
+										className={`form-textarea ${themeClass}`}
 									/>
-									<button
-										className={`edit-button ${theme === 'dark' ? 'edit-button--dark' : ''}`}
-									>
+									<button className={`edit-button-textarea ${themeClass}`}>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -158,7 +164,7 @@ const ProfilePage = () => {
 							{/* Кнопка сохранить */}
 							<button
 								onClick={handleSave}
-								className={`save-button ${theme === 'dark' ? 'save-button--dark' : ''}`}
+								className={`save-button ${themeClass}`}
 							>
 								Сохранить
 							</button>
