@@ -235,6 +235,7 @@
 /* === Блок формы === */
 
 .form {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
@@ -274,11 +275,29 @@
 
 /* Для остальных селектов - стандартный бордер */
 
+.passwordError,
+.passwordStrength {
+	position: absolute;
+	bottom: -16px;
+	left: 0;
+	margin-top: 5px;
+	font-size: 12px;
+}
+
 .passwordWrapper {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
 	margin-bottom: 32px;
+}
+
+.emailError {
+	position: absolute;
+	bottom: -16px;
+	left: 0;
+	margin-top: 5px;
+	font-size: 12px;
 }
 
 .inputWithIcon {
