@@ -8,16 +8,53 @@ import AppleIcon from '@icons/apple.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
 
+interface User {
+	email: string;
+	password: string;
+}
+
 const LoginPage = () => {
 	const navigate = useNavigate();
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+	});
 	const [showPassword, setShowPassword] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [areFieldsInvalid, setAreFieldsInvalid] = useState(false);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+		setError(null);
+		setAreFieldsInvalid(false);
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log('Login data:', { email, password });
-		navigate('/profile');
+		setIsLoading(true);
+		setError(null);
+
+		try {
+			const response = await fetch('/db/user.json');
+			const users: User[] = await response.json();
+			const user = users[0];
+
+			if (
+				formData.email === user.email &&
+				formData.password === user.password
+			) {
+				navigate('/profile');
+			} else {
+				setAreFieldsInvalid(true);
+				setError(
+					'Email или пароль введён неверно. Пожалуйста, проверьте правильность введённых данных.'
+				);
+			}
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -35,11 +72,11 @@ const LoginPage = () => {
 			<div className={styles.card}>
 				<div className={styles.section}>
 					<div className={styles.socialBtnContainer}>
-						<button className={styles.socialBtn}>
+						<button className={styles.socialBtn} type='button'>
 							<GoogleIcon />
 							Продолжить с Google
 						</button>
-						<button className={styles.socialBtn}>
+						<button className={styles.socialBtn} type='button'>
 							<AppleIcon />
 							Продолжить с Apple
 						</button>
@@ -54,22 +91,33 @@ const LoginPage = () => {
 							Email
 							<input
 								type='email'
-								className={styles.inputField}
+								name='email'
+								className={`${styles.inputField} ${
+									areFieldsInvalid ? styles.inputInvalid : ''
+								}`}
 								placeholder='Введите email'
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
+								value={formData.email}
+								onChange={handleChange}
 								required
 							/>
 						</label>
 
 						<label className={styles.inputLabel}>
 							Пароль
-							<div className={styles.inputWithIcon}>
+							<div
+								className={`${styles.inputWithIcon} ${
+									areFieldsInvalid ? styles.inputWithIconInvalid : ''
+								}`}
+							>
 								<input
 									type={showPassword ? 'text' : 'password'}
+									name='password'
+									className={`${styles.inputField} ${
+										areFieldsInvalid ? styles.inputInvalid : ''
+									}`}
 									placeholder='Введите пароль'
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
+									value={formData.password}
+									onChange={handleChange}
 									required
 								/>
 								<button
@@ -81,12 +129,16 @@ const LoginPage = () => {
 								</button>
 							</div>
 						</label>
+
+						{error && <div className={styles.errorMessage}>{error}</div>}
+
 						<div className={styles.containerBtn}>
 							<button
 								type='submit'
 								className={`${styles.button} ${styles.buttonPrimary}`}
+								disabled={isLoading}
 							>
-								Войти
+								{isLoading ? 'Загрузка...' : 'Войти'}
 							</button>
 
 							<div style={{ textAlign: 'center', marginTop: '16px' }}>
@@ -114,7 +166,7 @@ const LoginPage = () => {
 								С возвращением в SkillSwap!
 							</h3>
 							<p className={styles.sectionText}>
-								Обменийвайтесь знаниями и навыками с другими людьми
+								Обменивайтесь знаниями и навыками с другими людьми
 							</p>
 						</div>
 					</div>
