@@ -4,7 +4,7 @@ import styles from './LoginPage.module.css';
 import Logo from '@/components/Logo/Logo';
 import CrossIcon from '@icons/cross.svg?react';
 import GoogleIcon from '@icons/google.svg?react';
-import AppleIcon from '@icons/apple.svg?react';
+import AppleIcon from '@icons/apple-light.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
 

@@ -1,67 +1,147 @@
+import { useState, useEffect } from 'react';
+import type { UserCardData } from '@/entities/user/user';
+import { SkillsAPI } from '@/api/skills.api';
+import { SkillSection } from '@/widgets/SkillCard/SkillSection';
 import styles from './HomePage.module.css';
-import ClockIcon from '@icons/clock.svg?react';
-import EditIcon from '@icons/edit.svg?react';
-import BookIcon from '@icons/book.svg?react';
-import { useTheme } from '../../app/styles/ThemeProvider'; // Используем тему
-import { Button } from '@shared/ui/button';
-import { useState } from 'react';
-import { ModalUI } from '@shared/ui/modal';
 
+/**
+ * Главная страница приложения
+ * Отображает секции с карточками навыков: Популярное, Новое, Рекомендуем
+ */
 export const HomePage = () => {
-	// Логика с темой
-	const { theme } = useTheme();
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	// Состояние для данных пользователей
+	const [popularUsers, setPopularUsers] = useState<UserCardData[]>([]);
+	const [newUsers, setNewUsers] = useState<UserCardData[]>([]);
+	const [recommendedUsers, setRecommendedUsers] = useState<UserCardData[]>([]);
 
-	// Функции для открытия и закрытия модального окна
-	const openModal = () => setIsModalOpen(true);
-	const closeModal = () => setIsModalOpen(false);
+	// Состояние загрузки
+	const [isLoading, setIsLoading] = useState(true);
 
-	// Устанавливаем изображения в зависимости от темы
-	const error404Image =
-		theme === 'dark'
-			? 'assets/images/error-404-dark.svg'
-			: 'assets/images/error-404-light.svg';
+	// Состояние ошибки
+	const [error, setError] = useState<string | null>(null);
 
-	const error500Image =
-		theme === 'dark'
-			? 'assets/images/error-500-dark.svg'
-			: 'assets/images/error-500-light.svg';
+	/**
+	 * Загрузка данных при монтировании компонента
+	 */
+	useEffect(() => {
+		const loadData = async () => {
+			try {
+				setIsLoading(true);
+				setError(null);
+
+				// Загружаем данные для всех секций параллельно
+				const [popular, newUsersData, recommended] = await Promise.all([
+					SkillsAPI.getPopularUsers(),
+					SkillsAPI.getNewUsers(),
+					SkillsAPI.getRecommendedUsers(),
+				]);
+
+				setPopularUsers(popular);
+				setNewUsers(newUsersData);
+				setRecommendedUsers(recommended);
+			} catch (err) {
+				console.error('Ошибка при загрузке данных:', err);
+				setError('Не удалось загрузить данные. Попробуйте обновить страницу.');
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		loadData();
+	}, []);
+
+	/**
+	 * Обработчик клика по кнопке "Смотреть все" для популярных
+	 */
+	const handleViewAllPopular = () => {
+		console.log('Переход к странице всех популярных пользователей');
+		// TODO: Реализовать навигацию к странице со всеми популярными пользователями
+	};
+
+	/**
+	 * Обработчик клика по кнопке "Смотреть все" для новых
+	 */
+	const handleViewAllNew = () => {
+		console.log('Переход к странице всех новых пользователей');
+		// TODO: Реализовать навигацию к странице со всеми новыми пользователями
+	};
+
+	/**
+	 * Обработчик клика по кнопке "Подробнее" в карточке
+	 */
+	const handleCardDetailsClick = (userId: string) => {
+		console.log('Переход к профилю пользователя:', userId);
+		// TODO: Реализовать навигацию к профилю пользователя
+	};
+
+	/**
+	 * Обработчик изменения состояния избранного
+	 */
+	const handleFavoriteToggle = (userId: string, isFavorite: boolean) => {
+		console.log(
+			'Изменение избранного для пользователя:',
+			userId,
+			'Новое состояние:',
+			isFavorite
+		);
+		// TODO: Реализовать сохранение состояния избранного
+	};
+
+	// Отображение состояния загрузки
+	if (isLoading) {
+		return (
+			<div className={styles.loadingContainer}>
+				<div className={styles.loadingSpinner} />
+				<p className={styles.loadingText}>Загрузка данных...</p>
+			</div>
+		);
+	}
+
+	// Отображение ошибки
+	if (error) {
+		return (
+			<div className={styles.errorContainer}>
+				<p className={styles.errorText}>{error}</p>
+				<button
+					className={styles.retryButton}
+					onClick={() => window.location.reload()}
+				>
+					Попробовать снова
+				</button>
+			</div>
+		);
+	}
 
 	return (
-		<>
-			<h1 className={styles.heading}>Home Page</h1>
-			<div>
-				<img src='assets/icons/testIcon.svg' alt='' />
-				<img src={error404Image} alt='Error 404' />
-				<img src={error500Image} alt='Error 500' />
-				<img src='assets/images/light-bulb.svg' alt='' />
-			</div>
-			<div>
-				<a className={styles.link} href='#'>
-					<ClockIcon className={styles.icon} />
-				</a>
-				<a className={styles.link} href='#'>
-					<BookIcon className={styles.icon} />
-				</a>
-				<a className={styles.link} href='#'>
-					<EditIcon className={styles.icon} />
-				</a>
-			</div>
+		<div className={styles.homePage}>
+			{/* Секция "Популярное" */}
+			<SkillSection
+				title='Популярное'
+				users={popularUsers}
+				showViewAllButton={true}
+				onViewAllClick={handleViewAllPopular}
+				onCardDetailsClick={handleCardDetailsClick}
+				onFavoriteToggle={handleFavoriteToggle}
+			/>
 
-			{/* Кнопка для открытия модального окна */}
-			<div>
-				<Button fullWidth onClick={openModal}>
-					Подробнее
-				</Button>
-				{/* Модальное окно */}
-				<ModalUI
-					isOpen={isModalOpen}
-					onClose={closeModal}
-					title='Пример заголовка'
-					message='Это сообщение в модальном окне'
-					icon='/path/to/icon.png'
-				/>
-			</div>
-		</>
+			{/* Секция "Новое" */}
+			<SkillSection
+				title='Новое'
+				users={newUsers}
+				showViewAllButton={true}
+				onViewAllClick={handleViewAllNew}
+				onCardDetailsClick={handleCardDetailsClick}
+				onFavoriteToggle={handleFavoriteToggle}
+			/>
+
+			{/* Секция "Рекомендуем" */}
+			<SkillSection
+				title='Рекомендуем'
+				users={recommendedUsers}
+				showViewAllButton={false}
+				onCardDetailsClick={handleCardDetailsClick}
+				onFavoriteToggle={handleFavoriteToggle}
+			/>
+		</div>
 	);
 };

@@ -1,0 +1,74 @@
+import React from 'react';
+import type { UserCardData } from '@/entities/user/user';
+import { SkillCard } from './SkillCard';
+import ChevronRightIcon from '@/shared/assets/icons/chevron-right.svg?react';
+import styles from './SkillSection.module.css';
+
+/**
+ * Пропсы для компонента SkillSection
+ */
+interface SkillSectionProps {
+	/** Заголовок секции */
+	title: string;
+	/** Массив пользователей для отображения */
+	users: UserCardData[];
+	/** Показывать ли кнопку "Смотреть все" */
+	showViewAllButton?: boolean;
+	/** Обработчик клика по кнопке "Смотреть все" */
+	onViewAllClick?: () => void;
+	/** Обработчик клика по кнопке "Подробнее" в карточке */
+	onCardDetailsClick?: (userId: string) => void;
+	/** Обработчик изменения состояния избранного */
+	onFavoriteToggle?: (userId: string, isFavorite: boolean) => void;
+}
+
+/**
+ * Компонент секции с карточками навыков
+ * Отображает заголовок, карточки пользователей и кнопку "Смотреть все"
+ */
+export const SkillSection: React.FC<SkillSectionProps> = ({
+	title,
+	users,
+	showViewAllButton = false,
+	onViewAllClick,
+	onCardDetailsClick,
+	onFavoriteToggle,
+}) => {
+	/**
+	 * Обработчик клика по кнопке "Смотреть все"
+	 */
+	const handleViewAllClick = () => {
+		onViewAllClick?.();
+	};
+
+	return (
+		<section className={styles.section}>
+			{/* Заголовок секции с кнопкой "Смотреть все" */}
+			<div className={styles.sectionHeader}>
+				<h2 className={styles.sectionTitle}>{title}</h2>
+				{showViewAllButton && (
+					<button
+						className={styles.viewAllButton}
+						onClick={handleViewAllClick}
+						aria-label={`Смотреть все в разделе ${title}`}
+					>
+						<span className={styles.viewAllText}>Смотреть все</span>
+						<ChevronRightIcon className={styles.viewAllIcon} />
+					</button>
+				)}
+			</div>
+
+			{/* Контейнер с карточками */}
+			<div className={styles.cardsContainer}>
+				{users.map((user) => (
+					<SkillCard
+						key={user.id}
+						user={user}
+						onDetailsClick={onCardDetailsClick}
+						onFavoriteToggle={onFavoriteToggle}
+					/>
+				))}
+			</div>
+		</section>
+	);
+};

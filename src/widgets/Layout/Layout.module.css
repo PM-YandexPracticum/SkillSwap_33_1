@@ -1,0 +1,46 @@
+/* Основной макет */
+
+.layout {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/* Основной контент */
+
+.main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Контейнер с фильтрами и контентом */
+
+.contentContainer {
+	display: flex;
+	flex: 1;
+	gap: 24px;
+	width: 100%;
+	max-width: 1440px;
+	margin: 32px 0;
+}
+
+/* Боковая панель с фильтрами */
+
+.filtersSidebar {
+	flex-shrink: 0;
+	width: 324px;
+	height: 1012px;
+	padding: 0;
+	background: transparent;
+	border-right: none;
+}
+
+/* Основной контент */
+
+.content {
+	flex: 1;
+	width: 1020px;
+	padding: 0;
+}
