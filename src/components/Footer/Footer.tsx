@@ -1,9 +1,12 @@
 import Logo from '../Logo/Logo';
 import './Footer.css';
+import { useTheme } from '@/app/styles/ThemeProvider';
 
 const Footer = () => {
+	const { theme } = useTheme();
+
 	return (
-		<footer className='footer'>
+		<footer className={`footer footer--${theme}`}>
 			<div className='footer-container'>
 				<div className='footer-header'>
 					<Logo />

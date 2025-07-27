@@ -59,11 +59,11 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 
 				{variant === 'user' && userInfo && (
 					<div className='user-actions'>
-						<ThemeToggleButton className='action-button' />
-						<button className='action-button'>
+						<ThemeToggleButton className='theme-toggle' />
+						<button className='action-button action-button-notification'>
 							<NotificationIcon className='w-5 h-5' />
 						</button>
-						<button className='action-button'>
+						<button className='action-button action-button-like'>
 							<LikeIcon className='w-5 h-5' />
 						</button>
 

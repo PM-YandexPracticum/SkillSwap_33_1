@@ -33,6 +33,6 @@ export const Modal = ({
 			title={title}
 			message={message}
 			icon={icon}
-		 />
+		/>
 	);
 };

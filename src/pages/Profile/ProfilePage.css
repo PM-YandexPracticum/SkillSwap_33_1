@@ -22,7 +22,7 @@
 	flex: 1;
 	gap: 12rem;
 	padding: 3.4rem 3.9rem;
-	background-color: white;
+	background-color: var(--color-surface);
 	border-radius: 1rem 1rem 0 0;
 }
 
@@ -41,7 +41,7 @@
 .form-label {
 	display: block;
 	margin-bottom: 0.4rem;
-	color: #374151;
+	color: var(--color-text);
 	font-weight: 500;
 	font-size: 1rem;
 }
@@ -63,7 +63,8 @@
 .form-select {
 	width: 100%;
 	padding: 0.75rem 1rem;
-	background-color: white;
+	color: var(--color-text);
+	background-color: var(--color-button-disabled);
 	border: 1px solid #69735d;
 	border-radius: 0.5rem;
 	outline: none;
@@ -86,7 +87,7 @@
 	position: absolute;
 	top: 50%;
 	right: 0.75rem;
-	color: #9ca3af;
+	color: var(--color-text);
 	background: none;
 	border: none;
 	cursor: pointer;
@@ -119,7 +120,7 @@
 	right: 0.75rem;
 	width: 1.25rem;
 	height: 1.25rem;
-	color: #9ca3af;
+	color: var(--color-text);
 	transform: translateY(-50%);
 	pointer-events: none;
 }
@@ -147,17 +148,17 @@
 	width: 100%;
 	margin-top: 5px;
 	padding: 1rem 1.5rem;
-	color: #b2b9a9;
+	color: #253017;
 	font-weight: 500;
-	background-color: #e4e8df;
-	border: none;
+	background-color: var(--color-accent);
+	border: 1px solid #abd27a;
 	border-radius: 0.5rem;
 	cursor: pointer;
 	transition: background-color 0.2s;
 }
 
 .save-button:hover {
-	background-color: #deebc5;
+	background-color: var(--color-button-hover);
 }
 
 /* Avatar Section */

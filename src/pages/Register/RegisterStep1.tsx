@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
 import GoogleIcon from '@icons/google.svg?react';
-import AppleIcon from '@icons/apple.svg?react';
+import AppleLightIcon from '@icons/apple-light.svg?react';
+import AppleDarkIcon from '@icons/apple-dark.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
+import { useTheme } from '@/app/styles/ThemeProvider';
 
 const RegisterStep1 = () => {
+	const { theme } = useTheme();
+	const AppleIcon = theme === 'dark' ? AppleDarkIcon : AppleLightIcon;
 	const navigate = useNavigate();
 	const { setStep1Data } = useRegister();
 
@@ -26,7 +30,7 @@ const RegisterStep1 = () => {
 	return (
 		<>
 			<div className={styles.socialBtnContainer}>
-				<button className={`${styles.socialBtn} ${styles.button}`}>
+				<button className={`${styles.button} ${styles.socialBtn}`}>
 					<GoogleIcon />
 					Продолжить с Google
 				</button>
@@ -44,12 +48,12 @@ const RegisterStep1 = () => {
 				<label className={styles.inputLabel}>
 					<span>Email</span>
 					<input
-						className={styles.inputField}
 						type='email'
 						placeholder='Введите email'
 						required
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						className={styles.input}
 					/>
 				</label>
 
@@ -62,6 +66,7 @@ const RegisterStep1 = () => {
 							required
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
+							className={styles.input}
 						/>
 						<button
 							type='button'

@@ -4,8 +4,8 @@
 }
 
 .icon {
+	color: var(--icon-color);
 	transition: fill 0.3s ease-in-out;
-	fill: black;
 }
 
 .link:hover .icon {

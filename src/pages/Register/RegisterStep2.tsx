@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from '@/components/DatePicker/DatePicker';
-import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
-import AddIcon from '@icons/icon-add.svg?react';
+import { useTheme } from '../../app/styles/ThemeProvider';
+import AddIconLight from '@icons/icon-add-light.svg?react';
+import AddIconDark from '@icons/icon-add-dark.svg?react';
+import styles from './RegisterPage.module.css';
 
 const RegisterStep2 = () => {
 	const navigate = useNavigate();
 	const { setStep2Data } = useRegister();
+	const { theme } = useTheme(); // Получаем текущую тему
 
 	const [name, setName] = useState('');
 	const [birthDate, setBirthDate] = useState<Date | null>(null);
@@ -15,6 +18,8 @@ const RegisterStep2 = () => {
 	const [city, setCity] = useState('');
 	const [category, setCategory] = useState('');
 	const [subcategory, setSubcategory] = useState('');
+
+	const AddIcon = theme === 'light' ? AddIconLight : AddIconDark;
 
 	const handleAvatarClick = () => {
 		const input = document.createElement('input');
@@ -44,10 +49,12 @@ const RegisterStep2 = () => {
 		navigate('/register/step-3');
 	};
 
+	const handleBack = () => navigate('/register/step-1');
+
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>
 			<div className={styles.avatarUpload} onClick={handleAvatarClick}>
-				<AddIcon />
+				<AddIcon /> {/* Иконка меняется в зависимости от темы */}
 			</div>
 
 			<label className={styles.inputLabel}>
@@ -128,7 +135,7 @@ const RegisterStep2 = () => {
 			<div className={styles.row}>
 				<button
 					type='button'
-					onClick={() => navigate('/register/step-1')}
+					onClick={handleBack}
 					className={`${styles.button} ${styles.buttonBack}`}
 				>
 					Назад

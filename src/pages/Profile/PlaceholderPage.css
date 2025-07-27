@@ -11,32 +11,32 @@
 .placeholder-card {
 	padding: 2rem;
 	text-align: center;
-	background-color: white;
+	background-color: var(--color-surface);
 	border-radius: 1rem;
 	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%);
 }
 
 .placeholder-title {
 	margin-bottom: 1rem;
-	color: #111827;
+	color: var(--color-text);
 	font-weight: 700;
 	font-size: 1.88rem;
 }
 
 .placeholder-description {
 	margin-bottom: 2rem;
-	color: #4b5563;
+	color: var(--color-text-caption);
 	font-size: 1.13rem;
 }
 
 .placeholder-development {
 	margin-top: 2rem;
 	padding: 1.5rem;
-	background-color: #f9fafb;
+	background-color: var(--color-surface-disabled);
 	border-radius: 0.5rem;
 }
 
 .placeholder-development-text {
 	margin: 0;
-	color: #6b7280;
+	color: var(--color-text-disabled);
 }

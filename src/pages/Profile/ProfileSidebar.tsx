@@ -5,8 +5,10 @@ import MessageTextIcon from '../../shared/assets/icons/message-text.svg?react';
 import LikeIcon from '../../shared/assets/icons/like.svg?react';
 import IdeaIcon from '../../shared/assets/icons/hugeicons_idea-01.svg?react';
 import UserIcon from '../../shared/assets/icons/user.svg?react';
+import { useTheme } from '@/app/styles/ThemeProvider';
 
 const ProfileSidebar = () => {
+	const { theme } = useTheme();
 	const menuItems = [
 		{
 			id: 'applications',
@@ -41,8 +43,8 @@ const ProfileSidebar = () => {
 	];
 
 	return (
-		<div className='profile-sidebar'>
-			<nav className='sidebar-nav'>
+		<div className={`profile-sidebar profile-sidebar--${theme}`}>
+			<nav className={`sidebar-nav sidebar-nav--${theme}`}>
 				{menuItems.map((item) => {
 					const Icon = item.icon;
 					return (
@@ -51,10 +53,10 @@ const ProfileSidebar = () => {
 							to={item.path}
 							end={item.path === '/profile'}
 							className={({ isActive }) =>
-								`sidebar-nav-item ${isActive ? 'active' : ''}`
+								`sidebar-nav-item ${isActive ? 'active' : ''} sidebar-nav-item--${theme}`
 							}
 						>
-							<Icon className='sidebar-nav-icon' />
+							<Icon className={`sidebar-nav-icon sidebar-nav-icon--${theme}`} />
 							<span>{item.label}</span>
 						</NavLink>
 					);

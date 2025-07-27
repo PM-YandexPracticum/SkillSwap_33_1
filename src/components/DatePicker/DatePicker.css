@@ -9,7 +9,7 @@
 	align-items: center;
 	width: 100%;
 	padding: 0.4rem 1rem;
-	background-color: white;
+	background-color: var(--color-surface);
 	border: 1px solid #69735d;
 	border-radius: 0.5rem;
 	cursor: pointer;
@@ -23,7 +23,7 @@
 }
 
 .datepicker__value {
-	color: #374151;
+	color: var(--color-text);
 	font-size: 1.05rem;
 }
 
@@ -34,7 +34,7 @@
 
 .datepicker__icon {
 	flex-shrink: 0;
-	color: #6b7280;
+	color: var(--color-action-button);
 }
 
 .datepicker__dropdown {
@@ -165,23 +165,23 @@
 	transition: all 0.2s ease;
 }
 
-.datepicker__button--cancel {
+.datepicker__button-cancel {
 	color: #374151;
 	background: white;
 	border: 1px solid #abd27a;
 }
 
-.datepicker__button--cancel:hover {
+.datepicker__button-cancel:hover {
 	background-color: #deebe5;
 }
 
-.datepicker__button--select {
+.datepicker__button-select {
 	color: white;
 	background-color: #a5d36b;
 	border: 1px solid #a5d36b;
 }
 
-.datepicker__button--select:hover {
+.datepicker__button-select:hover {
 	color: #374151;
 	background-color: #deebe5;
 	border-color: #deebe5;

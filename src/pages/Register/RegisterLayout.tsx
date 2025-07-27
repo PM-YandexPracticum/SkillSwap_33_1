@@ -8,19 +8,19 @@ import StepLine3 from '@icons/step-3-line.svg?react';
 
 const infoContent = {
 	'step-1': {
-		img: '/assets/images/light-bulb.svg',
+		iconName: 'light-bulb',
 		title: 'Добро пожаловать в SkillSwap!',
 		text: 'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
 		stepNumber: 1,
 	},
 	'step-2': {
-		img: '/assets/images/user-info.svg',
+		iconName: 'user-info',
 		title: 'Расскажите немного о себе',
 		text: 'Это поможет другим людям лучше вас узнать, чтобы выбрать для обмена',
 		stepNumber: 2,
 	},
 	'step-3': {
-		img: '/assets/images/school-board.svg',
+		iconName: 'school-board',
 		title: 'Укажите, чем вы готовы поделиться',
 		text: 'Так другие люди смогут увидеть ваши предложения и предложить вам обмен!',
 		stepNumber: 3,
@@ -41,7 +41,16 @@ const RegisterLayout = () => {
 			? stepRaw
 			: 'step-1';
 
-	const { img, title, text, stepNumber } = infoContent[step];
+	const stepData = infoContent[step];
+	const { title, text, stepNumber } = stepData;
+
+	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+	console.log('Текущая тема:', theme);
+
+	const img =
+		(stepData.iconName
+			? `/assets/images/${stepData.iconName}-${theme}.svg`
+			: stepData.img) ?? '';
 
 	return (
 		<div className={styles.page}>
@@ -69,7 +78,12 @@ const RegisterLayout = () => {
 
 				<div className={styles.section}>
 					<div className={styles.infoContent}>
-						<img src={img} alt={title} className={styles.infoImage} />
+						<img
+							src={img}
+							alt={title}
+							className={styles.infoImage}
+							onError={() => console.error('Ошибка загрузки изображения:', img)}
+						/>
 						<div className={styles.infoText}>
 							<h3 className={styles.sectionTitle}>{title}</h3>
 							<p className={styles.sectionText}>{text}</p>
