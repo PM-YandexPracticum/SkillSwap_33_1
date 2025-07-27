@@ -48,9 +48,8 @@ const RegisterLayout = () => {
 	console.log('Текущая тема:', theme);
 
 	const img =
-		(stepData.iconName
-			? `/assets/images/${stepData.iconName}-${theme}.svg`
-			: stepData.img) ?? '';
+		(stepData as any)?.img ??
+		`/assets/images/${stepData.iconName}-${theme}.svg`;
 
 	return (
 		<div className={styles.page}>
