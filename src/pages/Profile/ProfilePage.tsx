@@ -2,7 +2,6 @@ import { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ProfilePage.css';
 import EditIcon from '../../shared/assets/icons/edit.svg';
-import EditPhotoIcon from '../../shared/assets/icons/edit.svg';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import citiesData from '../../../public/db/city.json';
 import genderData from '../../../public/db/gender.json';
@@ -88,7 +87,7 @@ const ProfilePage = () => {
 									<label className='form-label'>Дата рождения</label>
 									<DatePicker
 										selected={formData.birthDate}
-										onChange={(date: any) =>
+										onChange={(date: Date | null) =>
 											handleInputChange('birthDate', date || new Date())
 										}
 										placeholder='Выберите дату'
@@ -173,7 +172,7 @@ const ProfilePage = () => {
 										/>
 									</div>
 									<button className='avatar-edit-button'>
-										<img src={EditPhotoIcon} alt='Edit' className='w-5 h-5' />
+										<img src={EditIcon} alt='Edit' className='w-5 h-5' />
 									</button>
 								</div>
 							</div>
