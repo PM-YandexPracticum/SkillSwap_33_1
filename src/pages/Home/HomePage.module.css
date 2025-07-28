@@ -1,13 +1,96 @@
-.heading {
-	font-weight: 600;
-	font-size: 64px;
+/* Основной контейнер главной страницы */
+
+.homePage {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	width: 100%;
+	max-width: 1020px;
+	margin: 0;
+	padding: 0;
 }
 
-.icon {
-	color: var(--icon-color);
-	transition: fill 0.3s ease-in-out;
+/* Контейнер загрузки */
+
+.loadingContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+	min-height: 400px;
 }
 
-.link:hover .icon {
-	fill: plum;
+.loadingSpinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #f3f3f3;
+	border-top: 4px solid #abd27a;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.loadingText {
+	margin: 0;
+	color: #253017;
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.5;
+}
+
+/* Контейнер ошибки */
+
+.errorContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+	min-height: 400px;
+	text-align: center;
+}
+
+.errorText {
+	max-width: 400px;
+	margin: 0;
+	color: #d32f2f;
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.5;
+}
+
+.retryButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 12px 24px;
+	color: #253017;
+	font-weight: 500;
+	font-size: 14px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.43;
+	background: #abd27a;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.retryButton:hover {
+	background: #9bc26a;
 }

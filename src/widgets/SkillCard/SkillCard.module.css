@@ -1,0 +1,235 @@
+/* Основная карточка */
+
+.card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 20px;
+	width: 324px;
+	height: 368px;
+	padding: 20px;
+	background-color: var(--color-surface);
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+	transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+	box-shadow: var(--shadow-card);
+}
+
+/* Секция пользователя */
+
+.userSection {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	width: 284px;
+	height: 100px;
+	padding: 0;
+}
+
+/* Аватар пользователя */
+
+.avatar {
+	display: flex;
+	flex-shrink: 0;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	width: 100px;
+	height: 100px;
+	padding: 0;
+	overflow: hidden;
+	border-radius: 100px;
+}
+
+.avatarImage {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 100px;
+}
+
+/* Информация о пользователе */
+
+.userInfo {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 4px;
+	width: 172px;
+	height: 44px;
+	padding: 0;
+}
+
+.userName {
+	display: flex;
+	align-items: center;
+	width: auto;
+	height: 24px;
+	margin: 0;
+	color: var(--color-text);
+	font-weight: 600;
+	font-size: 20px;
+	font-family: 'Open Sans', sans-serif;
+	font-style: normal;
+	line-height: 1.5;
+	letter-spacing: -0.01em;
+}
+
+.userLocation {
+	display: flex;
+	align-items: center;
+	width: auto;
+	height: 16px;
+	margin: 0;
+	color: var(--color-text);
+	font-weight: 400;
+	font-size: 12px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.33;
+	letter-spacing: 0.02em;
+}
+
+/* Кнопка избранного */
+
+.favoriteButton {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.favoriteButton:hover {
+	transform: scale(1.1);
+}
+
+/* Секция навыков и кнопки */
+
+.skillsSection {
+	display: flex;
+	flex-grow: 0;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 284px;
+	height: 208px;
+	padding: 0;
+}
+
+/* Группа навыков */
+
+.skillGroup {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 8px;
+	width: 284px;
+	height: 64px;
+	padding: 0;
+}
+
+/* Первая группа навыков (Может научить) */
+
+.skillGroup:first-child {
+	margin-bottom: 12px;
+}
+
+/* Вторая группа навыков (Хочет научиться) */
+
+.skillGroup:nth-child(2) {
+	margin-bottom: 20px;
+}
+
+.skillGroupTitle {
+	display: flex;
+	align-items: center;
+	width: 284px;
+	height: 24px;
+	margin: 0;
+	color: var(--color-text);
+	font-weight: 500;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+}
+
+/* Контейнер тегов навыков */
+
+.skillTags {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	gap: 4px;
+	width: 284px;
+	height: 32px;
+	padding: 0;
+	overflow: hidden;
+}
+
+/* Отдельный тег навыка */
+
+.skillTag {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	height: 32px;
+	padding: 8px;
+	color: var(--color-text);
+	font-weight: 400;
+	font-size: 12px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.33;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+	border-radius: 20px;
+}
+
+/* Кнопка "Подробнее" */
+
+.detailsButton {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	width: 284px;
+	height: 48px;
+	padding: 12px 24px;
+	color: #253017;
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+	background: #abd27a;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.detailsButton:hover {
+	background: #9bc26a;
+}
