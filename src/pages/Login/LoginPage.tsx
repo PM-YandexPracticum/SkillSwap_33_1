@@ -57,6 +57,11 @@ const LoginPage = () => {
 		}
 	};
 
+	// Получаем текущую тему из data-theme атрибута html
+	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+	// Формируем путь к картинке в зависимости от темы
+	const infoImagePath = `/assets/images/light-bulb-${theme}.svg`;
+
 	return (
 		<div className={styles.page}>
 			<div className={styles.topBar}>
@@ -141,7 +146,7 @@ const LoginPage = () => {
 								{isLoading ? 'Загрузка...' : 'Войти'}
 							</button>
 
-							<div style={{ textAlign: 'center', marginTop: '16px' }}>
+							<div style={{ textAlign: 'center', marginTop: 16 }}>
 								<button
 									type='button'
 									className={styles.uploadLabel}
@@ -157,9 +162,12 @@ const LoginPage = () => {
 				<div className={styles.section}>
 					<div className={styles.infoContent}>
 						<img
-							src='/assets/images/light-bulb.svg'
+							src={infoImagePath}
 							alt='Добро пожаловать'
 							className={styles.infoImage}
+							onError={() =>
+								console.error('Ошибка загрузки изображения:', infoImagePath)
+							}
 						/>
 						<div className={styles.infoText}>
 							<h3 className={styles.sectionTitle}>

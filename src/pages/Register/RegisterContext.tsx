@@ -74,7 +74,14 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	const setStep3Data = (
-		payload: Pick<RegisterData, 'skillName' | 'description' | 'files'>
+		payload: Pick<
+			RegisterData,
+			| 'skillName'
+			| 'description'
+			| 'files'
+			| 'skillCategory'
+			| 'skillSubcategory'
+		>
 	) => {
 		setData((prev) => ({ ...prev, ...payload }));
 	};

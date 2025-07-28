@@ -15,7 +15,6 @@ const cities = (citiesData as CitiesResponse).cities;
 const genders = genderData.genders;
 
 const ProfilePage = () => {
-	// Используем хук для получения текущей темы
 	const { theme } = useTheme();
 
 	const {
