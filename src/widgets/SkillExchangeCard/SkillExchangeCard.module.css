@@ -177,3 +177,38 @@
 .secondaryButton {
 	background: #f0f0f0;
 }
+
+.previewCard {
+	max-width: 880px;
+	margin: auto;
+	padding: 32px;
+	background: #f9faf6;
+	border-radius: 12px;
+	box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+.previewButtons {
+	display: flex;
+	gap: 16px;
+	margin-top: 24px;
+}
+
+.editButton {
+	padding: 12px 24px;
+	color: #1d1d1d;
+	font-weight: 500;
+	background: white;
+	border: 1px solid #69735d;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.confirmButton {
+	padding: 12px 24px;
+	color: #1d1d1d;
+	font-weight: 500;
+	background: #cbe38c;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+}

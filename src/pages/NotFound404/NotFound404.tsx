@@ -1,13 +1,12 @@
-import { useTheme } from '../../app/styles/ThemeProvider';
+import { useNavigate } from 'react-router-dom';
 import styles from './NotFound404.module.css';
 
 export const NotFound404 = () => {
-	const { theme } = useTheme();
+	const navigate = useNavigate();
 
-	const error404Image =
-		theme === 'dark'
-			? 'assets/images/error-404-dark.svg'
-			: 'assets/images/error-404-light.svg';
+	// Получаем текущую тему из <html data-theme="...">
+	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+	const error404Image = `/assets/images/error-404-${theme}.svg`;
 
 	return (
 		<div className={styles.content}>
@@ -27,7 +26,10 @@ export const NotFound404 = () => {
 				<button className={`${styles.reportButton} ${styles.commonButton}`}>
 					Сообщить об ошибке
 				</button>
-				<button className={`${styles.onMainButton} ${styles.commonButton}`}>
+				<button
+					className={`${styles.onMainButton} ${styles.commonButton}`}
+					onClick={() => navigate('/')}
+				>
 					На главную
 				</button>
 			</div>

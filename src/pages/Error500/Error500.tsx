@@ -1,15 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './Error500.module.css';
 import { Header } from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 export const Error500 = () => {
+	const navigate = useNavigate();
+
+	// Получаем тему
+	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+	const error500Image = `/assets/images/error-500-${theme}.svg`;
+
 	return (
 		<>
 			<Header variant='guest' />
 			<div className={styles.content}>
 				<img
 					className={styles.image}
-					src='assets/images/error-500.svg'
+					src={error500Image}
 					alt='Error 500 - Internal Server Error'
 				/>
 				<div className={styles.error}>
@@ -22,7 +29,10 @@ export const Error500 = () => {
 					<button className={`${styles.reportButton} ${styles.commonButton}`}>
 						Сообщить об ошибке
 					</button>
-					<button className={`${styles.onMainButton} ${styles.commonButton}`}>
+					<button
+						className={`${styles.onMainButton} ${styles.commonButton}`}
+						onClick={() => navigate('/')}
+					>
 						На главную
 					</button>
 				</div>
