@@ -17,17 +17,21 @@ import RegisterStep3 from '@/pages/Register/RegisterStep3';
 import { RegisterProvider } from '@/pages/Register/RegisterContext';
 import LoginPage from '@/pages/Login/LoginPage';
 
-import Layout from '@/widgets/Layout/Layout';
+import { Layout } from '@/widgets/Layout/Layout';
+import { LayoutWithFilters } from '@/widgets/Layout/LayoutWithFilters';
 import { ThemeProvider } from '@app/styles/ThemeProvider';
 
 const App = () => {
 	return (
 		<ThemeProvider>
 			<Routes>
+				{/* Главная страница с фильтрами */}
+				<Route element={<LayoutWithFilters />}>
+					<Route path='/' element={<HomePage />} />
+				</Route>
+
 				{/* Общий Layout с Header/Footer и условным Sidebar */}
 				<Route element={<Layout />}>
-					<Route path='/' element={<HomePage />} />
-
 					{/* Профиль и вложенные страницы */}
 					<Route path='/profile'>
 						<Route index element={<ProfilePage />} />
@@ -88,7 +92,8 @@ const App = () => {
 					<Route path='step-2' element={<RegisterStep2 />} />
 					<Route path='step-3' element={<RegisterStep3 />} />
 				</Route>
-				{/* Страница Логина */}
+
+				{/* Страница логина */}
 				<Route path='/login' element={<LoginPage />} />
 			</Routes>
 		</ThemeProvider>
