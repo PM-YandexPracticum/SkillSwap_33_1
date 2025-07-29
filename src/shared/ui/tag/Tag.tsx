@@ -4,8 +4,8 @@ import styles from './Tag.module.css';
 import { useLayoutEffect, useState } from 'react';
 
 // Описание Компонента
-// проп customBackgroundColor - для установки своего фонового цвета (тогда backgroundColorTemplate дожен быть не задан)
-// проп backgroundColorTemplate - фон из уже опредленных значений категорий (HidedSkills - цвет спрятанных/группированных тегов)
+// проп customBackgroundColor - для установки своего фонового цвета (тогда backgroundColorTemplate должен быть не задан)
+// проп backgroundColorTemplate - фон из уже определённых значений категорий (HidedSkills - цвет спрятанных/группированных тегов)
 
 const TagColors: Record<SkillCategoriesType, string> = {
 	HidedSkills: '#E8ECF7',
