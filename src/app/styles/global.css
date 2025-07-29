@@ -2,6 +2,7 @@
 	--background-color: var(--color-background);
 	--text-color-primary: var(--color-text);
 	--font-family-primary: roboto, sans-serif;
+	--card-background-color: #ffffff;
 }
 
 html,
