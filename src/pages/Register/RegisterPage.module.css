@@ -264,14 +264,30 @@
 
 /* Для остальных селектов - стандартный бордер */
 
-.passwordError,
-.passwordStrength {
-	position: absolute;
+.errorMessage {
 	bottom: -16px;
 	left: 0;
 	margin-top: 5px;
+	color: #bf3920;
 	font-size: 12px;
 }
+
+.passwordStrength {
+	bottom: -16px;
+	left: 0;
+	margin-top: 5px;
+	color: #508826;
+	font-size: 12px;
+}
+
+/* Стиль для невалидных полей */
+
+.inputField.inputInvalid {
+	color: #bf3920;
+	border-color: #bf3920;
+}
+
+/* Специальный стиль для контейнера пароля */
 
 .passwordWrapper {
 	position: relative;
@@ -279,14 +295,6 @@
 	flex-direction: column;
 	gap: 4px;
 	margin-bottom: 32px;
-}
-
-.emailError {
-	position: absolute;
-	bottom: -16px;
-	left: 0;
-	margin-top: 5px;
-	font-size: 12px;
 }
 
 .inputWithIcon {
@@ -299,10 +307,15 @@
 	border-radius: 8px;
 }
 
+.inputWithIconInvalid {
+	padding-right: 8px; /* Чтобы не залезало на иконку глаза */
+	border: 1px solid #bf3920;
+	border-radius: 8px;
+}
+
 .inputWithIcon input {
 	flex: 1;
 	height: 100%;
-	color: var(--color-text);
 	background: transparent;
 	border: none;
 }
