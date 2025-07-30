@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from '@/widgets/Layout/Layout';
-import { FiltersBar } from '@/widgets/FiltersBar/FiltersBar';
+import { FiltersBar } from '@/components/FiltersBar/FiltersBar';
 import { HomePage } from './HomePage';
 
 /**

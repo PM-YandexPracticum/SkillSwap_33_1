@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout } from './Layout';
-import { FiltersBar } from '@/widgets/FiltersBar/FiltersBar';
+import { FiltersBar } from '@/components/FiltersBar/FiltersBar';
 
 /**
  * Layout с фильтрами для главной страницы
