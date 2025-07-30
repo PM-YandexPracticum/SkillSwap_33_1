@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import type { DragEvent } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
@@ -7,22 +6,95 @@ import GalleryAddIcon from '@icons/gallery-add.svg?react';
 
 const RegisterStep3 = () => {
 	const navigate = useNavigate();
-	const { setStep3Data } = useRegister();
+	const { setStep3Data, categories } = useRegister();
 
 	const [skillName, setSkillName] = useState('');
-	const [category, setCategory] = useState('');
-	const [subcategory, setSubcategory] = useState('');
+	const [categoryIds, setCategoryIds] = useState<number[]>([]); // выбранные категории по id
+	const [subcategoryIds, setSubcategoryIds] = useState<number[]>([]); // выбранные подкатегории по id
 	const [description, setDescription] = useState('');
 	const [files, setFiles] = useState<FileList | null>(null);
 	const [isDragging, setIsDragging] = useState(false);
 
-	const handleBack = () => navigate('/register/step-2');
+	// Управление открытиями кастомных дропдаунов
+	const [isCatOpen, setIsCatOpen] = useState(false);
+	const [isSubcatOpen, setIsSubcatOpen] = useState(false);
+
+	const catRef = useRef<HTMLDivElement>(null);
+	const subcatRef = useRef<HTMLDivElement>(null);
+
+	// Закрываем дропдауны при клике вне
+	useEffect(() => {
+		const handleClickOutside = (e: MouseEvent) => {
+			if (catRef.current && !catRef.current.contains(e.target as Node))
+				setIsCatOpen(false);
+			if (subcatRef.current && !subcatRef.current.contains(e.target as Node))
+				setIsSubcatOpen(false);
+		};
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
+
+	// При смене категории сбрасываем подкатегории, которые не подходят
+	useEffect(() => {
+		setSubcategoryIds((subs) =>
+			subs.filter((subId) =>
+				categoryIds.some((catId) =>
+					categories
+						.find((cat) => cat.id === catId)
+						?.skills.some((skill) => skill.id === subId)
+				)
+			)
+		);
+	}, [categoryIds, categories]);
+
+	// Функции переключения выбора
+	const toggleCategory = (id: number) => {
+		setCategoryIds((prev) =>
+			prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
+		);
+	};
+
+	const toggleSubcategory = (id: number) => {
+		setSubcategoryIds((prev) =>
+			prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+		);
+	};
+
+	// Подкатегории, доступные для выбранных категорий
+	const availableSubcategories = categories
+		.filter((cat) => categoryIds.includes(cat.id))
+		.flatMap((cat) => cat.skills);
+
+	// Тексты выбранных категорий и подкатегорий для показа в селекте
+	const selectedCategoriesNames =
+		categories
+			.filter((cat) => categoryIds.includes(cat.id))
+			.map((cat) => cat.name)
+			.join(', ') || 'Выберите категорию';
+
+	const selectedSubcategoriesNames =
+		availableSubcategories
+			.filter((sub) => subcategoryIds.includes(sub.id))
+			.map((sub) => sub.name)
+			.join(', ') || 'Выберите подкатегорию';
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		setStep3Data({ skillName, description, files });
+
+		// Отправляем строки с id выбранных категорий/подкатегорий (через запятую)
+		setStep3Data({
+			skillName,
+			description,
+			files,
+			skillCategory: categoryIds.join(','),
+			skillSubcategory: subcategoryIds.join(','),
+		});
 		navigate('/profile');
 	};
+
+	const handleBack = () => navigate('/register/step-2');
+
+	// Остальные обработчики загрузки файлов...
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
@@ -34,17 +106,17 @@ const RegisterStep3 = () => {
 		document.getElementById('fileInput')?.click();
 	};
 
-	const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+	const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		setIsDragging(true);
 	};
 
-	const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
+	const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		setIsDragging(false);
 	};
 
-	const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		setIsDragging(false);
 		if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
@@ -69,32 +141,75 @@ const RegisterStep3 = () => {
 
 			<label className={styles.inputLabel}>
 				<span>Категория навыка</span>
-				<select
-					className={styles.inputField}
-					value={category}
-					onChange={(e) => setCategory(e.target.value)}
-					required
+				<div
+					className={styles.customDropdown}
+					ref={catRef}
+					tabIndex={0}
+					onClick={() => setIsCatOpen((v) => !v)}
+					role='button'
+					aria-haspopup='listbox'
+					aria-expanded={isCatOpen}
 				>
-					<option value=''>Выберите категорию навыка</option>
-					<option value='design'>Дизайн</option>
-					<option value='programming'>Программирование</option>
-					<option value='languages'>Языки</option>
-				</select>
+					<div className={styles.dropdownSelected}>
+						{selectedCategoriesNames}
+					</div>
+					{isCatOpen && (
+						<ul className={styles.dropdownList}>
+							{categories.map((cat) => (
+								<li key={cat.id} className={styles.dropdownItem}>
+									<label>
+										<input
+											type='checkbox'
+											checked={categoryIds.includes(cat.id)}
+											onChange={() => toggleCategory(cat.id)}
+											onClick={(e) => e.stopPropagation()}
+										/>{' '}
+										{cat.name}
+									</label>
+								</li>
+							))}
+						</ul>
+					)}
+				</div>
 			</label>
 
 			<label className={styles.inputLabel}>
 				<span>Подкатегория навыка</span>
-				<select
-					className={styles.inputField}
-					value={subcategory}
-					onChange={(e) => setSubcategory(e.target.value)}
-					required
+				<div
+					className={styles.customDropdown}
+					ref={subcatRef}
+					tabIndex={0}
+					onClick={() => setIsSubcatOpen((v) => !v)}
+					role='button'
+					aria-haspopup='listbox'
+					aria-expanded={isSubcatOpen}
 				>
-					<option value=''>Выберите подкатегорию навыка</option>
-					<option value='uiux'>UI/UX</option>
-					<option value='frontend'>Frontend</option>
-					<option value='english'>Английский</option>
-				</select>
+					<div className={styles.dropdownSelected}>
+						{selectedSubcategoriesNames}
+					</div>
+					{isSubcatOpen && (
+						<ul className={styles.dropdownList}>
+							{availableSubcategories.length === 0 && (
+								<li className={styles.dropdownItem}>
+									Выберите сначала категории
+								</li>
+							)}
+							{availableSubcategories.map((sub) => (
+								<li key={sub.id} className={styles.dropdownItem}>
+									<label>
+										<input
+											type='checkbox'
+											checked={subcategoryIds.includes(sub.id)}
+											onChange={() => toggleSubcategory(sub.id)}
+											onClick={(e) => e.stopPropagation()}
+										/>{' '}
+										{sub.name}
+									</label>
+								</li>
+							))}
+						</ul>
+					)}
+				</div>
 			</label>
 
 			<label className={styles.inputLabel}>

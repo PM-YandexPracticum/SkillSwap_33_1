@@ -176,9 +176,18 @@ const ProfilePage = () => {
 								<div className='avatar-wrapper'>
 									<div className='avatar-image'>
 										<img
-											src={avatarUrl}
+											src={
+												avatarUrl ||
+												'/assets/images/profile-pictures/avatar-default.svg'
+											}
 											alt='User Avatar'
 											className='w-full h-full'
+											onError={(e) => {
+												const target = e.currentTarget;
+												target.onerror = null;
+												target.src =
+													'/assets/images/profile-pictures/avatar-default.svg';
+											}}
 										/>
 									</div>
 									<button className='avatar-edit-button'>
