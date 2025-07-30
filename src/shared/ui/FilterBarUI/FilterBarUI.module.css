@@ -1,0 +1,17 @@
+.asideContainer {
+	display: flex;
+	flex-direction: column;
+	row-gap: 32px;
+	width: 100%;
+	max-width: 324px;
+	height: inherit;
+	margin-left: 36px;
+	padding: 20px;
+	background-color: var(--card-input-color);
+	border-radius: 12px;
+}
+
+.asideTitle {
+	margin-bottom: 8px;
+	color: var(--text-color);
+}
