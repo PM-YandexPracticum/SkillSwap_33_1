@@ -7,7 +7,7 @@ import citiesData from '../../../public/db/city.json';
 import genderData from '../../../public/db/gender.json';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import type { CitiesResponse } from '@/types';
-import { useUser } from '@/shared/hooks/useUser';
+import { DEFAULT_AVATAR, useUser } from '@/shared/hooks/useUser';
 import { useTheme } from '@/app/styles/ThemeProvider';
 
 const cities = (citiesData as CitiesResponse).cities;
@@ -175,17 +175,13 @@ const ProfilePage = () => {
 								<div className='avatar-wrapper'>
 									<div className='avatar-image'>
 										<img
-											src={
-												avatarUrl ||
-												'/assets/images/profile-pictures/avatar-default.svg'
-											}
+											src={avatarUrl}
 											alt='User Avatar'
 											className='w-full h-full'
 											onError={(e) => {
 												const target = e.currentTarget;
 												target.onerror = null;
-												target.src =
-													'/assets/images/profile-pictures/avatar-default.svg';
+												target.src = DEFAULT_AVATAR;
 											}}
 										/>
 									</div>
