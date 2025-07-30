@@ -100,6 +100,7 @@ const ProfilePage = () => {
 										maxDate={new Date()}
 										className={`form-datepicker ${themeClass}`}
 									/>
+									i
 								</div>
 
 								<div className='form-group'>
