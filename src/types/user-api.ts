@@ -7,10 +7,12 @@ export interface IUserApi {
 	locationId: string;
 	description: string;
 	createdAt: string;
-	skillsCanTeach: Array<{
-		subcategoryId: number;
-		description: string;
-		images: string[];
-	}>;
+	skillsCanTeach: ISkillsCanTeachApi[];
 	skillsWantToLearn: number[];
+}
+
+export interface ISkillsCanTeachApi {
+	subcategoryId: number;
+	description: string;
+	images: string[];
 }
