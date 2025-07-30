@@ -3,6 +3,8 @@ export interface City {
 	'city-name': string;
 }
 
+export type Cities = City[];
+
 export interface CitiesResponse {
 	cities: City[];
 }
@@ -36,6 +38,8 @@ export interface SkillCategory {
 	skills: Skill[];
 }
 
+export type SkillCategories = SkillCategory[];
+
 export interface UserSkill {
 	skill: string;
 	categoryId: number;
@@ -53,10 +57,14 @@ export interface User {
 	age: string;
 	description: string;
 	avatarUrl: string;
-	skillCanTeach: UserSkill | UserSkill[];
+	skillCanTeach: UserSkill[];
+	skillCanLearn: UserSkill[];
 	subcategoriesWantToLearn: UserSkill[];
 	images?: string[];
+	city: string;
 }
+
+export type Users = User[];
 
 export interface DatePickerProps {
 	selected: Date | null;
