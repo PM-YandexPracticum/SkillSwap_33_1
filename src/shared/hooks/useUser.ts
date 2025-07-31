@@ -4,31 +4,38 @@ export const DEFAULT_AVATAR =
 	'/assets/images/profile-pictures/avatar-default.svg';
 
 // Вспомогательная функция для безопасного парсинга даты
-const parseDate = (dateString: string): Date | null => {
+export const parseDate = (dateString: string): Date | null => {
 	if (!dateString || typeof dateString !== 'string') return null;
 
-	// Проверяем соответствие формату YYYY-MM-DD
 	const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 	if (!dateRegex.test(dateString)) return null;
 
 	const date = new Date(dateString);
-	// Проверяем, что дата валидна (например, не "2024-99-99")
 	return isNaN(date.getTime()) ? null : date;
+};
+
+// Функция для безопасного получения URL аватара
+export const getSafeAvatarUrl = (url?: string): string => {
+	if (!url?.trim()) return DEFAULT_AVATAR;
+	try {
+		new URL(url);
+		return url;
+	} catch {
+		return DEFAULT_AVATAR;
+	}
+};
+
+// Функция для обработки ошибки загрузки аватара
+export const handleAvatarError = (
+	e: React.SyntheticEvent<HTMLImageElement>
+) => {
+	const target = e.currentTarget;
+	target.onerror = null;
+	target.src = DEFAULT_AVATAR;
 };
 
 export const useUser = () => {
 	const user = Array.isArray(userData) ? userData[0] : userData;
-
-	const getSafeAvatarUrl = (url?: string) => {
-		if (!url?.trim()) return DEFAULT_AVATAR;
-		try {
-			new URL(url);
-			return url;
-		} catch {
-			return DEFAULT_AVATAR;
-		}
-	};
-
 	const safeBirthDate = parseDate(user.birthDate);
 
 	return {
@@ -37,7 +44,7 @@ export const useUser = () => {
 		email: user.email,
 		password: user.password,
 		avatarUrl: getSafeAvatarUrl(user.avatarUrl),
-		birthDate: safeBirthDate, // уже объект Date или null
+		birthDate: safeBirthDate,
 		genderId: user.genderId,
 		locationId: user.locationId,
 		description: user.description,

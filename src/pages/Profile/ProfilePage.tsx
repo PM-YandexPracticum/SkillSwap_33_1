@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ProfilePage.css';
 import EditIcon from '../../shared/assets/icons/edit.svg';
@@ -15,7 +15,8 @@ const genders = genderData.genders;
 
 const ProfilePage = () => {
 	const { theme } = useTheme();
-
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 	const {
 		email,
 		name,
@@ -25,7 +26,6 @@ const ProfilePage = () => {
 		description,
 		avatarUrl,
 	} = useUser();
-
 	const [formData, setFormData] = useState({
 		email: email || '',
 		name: name || '',
@@ -40,7 +40,26 @@ const ProfilePage = () => {
 	};
 
 	const handleSave = () => {
-		console.log('Сохранение данных:', formData);
+		if (avatarPreview) {
+			setAvatarPreview(null);
+		}
+	};
+
+	const handleAvatarEditClick = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click();
+		}
+	};
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setAvatarPreview(reader.result as string);
+			};
+			reader.readAsDataURL(file);
+		}
 	};
 
 	// Динамическое определение классов в зависимости от темы
@@ -54,15 +73,21 @@ const ProfilePage = () => {
 						<div className='form-fields'>
 							{/* Почта */}
 							<div className='form-group'>
-								<label className='form-label'>Почта</label>
+								<label className='form-label' htmlFor='email-input'>
+									Почта
+								</label>
 								<div className={`input-wrapper ${themeClass}`}>
 									<input
+										id='email-input'
 										type='email'
 										value={formData.email}
 										onChange={(e) => handleInputChange('email', e.target.value)}
 										className={`form-input ${themeClass}`}
 									/>
-									<button className={`edit-button ${themeClass}`}>
+									<button
+										className={`edit-button ${themeClass}`}
+										aria-label='Редактировать email'
+									>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -73,15 +98,21 @@ const ProfilePage = () => {
 
 							{/* Имя */}
 							<div className='form-group'>
-								<label className='form-label'>Имя</label>
+								<label className='form-label' htmlFor='name-input'>
+									Имя
+								</label>
 								<div className={`input-wrapper ${themeClass}`}>
 									<input
+										id='name-input'
 										type='text'
 										value={formData.name}
 										onChange={(e) => handleInputChange('name', e.target.value)}
 										className={`form-input ${themeClass}`}
 									/>
-									<button className={`edit-button ${themeClass}`}>
+									<button
+										className={`edit-button ${themeClass}`}
+										aria-label='Редактировать имя'
+									>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -100,13 +131,14 @@ const ProfilePage = () => {
 										maxDate={new Date()}
 										className={`form-datepicker ${themeClass}`}
 									/>
-									i
 								</div>
-
 								<div className='form-group'>
-									<label className='form-label'>Пол</label>
+									<label className='form-label' htmlFor='gender-select'>
+										Пол
+									</label>
 									<div className={`input-wrapper ${themeClass}`}>
 										<select
+											id='gender-select'
 											value={formData.genderId}
 											onChange={(e) =>
 												handleInputChange('genderId', e.target.value)
@@ -126,9 +158,12 @@ const ProfilePage = () => {
 
 							{/* Город */}
 							<div className='form-group'>
-								<label className='form-label'>Город</label>
+								<label className='form-label' htmlFor='city-select'>
+									Город
+								</label>
 								<div className={`input-wrapper ${themeClass}`}>
 									<select
+										id='city-select'
 										value={formData.locationId}
 										onChange={(e) =>
 											handleInputChange('locationId', e.target.value)
@@ -147,15 +182,21 @@ const ProfilePage = () => {
 
 							{/* О себе */}
 							<div className='form-group'>
-								<label className='form-label'>О себе</label>
+								<label className='form-label' htmlFor='about-textarea'>
+									О себе
+								</label>
 								<div className={`input-wrapper ${themeClass}`}>
 									<textarea
+										id='about-textarea'
 										value={formData.about}
 										onChange={(e) => handleInputChange('about', e.target.value)}
 										rows={4}
 										className={`form-textarea ${themeClass}`}
 									/>
-									<button className={`edit-button-textarea ${themeClass}`}>
+									<button
+										className={`edit-button-textarea ${themeClass}`}
+										aria-label='Редактировать описание'
+									>
 										<img src={EditIcon} alt='Edit' className='w-4 h-4' />
 									</button>
 								</div>
@@ -165,6 +206,7 @@ const ProfilePage = () => {
 							<button
 								onClick={handleSave}
 								className={`save-button ${themeClass}`}
+								aria-label='Сохранить изменения профиля'
 							>
 								Сохранить
 							</button>
@@ -176,7 +218,7 @@ const ProfilePage = () => {
 								<div className='avatar-wrapper'>
 									<div className='avatar-image'>
 										<img
-											src={avatarUrl}
+											src={avatarPreview || avatarUrl}
 											alt='User Avatar'
 											className='w-full h-full'
 											onError={(e) => {
@@ -186,9 +228,21 @@ const ProfilePage = () => {
 											}}
 										/>
 									</div>
-									<button className='avatar-edit-button'>
+									<button
+										className='avatar-edit-button'
+										onClick={handleAvatarEditClick}
+										aria-label='Изменить аватар'
+									>
 										<img src={EditIcon} alt='Edit' className='w-5 h-5' />
 									</button>
+									<input
+										type='file'
+										ref={fileInputRef}
+										onChange={handleFileChange}
+										accept='image/*'
+										style={{ display: 'none' }}
+										aria-hidden='true'
+									/>
 								</div>
 							</div>
 						</div>
