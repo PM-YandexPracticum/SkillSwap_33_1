@@ -1,6 +1,17 @@
 import React, { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 
+export interface SkillCategory {
+	id: number;
+	name: string;
+	icon: string;
+	color: string;
+	skills: Array<{
+		id: number;
+		name: string;
+	}>;
+}
+
 interface RegisterData {
 	email: string;
 	password: string;
@@ -33,8 +44,18 @@ interface RegisterContextProps {
 		>
 	) => void;
 	setStep3Data: (
-		payload: Pick<RegisterData, 'skillName' | 'description' | 'files'>
+		payload: Pick<
+			RegisterData,
+			| 'skillName'
+			| 'description'
+			| 'files'
+			| 'skillCategory'
+			| 'skillSubcategory'
+		>
 	) => void;
+
+	categories: SkillCategory[];
+	setCategories: React.Dispatch<React.SetStateAction<SkillCategory[]>>;
 }
 
 const RegisterContext = createContext<RegisterContextProps | undefined>(
@@ -53,6 +74,8 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
 		email: '',
 		password: '',
 	});
+
+	const [categories, setCategories] = useState<SkillCategory[]>([]);
 
 	const setStep1Data = (payload: Pick<RegisterData, 'email' | 'password'>) => {
 		setData((prev) => ({ ...prev, ...payload }));
@@ -88,7 +111,15 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<RegisterContext.Provider
-			value={{ data, setData, setStep1Data, setStep2Data, setStep3Data }}
+			value={{
+				data,
+				setData,
+				setStep1Data,
+				setStep2Data,
+				setStep3Data,
+				categories,
+				setCategories,
+			}}
 		>
 			{children}
 		</RegisterContext.Provider>

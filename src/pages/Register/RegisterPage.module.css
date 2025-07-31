@@ -251,7 +251,47 @@
 	border-radius: 8px;
 }
 
-/* Для select внутри кастомного DatePicker убираем бордер, но сохраняем стрелку */
+.selectWrapper {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.selectWrapper select {
+	width: 100%;
+	height: 48px;
+	padding: 0 30px 0 12px;
+	color: var(--color-text);
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	background: var(--color-surface);
+	border: 1px solid #69735d;
+	border-radius: 8px;
+	cursor: pointer;
+	appearance: none;
+}
+
+/* Кастомная стрелка */
+
+.selectWrapper::after {
+	position: absolute;
+	top: 50%;
+	right: 12px;
+	width: 8px;
+	height: 8px;
+	border-width: 2px 2px 0 0;
+	border-style: solid;
+	border-color: #253017;
+	transform: translateY(-50%) rotate(135deg);
+	transition: transform 0.3s ease;
+	pointer-events: none;
+	content: '';
+}
+
+.selectWrapper[aria-expanded='true']::after {
+	transform: translateY(-50%) rotate(-45deg);
+}
 
 .customDateWrapper :global(select) {
 	height: auto;
@@ -288,6 +328,8 @@
 }
 
 /* Стили для контейнера пароля */
+
+/* Для остальных селектов - стандартный бордер */
 
 .passwordWrapper {
 	position: relative;
@@ -400,8 +442,6 @@
 	content: '';
 }
 
-/* === Основная кнопка === */
-
 .button {
 	display: flex;
 	justify-content: center;
@@ -414,8 +454,6 @@
 	border-radius: 8px;
 	cursor: pointer;
 }
-
-/* ЗЕЛЁНЫЕ КНОПКИ - текст #253017 */
 
 .buttonPrimary {
 	color: #253017;
@@ -450,6 +488,7 @@
 
 .row {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 16px;
 	width: 100%;
 }
@@ -554,6 +593,75 @@
 	gap: 16px;
 	width: 100%;
 	margin-top: 8px;
+}
+
+.customDropdown {
+	position: relative;
+	display: flex;
+	align-items: center;
+	max-width: 100%;
+	height: 48px;
+	padding: 8px 12px;
+	padding-right: 30px;
+	background: white;
+	border: 1px solid #69735d;
+	border-radius: 8px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.customDropdown::after {
+	position: absolute;
+	top: 50%;
+	right: 12px;
+	width: 8px;
+	height: 8px;
+	border-width: 2px 2px 0 0;
+	border-style: solid;
+	border-color: #253017;
+	transform: translateY(-50%) rotate(135deg);
+	transition: transform 0.3s ease;
+	pointer-events: none;
+	content: '';
+}
+
+.customDropdown[aria-expanded='true']::after {
+	transform: translateY(-50%) rotate(-45deg);
+}
+
+.dropdownSelected {
+	flex-grow: 1;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.dropdownList {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	left: 0;
+	z-index: 10;
+	max-height: 200px;
+	margin-top: 4px;
+	padding: 4px 0;
+	overflow-y: auto;
+	background: white;
+	border: 1px solid #69735d;
+	border-radius: 4px;
+	box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
+}
+
+.dropdownItem {
+	display: flex;
+	align-items: center;
+	padding: 4px 12px;
+}
+
+.dropdownItem label {
+	width: 100%;
+	cursor: pointer;
+	user-select: none;
 }
 
 /* ===== 🌒 Dark Theme ===== */

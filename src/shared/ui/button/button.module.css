@@ -38,6 +38,12 @@
 	border: 2px solid rgb(171 210 122);
 }
 
+.tertiary {
+	color: var(--text-color);
+	background-color: var(--card-input-color);
+	border: 1px solid transparent;
+}
+
 /* Полная ширина */
 
 .fullWidth {

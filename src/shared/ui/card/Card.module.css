@@ -1,0 +1,4 @@
+.card {
+	background-color: var(--card-background-color);
+	border-radius: 12px;
+}

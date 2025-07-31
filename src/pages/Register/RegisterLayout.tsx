@@ -5,6 +5,10 @@ import CrossIcon from '@icons/cross.svg?react';
 import StepLine1 from '@icons/step-1-line.svg?react';
 import StepLine2 from '@icons/step-2-line.svg?react';
 import StepLine3 from '@icons/step-3-line.svg?react';
+import { useEffect } from 'react';
+import { useRegister } from './RegisterContext';
+
+import { skillsCategories } from '../../shared/data/skillsCategories';
 
 const infoContent = {
 	'step-1': {
@@ -33,6 +37,13 @@ const RegisterLayout = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
+	const { setCategories } = useRegister();
+
+	useEffect(() => {
+		// Загружаем категории в контекст при монтировании лейаута
+		setCategories(skillsCategories);
+	}, [setCategories]);
+
 	const handleClose = () => navigate('/');
 
 	const stepRaw = location.pathname.split('/').pop() || 'step-1';
@@ -45,7 +56,6 @@ const RegisterLayout = () => {
 	const { title, text, stepNumber } = stepData;
 
 	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
-	console.log('Текущая тема:', theme);
 
 	const img =
 		(stepData as any)?.img ??

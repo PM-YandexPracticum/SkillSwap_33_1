@@ -20,11 +20,17 @@ import LoginPage from '@/pages/Login/LoginPage';
 import { Layout } from '@/widgets/Layout/Layout';
 import { LayoutWithFilters } from '@/widgets/Layout/LayoutWithFilters';
 import { ThemeProvider } from '@app/styles/ThemeProvider';
+import { TestPage } from '@/pages/TestPage/TestPage';
 
 const App = () => {
 	return (
 		<ThemeProvider>
 			<Routes>
+				{/* страница для тестов (в конце проекта удаляется) */}
+				<Route element={<Layout />}>
+					<Route path='/test' element={<TestPage />} />
+				</Route>
+
 				{/* Главная страница с фильтрами */}
 				<Route element={<LayoutWithFilters />}>
 					<Route path='/' element={<HomePage />} />
