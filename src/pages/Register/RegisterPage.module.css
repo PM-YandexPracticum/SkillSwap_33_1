@@ -224,6 +224,7 @@
 /* === Блок формы === */
 
 .form {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
@@ -301,7 +302,37 @@
 	box-shadow: none;
 }
 
+/* Для остальных селектов - стандартный бордер */
+
+.errorMessage {
+	bottom: -16px;
+	left: 0;
+	margin-top: 5px;
+	color: #bf3920;
+	font-size: 12px;
+}
+
+.passwordStrength {
+	bottom: -16px;
+	left: 0;
+	margin-top: 5px;
+	color: #508826;
+	font-size: 12px;
+}
+
+/* Стиль для невалидных полей */
+
+.inputField.inputInvalid {
+	color: #bf3920;
+	border-color: #bf3920;
+}
+
+/* Стили для контейнера пароля */
+
+/* Для остальных селектов - стандартный бордер */
+
 .passwordWrapper {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
@@ -318,10 +349,15 @@
 	border-radius: 8px;
 }
 
+.inputWithIconInvalid {
+	padding-right: 8px; /* Чтобы не залезало на иконку глаза */
+	border: 1px solid #bf3920;
+	border-radius: 8px;
+}
+
 .inputWithIcon input {
 	flex: 1;
 	height: 100%;
-	color: var(--color-text);
 	background: transparent;
 	border: none;
 }
