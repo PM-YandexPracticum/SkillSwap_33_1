@@ -1,34 +1,34 @@
 import { APP_SETTINGS } from '@/shared/constants/global_constants';
 
-// если остается основным интерфейсом то выносится в файл типов
+// если остается основным интерфейсом то выносится в файл типов usersApi.ts
 export interface IUserApi {
 	id: string;
 	name: string;
 	avatarUrl: string;
-	birthDate: string;
-	gender: string;
-	location: string;
+	birthDate: string; // день рождения формата 1900-05-12
+	gender: string; // Мужской / Женский
+	location: string; // Москва / Воронеж и т.д
 	description: string;
 	createdAt: string;
 	skillsCanTeach: IUserSkillsCanTeachApi[];
 	skillsWantToLearn: IUserSkillsWantsToLearnApi[];
-	isExchangeSent: boolean;
+	isExchangeSent: boolean; // предложен ли обмен этому пользователю
 }
 
 // если остается основным интерфейсом то выносится в файл типов
 export interface IUserSkillsWantsToLearnApi {
-	categoryId: number;
-	categoryName: string;
-	subcategoryId: number;
-	subcategoryName: string;
+	categoryId: number; // id категории
+	categoryName: string; // название категории
+	subcategoryId: number; // id подкатегории
+	subcategoryName: string; // название подкатегории
 }
 
 // если остается основным интерфейсом то выносится в файл типов
 export interface IUserSkillsCanTeachApi {
-	categoryId: number;
-	categoryName: string;
-	subcategoryId: number;
-	subcategoryName: string;
+	categoryId: number; // id категории
+	categoryName: string; // название категории
+	subcategoryId: number; // id подкатегории
+	subcategoryName: string; // название подкатегории
 	description: string;
 	images: string[];
 }
