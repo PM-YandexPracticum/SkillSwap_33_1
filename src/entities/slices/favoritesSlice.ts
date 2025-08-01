@@ -106,7 +106,7 @@ export const asyncThunkSetLikeUserState = createAsyncThunk(
 				isUserAdded: isLiked,
 			})
 		);
-		await dispatch(asyncThunkGetUsersAddedIntoFavorites()).unwrap();
+		await dispatch(asyncThunkGetUsersAddedIntoFavorites());
 	}
 );
 

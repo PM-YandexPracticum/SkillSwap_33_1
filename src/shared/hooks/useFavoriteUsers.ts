@@ -22,6 +22,7 @@ export const useFavoriteUsers = () => {
 	return {
 		favoriteUsers: localStorageUsers,
 		isLoading,
+		favoriteUsersIds,
 		isUserLiked,
 		isInitialLoaded,
 	};

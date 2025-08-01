@@ -101,7 +101,7 @@ export const CardUser = ({
 								{isLiked ? <HeartFilledIcon /> : <HeartIcon />}
 							</button>
 						)}
-						<div>
+						<div className={styles.userInfoWrapper}>
 							<div className={styles.userInfoName}>{user.name}</div>
 							<div className={styles.userInfoMore}>
 								{user.location}, {user.age}

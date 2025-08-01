@@ -37,7 +37,7 @@ export interface IUserSkillsCanTeachApi {
 export async function getUsersDataByIdsApi(
 	userIds: string[]
 ): Promise<IUserApi[]> {
-	const users = await fetch(APP_SETTINGS.api.getUsersById([]))
+	const users = await fetch(APP_SETTINGS.api.getUsersById())
 		.then((response) => {
 			if (response.ok) {
 				return response.json();

@@ -5,7 +5,6 @@ import Loader from '@/shared/ui/loader/Loader';
 import UserCardsList from '@/widgets/UserCardsList/UserCardsList';
 import { useDispatch } from '@/app/providers/store/StoreProvider';
 import { getAllUsersApi, type IUserApi } from '@/api/favorites.api';
-import { asyncThunkGetUsersAddedIntoFavorites } from '@/entities/slices/favoritesSlice';
 import { useFavoriteUsers } from '@/shared/hooks';
 
 export const TestPage = () => {
@@ -22,9 +21,6 @@ export const TestPage = () => {
 	// const favoriteUsers = useSelector((state) => state.favorites.favoriteUsers);
 
 	useEffect(() => {
-		// вызывается один раз на верхнем уровне (на странице) для загрузки юзеров из LocalStorage и отправки api запроса для получения данных пользователей
-		dispatch(asyncThunkGetUsersAddedIntoFavorites());
-
 		// для теста получаем всех юзеров из фейк-бд
 		async function getAllUsers() {
 			const usersApi = await getAllUsersApi();
