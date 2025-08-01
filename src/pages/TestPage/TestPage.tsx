@@ -1,6 +1,7 @@
 // import styles from './TestPage.module.css';
 import { CardUser } from '@/widgets/UserCard/CardUser';
 import type { User } from '@/types';
+import Input from '@/shared/ui/inputs/input/Input';
 
 const tempUsers: User[] = [
 	{
@@ -226,6 +227,39 @@ const tempUsers: User[] = [
 export const TestPage = () => {
 	return (
 		<>
+			<div>
+				<p>Примеры FormInput</p>
+				<Input labelTitle='Имя' placeholder='Введите имя' />
+				<Input
+					labelTitle='Пароль'
+					placeholder='Введите пароль'
+					type='password'
+				/>
+				<Input
+					labelTitle='Имя'
+					placeholder='Введите имя'
+					inputError={{
+						errorType: 'error',
+						message: 'Пароль должен содержать не менее 8 знаков',
+					}}
+				/>
+				<Input
+					labelTitle='Имя'
+					placeholder='Введите имя'
+					inputError={{
+						errorType: 'warning',
+						message: 'Пароль должен содержать не менее 8 знаков',
+					}}
+				/>
+				<Input
+					labelTitle='Имя'
+					placeholder='Введите имя'
+					inputError={{
+						errorType: 'none',
+						message: 'Пароль должен содержать не менее 8 знаков',
+					}}
+				/>
+			</div>
 			<h1>Страница для тестов</h1>
 			<ul
 				style={{

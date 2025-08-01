@@ -1,0 +1,99 @@
+.input {
+	width: 100%;
+	padding: 12px 54px 12px 20px;
+	color: var(--color-text);
+	font-weight: 400;
+	font-size: 16px;
+	font-style: normal;
+	line-height: 0.66;
+	letter-spacing: 0.3px;
+	border: 1px solid var(--color-text-caption);
+	border-radius: 12px;
+	outline: none;
+	outline-color: transparent;
+	transition:
+		border-color 0.3s ease-in-out,
+		outline-color 0.3s ease-in-out;
+}
+
+.message {
+	color: var(--color-text);
+	font-weight: 400;
+	font-size: 12px;
+	font-style: normal;
+	line-height: 0.75;
+	letter-spacing: 0.2px;
+	transition: color 0.3s ease-in-out;
+}
+
+.buttonIcon {
+	width: 24px;
+	height: 24px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: color 0.3s ease-in-out;
+}
+
+.buttonIcon:focus-visible {
+	outline: 1px solid var(--color-accent);
+}
+
+.buttonIcon:hover {
+	color: var(--color-accent);
+	fill: var(--color-accent);
+}
+
+.messageError {
+	color: var(--color-error);
+}
+
+.messageWarning {
+	color: #e4cf32;
+}
+
+.error {
+	border-color: var(--color-error);
+}
+
+.warning {
+	border-color: #e4cf32;
+}
+
+.input::placeholder {
+	font-weight: 400;
+	font-size: 16px;
+	font-style: normal;
+	line-height: 0.66;
+	letter-spacing: 0.3px;
+}
+
+.input:focus-visible {
+	outline: 1px solid var(--color-accent);
+}
+
+.inputWrapper {
+	position: relative;
+	width: 100%;
+}
+
+.label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.inputIconWrapper {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.inputIcon {
+	width: 24px;
+	height: 24px;
+}
