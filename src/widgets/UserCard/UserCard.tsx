@@ -8,17 +8,9 @@ import HeartFilledIcon from '@shared/assets/icons/heart-filled.svg?react';
 import { useNavigate } from 'react-router-dom';
 import { APP_SETTINGS } from '@/shared/constants/global_constants';
 import { Card } from '@/shared/ui/card/Card';
-// import { useFavoriteUsers } from '@/shared/hooks';
 import UserCardTagsList from './UserCardTagsList/UserCardTagsList';
 import { useSelector } from '@/app/providers/store/StoreProvider';
 import { isUserLiked } from '@/entities/slices/favoritesSlice';
-
-// Описание компонента
-// prop displayMode = default (значение по умолчанию включает в себя кнопку лайка и кнопку подробнее), profile (кнопок нет, но добавляется описание пользователя)
-// prop isExchangeSent = отправлен ли запрос на обмен текущему пользователю (по умолчанию нет)
-// prop onMoreCardButtonClick = функция на клик по кнопке подробнее, если функция не задана, то при нажатии ведет по url на страницу пользователя
-// prop onExchangeCardButtonClick = функция на клик по кнопке подробнее в состоянии запрос на обмен добавлен (по умолчанию действий нет)
-// prop showAllTags = показывать все навыки которые хочет изучить пользователь или нет (по умолчанию нет)
 
 // функция helper склонения слов возраста лет/года/год getRuUserAgeСonjugation({age?: number; birthday?: string;}) - логика склонения не реализована
 // пример использования getRuUserAgeСonjugation({ birthday: '2004-02-15' }) => 21 год
