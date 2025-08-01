@@ -58,6 +58,8 @@ export async function getUsersDataByIdsApi(
 	return users;
 }
 
+// этот api получает всех пользователей из db/backend-users/usersV2.json типа IUserApi[]
+// нужен для работы с компонентами UserCard UserCardsList FavoritesUsersList
 export async function getAllUsersApi(): Promise<IUserApi[]> {
 	const users = await fetch(APP_SETTINGS.api.getAllUsers)
 		.then((response) => {
