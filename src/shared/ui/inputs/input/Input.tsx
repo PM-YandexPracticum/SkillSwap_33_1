@@ -10,6 +10,8 @@ const Input = ({
 	labelTitle,
 	placeholder,
 	inputError,
+	showTooltipIcon = true,
+	tooltipIcon,
 	type: typeProp = 'text',
 	className,
 	...props
@@ -26,6 +28,7 @@ const Input = ({
 					className={clsx(
 						styles.input,
 						{
+							[styles.inputNoTooltipIcons]: !showTooltipIcon,
 							[styles.error]: inputError && inputError.errorType === 'error',
 							[styles.warning]:
 								inputError && inputError.errorType === 'warning',
@@ -43,12 +46,16 @@ const Input = ({
 					{...props}
 				/>
 				<span className={styles.inputIconWrapper}>
-					{typeProp === 'text' && (
-						<EditIcon
-							className={styles.inputIcon}
-							aria-label='Режим редактирования'
-						/>
-					)}
+					{typeProp === 'text' &&
+						showTooltipIcon &&
+						(tooltipIcon ? (
+							tooltipIcon
+						) : (
+							<EditIcon
+								className={styles.inputIcon}
+								aria-label='Режим редактирования'
+							/>
+						))}
 					{typeProp === 'password' && (
 						<button
 							className={styles.buttonIcon}

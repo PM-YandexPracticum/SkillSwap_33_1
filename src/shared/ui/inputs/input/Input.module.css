@@ -16,6 +16,10 @@
 		outline-color 0.3s ease-in-out;
 }
 
+.inputNoTooltipIcons {
+	padding: 12px 20px;
+}
+
 .message {
 	color: var(--color-text);
 	font-weight: 400;

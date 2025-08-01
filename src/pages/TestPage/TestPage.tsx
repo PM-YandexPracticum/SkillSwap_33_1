@@ -2,6 +2,8 @@
 import { CardUser } from '@/widgets/UserCard/CardUser';
 import type { User } from '@/types';
 import Input from '@/shared/ui/inputs/input/Input';
+import { Button } from '@/shared/ui/button';
+import AppleIcon from '@shared/assets/icons/clock.svg?react';
 
 const tempUsers: User[] = [
 	{
@@ -229,36 +231,49 @@ export const TestPage = () => {
 		<>
 			<div>
 				<p>Примеры FormInput</p>
-				<Input labelTitle='Имя' placeholder='Введите имя' />
-				<Input
-					labelTitle='Пароль'
-					placeholder='Введите пароль'
-					type='password'
-				/>
-				<Input
-					labelTitle='Имя'
-					placeholder='Введите имя'
-					inputError={{
-						errorType: 'error',
-						message: 'Пароль должен содержать не менее 8 знаков',
+
+				<form
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '8px',
+						width: '50%',
 					}}
-				/>
-				<Input
-					labelTitle='Имя'
-					placeholder='Введите имя'
-					inputError={{
-						errorType: 'warning',
-						message: 'Пароль должен содержать не менее 8 знаков',
-					}}
-				/>
-				<Input
-					labelTitle='Имя'
-					placeholder='Введите имя'
-					inputError={{
-						errorType: 'none',
-						message: 'Пароль должен содержать не менее 8 знаков',
-					}}
-				/>
+				>
+					<Input labelTitle='Имя' placeholder='Введите имя' />
+					<Input
+						labelTitle='Пароль'
+						placeholder='Введите пароль'
+						type='password'
+					/>
+					<Input
+						labelTitle='Имя'
+						placeholder='Введите имя'
+						inputError={{
+							errorType: 'error',
+							message: 'Пароль должен содержать не менее 8 знаков',
+						}}
+					/>
+					<Input
+						showTooltipIcon={false}
+						labelTitle='Имя'
+						placeholder='Введите имя'
+						inputError={{
+							errorType: 'warning',
+							message: 'Пароль должен содержать не менее 8 знаков',
+						}}
+					/>
+					<Input
+						tooltipIcon={<AppleIcon width={24} height={24} />}
+						labelTitle='Имя'
+						placeholder='Введите имя'
+						inputError={{
+							errorType: 'none',
+							message: 'Пароль должен содержать не менее 8 знаков',
+						}}
+					/>
+					<Button>Submit</Button>
+				</form>
 			</div>
 			<h1>Страница для тестов</h1>
 			<ul
