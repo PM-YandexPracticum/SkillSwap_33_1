@@ -7,3 +7,15 @@
 	letter-spacing: 0.2px;
 	border-radius: 20px;
 }
+
+.tagButton {
+	cursor: pointer;
+	transition:
+		color 0.3s ease-in-out,
+		background-color 0.3s ease-in-out;
+}
+
+.tagButton:hover {
+	color: #ffffff;
+	background-color: var(--color-accent) !important;
+}

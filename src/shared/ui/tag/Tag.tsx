@@ -8,13 +8,13 @@ import { useLayoutEffect, useState } from 'react';
 // проп backgroundColorTemplate - фон из уже определённых значений категорий (HidedSkills - цвет спрятанных/группированных тегов)
 
 const TagColors: Record<SkillCategoriesType, string> = {
-	HidedSkills: '#E8ECF7',
-	BusinessAndCareer: '#EEE7F7',
-	CreativityAndArt: '#F7E7F2',
-	ForeignLanguages: '#EBE5C5',
-	EducationAndDevelopment: '#E7F2F6',
-	HomeAndComfort: '#F7EBE5',
-	HealthAndLifestyle: '#E9F7E7',
+	HidedSkills: 'var(--color-tag-more)',
+	BusinessAndCareer: 'var(--color-tag-business)',
+	CreativityAndArt: 'var(--color-tag-art)',
+	ForeignLanguages: 'var(--color-tag-languages)',
+	EducationAndDevelopment: 'var(--color-tag-education)',
+	HomeAndComfort: 'var(--color-tag-home)',
+	HealthAndLifestyle: 'var(--color-tag-lifestyle)',
 } as const;
 
 // Универсальный компонент тега (Tag) для отображения категорий/меток
@@ -22,6 +22,7 @@ export const Tag = ({
 	customBackgroundColor = '#FFF',
 	children,
 	backgroundColorTemplate,
+	onMoreButtonClick,
 	className,
 	...props
 }: ITagProps) => {
@@ -33,17 +34,32 @@ export const Tag = ({
 				return TagColors[backgroundColorTemplate];
 			});
 		}
-	}, []);
+	}, [backgroundColorTemplate]);
 
-	return (
-		<div
-			className={clsx(className, styles.tag)}
-			style={{
-				backgroundColor,
-			}}
-			{...props}
-		>
-			{children}
-		</div>
-	);
+	if (onMoreButtonClick) {
+		return (
+			<button
+				className={clsx(className, styles.tag, styles.tagButton)}
+				style={{
+					backgroundColor,
+				}}
+				onClick={onMoreButtonClick}
+				aria-label='Раскрыть список навыков'
+			>
+				{children}
+			</button>
+		);
+	} else {
+		return (
+			<div
+				className={clsx(className, styles.tag)}
+				style={{
+					backgroundColor,
+				}}
+				{...props}
+			>
+				{children}
+			</div>
+		);
+	}
 };

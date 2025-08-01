@@ -1,0 +1,24 @@
+.wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 24px;
+	margin-bottom: 28px;
+}
+
+@media (width <= 945px) {
+	.wrapper {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (width <= 765px) {
+	.wrapper {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (width <= 460px) {
+	.wrapper {
+		grid-template-columns: 1fr;
+	}
+}

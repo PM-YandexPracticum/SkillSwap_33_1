@@ -1,17 +1,17 @@
 import clsx from 'clsx';
-import styles from './CardUser.module.css';
-import type { ICardUserProps } from './CardUser.props';
+import styles from './UserCard.module.css';
+import type { IUserCardProps } from './UserCard.props';
 import { Button } from '@/shared/ui/button';
 import HeartIcon from '@shared/assets/icons/heart-outline.svg?react';
 import ClockIcon from '@shared/assets/icons/clock.svg?react';
-import { getRuUserAgeСonjugation } from '@/shared/lib/user-formating-helpers';
-import { useState } from 'react';
 import HeartFilledIcon from '@shared/assets/icons/heart-filled.svg?react';
 import { useNavigate } from 'react-router-dom';
 import { APP_SETTINGS } from '@/shared/constants/global_constants';
-import type { SkillCategoriesType } from '@/shared/ui/tag/Tag.props';
 import { Card } from '@/shared/ui/card/Card';
-import { Tag } from '@/shared/ui/tag/Tag';
+// import { useFavoriteUsers } from '@/shared/hooks';
+import UserCardTagsList from './UserCardTagsList/UserCardTagsList';
+import { useSelector } from '@/app/providers/store/StoreProvider';
+import { isUserLiked } from '@/entities/slices/favoritesSlice';
 
 // Описание компонента
 // prop displayMode = default (значение по умолчанию включает в себя кнопку лайка и кнопку подробнее), profile (кнопок нет, но добавляется описание пользователя)
@@ -27,17 +27,6 @@ import { Tag } from '@/shared/ui/tag/Tag';
 
 // APP_SETTINGS.paths.userProfilePage(user.id) - собирает путь на страницу пользователя
 
-// для настройки и корректного отображения цветов Tags поменять очередность категорий (индекс 0 => BusinessAndCareer, ...,  индекс 6 => HidedSkills)
-const SkillsColors: Array<SkillCategoriesType> = [
-	'HidedSkills', // UserSkill->categoryId === 0
-	'BusinessAndCareer', // UserSkill->categoryId === 1
-	'CreativityAndArt', // UserSkill->categoryId === 2
-	'ForeignLanguages', // UserSkill->categoryId === 3
-	'EducationAndDevelopment', // UserSkill->categoryId === 4
-	'HomeAndComfort', // UserSkill->categoryId === 5
-	'HealthAndLifestyle', // UserSkill->categoryId === 6
-] as const;
-
 // путь к картинке пользователя, если у пользователя фотография отсутствует
 const defaultUserProfileImage =
 	'/assets/images/profile-pictures/no-profile-picture-icon.svg';
@@ -46,18 +35,24 @@ export const CardUser = ({
 	user,
 	isExchangeSent = false,
 	displayMode = 'default',
-	showAllTags = false,
+	maxUserSkillsTagsShown = 1,
+	maxUserSkillsWantsToLearnTagsShown = 2,
 	className,
+	onLikeButtonClicked,
 	onMoreCardButtonClick,
 	onExchangeCardButtonClick,
 	...props
-}: ICardUserProps) => {
-	// использовать hook useFavorite для работы с добавлением/удалением из избранного
-	const [isUserLiked, setIsUserLiked] = useState<boolean>(false);
+}: IUserCardProps) => {
+	const isLiked = useSelector((state) =>
+		isUserLiked(state, { payload: user.id, type: '' })
+	);
+
 	const navigate = useNavigate();
 
 	function handleLikeButtonClickHandler() {
-		setIsUserLiked(() => !isUserLiked);
+		if (onLikeButtonClicked) {
+			onLikeButtonClicked(isLiked);
+		}
 	}
 
 	function onMoreButtonClickHandler() {
@@ -90,7 +85,7 @@ export const CardUser = ({
 								? user.avatarUrl
 								: defaultUserProfileImage
 						}
-						alt='user 3'
+						alt={user.name}
 						draggable='false'
 					/>
 					<div className={styles.userInfoBlock}>
@@ -98,19 +93,18 @@ export const CardUser = ({
 							<button
 								onClick={handleLikeButtonClickHandler}
 								className={styles.likeButton}
-								aria-label={isUserLiked ? 'Убрать лайк' : 'Поставить лайк'}
+								aria-label={isLiked ? 'Убрать лайк' : 'Поставить лайк'}
 								onKeyDown={(event) => {
 									if (event.key === 'Enter') handleLikeButtonClickHandler;
 								}}
 							>
-								{isUserLiked ? <HeartFilledIcon /> : <HeartIcon />}
+								{isLiked ? <HeartFilledIcon /> : <HeartIcon />}
 							</button>
 						)}
 						<div>
 							<div className={styles.userInfoName}>{user.name}</div>
 							<div className={styles.userInfoMore}>
-								{user.location},{' '}
-								{getRuUserAgeСonjugation({ birthday: '2004-02-15' })}
+								{user.location}, {user.age}
 							</div>
 						</div>
 					</div>
@@ -121,77 +115,28 @@ export const CardUser = ({
 			</div>
 			<div className={styles.bodyWrapper}>
 				{/* не обрабатывался вариант, если skillCanTeach === string , а не array*/}
-				{user.skillCanTeach &&
-					Array.isArray(user.skillCanTeach) &&
-					user.skillCanTeach.length > 0 && (
-						<div className={styles.tagsWrapper}>
-							<h3 className={styles.tagTitle}>Может научить:</h3>
-							<ul className={styles.tagsList}>
-								{user.skillCanTeach.map((skill) => (
-									<li key={skill.categoryId} className={styles.tagItem}>
-										<Tag
-											backgroundColorTemplate={SkillsColors[skill.categoryId]}
-										>
-											{skill.skill}
-										</Tag>
-									</li>
-								))}
-							</ul>
-						</div>
-					)}
-
-				{/* не обрабатывался вариант, если subcategoriesWantToLearn === string , а не array*/}
-				{user.subcategoriesWantToLearn &&
-					Array.isArray(user.subcategoriesWantToLearn) &&
-					user.subcategoriesWantToLearn.length > 0 && (
-						<div className={styles.tagsWrapper}>
-							<h3 className={styles.tagTitle}>Хочет научиться:</h3>
-							<ul className={styles.tagsList}>
-								{user.subcategoriesWantToLearn.map((skill, index) => {
-									if (!showAllTags && displayMode === 'default') {
-										if (index <= 1) {
-											return (
-												<>
-													<li key={skill.categoryId} className={styles.tagItem}>
-														<Tag
-															backgroundColorTemplate={
-																SkillsColors[skill.categoryId]
-															}
-														>
-															{skill.skill}
-														</Tag>
-													</li>
-												</>
-											);
-										} else if (
-											index ===
-											user.subcategoriesWantToLearn.length - 1
-										) {
-											return (
-												<li key={skill.categoryId} className={styles.tagItem}>
-													<Tag backgroundColorTemplate={'HidedSkills'}>
-														+{user.subcategoriesWantToLearn.length - 2}
-													</Tag>
-												</li>
-											);
-										}
-									} else {
-										return (
-											<li key={skill.categoryId} className={styles.tagItem}>
-												<Tag
-													backgroundColorTemplate={
-														SkillsColors[skill.categoryId]
-													}
-												>
-													{skill.skill}
-												</Tag>
-											</li>
-										);
-									}
-								})}
-							</ul>
-						</div>
-					)}
+				<UserCardTagsList
+					maxTagsShown={maxUserSkillsTagsShown}
+					tags={
+						user.skillsCanTeach &&
+						Array.isArray(user.skillsCanTeach) &&
+						user.skillsCanTeach.length > 0
+							? user.skillsCanTeach
+							: []
+					}
+					headingTitle='Может научить:'
+				/>
+				<UserCardTagsList
+					maxTagsShown={maxUserSkillsWantsToLearnTagsShown}
+					tags={
+						user.skillsWantsToLearn &&
+						Array.isArray(user.skillsWantsToLearn) &&
+						user.skillsWantsToLearn.length > 0
+							? user.skillsWantsToLearn
+							: []
+					}
+					headingTitle='Хочет научиться:'
+				/>
 			</div>
 			{displayMode === 'default' && (
 				<div className={styles.footerWrapper}>

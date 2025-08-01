@@ -1,4 +1,4 @@
-import { HomePage, NotFound404 } from '@/pages';
+import { HomePage, NotFound404, FavoritesPage } from '@/pages';
 import { Error500 } from '@/pages/Error500/Error500';
 import '@appStyles/fonts.css';
 import '@appStyles/normalize.css';
@@ -59,15 +59,7 @@ const App = () => {
 								/>
 							}
 						/>
-						<Route
-							path='favorites'
-							element={
-								<PlaceholderPage
-									title='Избранное'
-									description='Ваши избранные навыки и пользователи'
-								/>
-							}
-						/>
+						<Route path='favorites' element={<FavoritesPage />} />
 						<Route
 							path='skills'
 							element={
