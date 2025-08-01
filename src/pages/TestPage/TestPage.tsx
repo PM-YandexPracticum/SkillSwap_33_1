@@ -1,6 +1,10 @@
 // import styles from './TestPage.module.css';
 import { CardUser } from '@/widgets/UserCard/CardUser';
 import type { User } from '@/types';
+import ButtonIcon from '@/shared/ui/ButtonIcon/ButtonIcon';
+import styles from './TestPage.module.css';
+import HeartIcon from '@shared/assets/icons/heart-outline.svg?react';
+import HeartFilledIcon from '@shared/assets/icons/heart-filled.svg?react';
 
 const tempUsers: User[] = [
 	{
@@ -226,6 +230,18 @@ const tempUsers: User[] = [
 export const TestPage = () => {
 	return (
 		<>
+			<div>
+				{/* ButtonIcon пример использования */}
+				<ButtonIcon
+					className={styles.iconButton}
+					aria-label={true ? 'Убрать лайк' : 'Поставить лайк'}
+					onClick={() => {
+						console.log('clicked');
+					}}
+				>
+					{false ? <HeartFilledIcon /> : <HeartIcon />}
+				</ButtonIcon>
+			</div>
 			<h1>Страница для тестов</h1>
 			<ul
 				style={{
