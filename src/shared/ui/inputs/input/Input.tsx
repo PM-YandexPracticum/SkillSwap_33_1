@@ -51,10 +51,7 @@ const Input = ({
 						(tooltipIcon ? (
 							tooltipIcon
 						) : (
-							<EditIcon
-								className={styles.inputIcon}
-								aria-label='Режим редактирования'
-							/>
+							<EditIcon className={styles.inputIcon} aria-hidden />
 						))}
 					{typeProp === 'password' && (
 						<button
