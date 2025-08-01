@@ -7,6 +7,10 @@ import GoogleIcon from '@icons/google.svg?react';
 import AppleIcon from '@icons/apple-light.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
+import {
+	validateEmail,
+	validatePassword,
+} from '@/shared/lib/validation/auth.validation';
 
 interface User {
 	email: string;
@@ -20,19 +24,37 @@ const LoginPage = () => {
 		password: '',
 	});
 	const [showPassword, setShowPassword] = useState(false);
+	const [emailError, setEmailError] = useState<string | null>(null);
+	const [passwordError, setPasswordError] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const [areFieldsInvalid, setAreFieldsInvalid] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setFormData((prev) => ({ ...prev, [name]: value }));
 		setError(null);
-		setAreFieldsInvalid(false);
+
+		if (name === 'email') {
+			setEmailError(validateEmail(value));
+		} else if (name === 'password') {
+			setPasswordError(validatePassword(value));
+		}
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+
+		const emailErr = validateEmail(formData.email);
+		const passwordErr = validatePassword(formData.password);
+
+		setEmailError(emailErr);
+		setPasswordError(passwordErr);
+
+		if (emailErr || passwordErr) {
+			setError('Пожалуйста, исправьте ошибки в форме');
+			return;
+		}
+
 		setIsLoading(true);
 		setError(null);
 
@@ -47,7 +69,6 @@ const LoginPage = () => {
 			) {
 				navigate('/profile');
 			} else {
-				setAreFieldsInvalid(true);
 				setError(
 					'Email или пароль введён неверно. Пожалуйста, проверьте правильность введённых данных.'
 				);
@@ -57,9 +78,8 @@ const LoginPage = () => {
 		}
 	};
 
-	// Получаем текущую тему из data-theme атрибута html
+	// Тема для картинки
 	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
-	// Формируем путь к картинке в зависимости от темы
 	const infoImagePath = `/assets/images/light-bulb-${theme}.svg`;
 
 	return (
@@ -91,14 +111,14 @@ const LoginPage = () => {
 						<span>или</span>
 					</div>
 
-					<form className={styles.form} onSubmit={handleSubmit}>
+					<form className={styles.form} onSubmit={handleSubmit} noValidate>
 						<label className={styles.inputLabel}>
 							Email
 							<input
 								type='email'
 								name='email'
 								className={`${styles.inputField} ${
-									areFieldsInvalid ? styles.inputInvalid : ''
+									emailError ? styles.inputInvalid : ''
 								}`}
 								placeholder='Введите email'
 								value={formData.email}
@@ -106,19 +126,20 @@ const LoginPage = () => {
 								required
 							/>
 						</label>
+						{emailError && <p className={styles.errorMessage}>{emailError}</p>}
 
 						<label className={styles.inputLabel}>
 							Пароль
 							<div
 								className={`${styles.inputWithIcon} ${
-									areFieldsInvalid ? styles.inputWithIconInvalid : ''
+									passwordError ? styles.inputWithIconInvalid : ''
 								}`}
 							>
 								<input
 									type={showPassword ? 'text' : 'password'}
 									name='password'
 									className={`${styles.inputField} ${
-										areFieldsInvalid ? styles.inputInvalid : ''
+										passwordError ? styles.inputInvalid : ''
 									}`}
 									placeholder='Введите пароль'
 									value={formData.password}
@@ -129,11 +150,17 @@ const LoginPage = () => {
 									type='button'
 									className={styles.eyeIcon}
 									onClick={() => setShowPassword(!showPassword)}
+									aria-label={
+										showPassword ? 'Скрыть пароль' : 'Показать пароль'
+									}
 								>
 									{showPassword ? <EyeSlashIcon /> : <EyeIcon />}
 								</button>
 							</div>
 						</label>
+						{passwordError && (
+							<p className={styles.errorMessage}>{passwordError}</p>
+						)}
 
 						{error && <div className={styles.errorMessage}>{error}</div>}
 
