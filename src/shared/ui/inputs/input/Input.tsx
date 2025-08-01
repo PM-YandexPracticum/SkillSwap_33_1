@@ -58,6 +58,7 @@ const Input = ({
 						))}
 					{typeProp === 'password' && (
 						<button
+							type='button'
 							className={styles.buttonIcon}
 							onClick={() => setIsTextShown((prev) => !prev)}
 							aria-label={isTextShown ? 'Спрятать пароль' : 'Показать пароль'}
