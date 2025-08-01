@@ -1,5 +1,14 @@
 import { useSelector } from '@/app/providers/store/StoreProvider';
 
+// Как использовать
+// const {зедсь достаются свойства/методы} = useFavoriteUsers();
+// const {favoriteUsers, isLoading и т.д} = useFavoriteUsers();
+// favoriteUsers - пользователи которые в избранном типа IUserApi[]
+// isLoading - состояние загрузки (загружаются ли щас пользователи)
+// favoriteUsersIds - ids: string[] массив с ids пользователей в избранном
+// isUserLiked - метод проверки, лайкнут ли пользователью. параметры метода => (userId: string)
+// isInitialLoaded - производилась ли уже первоначальная загрузка пользователей true/false
+
 export const useFavoriteUsers = () => {
 	const localStorageUsers = useSelector(
 		(state) => state.favorites.favoriteUsers
