@@ -29,3 +29,14 @@ export interface UserCardData {
 	isFavorite?: boolean;
 	createdAt?: string; // Дата создания аккаунта
 }
+
+export interface UserDetailData {
+	id: string;
+	skillsCanTeach: Array<{
+		subcategoryId: number;
+		title: string;
+		categoty: string;
+		description: string;
+		images: string[];
+	}>;
+}
