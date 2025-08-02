@@ -3,6 +3,7 @@
 	--text-color-primary: var(--color-text);
 	--font-family-primary: roboto, sans-serif;
 	--card-background-color: #ffffff;
+	--color-outline: #abd27a;
 }
 
 html,

@@ -259,20 +259,20 @@
 
 .errorMessage {
 	margin-top: 5px;
-	color: #ff0000; /* Красный цвет текста */
+	color: #bf3920; /* Красный цвет текста */
 	font-size: 12px;
 }
 
 /* Стиль для невалидных полей */
 
 .inputField.inputInvalid {
-	border-color: #ff3333;
+	border-color: #bf3920;
 }
 
 /* Специальный стиль для контейнера пароля */
 
 .inputWithIconInvalid {
 	padding-right: 8px; /* Чтобы не залезало на иконку глаза */
-	border: 1px solid #ff3333;
+	border: 1px solid #bf3920;
 	border-radius: 8px;
 }
