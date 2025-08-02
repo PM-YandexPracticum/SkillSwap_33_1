@@ -5,13 +5,13 @@
 	gap: 20px;
 	height: 100%;
 	padding: 20px;
+	overflow: hidden;
 }
 
 .headerWrapper {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
-	height: 100%;
 }
 
 .headerUserInfoWrapper {
@@ -39,16 +39,6 @@
 	right: 20px;
 	width: 24px;
 	height: 24px;
-	transition: transform 0.3s ease-in-out;
-}
-
-.likeButton:focus-visible {
-	border-radius: 5px;
-	outline: 1px solid var(--text-color-primary);
-}
-
-.likeButton:hover {
-	transform: scale(1.2);
 }
 
 .userDescriptionText {
@@ -75,30 +65,11 @@
 	letter-spacing: 0.2px;
 }
 
-.tagTitle {
-	margin-bottom: 8px;
-	font-weight: 500;
-	font-size: 16px;
-	font-style: normal;
-	line-height: 1.5;
-	letter-spacing: 0.3px;
-}
-
-.tagsList {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 4px;
-	list-style: none;
-}
-
-.tagItem {
-	white-space: nowrap;
-}
-
 .bodyWrapper {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
+	height: 100%;
 }
 
 .button {
@@ -109,6 +80,7 @@
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	color: var(--color-text);
 }
 
 @media (width <= 1342px) {
@@ -119,5 +91,9 @@
 
 	.cardDefault .userInfoBlock {
 		align-items: center;
+	}
+
+	.cardDefault .userInfoMore {
+		text-align: center;
 	}
 }

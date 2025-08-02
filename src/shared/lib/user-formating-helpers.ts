@@ -1,87 +1,43 @@
-function calculateAge(birthDateString: string): number | null {
-	let birthDate: Date;
+// функция склонения возраста (26 лет, 21 год)
+export const getRuUserAgeСonjugation = (value: string | number): string => {
+	const today = new Date();
+	let age: number;
+	const unknown = 'возраст неизвестен';
 
-	// Пытаемся распарсить разные форматы: DD-MM-YYYY, YYYY-MM-DD и др.
-	if (birthDateString.includes('-')) {
-		const parts = birthDateString.split('-');
-		if (parts.length === 3) {
-			// Проверяем формат: DD-MM-YYYY
-			if (
-				parts[0].length === 2 &&
-				parts[1].length === 2 &&
-				parts[2].length === 4
-			) {
-				birthDate = new Date(
-					parseInt(parts[2], 10),
-					parseInt(parts[1], 10) - 1,
-					parseInt(parts[0], 10)
-				);
-			} else if (parts[0].length === 4) {
-				// Формат YYYY-MM-DD
-				birthDate = new Date(
-					parseInt(parts[0], 10),
-					parseInt(parts[1], 10) - 1,
-					parseInt(parts[2], 10)
-				);
-			} else {
-				return null;
-			}
+	if (typeof value === 'number') {
+		if (value < 100) {
+			age = value;
 		} else {
-			return null;
+			age = today.getFullYear() - value;
 		}
 	} else {
-		return null;
+		const birthDate = new Date(value);
+		if (isNaN(birthDate.getTime())) {
+			return unknown;
+		}
+
+		age = today.getFullYear() - birthDate.getFullYear();
+		const monthDiff = today.getMonth() - birthDate.getMonth();
+		const dayDiff = today.getDate() - birthDate.getDate();
+
+		if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+			age--;
+		}
 	}
 
-	if (isNaN(birthDate.getTime())) {
-		return null;
+	if (age < 0 || age > 150) {
+		return unknown;
 	}
 
-	const today = new Date();
-	let age = today.getFullYear() - birthDate.getFullYear();
-	const monthDiff = today.getMonth() - birthDate.getMonth();
-	const dayDiff = today.getDate() - birthDate.getDate();
+	const last = age % 10;
+	const lastTwo = age % 100;
+	let yearsStr = 'лет';
 
-	if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-		age--;
+	if (last === 1 && lastTwo !== 11) {
+		yearsStr = 'год';
+	} else if ([2, 3, 4].includes(last) && ![12, 13, 14].includes(lastTwo)) {
+		yearsStr = 'года';
 	}
 
-	return age;
-}
-
-// пример использования getRuUserAgeСonjugation(undefined, '2004-02-15') => 21 год
-// или
-// getRuUserAgeСonjugation(26) => 26 лет
-
-export const getRuUserAgeСonjugation = ({
-	age,
-	birthday,
-}: {
-	age?: number;
-	birthday?: string;
-}): string => {
-	// Если возраст не передан, вычисляем его по дате рождения
-	const calculatedAge = age ?? (birthday ? calculateAge(birthday) : null);
-
-	if (calculatedAge === null || calculatedAge < 0) {
-		console.warn('Не удалось определить возраст');
-		return 'возраст неизвестен';
-	}
-
-	const finalAge = calculatedAge;
-	const lastDigit = finalAge % 10;
-	const lastTwoDigits = finalAge % 100;
-
-	let suffix = 'лет';
-
-	if (lastDigit === 1 && lastTwoDigits !== 11) {
-		suffix = 'год';
-	} else if (
-		[2, 3, 4].includes(lastDigit) &&
-		![12, 13, 14].includes(lastTwoDigits)
-	) {
-		suffix = 'года';
-	}
-
-	return `${finalAge} ${suffix}`;
+	return `${age} ${yearsStr}`;
 };

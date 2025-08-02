@@ -4,6 +4,7 @@ import filtersReducer from '@/entities/slices/filtersSlice';
 import usersReducer from '@/entities/slices/usersSlice';
 import citiesReducer from '@/entities/slices/citiesSlice';
 import skillsReducer from '@/entities/slices/skillsSlice';
+import favoritesReducer from '@/entities/slices/favoritesSlice';
 
 import {
 	type TypedUseSelectorHook,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	filters: filtersReducer,
 	users: usersReducer,
 	cities: citiesReducer,
+	favorites: favoritesReducer,
 	// app: appSlice,
 });
 

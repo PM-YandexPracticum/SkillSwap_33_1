@@ -1,5 +1,10 @@
-import { CardUser } from '@/widgets/UserCard/CardUser';
-import type { User } from '@/types';
+import { useEffect, useState } from 'react';
+import { useDispatch } from '@/app/providers/store/StoreProvider';
+import { getAllUsersApi, type IUserApi } from '@/api/favorites.api';
+import { useFavoriteUsers } from '@/shared/hooks';
+import FavoritesList from '@/widgets/FavoritesUsersList/FavoritesUsersList';
+import UserCardsList from '@/widgets/UserCardsList/UserCardsList';
+import Loader from '@/shared/ui/loader/Loader';
 import Input from '@/shared/ui/inputs/input/Input';
 import { Button } from '@/shared/ui/button';
 import ButtonIcon from '@/shared/ui/ButtonIcon/ButtonIcon';
@@ -7,7 +12,7 @@ import AppleIcon from '@shared/assets/icons/clock.svg?react';
 import HeartIcon from '@shared/assets/icons/heart-outline.svg?react';
 import HeartFilledIcon from '@shared/assets/icons/heart-filled.svg?react';
 import styles from './TestPage.module.css';
-const tempUsers: User[] = [
+const tempUsers = [
 	{
 		id: '1',
 		name: 'Максим',
@@ -16,14 +21,6 @@ const tempUsers: User[] = [
 		age: '23',
 		description: 'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
 		avatarUrl: '/assets/images/profile-pictures/Image3.svg',
-		skillCanTeach: [
-			{ skill: 'Бизнес-план', categoryId: 0, subcategory: 0 },
-			{ skill: 'Английский язык', categoryId: 1, subcategory: 0 },
-		],
-		subcategoriesWantToLearn: [
-			{ skill: 'Тайм менеджмент', categoryId: 2, subcategory: 0 },
-			{ skill: 'Медитация', categoryId: 3, subcategory: 0 },
-		],
 	},
 	{
 		id: '2',
@@ -33,18 +30,40 @@ const tempUsers: User[] = [
 		age: '28',
 		description: 'Люблю путешествовать и изучать новые языки.',
 		avatarUrl: '/assets/images/profile-pictures/Image2.svg',
-		skillCanTeach: [
-			{ skill: 'Французский язык', categoryId: 1, subcategory: 0 },
-		],
-		subcategoriesWantToLearn: [
-			{ skill: 'Кулинария', categoryId: 4, subcategory: 0 },
-		],
 	},
 ];
+
 export const TestPage = () => {
+	const [allUsers, setAllUsers] = useState<IUserApi[]>([]);
+	const dispatch = useDispatch();
+	const { isLoading, isInitialLoaded } = useFavoriteUsers();
+
+	useEffect(() => {
+		async function getAllUsers() {
+			const usersApi = await getAllUsersApi();
+			setAllUsers(usersApi);
+		}
+		getAllUsers();
+	}, [dispatch]);
+
+	if (isLoading && !isInitialLoaded) {
+		return <Loader />;
+	}
+
 	return (
 		<>
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+			<div>
+				<h4 className="heading-main">Страница для тестов</h4>
+				<p>Пример использования пользователей с карточками</p>
+				<UserCardsList users={allUsers} />
+			</div>
+
+			<div>
+				<h4 className="heading-main">Избранное</h4>
+				<p>Пользователи в избранном</p>
+				<FavoritesList />
+			</div>
+			<div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '40px' }}>
 				<section>
 					<p>Примеры FormInput</p>
 					<form
@@ -56,11 +75,7 @@ export const TestPage = () => {
 						}}
 					>
 						<Input labelTitle="Имя" placeholder="Введите имя" />
-						<Input
-							labelTitle="Пароль"
-							placeholder="Введите пароль"
-							type="password"
-						/>
+						<Input labelTitle="Пароль" placeholder="Введите пароль" type="password" />
 						<Input
 							labelTitle="Имя"
 							placeholder="Введите имя"
@@ -90,6 +105,7 @@ export const TestPage = () => {
 						<Button>Submit</Button>
 					</form>
 				</section>
+
 				<section>
 					<p>Пример ButtonIcon</p>
 					<ButtonIcon
@@ -103,20 +119,5 @@ export const TestPage = () => {
 					</ButtonIcon>
 				</section>
 			</div>
-			<h1>Страница для тестов</h1>
-			<ul
-				style={{
-					display: 'grid',
-					gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-					gap: '24px',
-				}}
-			>
-				{tempUsers.map((user) => (
-					<li key={user.id}>
-						<CardUser displayMode="default" user={user} />
-					</li>
-				))}
-			</ul>
 		</>
 	);
-};

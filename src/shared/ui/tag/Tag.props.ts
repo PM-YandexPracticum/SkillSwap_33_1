@@ -19,4 +19,5 @@ export interface ITagProps extends TagPropsType {
 	customBackgroundColor?: string;
 	children: React.ReactNode;
 	backgroundColorTemplate?: SkillCategoriesType;
+	onMoreButtonClick?: () => void;
 }
