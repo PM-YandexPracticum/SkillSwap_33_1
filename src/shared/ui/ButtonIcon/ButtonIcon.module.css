@@ -1,0 +1,15 @@
+.iconButton {
+	outline-color: var(--color-outline);
+	transition:
+		transform 0.3s ease-in-out,
+		outline 0.3s ease-in-out;
+}
+
+.iconButton:focus-visible {
+	border-radius: 5px;
+	outline: 1px solid var(--color-outline);
+}
+
+.iconButton:hover {
+	transform: scale(1.2);
+}

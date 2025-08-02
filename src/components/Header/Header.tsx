@@ -6,6 +6,7 @@ import LikeIcon from '../../shared/assets/icons/like.svg?react';
 import './Header.css';
 import Logo from '../Logo/Logo';
 import ThemeToggleButton from '@/app/styles/ThemeToggleButton';
+import { DEFAULT_AVATAR } from '@/shared/hooks/useUser';
 
 interface HeaderProps {
 	variant?: 'guest' | 'user';
@@ -70,7 +71,15 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 						<div className='user-info'>
 							<span className='user-name'>{userInfo.name}</span>
 							<div className='user-avatar'>
-								<img src={userInfo.avatar} alt='Profile' />
+								<img
+									src={userInfo.avatar || DEFAULT_AVATAR}
+									alt='Profile'
+									onError={(e) => {
+										const target = e.currentTarget;
+										target.onerror = null;
+										target.src = DEFAULT_AVATAR;
+									}}
+								/>
 							</div>
 						</div>
 					</div>

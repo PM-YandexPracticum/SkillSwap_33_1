@@ -129,7 +129,7 @@
 
 .auth-button:hover {
 	color: #253017;
-	background-color: #abd27a;
+	background-color: #deebc5;
 }
 
 .auth-button__login {
@@ -186,7 +186,7 @@
 }
 
 .user-name {
-	color: var(--color-text-caption);
+	color: var(--color-text);
 	font-weight: 500;
 }
 
