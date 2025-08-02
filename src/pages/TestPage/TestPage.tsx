@@ -12,26 +12,6 @@ import AppleIcon from '@shared/assets/icons/clock.svg?react';
 import HeartIcon from '@shared/assets/icons/heart-outline.svg?react';
 import HeartFilledIcon from '@shared/assets/icons/heart-filled.svg?react';
 import styles from './TestPage.module.css';
-const tempUsers = [
-	{
-		id: '1',
-		name: 'Максим',
-		location: 'Москва',
-		gender: 'male',
-		age: '23',
-		description: 'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
-		avatarUrl: '/assets/images/profile-pictures/Image3.svg',
-	},
-	{
-		id: '2',
-		name: 'Виктория',
-		location: 'Таджикистан',
-		gender: 'female',
-		age: '28',
-		description: 'Люблю путешествовать и изучать новые языки.',
-		avatarUrl: '/assets/images/profile-pictures/Image2.svg',
-	},
-];
 
 export const TestPage = () => {
 	const [allUsers, setAllUsers] = useState<IUserApi[]>([]);
@@ -53,17 +33,25 @@ export const TestPage = () => {
 	return (
 		<>
 			<div>
-				<h4 className="heading-main">Страница для тестов</h4>
+				<h4 className='heading-main'>Страница для тестов</h4>
 				<p>Пример использования пользователей с карточками</p>
 				<UserCardsList users={allUsers} />
 			</div>
 
 			<div>
-				<h4 className="heading-main">Избранное</h4>
+				<h4 className='heading-main'>Избранное</h4>
 				<p>Пользователи в избранном</p>
 				<FavoritesList />
 			</div>
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '40px' }}>
+
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					gap: '24px',
+					marginTop: '40px',
+				}}
+			>
 				<section>
 					<p>Примеры FormInput</p>
 					<form
@@ -74,11 +62,15 @@ export const TestPage = () => {
 							width: '50%',
 						}}
 					>
-						<Input labelTitle="Имя" placeholder="Введите имя" />
-						<Input labelTitle="Пароль" placeholder="Введите пароль" type="password" />
+						<Input labelTitle='Имя' placeholder='Введите имя' />
 						<Input
-							labelTitle="Имя"
-							placeholder="Введите имя"
+							labelTitle='Пароль'
+							placeholder='Введите пароль'
+							type='password'
+						/>
+						<Input
+							labelTitle='Имя'
+							placeholder='Введите имя'
 							inputError={{
 								errorType: 'error',
 								message: 'Пароль должен содержать не менее 8 знаков',
@@ -86,8 +78,8 @@ export const TestPage = () => {
 						/>
 						<Input
 							showTooltipIcon={false}
-							labelTitle="Имя"
-							placeholder="Введите имя"
+							labelTitle='Имя'
+							placeholder='Введите имя'
 							inputError={{
 								errorType: 'warning',
 								message: 'Пароль должен содержать не менее 8 знаков',
@@ -95,8 +87,8 @@ export const TestPage = () => {
 						/>
 						<Input
 							tooltipIcon={<AppleIcon width={24} height={24} />}
-							labelTitle="Имя"
-							placeholder="Введите имя"
+							labelTitle='Имя'
+							placeholder='Введите имя'
 							inputError={{
 								errorType: 'none',
 								message: 'Пароль должен содержать не менее 8 знаков',
@@ -121,3 +113,4 @@ export const TestPage = () => {
 			</div>
 		</>
 	);
+};
