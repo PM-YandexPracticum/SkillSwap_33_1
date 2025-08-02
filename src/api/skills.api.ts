@@ -1,7 +1,6 @@
 import type { UserCardData } from '@/entities/user/user';
 import type { SkillCategory, City } from '@/entities/skill/skill';
 
-// Интерфейс для данных пользователей из JSON
 interface UserData {
 	id: string;
 	name: string;
@@ -19,19 +18,16 @@ interface UserData {
 	skillsWantToLearn: number[];
 }
 
-// Интерфейс для данных городов из JSON
 interface CitiesData {
 	cities: City[];
 }
 
-// Интерфейс для данных лайков из JSON
 interface LikeData {
 	userId: string;
 	targetUserId: string;
 	createdAt: string;
 }
 
-// Интерфейс для данных запросов из JSON
 interface RequestData {
 	id: string;
 	skillId: number;
@@ -42,38 +38,31 @@ interface RequestData {
 	finishedAt: string | null;
 }
 
-/**
- * API для работы с навыками и пользователями
- */
 export class SkillsAPI {
-	/**
-	 * Получить всех пользователей
-	 */
+	private static cachedUsers: UserCardData[] | null = null;
+
 	static async getUsers(): Promise<UserCardData[]> {
+		if (this.cachedUsers) {
+			return this.cachedUsers;
+		}
+
 		try {
-			// Загружаем данные пользователей
 			const usersResponse = await fetch('/db/users.json');
 			const usersData: UserData[] = await usersResponse.json();
 
-			// Загружаем данные навыков
 			const skillsResponse = await fetch('/db/skills.json');
 			const skillsData: SkillCategory[] = await skillsResponse.json();
 
-			// Загружаем данные городов
 			const citiesResponse = await fetch('/db/city.json');
 			const citiesData: CitiesData = await citiesResponse.json();
 
-			// Преобразуем данные в формат для карточек
-			return usersData.map((user) => {
-				// Находим город пользователя
+			this.cachedUsers = usersData.map((user) => {
 				const city = citiesData.cities.find((c) => c.id === user.locationId);
 
-				// Вычисляем возраст
 				const birthDate = new Date(user.birthDate);
 				const today = new Date();
 				const age = today.getFullYear() - birthDate.getFullYear();
 
-				// Получаем названия навыков, которые может преподавать
 				const canTeachSkills = user.skillsCanTeach.map((skill) => {
 					const category = skillsData.find((cat) =>
 						cat.skills.some((s) => s.id === skill.subcategoryId)
@@ -84,7 +73,6 @@ export class SkillsAPI {
 					return skillName?.name || 'Неизвестный навык';
 				});
 
-				// Получаем названия навыков, которые хочет изучить
 				const wantToLearnSkills = user.skillsWantToLearn.map((skillId) => {
 					const category = skillsData.find((cat) =>
 						cat.skills.some((s) => s.id === skillId)
@@ -101,28 +89,25 @@ export class SkillsAPI {
 					age,
 					skillsCanTeach: canTeachSkills,
 					skillsWantToLearn: wantToLearnSkills,
-					isFavorite: false, // По умолчанию не в избранном
-					createdAt: user.createdAt, // Дата создания аккаунта
+					isFavorite: false,
+					createdAt: user.createdAt,
 				};
 			});
+
+			return this.cachedUsers;
 		} catch (error) {
 			console.error('Ошибка при загрузке пользователей:', error);
 			return [];
 		}
 	}
 
-	/**
-	 * Получить популярных пользователей (по количеству лайков)
-	 */
 	static async getPopularUsers(): Promise<UserCardData[]> {
 		try {
 			const users = await this.getUsers();
 
-			// Загружаем данные лайков
 			const likesResponse = await fetch('/db/likes.json');
 			const likesData: LikeData[] = await likesResponse.json();
 
-			// Считаем лайки для каждого пользователя
 			const userLikes = likesData.reduce(
 				(acc, like) => {
 					const targetUserId = like.targetUserId;
@@ -134,26 +119,21 @@ export class SkillsAPI {
 				{} as Record<string, number>
 			);
 
-			// Сортируем пользователей по количеству лайков (по убыванию)
 			users.sort((a, b) => (userLikes[b.id] || 0) - (userLikes[a.id] || 0));
 
 			return users.slice(0, 3);
 		} catch (error) {
 			console.error('Ошибка при загрузке популярных пользователей:', error);
-			// Возвращаем первые 3 пользователя как fallback
+
 			const users = await this.getUsers();
 			return users.slice(0, 3);
 		}
 	}
 
-	/**
-	 * Получить новых пользователей (по дате создания аккаунта)
-	 */
 	static async getNewUsers(): Promise<UserCardData[]> {
 		try {
 			const users = await this.getUsers();
 
-			// Сортируем по дате создания (новые сначала)
 			users.sort((a, b) => {
 				const dateA = new Date(a.createdAt || '');
 				const dateB = new Date(b.createdAt || '');
@@ -163,56 +143,47 @@ export class SkillsAPI {
 			return users.slice(0, 3);
 		} catch (error) {
 			console.error('Ошибка при загрузке новых пользователей:', error);
-			// Возвращаем последние 3 пользователя как fallback
+
 			const users = await this.getUsers();
 			return users.slice(-3);
 		}
 	}
 
-	/**
-	 * Получить рекомендуемых пользователей (по количеству успешных обменов)
-	 */
-	static async getRecommendedUsers(): Promise<UserCardData[]> {
+	static async getRecommendedUsers(params?: {
+		offset?: number;
+		limit?: number;
+	}): Promise<UserCardData[]> {
+		const { offset = 0, limit = 20 } = params || {};
+
 		try {
 			const users = await this.getUsers();
 
-			// Загружаем данные запросов
 			const requestsResponse = await fetch('/db/requests.json');
 			const requestsData: RequestData[] = await requestsResponse.json();
 
-			// Считаем завершенные обмены для каждого пользователя
-			// statusId === 4 означает завершенный обмен
 			const userExchanges = requestsData
 				.filter((req) => req.statusId === 4 && req.finishedAt)
 				.reduce(
-					(acc, req) => {
-						const toUserId = req.toUserId;
-						return {
-							...acc,
-							[toUserId]: (acc[toUserId] || 0) + 1,
-						};
-					},
+					(acc, req) => ({
+						...acc,
+						[req.toUserId]: (acc[req.toUserId] || 0) + 1,
+					}),
 					{} as Record<string, number>
 				);
 
-			// Сортируем по количеству успешных обменов (по убыванию)
-			users.sort(
+			const sortedUsers = [...users].sort(
 				(a, b) => (userExchanges[b.id] || 0) - (userExchanges[a.id] || 0)
 			);
 
-			return users.slice(0, 3);
+			return sortedUsers.slice(offset, offset + limit);
 		} catch (error) {
-			console.error('Ошибка при загрузке рекомендуемых пользователей:', error);
-			// Возвращаем случайных 3 пользователей как fallback
+			console.error('Ошибка при загрузке:', error);
 			const users = await this.getUsers();
-			const shuffled = users.sort(() => 0.5 - Math.random());
-			return shuffled.slice(0, 3);
+			const shuffled = [...users].sort(() => 0.5 - Math.random());
+			return shuffled.slice(offset, offset + limit);
 		}
 	}
 
-	/**
-	 * Получить категории навыков
-	 */
 	static async getSkillCategories(): Promise<SkillCategory[]> {
 		try {
 			const response = await fetch('/db/skills.json');
@@ -223,9 +194,6 @@ export class SkillsAPI {
 		}
 	}
 
-	/**
-	 * Получить города
-	 */
 	static async getCities(): Promise<City[]> {
 		try {
 			const response = await fetch('/db/city.json');
@@ -235,5 +203,9 @@ export class SkillsAPI {
 			console.error('Ошибка при загрузке городов:', error);
 			return [];
 		}
+	}
+
+	static clearCache() {
+		this.cachedUsers = null;
 	}
 }
