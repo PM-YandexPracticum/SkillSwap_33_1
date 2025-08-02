@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
 import GalleryAddIcon from '@icons/gallery-add.svg?react';
+import { useAuth } from '@/features/auth/AuthForm.model';
 
 const RegisterStep3 = () => {
 	const navigate = useNavigate();
-	const { setStep3Data, categories } = useRegister();
+	const { data, setStep3Data, categories } = useRegister();
+	const { register } = useAuth();
 
 	const [skillName, setSkillName] = useState('');
 	const [categoryIds, setCategoryIds] = useState<number[]>([]); // выбранные категории по id
@@ -81,14 +83,17 @@ const RegisterStep3 = () => {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		// Отправляем строки с id выбранных категорий/подкатегорий (через запятую)
-		setStep3Data({
+		const stepData = {
 			skillName,
 			description,
-			files,
-			skillCategory: categoryIds.join(','),
-			skillSubcategory: subcategoryIds.join(','),
-		});
+			canTeachCategories: categoryIds.join(','),
+			canTeachSubcategories: subcategoryIds.join(','),
+		};
+
+		setStep3Data({ ...stepData, files });
+
+		register({ ...data, ...stepData });
+
 		navigate('/profile');
 	};
 

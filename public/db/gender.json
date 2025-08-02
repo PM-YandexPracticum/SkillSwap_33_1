@@ -1,7 +1,7 @@
 {
 	"genders": [
+		{ "id": "unspecified", "label": "Не указан" },
 		{ "id": "male", "label": "Мужской" },
-		{ "id": "female", "label": "Женский" },
-		{ "id": "unspecified", "label": "Не указан" }
+		{ "id": "female", "label": "Женский" }
 	]
 }

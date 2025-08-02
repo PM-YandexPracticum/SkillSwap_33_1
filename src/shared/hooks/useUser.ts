@@ -3,6 +3,24 @@ import userData from '../../../public/db/user.json';
 export const DEFAULT_AVATAR =
 	'/assets/images/profile-pictures/avatar-default.svg';
 
+interface LocalUser {
+	id?: number;
+	name?: string;
+	fullName?: string;
+	email: string;
+	password: string;
+	avatarUrl?: string;
+	birthDate?: string;
+	gender?: string;
+	genderId?: string;
+	city?: string;
+	locationId?: string;
+	description?: string;
+	createdAt?: string;
+	skillsCanTeach?: string[];
+	skillsWantToLearn?: string[];
+}
+
 // Вспомогательная функция для безопасного парсинга даты
 export const parseDate = (dateString: string): Date | null => {
 	if (!dateString || typeof dateString !== 'string') return null;
@@ -34,19 +52,32 @@ export const handleAvatarError = (
 	target.src = DEFAULT_AVATAR;
 };
 
+const getLocalUser = (): LocalUser | null => {
+	if (typeof window === 'undefined') return null;
+	const raw = window.localStorage.getItem('currentUser');
+	if (!raw) return null;
+	try {
+		return JSON.parse(raw) as LocalUser;
+	} catch {
+		return null;
+	}
+};
+
 export const useUser = () => {
-	const user = Array.isArray(userData) ? userData[0] : userData;
-	const safeBirthDate = parseDate(user.birthDate);
+	const stored = getLocalUser();
+	const user: LocalUser =
+		stored || (Array.isArray(userData) ? userData[0] : userData);
+	const safeBirthDate = parseDate(user.birthDate || '');
 
 	return {
 		id: user.id,
-		name: user.name,
+		name: user.fullName || user.name,
 		email: user.email,
 		password: user.password,
 		avatarUrl: getSafeAvatarUrl(user.avatarUrl),
 		birthDate: safeBirthDate,
-		genderId: user.genderId,
-		locationId: user.locationId,
+		genderId: user.gender || user.genderId,
+		locationId: user.city || user.locationId,
 		description: user.description,
 		createdAt: user.createdAt,
 		skillsCanTeach: user.skillsCanTeach || [],

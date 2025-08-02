@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/features/auth/AuthForm.model';
 import styles from './LoginPage.module.css';
 import Logo from '@/components/Logo/Logo';
 import CrossIcon from '@icons/cross.svg?react';
@@ -12,13 +13,9 @@ import {
 	validatePassword,
 } from '@/shared/lib/validation/auth.validation';
 
-interface User {
-	email: string;
-	password: string;
-}
-
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const { login } = useAuth();
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -41,7 +38,7 @@ const LoginPage = () => {
 		}
 	};
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
 		const emailErr = validateEmail(formData.email);
@@ -58,23 +55,15 @@ const LoginPage = () => {
 		setIsLoading(true);
 		setError(null);
 
-		try {
-			const response = await fetch('/db/user.json');
-			const users: User[] = await response.json();
-			const user = users[0];
+		const success = login(formData.email, formData.password);
+		setIsLoading(false);
 
-			if (
-				formData.email === user.email &&
-				formData.password === user.password
-			) {
-				navigate('/profile');
-			} else {
-				setError(
-					'Email или пароль введён неверно. Пожалуйста, проверьте правильность введённых данных.'
-				);
-			}
-		} finally {
-			setIsLoading(false);
+		if (success) {
+			navigate('/profile');
+		} else {
+			setError(
+				'Email или пароль введён неверно. Пожалуйста, проверьте правильность введённых данных.'
+			);
 		}
 	};
 
