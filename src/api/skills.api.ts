@@ -114,59 +114,6 @@ export class SkillsAPI {
 	/**
 	 * Получить данные конкретного пользователя по ID, включая описание и изображения
 	 */
-	// static async getUserById(userId: string) {
-	// 	try {
-	// 		const usersResponse = await fetch('/db/users.json');
-	// 		const usersData: UserData[] = await usersResponse.json();
-
-	// 		const skillsResponse = await fetch('/db/skills.json');
-	// 		const skillsData: SkillCategory[] = await skillsResponse.json();
-
-	// 		const citiesResponse = await fetch('/db/city.json');
-	// 		const citiesData: CitiesData = await citiesResponse.json();
-
-	// 		const user = usersData.find((u) => u.id === userId);
-
-	// 		if (!user) return null;
-
-	// 		const city = citiesData.cities.find((c) => c.id === user.locationId);
-	// 		const birthDate = new Date(user.birthDate);
-	// 		const today = new Date();
-	// 		const age = today.getFullYear() - birthDate.getFullYear();
-
-	// 		const skillsCanTeach = user.skillsCanTeach.map((skill) => {
-	// 			const category = skillsData.find((cat) =>
-	// 				cat.skills.some((s) => s.id === skill.subcategoryId)
-	// 			);
-	// 			const skillData = category?.skills.find((s) => s.id === skill.subcategoryId);
-
-	// 			return {
-	// 				subcategoryId: skill.subcategoryId,
-	// 				title: skillData?.name || 'Неизвестный навык',
-	// 				categoty: category?.name || 'Неизвестная категория',
-	// 				description: skill.description,
-	// 				images: skill.images,
-	// 			};
-	// 		});
-
-	// 		return {
-	// 			id: user.id,
-	// 			name: user.name,
-	// 			avatarUrl: user.avatarUrl,
-	// 			location: city?.['city-name'] || 'Неизвестный город',
-	// 			age,
-	// 			description: user.description,
-	// 			skillsCanTeach,
-	// 			skillsWantToLearn: user.skillsWantToLearn,
-	// 			isFavorite: false,
-	// 			createdAt: user.createdAt,
-	// 		};
-	// 	} catch (error) {
-	// 		console.error(`Ошибка при загрузке пользователя с id ${userId}:`, error);
-	// 		return null;
-	// 	}
-	// }
-
 	static async getOfferById(userId: string) {
 		try {
 			const usersResponse = await fetch('/db/users.json');
