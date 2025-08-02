@@ -266,7 +266,6 @@
 /* Стиль для невалидных полей */
 
 .inputField.inputInvalid {
-	color: #bf3920;
 	border-color: #bf3920;
 }
 
