@@ -1,50 +1,48 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
+import { useUser } from '@/shared/hooks/useUser';
 import styles from './Layout.module.css';
+import ProfileSidebar from '@/pages/Profile/ProfileSidebar';
+import Footer from '@/components/Footer/Footer';
 
-/**
- * Пропсы для компонента Layout
- */
 interface LayoutProps {
-	/** Дочерние компоненты */
 	children?: React.ReactNode;
-	/** Показывать ли блок фильтров */
 	showFilters?: boolean;
-	/** Компонент фильтров */
 	filtersComponent?: React.ReactNode;
 }
 
-/**
- * Основной макет приложения
- * Включает header, основной контент с возможностью фильтров и footer
- */
 export const Layout: React.FC<LayoutProps> = ({
 	children,
 	showFilters = false,
 	filtersComponent,
 }) => {
+	const location = useLocation();
+	const { name, avatarUrl } = useUser();
+	const isProfilePage = location.pathname.startsWith('/profile');
+
 	return (
 		<div className={styles.layout}>
-			{/* Заголовок */}
-			<Header />
+			<Header
+				variant={isProfilePage ? 'user' : 'guest'}
+				userInfo={isProfilePage ? { name, avatar: avatarUrl } : undefined}
+			/>
 
-			{/* Основной контент */}
 			<main className={styles.main}>
-				{/* Контейнер с фильтрами и контентом */}
 				<div className={styles.contentContainer}>
-					{/* Блок фильтров */}
+					{/* Profile sidebar */}
+					{isProfilePage && <ProfileSidebar />}
+
+					{/* Filters sidebar */}
 					{showFilters && filtersComponent && (
 						<aside className={styles.filtersSidebar}>{filtersComponent}</aside>
 					)}
 
-					{/* Основной контент */}
+					{/* Main content */}
 					<div className={styles.content}>{children || <Outlet />}</div>
 				</div>
 			</main>
 
-			{/* Подвал */}
 			<Footer />
 		</div>
 	);

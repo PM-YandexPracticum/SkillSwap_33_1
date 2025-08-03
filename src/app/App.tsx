@@ -1,4 +1,4 @@
-import { HomePage, NotFound404 } from '@/pages';
+import { HomePage, NotFound404, FavoritesPage } from '@/pages';
 import { Error500 } from '@/pages/Error500/Error500';
 import '@appStyles/fonts.css';
 import '@appStyles/normalize.css';
@@ -20,11 +20,17 @@ import LoginPage from '@/pages/Login/LoginPage';
 import { Layout } from '@/widgets/Layout/Layout';
 import { LayoutWithFilters } from '@/widgets/Layout/LayoutWithFilters';
 import { ThemeProvider } from '@app/styles/ThemeProvider';
+import { TestPage } from '@/pages/TestPage/TestPage';
 
 const App = () => {
 	return (
 		<ThemeProvider>
 			<Routes>
+				{/* страница для тестов (в конце проекта удаляется) */}
+				<Route element={<Layout />}>
+					<Route path='/test' element={<TestPage />} />
+				</Route>
+
 				{/* Главная страница с фильтрами */}
 				<Route element={<LayoutWithFilters />}>
 					<Route path='/' element={<HomePage />} />
@@ -53,15 +59,7 @@ const App = () => {
 								/>
 							}
 						/>
-						<Route
-							path='favorites'
-							element={
-								<PlaceholderPage
-									title='Избранное'
-									description='Ваши избранные навыки и пользователи'
-								/>
-							}
-						/>
+						<Route path='favorites' element={<FavoritesPage />} />
 						<Route
 							path='skills'
 							element={

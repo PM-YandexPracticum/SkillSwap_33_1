@@ -1,9 +1,10 @@
-// import styles from './FavoritesPage.module.css';
+import FavoritesList from '@/widgets/FavoritesUsersList/FavoritesUsersList';
 
 export const FavoritesPage = () => {
 	return (
 		<>
-			<h1>Favorites Page</h1>
+			<h1 className='heading-main'>Избранное</h1>
+			<FavoritesList />
 		</>
 	);
 };

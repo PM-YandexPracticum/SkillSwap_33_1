@@ -1,0 +1,99 @@
+.card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	height: 100%;
+	padding: 20px;
+	overflow: hidden;
+}
+
+.headerWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.headerUserInfoWrapper {
+	display: flex;
+	gap: 0 12px;
+}
+
+.userInfoBlock {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
+
+.profilePicture {
+	align-self: center;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.likeButton {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 24px;
+	height: 24px;
+}
+
+.userDescriptionText {
+	color: var(--text-color-primary);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 0.3px;
+}
+
+.userInfoName {
+	margin-bottom: 4px;
+	font-weight: 500;
+	font-size: 24px;
+	font-family: 'Jost', sans-serif;
+	line-height: 1.16;
+	letter-spacing: -0.3px;
+}
+
+.userInfoMore {
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 1.33;
+	letter-spacing: 0.2px;
+}
+
+.bodyWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	height: 100%;
+}
+
+.button {
+	width: 100%;
+}
+
+.buttonExchange {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--color-text);
+}
+
+@media (width <= 1342px) {
+	.cardDefault .headerUserInfoWrapper {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.cardDefault .userInfoBlock {
+		align-items: center;
+	}
+
+	.cardDefault .userInfoMore {
+		text-align: center;
+	}
+}

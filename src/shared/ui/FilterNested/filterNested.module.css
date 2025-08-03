@@ -1,0 +1,83 @@
+.bottomButton {
+	display: flex;
+	flex-direction: row;
+	width: fit-content;
+	color: var(--text-link-button-pressed-color);
+	font-weight: 400;
+	font-size: 16px;
+	font-family: var(--font-main);
+}
+
+.bottomButtonIcon {
+	width: 24px;
+	height: 24px;
+	margin-left: 8px;
+}
+
+.bottomButtonIconReverse {
+	transform: rotate(180deg);
+}
+
+.title {
+	margin-bottom: 8px;
+	color: var(--text-color);
+}
+
+.filterContainer {
+	display: flex;
+	flex-direction: column;
+	row-gap: 12px;
+}
+
+.mainList {
+	display: flex;
+	flex-direction: column;
+	row-gap: 12px;
+}
+
+.mainListPoint {
+	display: flex;
+	flex-direction: row;
+	color: var(--text-color);
+	cursor: pointer;
+}
+
+.extraListPoint {
+	display: flex;
+	flex-direction: row;
+	margin-left: 32px;
+	color: var(--text-color);
+	cursor: pointer;
+}
+
+.extraListPoint img {
+	margin-right: 8px;
+}
+
+.mainListCategory {
+	margin-left: 8px;
+	color: var(--text-color);
+	font-weight: 400;
+	font-size: 16px;
+	font-family: var(--font-main);
+}
+
+.extraList {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+	color: var(--text-color);
+	list-style-type: none;
+}
+
+.checkboxInput {
+	width: 1px;
+	height: 1px;
+	visibility: hidden;
+
+	/* margin-right: -24px; */
+}
+
+.dNone {
+	display: none;
+}

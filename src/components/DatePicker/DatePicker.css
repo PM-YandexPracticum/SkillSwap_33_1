@@ -132,7 +132,7 @@
 	border-radius: 50%;
 }
 
-.datepicker__day-other-month {
+.datepicker__day--other-month {
 	color: #9ca197;
 }
 
@@ -165,24 +165,24 @@
 	transition: all 0.2s ease;
 }
 
-.datepicker__button-cancel {
+.datepicker__button--cancel {
 	color: #374151;
 	background: white;
 	border: 1px solid #abd27a;
 }
 
-.datepicker__button-cancel:hover {
-	background-color: #deebe5;
+.datepicker__button--cancel:hover {
+	background-color: #deebc5;
 }
 
-.datepicker__button-select {
-	color: white;
+.datepicker__button--select {
+	color: #374151;
 	background-color: #a5d36b;
 	border: 1px solid #a5d36b;
 }
 
-.datepicker__button-select:hover {
+.datepicker__button--select:hover {
 	color: #374151;
-	background-color: #deebe5;
-	border-color: #deebe5;
+	background-color: #deebc5;
+	border-color: #deebc5;
 }

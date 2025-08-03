@@ -1,0 +1,767 @@
+[
+	{
+		"id": "usr_1",
+		"name": "Иван",
+		"avatarUrl": "/public/db/profile-pictures/Ivan.png",
+		"birthDate": "1990-04-12",
+		"gender": "Мужской",
+		"location": "Санкт-Петербург",
+		"description": "Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое.",
+		"createdAt": "2024-01-10T11:15:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Играю на барабанах более 10 лет — от репетиций в гараже до выступлений на сцене с живыми группами. Научу основам техники, играть любимые ритмы и разбирать песни.",
+				"images": [
+					"https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
+					"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+					"https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	},
+	{
+		"id": "usr_2",
+		"name": "Анна",
+		"avatarUrl": "/public/db/profile-pictures/Anna.png",
+		"birthDate": "1998-07-21",
+		"gender": "Женский",
+		"location": "Казань",
+		"description": "Преподаватель английского с 5-летним опытом.",
+		"createdAt": "2024-03-02T14:40:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 301,
+				"subcategoryName": "Английский язык",
+				"description": "Свободно владею английским языком уже более 5 лет — от первых слов до уверенного общения на любые темы. Помогу освоить разговорную речь, понимание на слух, грамматику без зубрёжки.",
+				"images": [
+					"https://images.pexels.com/photos/159581/dictionary-reference-book-learning-meaning-159581.jpeg",
+					"https://images.pexels.com/photos/15863757/pexels-photo-15863757.jpeg",
+					"https://images.pexels.com/photos/8363086/pexels-photo-8363086.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	},
+	{
+		"id": "usr_3",
+		"name": "Максим",
+		"avatarUrl": "/public/db/profile-pictures/Maxim.png",
+		"birthDate": "1995-11-05",
+		"gender": "Мужской",
+		"location": "Москва",
+		"description": "Бизнес-тренер и коуч.",
+		"createdAt": "2024-02-15T09:30:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 109,
+				"subcategoryName": "Бизнес-план",
+				"description": "Более 3 лет работаю бизнес-тренером и коучем — от первых тренингов в небольших командах до масштабных корпоративных программ и индивидуального коучинга топ-менеджеров. Помогаю раскрывать потенциал, выстраивать эффективные коммуникации, ставить цели, которые реально достигать, и принимать решения с ясностью, а не с тревогой. На моих сессиях ты научишься управлять собой, своей командой и своими ресурсами так, чтобы результат шёл за процессом без переутомления. Будем работать с мышлением, привычками и стратегией — не только менять действия, но и видеть возможности там, где раньше был тупик.",
+				"images": [
+					"https://images.pexels.com/photos/1709003/pexels-photo-1709003.jpeg",
+					"https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg",
+					"https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": false
+	},
+	{
+		"id": "usr_4",
+		"name": "Илона",
+		"avatarUrl": "/public/db/profile-pictures/Ilona.png",
+		"birthDate": "1991-08-27",
+		"gender": "Женский",
+		"location": "Екатеринбург",
+		"description": "Изучаю английский и практикую йогу.",
+		"createdAt": "2024-04-20T10:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 301,
+				"subcategoryName": "Английский язык",
+				"description": "Свободно говорю на английском уже больше 12 лет — от первых неуверенных фраз до общения на работе, путешествий и обсуждения сложных тем без словаря. Помогу освоить разговорную речь, понимание на слух, грамматику в контексте и научу выражать мысли легко и естественно — как в повседневной жизни, так и в деловой среде. Будем учиться через реальные ситуации, фильмы, диалоги и даже юмор — чтобы английский зашёл без зубрёжки и звучал уверенно.",
+				"images": [
+					"https://images.pexels.com/photos/10549488/pexels-photo-10549488.jpeg",
+					"https://images.pexels.com/photos/6502823/pexels-photo-6502823.jpeg",
+					"https://images.pexels.com/photos/8762786/pexels-photo-8762786.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	},
+	{
+		"id": "usr_5",
+		"name": "Михаил",
+		"avatarUrl": "/public/db/profile-pictures/Mihail.png",
+		"birthDate": "1994-02-14",
+		"gender": "Мужской",
+		"location": "Новосибирск",
+		"description": "IT-специалист, увлекаюсь английским.",
+		"createdAt": "2024-05-12T11:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 301,
+				"subcategoryName": "Английский язык",
+				"description": "Говорю на английском свободно — живу и работаю в англоязычной среде уже более 6 лет. Начинал с базовых фраз, а теперь общаюсь на любые темы: от бытовых разговоров до деловых переговоров и культурных нюансов. На моих занятиях ты начнёшь говорить с первого дня, научишься понимать речь без акцента, перестанешь бояться ошибок и будешь чувствовать себя уверенно — в путешествиях, на собеседованиях или просто в разговоре с носителем. Учим живой язык, а не заученные шаблоны.",
+				"images": [
+					"https://images.pexels.com/photos/4440720/pexels-photo-4440720.jpeg",
+					"https://images.pexels.com/photos/29242209/pexels-photo-29242209.jpeg",
+					"https://images.pexels.com/photos/31713620/pexels-photo-31713620.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": false
+	},
+	{
+		"id": "usr_6",
+		"name": "Мария",
+		"avatarUrl": "/public/db/profile-pictures/Maria.png",
+		"birthDate": "2003-06-01",
+		"gender": "Женский",
+		"location": "Нижний Новгород",
+		"description": "Студентка, изучаю иностранные языки.",
+		"createdAt": "2024-06-01T12:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 301,
+				"subcategoryName": "Английский язык",
+				"description": "Студентка, увлечённо изучаю иностранные языки — уже несколько лет активно осваиваю английский и другие языки, сочетая учёбу, практику и погружение в культуру. Через общение с носителями, просмотр сериалов, чтение и путешествия научилась понимать речь на слух и свободно выражать свои мысли. С радостью помогу начинающим: освоить базовую лексику, разговорные фразы, преодолеть страх говорить и сделать процесс обучения живым, интересным и максимально приближенным к реальной жизни. Учимся легко, без стресса и по-настоящему эффективно!",
+				"images": [
+					"https://images.pexels.com/photos/31713620/pexels-photo-31713620.jpeg",
+					"https://images.pexels.com/photos/6502823/pexels-photo-6502823.jpeg",
+					"https://images.pexels.com/photos/159581/dictionary-reference-book-learning-meaning-159581.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": false
+	},
+	{
+		"id": "usr_7",
+		"name": "Виктория",
+		"avatarUrl": "/public/db/profile-pictures/Viktorija.png",
+		"birthDate": "1993-12-10",
+		"gender": "Женский",
+		"location": "Челябинск",
+		"description": "Преподаватель музыки.",
+		"createdAt": "2024-07-01T13:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Играю на барабанах уже больше 13 лет — с первых ритмов в детской комнате до выступлений на сцене с разными музыкальными проектами. Для меня барабаны — это не просто инструмент, а способ выражать эмоции, энергию и ритм жизни. Научу тебя с нуля: как держать палочки, не уставать за ударной установкой, чётко попадать по такту и чувствовать бит. Разберём основы техники, простые и сложные ритмы, научимся играть под песни, импровизировать и звучать мощно — даже если ты сел за барабаны впервые. Главное — желание и чувство ритма, остальное приложится!",
+				"images": [
+					"https://images.pexels.com/photos/237464/pexels-photo-237464.jpeg",
+					"https://images.pexels.com/photos/4087992/pexels-photo-4087992.jpeg",
+					"https://images.pexels.com/photos/1601464/pexels-photo-1601464.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": false
+	},
+	{
+		"id": "usr_8",
+		"name": "Елизавета",
+		"avatarUrl": "/public/db/profile-pictures/Elizaveta.png",
+		"birthDate": "1998-03-25",
+		"gender": "Женский",
+		"location": "Самара",
+		"description": "Музыкант и барабанщик.",
+		"createdAt": "2024-08-01T14:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Я играю на бараканах уже более 3 лет — с первых неуверенных стуков до уверенных ритмов на сцене, в студии и в живых выступлениях с разными музыкантами. Барабаны для меня — это драйв, дисциплина и полная свобода в одном. С радостью научу тебя с азов: как сидеть правильно, чтобы не уставать, как держать палочки, чтобы не мешали, и как слушать музыку так, чтобы чувствовать каждый акцент. Разберём базовые биты, паузы, переходы, будем играть под настоящие песни, учиться импровизировать и зажигать — даже без опыта. Главное — начать. Остальное прийдёт с ритмом!",
+				"images": [
+					"https://images.pexels.com/photos/1601464/pexels-photo-1601464.jpeg",
+					"https://images.pexels.com/photos/1481244/pexels-photo-1481244.jpeg",
+					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	},
+	{
+		"id": "usr_9",
+		"name": "Виктория",
+		"avatarUrl": "/public/db/profile-pictures/Viktorija2.png",
+		"birthDate": "1992-09-15",
+		"gender": "Женский",
+		"location": "Омск",
+		"description": "Барабанщик со стажем.",
+		"createdAt": "2024-09-01T15:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Я играю на барабанах больше десяти лет — с первых робких попыток в гараже до полноценных выступлений, записи в студии и работы с разными жанрами — от рока до джаза и электроники. За это время не просто освоила технику, а научилась чувствовать музыку изнутри: как вести группу, как поддерживать энергию и как сделать так, чтобы каждый удар звучал точно и мощно. Теперь с радостью делюсь своим опытом — особенно с теми, кто только начинает. На занятиях мы разберём основы: работу рук и ног, чувство времени, простые и крутые ритмы, будем играть под любимые треки и учиться импровизировать. Главное — не бояться начать. А ритм найдётся у каждого!",
+				"images": [
+					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
+					"https://images.pexels.com/photos/4087992/pexels-photo-4087992.jpeg",
+					"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	},
+	{
+		"id": "usr_10",
+		"name": "Елена",
+		"avatarUrl": "/public/db/profile-pictures/Elena.png",
+		"birthDate": "1995-01-01",
+		"gender": "Женский",
+		"location": "Ростов-на-Дону",
+		"description": "Музыкальный педагог.",
+		"createdAt": "2024-10-01T16:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Играю на барабанах больше 5 лет — от первых ритмов до сцены и студии. Помогу освоить основы: как держать палочки, чувствовать такт, играть чётко и без усталости. Разберём любимые песни, научимся простым и крутым битам, добавим импровизации. Уроки — практика, прогресс и удовольствие от игры. Начинаем с любого уровня!",
+				"images": [
+					"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+					"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+					"https://images.pexels.com/photos/11018964/pexels-photo-11018964.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": false
+	},
+	{
+		"id": "usr_11",
+		"name": "Константин",
+		"avatarUrl": "/public/db/profile-pictures/Konstantin.png",
+		"birthDate": "1988-05-18",
+		"gender": "Мужской",
+		"location": "Уфа",
+		"description": "Профессиональный барабанщик.",
+		"createdAt": "2024-11-01T17:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Играю на барабанах уже 10+ лет — от первых аккордов ритма до живых выступлений и записи треков. Научу тебя чувствовать бит, держать темп и играть уверенно — даже с нуля. Покажу основы техники, разберём крутые ритмы под любимые песни и научимся не теряться за установкой. Всё просто, понятно и по делу — без воды, только практика и прогресс!",
+				"images": [
+					"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
+					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	},
+	{
+		"id": "usr_12",
+		"name": "София",
+		"avatarUrl": "/public/db/profile-pictures/Sofija.png",
+		"birthDate": "1999-07-01",
+		"gender": "Женский",
+		"location": "Красноярск",
+		"description": "Начинающий барабанщик.",
+		"createdAt": "2024-12-01T18:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Играю на барабанах уже 10+ лет — от первых аккордов ритма до живых выступлений и записи треков. Научу тебя чувствовать бит, держать темп и играть уверенно — даже с нуля. Покажу основы техники, разберём крутые ритмы под любимые песни и научимся не теряться за установкой. Всё просто, понятно и по делу — без воды, только практика и прогресс!",
+				"images": [
+					"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+					"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+					"https://images.pexels.com/photos/11018964/pexels-photo-11018964.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": false
+	},
+	{
+		"id": "usr_13",
+		"name": "Екатерина",
+		"avatarUrl": "/public/db/profile-pictures/Ekaterina.png",
+		"birthDate": "1990-10-20",
+		"gender": "Женский",
+		"location": "Воронеж",
+		"description": "Музыкальный руководитель.",
+		"createdAt": "2024-01-01T19:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Играю на барабанах больше 14 лет — от первых ударов до сцены и студии. Покажу, как освоить ритм легко: основы техники, правильную посадку, работу с метрономом и игру под настоящие песни. Научишься держать бит, не уставать и чувствовать музыку. Подойдёт даже новичкам — главное, желание начать. Коротко, чётко, по делу!",
+				"images": [
+					"https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
+					"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+					"https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	},
+	{
+		"id": "usr_14",
+		"name": "Дарья",
+		"avatarUrl": "/public/db/profile-pictures/Darija.png",
+		"birthDate": "1997-04-10",
+		"gender": "Женский",
+		"location": "Пермь",
+		"description": "Ударница в группе.",
+		"createdAt": "2024-02-01T20:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Я — ударница в музыкальной группе с многолетним стажем: сцена, репетиции, запись альбомов — всё это мой каждый день. За годы игры научилась не просто чётко держать ритм, но и чувствовать настроение песни, поддерживать энергию коллектива и звучать мощно в любом жанре — от рока до инди и фанка. Теперь делюсь опытом: помогу освоить основы, улучшить технику, играть в команде и уверенно чувствовать себя за установкой — даже на сцене. Уроки практические, без лишней теории: разбираем реальные треки, работаем с битами, переходим к импровизации. Если хочешь не просто бить по тарелкам, а *играть* — приходи, будем расти вместе!",
+				"images": [
+					"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
+					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
+					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": false
+	},
+	{
+		"id": "usr_15",
+		"name": "Алла",
+		"avatarUrl": "/public/db/profile-pictures/Alla.png",
+		"birthDate": "2001-12-25",
+		"gender": "Женский",
+		"location": "Волгоград",
+		"description": "Студия звукозаписи.",
+		"createdAt": "2024-03-01T21:00:00Z",
+		"skillsCanTeach": [
+			{
+				"categoryId": 2,
+				"categoryName": "Творчество и искусство",
+				"subcategoryId": 209,
+				"subcategoryName": "Игра на барабанах",
+				"description": "Я барабанщица с опытом записи в студии — играю чётко, чувствую ритм и знаю, как важно попадать в каждый такт. Помогу освоить основы или прокачать игру для тех, кто хочет звучать уверенно — особенно в студии. Работаем с метрономом, правильной техникой и реальными треками. Кратко, понятно, по делу — без лишнего, только результат.",
+				"images": [
+					"https://images.pexels.com/photos/11484397/pexels-photo-11484397.jpeg",
+					"https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+					"https://images.pexels.com/photos/1327430/pexels-photo-1327430.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [
+			{
+				"categoryId": 1,
+				"categoryName": "Бизнес и карьера",
+				"subcategoryId": 106,
+				"subcategoryName": "Тайм-менеджмент"
+			},
+			{
+				"categoryId": 6,
+				"categoryName": "Здоровье и лайфстайл",
+				"subcategoryId": 601,
+				"subcategoryName": "Йога и медитация"
+			},
+			{
+				"categoryId": 4,
+				"categoryName": "Образование и развитие",
+				"subcategoryId": 403,
+				"subcategoryName": "Когнитивные техники"
+			},
+			{
+				"categoryId": 3,
+				"categoryName": "Иностранные языки",
+				"subcategoryId": 306,
+				"subcategoryName": "Японский"
+			}
+		],
+		"isExchangeSent": true
+	}
+]

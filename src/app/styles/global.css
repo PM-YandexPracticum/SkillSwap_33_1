@@ -2,6 +2,8 @@
 	--background-color: var(--color-background);
 	--text-color-primary: var(--color-text);
 	--font-family-primary: roboto, sans-serif;
+	--card-background-color: #ffffff;
+	--color-outline: #abd27a;
 }
 
 html,
@@ -12,4 +14,34 @@ body {
 	transition:
 		background-color 0.3s ease,
 		color 0.3s ease;
+}
+
+.heading-main {
+	margin-bottom: 36px;
+	color: var(--text-color-primary);
+	font-weight: 500;
+	font-size: 32px;
+	font-family: 'Jost', sans-serif;
+	font-style: normal;
+	line-height: 1.25;
+	letter-spacing: -0.3px;
+}
+
+.container {
+	max-width: 1170px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 16px;
+	padding-left: 16px;
+}
+
+.link {
+	color: var(--text-color-primary);
+	font-weight: 400;
+	font-size: 16px;
+	transition: color 0.3s ease-in-out;
+}
+
+.link:hover {
+	color: var(--color-accent);
 }

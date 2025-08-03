@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout } from './Layout';
-import { FiltersBar } from '@/widgets/FiltersBar/FiltersBar';
 
 /**
  * Layout с фильтрами для главной страницы
@@ -9,7 +8,7 @@ import { FiltersBar } from '@/widgets/FiltersBar/FiltersBar';
  */
 export const LayoutWithFilters: React.FC = () => {
 	return (
-		<Layout showFilters={true} filtersComponent={<FiltersBar />}>
+		<Layout>
 			<Outlet />
 		</Layout>
 	);
