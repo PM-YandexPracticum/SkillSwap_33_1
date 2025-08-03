@@ -7,6 +7,9 @@ import AddIconLight from '@icons/icon-add-light.svg?react';
 import AddIconDark from '@icons/icon-add-dark.svg?react';
 import styles from './RegisterPage.module.css';
 import { skillsCategories } from '../../shared/data/skillsCategories';
+import genderData from '../../../public/db/gender.json';
+import citiesData from '../../../public/db/city.json';
+import type { CitiesResponse } from '@/types';
 
 const RegisterStep2 = () => {
 	const navigate = useNavigate();
@@ -15,7 +18,7 @@ const RegisterStep2 = () => {
 
 	const [name, setName] = useState('');
 	const [birthDate, setBirthDate] = useState<Date | null>(null);
-	const [gender, setGender] = useState('');
+	const [gender, setGender] = useState('unspecified');
 	const [isGenderOpen, setIsGenderOpen] = useState(false);
 	const [city, setCity] = useState('');
 	const [isCityOpen, setIsCityOpen] = useState(false);
@@ -30,6 +33,8 @@ const RegisterStep2 = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const AddIcon = theme === 'light' ? AddIconLight : AddIconDark;
+	const genders = genderData.genders;
+	const cities = (citiesData as CitiesResponse).cities;
 
 	const handleAvatarClick = () => {
 		fileInputRef.current?.click();
@@ -117,11 +122,17 @@ const RegisterStep2 = () => {
 
 		setStep2Data({
 			fullName: name,
-			birthDate: birthDate ? birthDate.toISOString() : undefined,
+			birthDate: birthDate
+				? [
+						birthDate.getFullYear(),
+						String(birthDate.getMonth() + 1).padStart(2, '0'),
+						String(birthDate.getDate()).padStart(2, '0'),
+					].join('-')
+				: undefined,
 			gender,
 			city,
-			skillCategory: selectedCategories.join(','),
-			skillSubcategory: selectedSubcategories.join(','),
+			wantToLearnCategories: selectedCategories,
+			wantToLearnSubcategories: selectedSubcategories,
 			avatar: avatarFile || undefined,
 		});
 
@@ -189,10 +200,11 @@ const RegisterStep2 = () => {
 							onFocus={() => setIsGenderOpen(true)}
 							onBlur={() => setIsGenderOpen(false)}
 						>
-							<option value=''>Не указан</option>
-							<option value='Мужской'>Мужской</option>
-							<option value='Женский'>Женский</option>
-							<option value='Другое'>Другое</option>
+							{genders.map((g) => (
+								<option key={g.id} value={g.id}>
+									{g.label}
+								</option>
+							))}
 						</select>
 					</div>
 				</label>
@@ -212,9 +224,11 @@ const RegisterStep2 = () => {
 						onBlur={() => setIsCityOpen(false)}
 					>
 						<option value=''>Не указан</option>
-						<option value='Москва'>Москва</option>
-						<option value='Санкт-Петербург'>Санкт-Петербург</option>
-						<option value='Другое'>Другое</option>
+						{cities.map((c) => (
+							<option key={c.id} value={c.id}>
+								{c['city-name']}
+							</option>
+						))}
 					</select>
 				</div>
 			</label>

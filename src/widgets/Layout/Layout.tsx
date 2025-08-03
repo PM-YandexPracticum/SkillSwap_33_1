@@ -20,12 +20,15 @@ export const Layout: React.FC<LayoutProps> = ({
 	const location = useLocation();
 	const { name, avatarUrl } = useUser();
 	const isProfilePage = location.pathname.startsWith('/profile');
+	const isAuthenticated =
+		typeof window !== 'undefined' &&
+		Boolean(window.localStorage.getItem('currentUser'));
 
 	return (
 		<div className={styles.layout}>
 			<Header
-				variant={isProfilePage ? 'user' : 'guest'}
-				userInfo={isProfilePage ? { name, avatar: avatarUrl } : undefined}
+				variant={isAuthenticated ? 'user' : 'guest'}
+				userInfo={isAuthenticated ? { name, avatar: avatarUrl } : undefined}
 			/>
 
 			<main className={styles.main}>

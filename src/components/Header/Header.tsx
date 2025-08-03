@@ -68,7 +68,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 							<LikeIcon className='w-5 h-5' />
 						</button>
 
-						<div className='user-info'>
+						<Link to='/profile' className='user-info'>
 							<span className='user-name'>{userInfo.name}</span>
 							<div className='user-avatar'>
 								<img
@@ -81,7 +81,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 									}}
 								/>
 							</div>
-						</div>
+						</Link>
 					</div>
 				)}
 			</div>

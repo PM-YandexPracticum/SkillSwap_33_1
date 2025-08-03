@@ -19,11 +19,13 @@ interface RegisterData {
 	birthDate?: string | undefined;
 	gender?: string;
 	city?: string;
-	skillCategory?: string;
-	skillSubcategory?: string;
+	wantToLearnCategories?: number[];
+	wantToLearnSubcategories?: number[];
 	skillName?: string;
 	description?: string;
 	files?: FileList | null;
+	canTeachCategories?: number[];
+	canTeachSubcategories?: number[];
 	avatar?: File;
 }
 
@@ -38,8 +40,8 @@ interface RegisterContextProps {
 			| 'birthDate'
 			| 'gender'
 			| 'city'
-			| 'skillCategory'
-			| 'skillSubcategory'
+			| 'wantToLearnCategories'
+			| 'wantToLearnSubcategories'
 			| 'avatar'
 		>
 	) => void;
@@ -49,8 +51,8 @@ interface RegisterContextProps {
 			| 'skillName'
 			| 'description'
 			| 'files'
-			| 'skillCategory'
-			| 'skillSubcategory'
+			| 'canTeachCategories'
+			| 'canTeachSubcategories'
 		>
 	) => void;
 
@@ -88,8 +90,8 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
 			| 'birthDate'
 			| 'gender'
 			| 'city'
-			| 'skillCategory'
-			| 'skillSubcategory'
+			| 'wantToLearnCategories'
+			| 'wantToLearnSubcategories'
 			| 'avatar'
 		>
 	) => {
@@ -102,8 +104,8 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
 			| 'skillName'
 			| 'description'
 			| 'files'
-			| 'skillCategory'
-			| 'skillSubcategory'
+			| 'canTeachCategories'
+			| 'canTeachSubcategories'
 		>
 	) => {
 		setData((prev) => ({ ...prev, ...payload }));

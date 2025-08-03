@@ -161,6 +161,19 @@
 	background-color: var(--color-button-hover);
 }
 
+.save-button:disabled {
+	color: #8a8a8a;
+	background-color: #d3d3d3;
+	border-color: #d3d3d3;
+	cursor: not-allowed;
+}
+
+.error-message {
+	margin-top: 5px;
+	color: #bf3920;
+	font-size: 12px;
+}
+
 /* Avatar Section */
 
 .avatar-section {

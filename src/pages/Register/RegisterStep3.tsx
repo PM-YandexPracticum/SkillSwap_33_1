@@ -5,16 +5,19 @@ import { useRegister } from './RegisterContext';
 import GalleryAddIcon from '@icons/gallery-add.svg?react';
 import OfferPreviewModal from './OfferPreviewModal';
 import SuccessModal from './SuccessModal';
+import { useAuth } from '@/features/auth/AuthForm.model';
 
 const RegisterStep3 = () => {
 	const navigate = useNavigate();
-	const { setStep3Data, categories } = useRegister();
+	const { data, setStep3Data, categories } = useRegister();
+	const { register } = useAuth();
 
 	const [skillName, setSkillName] = useState('');
 	const [categoryIds, setCategoryIds] = useState<number[]>([]); // выбранные категории по id
 	const [subcategoryIds, setSubcategoryIds] = useState<number[]>([]); // выбранные подкатегории по id
 	const [description, setDescription] = useState('');
 	const [files, setFiles] = useState<FileList | null>(null);
+	const [error, setError] = useState<string | null>(null);
 	const [isDragging, setIsDragging] = useState(false);
 	const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -90,8 +93,8 @@ const RegisterStep3 = () => {
 			skillName,
 			description,
 			files,
-			skillCategory: categoryIds.join(','),
-			skillSubcategory: subcategoryIds.join(','),
+			canTeachCategories: categoryIds,
+			canTeachSubcategories: subcategoryIds,
 		});
 
 		// Открываем попап предварительного просмотра
@@ -110,9 +113,24 @@ const RegisterStep3 = () => {
 
 	const handleSuccessConfirm = () => {
 		setIsSuccessModalOpen(false);
-		// Переход на страницу созданного навыка
-		// TODO: Заменить 'usr_1' на реальный ID созданного навыка после интеграции с API
-		navigate('/skills/usr_1');
+
+		// Регистрируем пользователя
+		const stepData = {
+			skillName,
+			description,
+			canTeachCategories: categoryIds,
+			canTeachSubcategories: subcategoryIds,
+		};
+
+		const success = register({ ...data, ...stepData });
+
+		if (success) {
+			// Переход на страницу созданного навыка
+			// TODO: Заменить 'usr_1' на реальный ID созданного навыка после интеграции с API
+			navigate('/skills/usr_1');
+		} else {
+			setError('Пользователь с таким email уже зарегистрирован');
+		}
 	};
 
 	const handleBack = () => navigate('/register/step-2');
@@ -161,6 +179,8 @@ const RegisterStep3 = () => {
 	return (
 		<>
 			<form className={styles.form} onSubmit={handleSubmit}>
+				{error && <p className={styles.errorMessage}>{error}</p>}
+
 				<label className={styles.inputLabel}>
 					<span>Название навыка</span>
 					<input
