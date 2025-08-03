@@ -1,22 +1,22 @@
-import style from './SkillExchangeCard.module.css';
+import styles from './SkillExchangeCard.module.css';
 import { useState } from 'react';
-import emptyHeartIcon from '../../shared/assets/icons/heart-outline.svg';
-import filledHeartIcon from '../../shared/assets/icons/heart-filled.svg';
-import moreSquareIcon from '../../shared/assets/icons/more-square.svg';
-import shareIcon from '../../shared/assets/icons/share.svg';
+import EmptyHeartIcon from '../../shared/assets/icons/heart-outline.svg?react';
+import FilledHeartIcon from '../../shared/assets/icons/heart-filled.svg?react';
+import MoreSquareIcon from '../../shared/assets/icons/more-square.svg?react';
+import ShareIcon from '../../shared/assets/icons/share.svg?react';
 
 export type TSkillExchangeCard = {
 	skill: {
 		id: string;
 		title: string;
-		categoty: string;
+		category: string;
 		description: string;
 		images?: string[];
 	};
 	showHeaderButtons?: boolean;
 	showPopupHeader?: boolean;
 	showExchangeButton?: boolean;
-	showEditBuutons?: boolean;
+	showEditButtons?: boolean;
 	popUpTitle?: string;
 	popUpSubtitle?: string;
 };
@@ -26,7 +26,7 @@ export const SkillExchangeCard = ({
 	showHeaderButtons = true,
 	showPopupHeader = false,
 	showExchangeButton = true,
-	showEditBuutons = false,
+	showEditButtons = false,
 	popUpTitle,
 	popUpSubtitle,
 }: TSkillExchangeCard) => {
@@ -37,69 +37,57 @@ export const SkillExchangeCard = ({
 	};
 
 	return (
-		<div className={style.card}>
+		<div className={styles.card}>
 			{showHeaderButtons && (
-				<div className={style.headerButtons}>
-					<button className={style.favoriteButton} onClick={toggleFavorite}>
+				<div className={styles.headerButtons}>
+					<button className={styles.favoriteButton} onClick={toggleFavorite}>
 						{isFavorite ? (
-							<img
-								src={filledHeartIcon}
-								className={style.iconButton}
-								alt='В избранном'
-							/>
+							<FilledHeartIcon className={styles.iconButton} />
 						) : (
-							<img
-								src={emptyHeartIcon}
-								className={style.iconButton}
-								alt='Добавить в избранное'
-							/>
+							<EmptyHeartIcon className={styles.iconButton} />
 						)}
 					</button>
-					<button className={style.favoriteButton}>
-						<img
-							src={shareIcon}
-							className={style.iconButton}
-							alt='Поделиться'
-						/>
+					<button className={styles.favoriteButton}>
+						<ShareIcon className={styles.iconButton} />
 					</button>
-					<button className={style.favoriteButton}>
-						<img src={moreSquareIcon} className={style.iconButton} alt='Еще' />
+					<button className={styles.favoriteButton}>
+						<MoreSquareIcon className={styles.iconButton} />
 					</button>
 				</div>
 			)}
 			{showPopupHeader && (
-				<div className={style.header}>
-					<div className={style.popUpTitle}>{popUpTitle}</div>
-					<div className={style.popUpSubtitle}>{popUpSubtitle}</div>
+				<div className={styles.header}>
+					<div className={styles.popUpTitle}>{popUpTitle}</div>
+					<div className={styles.popUpSubtitle}>{popUpSubtitle}</div>
 				</div>
 			)}
-			<div className={style.cardContent}>
-				<div className={style.textBlock}>
-					<div className={style.descriptionBlock}>
-						<div className={style.textHeader}>
-							<h3 className={style.skillTitle}>{skill.title}</h3>
-							<p className={style.skillSubtitle}>{skill.categoty}</p>
+			<div className={styles.cardContent}>
+				<div className={styles.textBlock}>
+					<div className={styles.descriptionBlock}>
+						<div className={styles.textHeader}>
+							<h3 className={styles.skillTitle}>{skill.title}</h3>
+							<p className={styles.skillSubtitle}>{skill.category}</p>
 						</div>
-						<p className={style.skillDescription}>{skill.description}</p>
+						<p className={styles.skillDescription}>{skill.description}</p>
 					</div>
 					{showExchangeButton && (
 						<button
-							className={`${style.button} ${style.primaryButton}`}
+							className={`${styles.button} ${styles.primaryButton}`}
 							onClick={() => {}}
 						>
 							Предложить обмен
 						</button>
 					)}
-					{showEditBuutons && (
-						<div className={style.buttonsBlock}>
+					{showEditButtons && (
+						<div className={styles.buttonsBlock}>
 							<button
-								className={`${style.button} ${style.secondaryButton}`}
+								className={`${styles.button} ${styles.secondaryButton}`}
 								onClick={() => {}}
 							>
 								Редактировать
 							</button>
 							<button
-								className={`${style.button} ${style.primaryButton}`}
+								className={`${styles.button} ${styles.primaryButton}`}
 								onClick={() => {}}
 							>
 								Готово
@@ -107,13 +95,13 @@ export const SkillExchangeCard = ({
 						</div>
 					)}
 				</div>
-				<div className={style.imageBlock}>
-					{skill.images && (
-						<div className={style.imageGrid}>
+				<div className={styles.imageBlock}>
+					{Array.isArray(skill.images) && skill.images.length > 0 && (
+						<div className={styles.imageGrid}>
 							{skill.images.length === 1 && (
 								<img
 									src={skill.images[0]}
-									className={style.image}
+									className={styles.image}
 									alt={skill.title}
 								/>
 							)}
@@ -121,18 +109,18 @@ export const SkillExchangeCard = ({
 								<>
 									<img
 										src={skill.images[0]}
-										className={style.image}
+										className={styles.image}
 										alt={skill.title}
 									/>
 									{skill.images.slice(1, 4).map((img, idx) => (
-										<div className={style.smallImageWrapper} key={idx}>
+										<div className={styles.smallImageWrapper} key={idx}>
 											<img
 												src={img}
-												className={style.image}
+												className={styles.image}
 												alt={skill.title}
 											/>
 											{idx === 2 && (skill.images?.length ?? 0) > 4 && (
-												<div className={style.imageCounter}>
+												<div className={styles.imageCounter}>
 													+{(skill.images?.length ?? 0) - 4}
 												</div>
 											)}
