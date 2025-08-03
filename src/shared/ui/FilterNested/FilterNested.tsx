@@ -1,10 +1,10 @@
 import type { SkillCategory } from '../../../types';
 import styles from './filterNested.module.css';
-import chevron from '../../assets/icons/chevron-down.svg';
 import clsx from 'clsx';
-import emptyCheckBox from '../../assets/icons/checkbox-empty.svg';
-import filledCheckBox from '../../assets/icons/checkbox-done.svg';
-import deleteCheckBox from '../../assets/icons/checkbox-remove.svg';
+import ChevronIcon from '../../assets/icons/chevron-down.svg?react';
+import EmptyCheckBoxIcon from '../../assets/icons/checkbox-empty.svg?react';
+import FilledCheckBoxIcon from '../../assets/icons/checkbox-done.svg?react';
+import DeleteCheckBoxIcon from '../../assets/icons/checkbox-remove.svg?react';
 
 type Props = {
 	title?: string;
@@ -41,12 +41,8 @@ const FilterNestedUI = ({
 			categorySkillIds.has(id)
 		).length;
 
-		if (checkedInCategory === 0) {
-			return 'none';
-		}
-		if (checkedInCategory === category.skills.length) {
-			return 'all';
-		}
+		if (checkedInCategory === 0) return 'none';
+		if (checkedInCategory === category.skills.length) return 'all';
 		return 'some';
 	};
 
@@ -58,39 +54,39 @@ const FilterNestedUI = ({
 
 				return (
 					<ul key={category.id} className={styles.mainList}>
-						{/* Категория с кнопкой раскрытия */}
 						<li
 							className={styles.mainListPoint}
 							onClick={() => toggleCategoryExpand(category.id)}
 						>
 							{checkState === 'none' && (
-								<img
-									src={emptyCheckBox}
-									alt='Выбрать все'
-									onClick={() => onMarkCategory(category.id)}
-									style={{ cursor: 'pointer' }}
+								<EmptyCheckBoxIcon
+									className={styles.checkBoxIcon}
+									onClick={(e) => {
+										e.stopPropagation();
+										onMarkCategory(category.id);
+									}}
 								/>
 							)}
 							{checkState === 'some' && (
-								<img
-									src={deleteCheckBox}
-									alt='Снять все'
-									onClick={() => onUnmarkCategory(category.id)}
-									style={{ cursor: 'pointer' }}
+								<DeleteCheckBoxIcon
+									className={styles.checkBoxIcon}
+									onClick={(e) => {
+										e.stopPropagation();
+										onUnmarkCategory(category.id);
+									}}
 								/>
 							)}
 							{checkState === 'all' && (
-								<img
-									src={filledCheckBox}
-									alt='Снять все'
-									onClick={() => onUnmarkCategory(category.id)}
-									style={{ cursor: 'pointer' }}
+								<FilledCheckBoxIcon
+									className={styles.checkBoxIcon}
+									onClick={(e) => {
+										e.stopPropagation();
+										onUnmarkCategory(category.id);
+									}}
 								/>
 							)}
 							<span className={styles.mainListCategory}>{category.name}</span>
-							<img
-								alt=''
-								src={chevron}
+							<ChevronIcon
 								className={clsx(styles.bottomButtonIcon, {
 									[styles.bottomButtonIconReverse]: expandedCategories.includes(
 										category.id
@@ -98,7 +94,7 @@ const FilterNestedUI = ({
 								})}
 							/>
 						</li>
-						{/* Внутри раскрытой категории список навыков */}
+
 						{expandedCategories.includes(category.id) && (
 							<ul className={styles.extraList}>
 								{category.skills.map((skill) => (
@@ -110,14 +106,11 @@ const FilterNestedUI = ({
 												onChange={() => toggleSkillCheck(skill.id)}
 												className={styles.checkboxInput}
 											/>
-											<img
-												src={
-													checkedItems.includes(skill.id)
-														? filledCheckBox
-														: emptyCheckBox
-												}
-												alt=''
-											/>
+											{checkedItems.includes(skill.id) ? (
+												<FilledCheckBoxIcon className={styles.checkBoxIcon} />
+											) : (
+												<EmptyCheckBoxIcon className={styles.checkBoxIcon} />
+											)}
 											{skill.name}
 										</label>
 									</li>
@@ -130,9 +123,7 @@ const FilterNestedUI = ({
 			{items.length > 5 && (
 				<button onClick={toggleShowAll} className={styles.bottomButton}>
 					{showAll ? 'Свернуть' : buttonName}
-					<img
-						alt=''
-						src={chevron}
+					<ChevronIcon
 						className={clsx(styles.bottomButtonIcon, {
 							[styles.bottomButtonIconReverse]: showAll,
 						})}

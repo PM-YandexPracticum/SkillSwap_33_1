@@ -7,7 +7,7 @@
 	height: inherit;
 	margin-left: 36px;
 	padding: 20px;
-	background-color: var(--card-input-color);
+	background-color: var(--color-surface);
 	border-radius: 12px;
 }
 

@@ -6,7 +6,6 @@
 	flex-direction: column;
 	min-height: 100vh;
 	padding-top: 84px;
-	background-color: var(--color-background);
 }
 
 /* === Верхняя панель === */
@@ -282,7 +281,7 @@
 	height: 8px;
 	border-width: 2px 2px 0 0;
 	border-style: solid;
-	border-color: #253017;
+	border-color: var(--color-text);
 	transform: translateY(-50%) rotate(135deg);
 	transition: transform 0.3s ease;
 	pointer-events: none;
@@ -421,6 +420,7 @@
 	position: relative;
 	margin: 24px 0;
 	color: var(--color-text);
+	color: var(--color-text);
 	font-size: 16px;
 	text-align: center;
 }
@@ -428,6 +428,7 @@
 .divider span {
 	position: relative;
 	z-index: 1;
+	padding: 0 8px;
 	padding: 0 8px;
 	background: var(--color-surface);
 }
@@ -603,7 +604,7 @@
 	height: 48px;
 	padding: 8px 12px;
 	padding-right: 30px;
-	background: white;
+	background: var(--color-surface);
 	border: 1px solid #69735d;
 	border-radius: 8px;
 	cursor: pointer;
@@ -618,7 +619,7 @@
 	height: 8px;
 	border-width: 2px 2px 0 0;
 	border-style: solid;
-	border-color: #253017;
+	border-color: var(--color-text);
 	transform: translateY(-50%) rotate(135deg);
 	transition: transform 0.3s ease;
 	pointer-events: none;
@@ -646,7 +647,7 @@
 	margin-top: 4px;
 	padding: 4px 0;
 	overflow-y: auto;
-	background: white;
+	background: var(--color-surface);
 	border: 1px solid #69735d;
 	border-radius: 4px;
 	box-shadow: 0 2px 6px rgb(0 0 0 / 15%);

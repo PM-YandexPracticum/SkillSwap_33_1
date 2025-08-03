@@ -4,28 +4,16 @@ import { SkillCard } from './SkillCard';
 import ChevronRightIcon from '@/shared/assets/icons/chevron-right.svg?react';
 import styles from './SkillSection.module.css';
 
-/**
- * Пропсы для компонента SkillSection
- */
 interface SkillSectionProps {
-	/** Заголовок секции */
 	title: string;
-	/** Массив пользователей для отображения */
 	users: UserCardData[];
-	/** Показывать ли кнопку "Смотреть все" */
 	showViewAllButton?: boolean;
-	/** Обработчик клика по кнопке "Смотреть все" */
 	onViewAllClick?: () => void;
-	/** Обработчик клика по кнопке "Подробнее" в карточке */
 	onCardDetailsClick?: (userId: string) => void;
-	/** Обработчик изменения состояния избранного */
 	onFavoriteToggle?: (userId: string, isFavorite: boolean) => void;
+	isLoadingMore?: boolean;
 }
 
-/**
- * Компонент секции с карточками навыков
- * Отображает заголовок, карточки пользователей и кнопку "Смотреть все"
- */
 export const SkillSection: React.FC<SkillSectionProps> = ({
 	title,
 	users,
@@ -33,17 +21,14 @@ export const SkillSection: React.FC<SkillSectionProps> = ({
 	onViewAllClick,
 	onCardDetailsClick,
 	onFavoriteToggle,
+	isLoadingMore,
 }) => {
-	/**
-	 * Обработчик клика по кнопке "Смотреть все"
-	 */
 	const handleViewAllClick = () => {
 		onViewAllClick?.();
 	};
 
 	return (
 		<section className={styles.section}>
-			{/* Заголовок секции с кнопкой "Смотреть все" */}
 			<div className={styles.sectionHeader}>
 				<h2 className={styles.sectionTitle}>{title}</h2>
 				{showViewAllButton && (
@@ -58,7 +43,6 @@ export const SkillSection: React.FC<SkillSectionProps> = ({
 				)}
 			</div>
 
-			{/* Контейнер с карточками */}
 			<div className={styles.cardsContainer}>
 				{users.map((user) => (
 					<SkillCard
@@ -69,6 +53,13 @@ export const SkillSection: React.FC<SkillSectionProps> = ({
 					/>
 				))}
 			</div>
+
+			{isLoadingMore && (
+				<div className={styles.loadingMore}>
+					<div className={styles.loadingSpinnerSmall} />
+					<p>Загрузка...</p>
+				</div>
+			)}
 		</section>
 	);
 };
