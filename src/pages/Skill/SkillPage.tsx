@@ -27,6 +27,7 @@ export const SkillPage = () => {
 			try {
 				setIsLoading(true);
 				setError(null);
+				setOffersListPage(0);
 
 				const [users] = await Promise.all([SkillsAPI.getUsers()]);
 				setAllUsers(users);
@@ -44,23 +45,27 @@ export const SkillPage = () => {
 		};
 
 		loadData();
-	}, []);
+	}, [id]);
 
 	const currentUser = useMemo(() => {
 		return allUsers.find((u) => u.id === id);
 	}, [allUsers, id]);
 
 	const filteredOffers = useMemo(() => {
-		console.log(currentUser);
-		if (!currentUser) return [];
+		if (!currentUser || !currentUserOffer) return [];
+
+		const currentUserTitles = currentUserOffer.skillsCanTeach.map((skill) =>
+			skill.title.toLowerCase()
+		);
+
 		return allUsers.filter(
 			(offer) =>
 				offer.id !== currentUser.id &&
-				offer.skillsCanTeach.some((skill) =>
-					currentUser.skillsCanTeach.some((userSkill) => userSkill === skill)
+				offer.skillsCanTeach.some((skillTitle) =>
+					currentUserTitles.includes(skillTitle.toLowerCase())
 				)
 		);
-	}, [allUsers, currentUser]);
+	}, [allUsers, currentUser, currentUserOffer]);
 
 	const totalPages = Math.ceil(filteredOffers.length / cardsPerPage);
 	const startIndex = offersListPage * cardsPerPage;
@@ -81,7 +86,7 @@ export const SkillPage = () => {
 	const skill = {
 		id: currentUserOffer.id,
 		title: currentUserOffer.skillsCanTeach[0].title,
-		categoty: currentUserOffer.skillsCanTeach[0].categoty,
+		category: currentUserOffer.skillsCanTeach[0].category,
 		description: currentUserOffer.skillsCanTeach[0].description,
 		images: currentUserOffer.skillsCanTeach[0].images,
 	};

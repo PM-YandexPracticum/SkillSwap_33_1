@@ -35,7 +35,7 @@ export interface UserDetailData {
 	skillsCanTeach: Array<{
 		subcategoryId: number;
 		title: string;
-		categoty: string;
+		category: string;
 		description: string;
 		images: string[];
 	}>;
