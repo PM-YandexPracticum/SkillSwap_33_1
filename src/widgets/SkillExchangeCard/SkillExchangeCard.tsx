@@ -1,21 +1,11 @@
-import style from './SkillExchangeCard.module.css';
+import styles from './SkillExchangeCard.module.css';
 import { useState } from 'react';
-import emptyHeartIcon from '../../shared/assets/icons/heart-outline.svg';
-import filledHeartIcon from '../../shared/assets/icons/heart-filled.svg';
-import moreSquareIcon from '../../shared/assets/icons/more-square.svg';
-import shareIcon from '../../shared/assets/icons/share.svg';
+import EmptyHeartIcon from '../../shared/assets/icons/heart-outline.svg?react';
+import FilledHeartIcon from '../../shared/assets/icons/heart-filled.svg?react';
+import MoreSquareIcon from '../../shared/assets/icons/more-square.svg?react';
+import ShareIcon from '../../shared/assets/icons/share.svg?react';
 
 export type TSkillExchangeCard = {
-	user: {
-		id: string;
-		name: string;
-		avatarUrl: string;
-		location: string;
-		age: number;
-		description?: string;
-		skillsCanTeach: string[];
-		skillsWantToLearn: string[];
-	};
 	skill: {
 		id: string;
 		title: string;
@@ -23,128 +13,124 @@ export type TSkillExchangeCard = {
 		description: string;
 		images?: string[];
 	};
+	showHeaderButtons?: boolean;
+	showPopupHeader?: boolean;
+	showExchangeButton?: boolean;
+	showEditButtons?: boolean;
+	popUpTitle?: string;
+	popUpSubtitle?: string;
 };
 
-/**
- * Карточка обмена навыками (для отображения на странице предложения)
- */
-export const SkillExchangeCard = ({ user, skill }: TSkillExchangeCard) => {
+export const SkillExchangeCard = ({
+	skill,
+	showHeaderButtons = true,
+	showPopupHeader = false,
+	showExchangeButton = true,
+	showEditButtons = false,
+	popUpTitle,
+	popUpSubtitle,
+}: TSkillExchangeCard) => {
 	const [isFavorite, setIsFavorite] = useState(false);
 
-	/**
-	 * Переключить состояние избранного
-	 */
 	const toggleFavorite = () => {
 		setIsFavorite(!isFavorite);
 	};
 
 	return (
-		<div className={style.card}>
-			{/* Левая часть — информация о пользователе */}
-			<div className={style.userSection}>
-				<div className={style.avatarWrapper}>
-					<img
-						src={user.avatarUrl}
-						className={style.avatar}
-						alt={`Фото ${user.name}`}
-					/>
-				</div>
-
-				<h3 className={style.userName}>{user.name}</h3>
-				<p className={style.userLocation}>
-					{user.location}, {user.age} года
-				</p>
-
-				{user.description && (
-					<p className={style.userDescription}>{user.description}</p>
-				)}
-
-				{/* Список навыков, которыми пользователь может поделиться */}
-				<div className={style.skillGroup}>
-					<h4 className={style.skillGroupTitle}>Может научить</h4>
-					<div className={style.skillTags}>
-						{user.skillsCanTeach.map((skill, index) => (
-							<span key={index} className={style.skillTag}>
-								{skill}
-							</span>
-						))}
-					</div>
-				</div>
-
-				{/* Список навыков, которые пользователь хочет изучить */}
-				<div className={style.skillGroup}>
-					<h4 className={style.skillGroupTitle}>Хочет научиться</h4>
-					<div className={style.skillTags}>
-						{user.skillsWantToLearn.map((skill, index) => (
-							<span key={index} className={style.skillTag}>
-								{skill}
-							</span>
-						))}
-					</div>
-				</div>
-			</div>
-
-			{/* Правая часть — описание навыка и изображения */}
-			<div className={style.skillSection}>
-				{/* Кнопки в правом верхнем углу */}
-				<div className={style.headerButtons}>
-					<button className={style.iconButton} onClick={toggleFavorite}>
-						<img
-							src={isFavorite ? filledHeartIcon : emptyHeartIcon}
-							className={style.iconButton}
-							alt={isFavorite ? 'В избранном' : 'Добавить в избранное'}
-						/>
+		<div className={styles.card}>
+			{showHeaderButtons && (
+				<div className={styles.headerButtons}>
+					<button className={styles.favoriteButton} onClick={toggleFavorite}>
+						{isFavorite ? (
+							<FilledHeartIcon className={styles.iconButton} />
+						) : (
+							<EmptyHeartIcon className={styles.iconButton} />
+						)}
 					</button>
-					<button className={style.iconButton}>
-						<img
-							src={shareIcon}
-							className={style.iconButton}
-							alt='Поделиться'
-						/>
+					<button className={styles.favoriteButton}>
+						<ShareIcon className={styles.iconButton} />
 					</button>
-					<button className={style.iconButton}>
-						<img src={moreSquareIcon} className={style.iconButton} alt='Еще' />
+					<button className={styles.favoriteButton}>
+						<MoreSquareIcon className={styles.iconButton} />
 					</button>
 				</div>
-
-				{/* Название и описание навыка */}
-				<div className={style.descriptionBlock}>
-					<h2 className={style.skillTitle}>{skill.title}</h2>
-					<p className={style.skillSubtitle}>{skill.category}</p>
-					<p className={style.skillDescription}>{skill.description}</p>
+			)}
+			{showPopupHeader && (
+				<div className={styles.header}>
+					<div className={styles.popUpTitle}>{popUpTitle}</div>
+					<div className={styles.popUpSubtitle}>{popUpSubtitle}</div>
 				</div>
-
-				{/* Кнопка обмена */}
-				<button className={`${style.button} ${style.primaryButton}`}>
-					Предложить обмен
-				</button>
-
-				{/* Галерея изображений */}
-				{skill.images && skill.images.length > 0 && (
-					<div className={style.imageGallery}>
-						<img
-							src={skill.images[0]}
-							className={style.mainImage}
-							alt={skill.title}
-						/>
-						<div className={style.sideImages}>
-							{skill.images.slice(1, 4).map((img, idx) => (
-								<div className={style.smallImageWrapper} key={idx}>
-									<img
-										src={img}
-										className={style.smallImage}
-										alt={`${skill.title} - фото ${idx + 1}`}
-									/>
-									{idx === 2 && skill.images && skill.images.length > 4 && (
-										<div className={style.imageCounter}>
-											+{skill.images.length - 4}
-										</div>
-									)}
-								</div>
-							))}
+			)}
+			<div className={styles.cardContent}>
+				<div className={styles.textBlock}>
+					<div className={styles.descriptionBlock}>
+						<div className={styles.textHeader}>
+							<h3 className={styles.skillTitle}>{skill.title}</h3>
+							<p className={styles.skillSubtitle}>{skill.category}</p>
 						</div>
+						<p className={styles.skillDescription}>{skill.description}</p>
 					</div>
-				)}
+					{showExchangeButton && (
+						<button
+							className={`${styles.button} ${styles.primaryButton}`}
+							onClick={() => {}}
+						>
+							Предложить обмен
+						</button>
+					)}
+					{showEditButtons && (
+						<div className={styles.buttonsBlock}>
+							<button
+								className={`${styles.button} ${styles.secondaryButton}`}
+								onClick={() => {}}
+							>
+								Редактировать
+							</button>
+							<button
+								className={`${styles.button} ${styles.primaryButton}`}
+								onClick={() => {}}
+							>
+								Готово
+							</button>
+						</div>
+					)}
+				</div>
+				<div className={styles.imageBlock}>
+					{Array.isArray(skill.images) && skill.images.length > 0 && (
+						<div className={styles.imageGrid}>
+							{skill.images.length === 1 && (
+								<img
+									src={skill.images[0]}
+									className={styles.image}
+									alt={skill.title}
+								/>
+							)}
+							{skill.images.length > 1 && (
+								<>
+									<img
+										src={skill.images[0]}
+										className={styles.image}
+										alt={skill.title}
+									/>
+									{skill.images.slice(1, 4).map((img, idx) => (
+										<div className={styles.smallImageWrapper} key={idx}>
+											<img
+												src={img}
+												className={styles.image}
+												alt={skill.title}
+											/>
+											{idx === 2 && (skill.images?.length ?? 0) > 4 && (
+												<div className={styles.imageCounter}>
+													+{(skill.images?.length ?? 0) - 4}
+												</div>
+											)}
+										</div>
+									))}
+								</>
+							)}
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

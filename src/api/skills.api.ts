@@ -101,6 +101,51 @@ export class SkillsAPI {
 		}
 	}
 
+	/**
+	 * Получить данные конкретного пользователя по ID, включая описание и изображения
+	 */
+	static async getOfferById(userId: string) {
+		try {
+			const usersResponse = await fetch('/db/users.json');
+			const usersData: UserData[] = await usersResponse.json();
+
+			const skillsResponse = await fetch('/db/skills.json');
+			const skillsData: SkillCategory[] = await skillsResponse.json();
+
+			const user = usersData.find((u) => u.id === userId);
+			if (!user) return null;
+
+			const skillMap = new Map<number, { name: string; category: string }>(
+				skillsData.flatMap((category) =>
+					category.skills.map((skill) => [
+						skill.id,
+						{ name: skill.name, category: category.name },
+					])
+				)
+			);
+
+			const skillsCanTeach = user.skillsCanTeach.map((skill) => {
+				const skillEntry = skillMap.get(skill.subcategoryId);
+
+				return {
+					subcategoryId: skill.subcategoryId,
+					title: skillEntry?.name || 'Неизвестный навык',
+					category: skillEntry?.category || 'Неизвестная категория',
+					description: skill.description,
+					images: skill.images,
+				};
+			});
+
+			return {
+				id: user.id,
+				skillsCanTeach,
+			};
+		} catch (error) {
+			console.error(`Ошибка при загрузке пользователя с id ${userId}:`, error);
+			return null;
+		}
+	}
+
 	static async getPopularUsers(): Promise<UserCardData[]> {
 		try {
 			const users = await this.getUsers();
