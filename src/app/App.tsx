@@ -38,42 +38,42 @@ const App = () => {
 					<Route path='/' element={<HomePage />} />
 				</Route>
 
-                                {/* Общий Layout с Header/Footer и условным Sidebar */}
-                                <Route element={<Layout />}>
-                                        {/* Профиль и вложенные страницы */}
-                                        <Route element={<PrivateRoute />}>
-                                                <Route path='/profile'>
-                                                        <Route index element={<ProfilePage />} />
-                                                        <Route
-                                                                path='applications'
-                                                                element={
-                                                                        <PlaceholderPage
-                                                                                title='Заявки'
-                                                                                description='Здесь будут отображаться ваши заявки на обмен навыками'
-                                                                        />
-                                                                }
-                                                        />
-                                                        <Route
-                                                                path='exchanges'
-                                                                element={
-                                                                        <PlaceholderPage
-                                                                                title='Мои обмены'
-                                                                                description='Здесь вы увидите все ваши активные и завершенные обмены'
-                                                                        />
-                                                                }
-                                                        />
-                                                        <Route path='favorites' element={<FavoritesPage />} />
-                                                        <Route
-                                                                path='skills'
-                                                                element={
-                                                                        <PlaceholderPage
-                                                                                title='Мои навыки'
-                                                                                description='Управление вашими навыками и их описанием'
-                                                                        />
-                                                                }
-                                                        />
-                                                </Route>
-                                        </Route>
+				{/* Общий Layout с Header/Footer и условным Sidebar */}
+				<Route element={<Layout />}>
+					{/* Профиль и вложенные страницы */}
+					<Route element={<PrivateRoute />}>
+						<Route path='/profile'>
+							<Route index element={<ProfilePage />} />
+							<Route
+								path='applications'
+								element={
+									<PlaceholderPage
+										title='Заявки'
+										description='Здесь будут отображаться ваши заявки на обмен навыками'
+									/>
+								}
+							/>
+							<Route
+								path='exchanges'
+								element={
+									<PlaceholderPage
+										title='Мои обмены'
+										description='Здесь вы увидите все ваши активные и завершенные обмены'
+									/>
+								}
+							/>
+							<Route path='favorites' element={<FavoritesPage />} />
+							<Route
+								path='skills'
+								element={
+									<PlaceholderPage
+										title='Мои навыки'
+										description='Управление вашими навыками и их описанием'
+									/>
+								}
+							/>
+						</Route>
+					</Route>
 
 					{/* Страницы ошибок */}
 					<Route path='/error-500' element={<Error500 />} />

@@ -10,19 +10,19 @@
 		"locationId": "city1",
 		"description": "Люблю учиться новому, особенно если это можно делать за чаем и в пижаме. Всегда готова пообщаться и обменяться чем‑то интересным!",
 		"createdAt": "2024-02-14T09:23:00Z",
-        "skillsCanTeach": [
-                {
-                        "subcategoryId": 209,
-                        "description": "Играю на барабанах более 5 лет, научу основам и разберём любимые ритмы!",
-                        "images": [
-                                "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
-                        ]
-                }
-        ],
-        "skillsWantToLearn": [106, 601, 405, 602],
-        "wantToLearnCategories": [1, 6, 4],
-        "wantToLearnSubcategories": [106, 601, 405, 602],
-        "canTeachCategories": [2],
-        "canTeachSubcategories": [209]
-}
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 209,
+				"description": "Играю на барабанах более 5 лет, научу основам и разберём любимые ритмы!",
+				"images": [
+					"https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
+				]
+			}
+		],
+		"skillsWantToLearn": [106, 601, 405, 602],
+		"wantToLearnCategories": [1, 6, 4],
+		"wantToLearnSubcategories": [106, 601, 405, 602],
+		"canTeachCategories": [2],
+		"canTeachSubcategories": [209]
+	}
 ]

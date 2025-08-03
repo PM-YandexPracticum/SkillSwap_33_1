@@ -131,8 +131,8 @@ const RegisterStep2 = () => {
 				: undefined,
 			gender,
 			city,
-                        wantToLearnCategories: selectedCategories,
-                        wantToLearnSubcategories: selectedSubcategories,
+			wantToLearnCategories: selectedCategories,
+			wantToLearnSubcategories: selectedSubcategories,
 			avatar: avatarFile || undefined,
 		});
 

@@ -57,16 +57,16 @@ const RegisterStep1 = () => {
 		setPasswordError(passwordValidationResult);
 		setPasswordStrength(passwordValidationResult ? null : 'Надежный');
 
-                if (!emailValidationResult && !passwordValidationResult) {
-                        const users = getStoredUsers();
-                        if (users.some((u) => u.email === email)) {
-                                setEmailError('Пользователь с таким email уже зарегистрирован');
-                                return;
-                        }
-                        setStep1Data({ email, password });
-                        navigate('/register/step-2');
-                }
-        };
+		if (!emailValidationResult && !passwordValidationResult) {
+			const users = getStoredUsers();
+			if (users.some((u) => u.email === email)) {
+				setEmailError('Пользователь с таким email уже зарегистрирован');
+				return;
+			}
+			setStep1Data({ email, password });
+			navigate('/register/step-2');
+		}
+	};
 
 	return (
 		<>

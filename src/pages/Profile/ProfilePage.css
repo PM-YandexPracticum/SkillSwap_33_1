@@ -145,33 +145,33 @@
 }
 
 .save-button {
-        width: 100%;
-        margin-top: 5px;
-        padding: 1rem 1.5rem;
-        color: #253017;
-        font-weight: 500;
-        background-color: var(--color-accent);
-        border: 1px solid #abd27a;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: background-color 0.2s;
+	width: 100%;
+	margin-top: 5px;
+	padding: 1rem 1.5rem;
+	color: #253017;
+	font-weight: 500;
+	background-color: var(--color-accent);
+	border: 1px solid #abd27a;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: background-color 0.2s;
 }
 
 .save-button:hover {
-        background-color: var(--color-button-hover);
+	background-color: var(--color-button-hover);
 }
 
 .save-button:disabled {
-        background-color: #d3d3d3;
-        border-color: #d3d3d3;
-        color: #8a8a8a;
-        cursor: not-allowed;
+	color: #8a8a8a;
+	background-color: #d3d3d3;
+	border-color: #d3d3d3;
+	cursor: not-allowed;
 }
 
 .error-message {
-        margin-top: 5px;
-        color: #bf3920;
-        font-size: 12px;
+	margin-top: 5px;
+	color: #bf3920;
+	font-size: 12px;
 }
 
 /* Avatar Section */

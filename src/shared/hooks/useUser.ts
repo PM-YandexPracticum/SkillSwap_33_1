@@ -4,49 +4,49 @@ export const DEFAULT_AVATAR =
 	'/assets/images/profile-pictures/avatar-default.svg';
 
 interface LocalUser {
-        id?: string;
-        name?: string;
-        fullName?: string;
-        email: string;
-        password: string;
-        avatarUrl?: string;
-        birthDate?: string;
-        gender?: string;
-        genderId?: string;
-        city?: string;
-        locationId?: string;
-        description?: string;
-        createdAt?: string;
-        skillsCanTeach?: Array<{
-                subcategoryId: number;
-                description: string;
-                images: string[];
-        }>;
-        skillsWantToLearn?: number[];
-        wantToLearnCategories?: number[];
-        wantToLearnSubcategories?: number[];
-        canTeachCategories?: number[];
-        canTeachSubcategories?: number[];
+	id?: string;
+	name?: string;
+	fullName?: string;
+	email: string;
+	password: string;
+	avatarUrl?: string;
+	birthDate?: string;
+	gender?: string;
+	genderId?: string;
+	city?: string;
+	locationId?: string;
+	description?: string;
+	createdAt?: string;
+	skillsCanTeach?: Array<{
+		subcategoryId: number;
+		description: string;
+		images: string[];
+	}>;
+	skillsWantToLearn?: number[];
+	wantToLearnCategories?: number[];
+	wantToLearnSubcategories?: number[];
+	canTeachCategories?: number[];
+	canTeachSubcategories?: number[];
 }
 
 // Вспомогательная функция для безопасного парсинга даты
 export const parseDate = (dateString: string): Date | null => {
-        if (!dateString || typeof dateString !== 'string') return null;
+	if (!dateString || typeof dateString !== 'string') return null;
 
-        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-        if (!dateRegex.test(dateString)) return null;
+	const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+	if (!dateRegex.test(dateString)) return null;
 
-        const [year, month, day] = dateString.split('-').map(Number);
-        const date = new Date(year, month - 1, day);
-        return isNaN(date.getTime()) ? null : date;
+	const [year, month, day] = dateString.split('-').map(Number);
+	const date = new Date(year, month - 1, day);
+	return isNaN(date.getTime()) ? null : date;
 };
 
 export const formatDate = (date: Date | null): string => {
-        if (!date) return '';
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+	if (!date) return '';
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	return `${year}-${month}-${day}`;
 };
 
 // Функция для безопасного получения URL аватара
@@ -86,22 +86,22 @@ export const useUser = () => {
 		stored || (Array.isArray(userData) ? userData[0] : userData);
 	const safeBirthDate = parseDate(user.birthDate || '');
 
-        return {
-                id: user.id,
-                name: user.fullName || user.name,
-                email: user.email,
-                password: user.password,
-                avatarUrl: getSafeAvatarUrl(user.avatarUrl),
-                birthDate: safeBirthDate,
-                genderId: user.gender || user.genderId,
-                locationId: user.city || user.locationId,
-                description: user.description,
-                createdAt: user.createdAt,
-                skillsCanTeach: user.skillsCanTeach || [],
-                skillsWantToLearn: user.skillsWantToLearn || [],
-                wantToLearnCategories: user.wantToLearnCategories || [],
-                wantToLearnSubcategories: user.wantToLearnSubcategories || [],
-                canTeachCategories: user.canTeachCategories || [],
-                canTeachSubcategories: user.canTeachSubcategories || [],
-        };
+	return {
+		id: user.id,
+		name: user.fullName || user.name,
+		email: user.email,
+		password: user.password,
+		avatarUrl: getSafeAvatarUrl(user.avatarUrl),
+		birthDate: safeBirthDate,
+		genderId: user.gender || user.genderId,
+		locationId: user.city || user.locationId,
+		description: user.description,
+		createdAt: user.createdAt,
+		skillsCanTeach: user.skillsCanTeach || [],
+		skillsWantToLearn: user.skillsWantToLearn || [],
+		wantToLearnCategories: user.wantToLearnCategories || [],
+		wantToLearnSubcategories: user.wantToLearnSubcategories || [],
+		canTeachCategories: user.canTeachCategories || [],
+		canTeachSubcategories: user.canTeachSubcategories || [],
+	};
 };
