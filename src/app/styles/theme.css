@@ -47,6 +47,7 @@
 	--color-button-text-disabled: #9ca197; /* Цвет текста неактивной кнопки */
 	--color-button-theme-toggle: #f9faf7;
 	--color-action-button: #000000;
+	--checkbox-color: #253017;
 
 	/* Цвета статусов (ошибки, уведомления и успех) */
 	--color-error: #bf3920; /* Цвет ошибки (красный) */

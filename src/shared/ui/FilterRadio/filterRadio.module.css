@@ -19,7 +19,7 @@
 .radioButton {
 	width: 24px;
 	height: 24px;
-	accent-color: var(--text-link-button-pressed-color);
+	accent-color: #508826;
 }
 
 .labelList {

@@ -1,6 +1,6 @@
 import type { ActiveFilterProps } from './types';
 import styles from './ActiveFilters.module.css';
-import icon from '../../assets/icons/cross.svg';
+import CrossIcon from '../../assets/icons/cross.svg?react';
 import { Button } from '../button/button';
 
 export const ActiveFilters = ({ filters, onRemoveTag }: ActiveFilterProps) => {
@@ -18,7 +18,7 @@ export const ActiveFilters = ({ filters, onRemoveTag }: ActiveFilterProps) => {
 					variant='tertiary'
 				>
 					{filter.label}
-					<img src={icon} alt='Удалить фильтр' className={styles.icon} />
+					<CrossIcon className={styles.icon} />
 				</Button>
 			))}
 		</div>
