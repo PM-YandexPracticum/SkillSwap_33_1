@@ -8,7 +8,7 @@
 	overflow: auto;
 }
 
-/* Основной контейнер главной страницы */
+/* Основной контейнер контента */
 
 .homePage {
 	display: flex;
@@ -16,8 +16,8 @@
 	gap: 40px;
 	width: 100%;
 	max-width: 1020px;
-	margin: 0;
-	padding: 0;
+	margin: 0 auto;
+	padding: 20px 0;
 }
 
 /* Контейнер загрузки */
@@ -36,6 +36,15 @@
 	height: 40px;
 	border: 4px solid #f3f3f3;
 	border-top: 4px solid #abd27a;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+.loadingSpinnerSmall {
+	width: 24px;
+	height: 24px;
+	border: 3px solid rgb(0 0 0 / 10%);
+	border-top-color: #abd27a;
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
 }
@@ -103,4 +112,81 @@
 
 .retryButton:hover {
 	background: #9bc26a;
+}
+
+.loadMoreTrigger {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 60px;
+	padding: 20px 0;
+}
+
+.loadingMore {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	color: #253017;
+	font-size: 14px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.noMoreResults {
+	padding: 20px;
+	color: #666666;
+	font-size: 14px;
+	font-family: 'Roboto', sans-serif;
+	font-style: italic;
+	text-align: center;
+}
+
+/* Адаптив */
+
+@media (width <= 768px) {
+	.homePage {
+		gap: 30px;
+		padding: 15px;
+	}
+
+	.loadingContainer,
+	.errorContainer {
+		min-height: 300px;
+	}
+
+	.loadingSpinner {
+		width: 32px;
+		height: 32px;
+		border-width: 3px;
+	}
+
+	.loadingText,
+	.errorText {
+		font-size: 14px;
+	}
+
+	.retryButton {
+		padding: 10px 20px;
+		font-size: 13px;
+	}
+
+	.loadMoreTrigger {
+		padding: 15px 0;
+	}
+}
+
+@media (width <= 480px) {
+	.homePage {
+		gap: 20px;
+	}
+
+	.loadingContainer,
+	.errorContainer {
+		min-height: 250px;
+	}
+
+	.loadingMore,
+	.noMoreResults {
+		font-size: 13px;
+	}
 }
