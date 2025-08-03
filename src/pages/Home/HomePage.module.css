@@ -1,3 +1,15 @@
+.main {
+	display: flex;
+	gap: 24px;
+	width: 100%;
+	max-width: 1440px;
+	height: 100%;
+	margin: 0 auto 32px;
+	overflow: auto;
+}
+
+/* Основной контейнер контента */
+
 .homePage {
 	display: flex;
 	flex-direction: column;
@@ -7,6 +19,8 @@
 	margin: 0 auto;
 	padding: 20px 0;
 }
+
+/* Контейнер загрузки */
 
 .loadingContainer {
 	display: flex;
@@ -54,6 +68,8 @@
 	font-style: normal;
 	line-height: 1.5;
 }
+
+/* Контейнер ошибки */
 
 .errorContainer {
 	display: flex;
@@ -124,6 +140,8 @@
 	font-style: italic;
 	text-align: center;
 }
+
+/* Адаптив */
 
 @media (width <= 768px) {
 	.homePage {
