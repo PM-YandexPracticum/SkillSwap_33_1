@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
+import { getStoredUsers } from '@/features/auth/AuthForm.model';
 import GoogleIcon from '@icons/google.svg?react';
 import AppleLightIcon from '@icons/apple-light.svg?react';
 import AppleDarkIcon from '@icons/apple-dark.svg?react';
@@ -57,6 +58,11 @@ const RegisterStep1 = () => {
 		setPasswordStrength(passwordValidationResult ? null : 'Надежный');
 
 		if (!emailValidationResult && !passwordValidationResult) {
+			const users = getStoredUsers();
+			if (users.some((u) => u.email === email)) {
+				setEmailError('Пользователь с таким email уже зарегистрирован');
+				return;
+			}
 			setStep1Data({ email, password });
 			navigate('/register/step-2');
 		}

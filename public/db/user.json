@@ -19,6 +19,10 @@
 				]
 			}
 		],
-		"skillsWantToLearn": [106, 601, 405, 602]
+		"skillsWantToLearn": [106, 601, 405, 602],
+		"wantToLearnCategories": [1, 6, 4],
+		"wantToLearnSubcategories": [106, 601, 405, 602],
+		"canTeachCategories": [2],
+		"canTeachSubcategories": [209]
 	}
 ]

@@ -3,16 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
 import GalleryAddIcon from '@icons/gallery-add.svg?react';
+import { useAuth } from '@/features/auth/AuthForm.model';
 
 const RegisterStep3 = () => {
 	const navigate = useNavigate();
-	const { setStep3Data, categories } = useRegister();
+	const { data, setStep3Data, categories } = useRegister();
+	const { register } = useAuth();
 
 	const [skillName, setSkillName] = useState('');
 	const [categoryIds, setCategoryIds] = useState<number[]>([]); // выбранные категории по id
 	const [subcategoryIds, setSubcategoryIds] = useState<number[]>([]); // выбранные подкатегории по id
 	const [description, setDescription] = useState('');
 	const [files, setFiles] = useState<FileList | null>(null);
+	const [error, setError] = useState<string | null>(null);
 	const [isDragging, setIsDragging] = useState(false);
 
 	// Управление открытиями кастомных дропдаунов
@@ -81,15 +84,22 @@ const RegisterStep3 = () => {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		// Отправляем строки с id выбранных категорий/подкатегорий (через запятую)
-		setStep3Data({
+		const stepData = {
 			skillName,
 			description,
-			files,
-			skillCategory: categoryIds.join(','),
-			skillSubcategory: subcategoryIds.join(','),
-		});
-		navigate('/profile');
+			canTeachCategories: categoryIds,
+			canTeachSubcategories: subcategoryIds,
+		};
+
+		setStep3Data({ ...stepData, files });
+
+		const success = register({ ...data, ...stepData });
+
+		if (success) {
+			navigate('/profile');
+		} else {
+			setError('Пользователь с таким email уже зарегистрирован');
+		}
 	};
 
 	const handleBack = () => navigate('/register/step-2');
@@ -127,6 +137,8 @@ const RegisterStep3 = () => {
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>
+			{error && <p className={styles.errorMessage}>{error}</p>}
+
 			<label className={styles.inputLabel}>
 				<span>Название навыка</span>
 				<input
