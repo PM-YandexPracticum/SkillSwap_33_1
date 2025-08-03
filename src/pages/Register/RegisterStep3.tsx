@@ -8,13 +8,14 @@ import { useAuth } from '@/features/auth/AuthForm.model';
 const RegisterStep3 = () => {
 	const navigate = useNavigate();
 	const { data, setStep3Data, categories } = useRegister();
-	const { register } = useAuth();
+        const { register } = useAuth();
 
 	const [skillName, setSkillName] = useState('');
 	const [categoryIds, setCategoryIds] = useState<number[]>([]); // выбранные категории по id
 	const [subcategoryIds, setSubcategoryIds] = useState<number[]>([]); // выбранные подкатегории по id
 	const [description, setDescription] = useState('');
-	const [files, setFiles] = useState<FileList | null>(null);
+        const [files, setFiles] = useState<FileList | null>(null);
+        const [error, setError] = useState<string | null>(null);
 	const [isDragging, setIsDragging] = useState(false);
 
 	// Управление открытиями кастомных дропдаунов
@@ -86,15 +87,19 @@ const RegisterStep3 = () => {
 		const stepData = {
 			skillName,
 			description,
-			canTeachCategories: categoryIds.join(','),
-			canTeachSubcategories: subcategoryIds.join(','),
+                        canTeachCategories: categoryIds,
+                        canTeachSubcategories: subcategoryIds,
 		};
 
 		setStep3Data({ ...stepData, files });
 
-		register({ ...data, ...stepData });
+                const success = register({ ...data, ...stepData });
 
-		navigate('/profile');
+                if (success) {
+                        navigate('/profile');
+                } else {
+                        setError('Пользователь с таким email уже зарегистрирован');
+                }
 	};
 
 	const handleBack = () => navigate('/register/step-2');
@@ -132,7 +137,9 @@ const RegisterStep3 = () => {
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>
-			<label className={styles.inputLabel}>
+                        {error && <p className={styles.errorMessage}>{error}</p>}
+
+                        <label className={styles.inputLabel}>
 				<span>Название навыка</span>
 				<input
 					type='text'

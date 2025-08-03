@@ -420,7 +420,7 @@
 .divider {
 	position: relative;
 	margin: 24px 0;
-	color: #253017;
+	color: var(--color-text);
 	font-size: 16px;
 	text-align: center;
 }
@@ -428,6 +428,7 @@
 .divider span {
 	position: relative;
 	z-index: 1;
+	padding: 0 8px;
 	background: var(--color-surface);
 }
 
@@ -702,10 +703,6 @@
 	color: var(--color-text);
 	background-color: var(--color-surface);
 	border: 1px solid var(--color-border);
-}
-
-:root[data-theme='dark'] .divider {
-	color: var(--color-text-caption);
 }
 
 :root[data-theme='dark'] .divider span {

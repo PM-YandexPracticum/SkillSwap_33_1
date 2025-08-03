@@ -131,8 +131,8 @@ const RegisterStep2 = () => {
 				: undefined,
 			gender,
 			city,
-			wantToLearnCategories: selectedCategories.join(','),
-			wantToLearnSubcategories: selectedSubcategories.join(','),
+                        wantToLearnCategories: selectedCategories,
+                        wantToLearnSubcategories: selectedSubcategories,
 			avatar: avatarFile || undefined,
 		});
 

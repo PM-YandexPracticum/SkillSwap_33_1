@@ -13,14 +13,13 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (mode === 'login') {
-			if (login(email, password)) onSuccess?.();
-		} else {
-			const user: AuthUser = { email, password };
-			register(user);
-			onSuccess?.();
-		}
-	};
+                if (mode === 'login') {
+                        if (login(email, password)) onSuccess?.();
+                } else {
+                        const user: AuthUser = { email, password };
+                        if (register(user)) onSuccess?.();
+                }
+        };
 
 	return (
 		<form onSubmit={handleSubmit}>

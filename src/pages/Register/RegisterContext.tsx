@@ -19,13 +19,13 @@ interface RegisterData {
 	birthDate?: string | undefined;
 	gender?: string;
 	city?: string;
-	wantToLearnCategories?: string;
-	wantToLearnSubcategories?: string;
+        wantToLearnCategories?: number[];
+        wantToLearnSubcategories?: number[];
 	skillName?: string;
 	description?: string;
 	files?: FileList | null;
-	canTeachCategories?: string;
-	canTeachSubcategories?: string;
+        canTeachCategories?: number[];
+        canTeachSubcategories?: number[];
 	avatar?: File;
 }
 
