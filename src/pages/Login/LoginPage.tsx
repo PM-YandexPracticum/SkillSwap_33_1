@@ -4,9 +4,11 @@ import styles from './LoginPage.module.css';
 import Logo from '@/components/Logo/Logo';
 import CrossIcon from '@icons/cross.svg?react';
 import GoogleIcon from '@icons/google.svg?react';
-import AppleIcon from '@icons/apple-light.svg?react';
+import AppleLightIcon from '@icons/apple-light.svg?react';
+import AppleDarkIcon from '@icons/apple-dark.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
+import { useTheme } from '@/app/styles/ThemeProvider';
 import {
 	validateEmail,
 	validatePassword,
@@ -18,6 +20,7 @@ interface User {
 }
 
 const LoginPage = () => {
+	const { theme } = useTheme();
 	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		email: '',
@@ -79,8 +82,8 @@ const LoginPage = () => {
 	};
 
 	// Тема для картинки
-	const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
 	const infoImagePath = `/assets/images/light-bulb-${theme}.svg`;
+	const AppleIcon = theme === 'dark' ? AppleDarkIcon : AppleLightIcon;
 
 	return (
 		<div className={styles.page}>
