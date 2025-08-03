@@ -16,6 +16,7 @@ import RegisterStep2 from '@/pages/Register/RegisterStep2';
 import RegisterStep3 from '@/pages/Register/RegisterStep3';
 import { RegisterProvider } from '@/pages/Register/RegisterContext';
 import LoginPage from '@/pages/Login/LoginPage';
+import { SkillPage } from '@/pages';
 
 import { Layout } from '@/widgets/Layout/Layout';
 import { LayoutWithFilters } from '@/widgets/Layout/LayoutWithFilters';
@@ -74,6 +75,7 @@ const App = () => {
 					{/* Страницы ошибок */}
 					<Route path='/error-500' element={<Error500 />} />
 					<Route path='*' element={<NotFound404 />} />
+					<Route path='/skills/:id' element={<SkillPage />} />
 				</Route>
 
 				{/* Регистрация — отдельный layout без Header/Footer */}
