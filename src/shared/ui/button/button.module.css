@@ -6,6 +6,7 @@
 	padding: 12px 24px;
 	font-size: 16px;
 	font-family: inherit;
+	background-color: var(--color-surface);
 	border: none;
 	border-radius: 12px;
 	cursor: pointer;
