@@ -1,0 +1,202 @@
+.overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	background-color: rgb(0 0 0 / 50%);
+	backdrop-filter: blur(2px);
+}
+
+.modal {
+	width: 100%;
+	max-width: 1024px;
+	max-height: 90vh;
+	overflow-y: auto;
+	font-family: 'Jost', sans-serif;
+	background: var(--color-surface);
+	border-radius: 12px;
+	box-shadow:
+		0 20px 25px -5px rgb(0 0 0 / 10%),
+		0 10px 10px -5px rgb(0 0 0 / 4%);
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 32px 32px 0;
+}
+
+.title {
+	margin: 0 0 8px;
+	color: var(--color-action-button);
+	font-weight: 700;
+	font-size: 24px;
+}
+
+.subtitle {
+	margin: 0;
+	color: var(--color-button-text-disabled);
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.content {
+	display: flex;
+	gap: 44px;
+	padding: 40px 60px 72px;
+}
+
+.leftSection {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: space-between;
+	min-width: 0;
+}
+
+.skillName {
+	margin: 0 0 12px;
+	color: var(--color-action-button);
+	font-weight: 700;
+	font-size: 28px;
+	line-height: 1.2;
+}
+
+.category {
+	margin: 0 0 20px;
+	color: var(--color-button-text-disabled);
+	font-size: 14px;
+	line-height: 1.4;
+}
+
+.description {
+	margin: 0;
+	color: var(--color-action-button);
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+}
+
+.rightSection {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 16px;
+	min-width: 0;
+}
+
+.imageGrid {
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: repeat(4, 1fr);
+	gap: 12px;
+	height: 280px;
+	overflow: hidden;
+}
+
+.imageGrid > :nth-child(1) {
+	grid-row: 1 / 4;
+	grid-column: 1 / 4;
+	min-width: 200px;
+	height: 100%;
+}
+
+.imageGrid > :nth-child(2) {
+	grid-row: 1;
+	grid-column: 4;
+	min-width: 60px;
+	height: 80px;
+}
+
+.imageGrid > :nth-child(3) {
+	grid-row: 2;
+	grid-column: 4;
+	min-width: 60px;
+	height: 80px;
+}
+
+.imageGrid > :nth-child(4) {
+	grid-row: 3;
+	grid-column: 4;
+	min-width: 60px;
+	height: 80px;
+}
+
+.image {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: none;
+	border-radius: 8px;
+	object-fit: cover;
+}
+
+.smallImageWrapper {
+	position: relative;
+}
+
+.imageCounter {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #6b7280;
+	font-weight: 600;
+	font-size: 14px;
+	background: rgb(255 255 255 / 80%);
+	border-radius: 8px;
+}
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	margin-top: 32px;
+}
+
+.editButton {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 204px;
+	padding: 12px 24px;
+	color: var(--color-action-button);
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	background: var(--color-surface);
+	border: 1px solid #abd27a;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.editButton:hover {
+	background-color: var(--color-surface-disabled);
+	border-color: #9ca3af;
+}
+
+.confirmButton {
+	width: 204px;
+	padding: 12px 32px;
+	color: var(--color-button-text);
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	background: #abd27a;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.confirmButton:hover {
+	background: #deebc5;
+}

@@ -5,8 +5,8 @@
 	max-width: 1024px;
 	height: 100%;
 	padding: 40px 52px;
-	color: #253017;
-	background: #ffffff;
+	color: var(--color-action-button);
+	background: var(--color-surface);
 	border-radius: 12px;
 	box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
 	transition: all 0.3s ease;

@@ -1,0 +1,90 @@
+.overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	background-color: rgb(0 0 0 / 50%);
+	backdrop-filter: blur(4px);
+}
+
+.modal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 32px;
+	width: 100%;
+	max-width: 556px;
+	padding: 62px 60px;
+	background: var(--color-surface);
+	border-radius: 12px;
+	box-shadow:
+		0 20px 25px -5px rgb(0 0 0 / 10%),
+		0 10px 10px -5px rgb(0 0 0 / 4%);
+}
+
+.iconContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+	height: 80px;
+	margin-bottom: 20px;
+	background: #ffffff;
+	border-radius: 50%;
+}
+
+.icon {
+	width: 80px;
+	height: 80px;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	text-align: center;
+}
+
+.title {
+	margin: 0;
+	color: var(--color-action-button);
+	font-weight: 600;
+	font-size: 24px;
+	font-family: 'Jost', sans-serif;
+	line-height: 1.2;
+}
+
+.subtitle {
+	margin: 0;
+	color: var(--color-button-text-disabled);
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.5;
+}
+
+.actions {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.confirmButton {
+	min-width: 436px;
+	padding: 12px 32px;
+	color: var(--color-button-text);
+	font-weight: 400;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	background: #abd27a;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.confirmButton:hover {
+	background: #deebc5;
+}
