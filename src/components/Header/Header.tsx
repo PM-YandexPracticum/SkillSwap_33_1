@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchIcon from '../../shared/assets/icons/search.svg?react';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import NotificationIcon from '../../shared/assets/icons/notification.svg?react';
 import LikeIcon from '../../shared/assets/icons/like.svg?react';
-import './Header.css';
+import LogoutIcon from '../../shared/assets/icons/logout.svg?react'; // иконка выхода
 import Logo from '../Logo/Logo';
 import ThemeToggleButton from '@/app/styles/ThemeToggleButton';
 import { DEFAULT_AVATAR } from '@/shared/hooks/useUser';
-import { setSearchFilter } from '@/entities/slices/filtersSlice';
+import './Header.css';
 
 interface HeaderProps {
 	variant?: 'guest' | 'user';
@@ -19,10 +19,26 @@ interface HeaderProps {
 }
 
 export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
-	const dispatch = useDispatch();
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	const dropdownRef = useRef<HTMLDivElement>(null);
+	const navigate = useNavigate();
 
-	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(setSearchFilter(e.target.value));
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (
+				dropdownRef.current &&
+				!dropdownRef.current.contains(event.target as Node)
+			) {
+				setIsDropdownOpen(false);
+			}
+		};
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
+
+	const handleLogout = () => {
+		// Очистка сессии
+		navigate('/login');
 	};
 
 	return (
@@ -50,7 +66,6 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 							type='text'
 							placeholder='Искать навык'
 							className='search-input'
-							onChange={handleSearchChange}
 						/>
 					</div>
 				</div>
@@ -70,27 +85,46 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 				{variant === 'user' && userInfo && (
 					<div className='user-actions'>
 						<ThemeToggleButton className='theme-toggle' />
-						<button className='action-button action-button-notification'>
+						<button className='action-button'>
 							<NotificationIcon className='w-5 h-5' />
 						</button>
-						<button className='action-button action-button-like'>
+						<button className='action-button'>
 							<LikeIcon className='w-5 h-5' />
 						</button>
 
-						<Link to='/profile' className='user-info'>
-							<span className='user-name'>{userInfo.name}</span>
-							<div className='user-avatar'>
-								<img
-									src={userInfo.avatar || DEFAULT_AVATAR}
-									alt='Profile'
-									onError={(e) => {
-										const target = e.currentTarget;
-										target.onerror = null;
-										target.src = DEFAULT_AVATAR;
-									}}
-								/>
-							</div>
-						</Link>
+						<div className='user-dropdown-wrapper' ref={dropdownRef}>
+							<button
+								className='user-info'
+								onClick={() => setIsDropdownOpen((prev) => !prev)}
+							>
+								<span className='user-name'>{userInfo.name}</span>
+								<div className='user-avatar'>
+									<img
+										src={userInfo.avatar || DEFAULT_AVATAR}
+										alt='Профиль'
+										onError={(event) => {
+											const img = event.currentTarget;
+											img.src = DEFAULT_AVATAR;
+										}}
+									/>
+								</div>
+							</button>
+
+							{isDropdownOpen && (
+								<div className='user-dropdown'>
+									<Link to='/profile' className='dropdown-item'>
+										Личный кабинет
+									</Link>
+									<button
+										className='dropdown-item logout'
+										onClick={handleLogout}
+									>
+										<span>Выйти из аккаунта</span>
+										<LogoutIcon className='logout-icon' />
+									</button>
+								</div>
+							)}
+						</div>
 					</div>
 				)}
 			</div>
