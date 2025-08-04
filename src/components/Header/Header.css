@@ -208,6 +208,53 @@
 	object-fit: cover;
 }
 
+/* Обертка аватара с выпадающим меню */
+
+.user-dropdown-wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+/* Выпадающее меню */
+
+.user-dropdown {
+	position: absolute;
+	top: calc(100% + 20px);
+	right: 0;
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	width: 260px;
+	height: 152px;
+	padding: 40px;
+	background-color: var(--color-surface);
+	border: 1px solid #b2b9a9;
+	border-radius: 12px;
+}
+
+/* Элемент меню */
+
+.dropdown-item {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	color: var(--color-text);
+	font-weight: var(--font-weight-medium);
+	text-align: left;
+	cursor: pointer;
+}
+
+/* Иконка выхода */
+
+.logout-icon {
+	width: 24px;
+	height: 24px;
+	margin-left: 8px;
+	fill: currentcolor;
+}
+
 /* Responsive Design */
 
 @media (width <= 1024px) {
