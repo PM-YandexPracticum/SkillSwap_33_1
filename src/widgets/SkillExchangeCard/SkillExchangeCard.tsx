@@ -4,6 +4,7 @@ import EmptyHeartIcon from '../../shared/assets/icons/heart-outline.svg?react';
 import FilledHeartIcon from '../../shared/assets/icons/heart-filled.svg?react';
 import MoreSquareIcon from '../../shared/assets/icons/more-square.svg?react';
 import ShareIcon from '../../shared/assets/icons/share.svg?react';
+import SkillExchangeModal from './SkillExchangeModal';
 
 export type TSkillExchangeCard = {
 	skill: {
@@ -31,9 +32,14 @@ export const SkillExchangeCard = ({
 	popUpSubtitle,
 }: TSkillExchangeCard) => {
 	const [isFavorite, setIsFavorite] = useState(false);
+	const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
 
 	const toggleFavorite = () => {
 		setIsFavorite(!isFavorite);
+	};
+
+	const handleExchangeClick = () => {
+		setIsExchangeModalOpen(true);
 	};
 
 	return (
@@ -55,12 +61,14 @@ export const SkillExchangeCard = ({
 					</button>
 				</div>
 			)}
+
 			{showPopupHeader && (
 				<div className={styles.header}>
 					<div className={styles.popUpTitle}>{popUpTitle}</div>
 					<div className={styles.popUpSubtitle}>{popUpSubtitle}</div>
 				</div>
 			)}
+
 			<div className={styles.cardContent}>
 				<div className={styles.textBlock}>
 					<div className={styles.descriptionBlock}>
@@ -70,14 +78,16 @@ export const SkillExchangeCard = ({
 						</div>
 						<p className={styles.skillDescription}>{skill.description}</p>
 					</div>
+
 					{showExchangeButton && (
 						<button
 							className={`${styles.button} ${styles.primaryButton}`}
-							onClick={() => {}}
+							onClick={handleExchangeClick} // ← Исправили
 						>
 							Предложить обмен
 						</button>
 					)}
+
 					{showEditButtons && (
 						<div className={styles.buttonsBlock}>
 							<button
@@ -95,6 +105,7 @@ export const SkillExchangeCard = ({
 						</div>
 					)}
 				</div>
+
 				<div className={styles.imageBlock}>
 					{Array.isArray(skill.images) && skill.images.length > 0 && (
 						<div className={styles.imageGrid}>
@@ -132,6 +143,13 @@ export const SkillExchangeCard = ({
 					)}
 				</div>
 			</div>
+
+			{/* Модалка */}
+			<SkillExchangeModal
+				isOpen={isExchangeModalOpen}
+				onClose={() => setIsExchangeModalOpen(false)}
+				onConfirm={() => setIsExchangeModalOpen(false)}
+			/>
 		</div>
 	);
 };
