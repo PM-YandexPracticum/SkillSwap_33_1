@@ -1,8 +1,8 @@
 import styles from './filterCheckbox.module.css';
-import chevron from '../../assets/icons/chevron-down.svg';
+import ChevronIcon from '../../assets/icons/chevron-down.svg?react';
 import clsx from 'clsx';
-import emptyCheckBox from '../../assets/icons/checkbox-empty.svg';
-import filledCheckBox from '../../assets/icons/checkbox-done.svg';
+import EmptyCheckBoxIcon from '../../assets/icons/checkbox-empty.svg?react';
+import FilledCheckBoxIcon from '../../assets/icons/checkbox-done.svg?react';
 
 type Props = {
 	title?: string;
@@ -39,10 +39,10 @@ const FilterCheckboxUI = ({
 								className={styles.checkboxInput}
 							/>
 							{!checkedItems.includes(item) && (
-								<img src={emptyCheckBox} className={styles.checkBoxImage} />
+								<EmptyCheckBoxIcon className={styles.checkBoxImage} />
 							)}
 							{checkedItems.includes(item) && (
-								<img src={filledCheckBox} className={styles.checkBoxImage} />
+								<FilledCheckBoxIcon className={styles.checkBoxImage} />
 							)}
 							{item}
 						</label>
@@ -51,8 +51,7 @@ const FilterCheckboxUI = ({
 				{items.length > 5 && (
 					<button onClick={toggleShowAll} className={styles.bottomButton}>
 						{buttonName}
-						<img
-							src={chevron}
+						<ChevronIcon
 							className={clsx({
 								[styles.bottomButtonIcon]: true,
 								[styles.bottomButtonIconReverse]: showAll,
