@@ -17,10 +17,12 @@ export const SkillPage = () => {
 		useState<UserDetailData | null>(null);
 
 	const [isLoading, setIsLoading] = useState(true);
-
 	const [error, setError] = useState<string | null>(null);
-
 	const [offersListPage, setOffersListPage] = useState(0);
+
+	const [isLoggedIn, setIsLoggedIn] = useState(() =>
+		Boolean(localStorage.getItem('currentUser'))
+	);
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -46,6 +48,17 @@ export const SkillPage = () => {
 
 		loadData();
 	}, [id]);
+
+	useEffect(() => {
+		const updateAuth = () =>
+			setIsLoggedIn(Boolean(localStorage.getItem('currentUser')));
+		window.addEventListener('userUpdated', updateAuth);
+		window.addEventListener('storage', updateAuth);
+		return () => {
+			window.removeEventListener('userUpdated', updateAuth);
+			window.removeEventListener('storage', updateAuth);
+		};
+	}, []);
 
 	const currentUser = useMemo(() => {
 		return allUsers.find((u) => u.id === id);
@@ -78,7 +91,7 @@ export const SkillPage = () => {
 	const handleNext = () =>
 		setOffersListPage((p) => Math.min(p + 1, totalPages - 1));
 
-	if (isLoading) return <div className={styles.content}>Загрузка...</div>; // в идеале заменить на прелоадер
+	if (isLoading) return <div className={styles.content}>Загрузка...</div>;
 	if (error) return <div className={styles.content}>{error}</div>;
 	if (!currentUser || !currentUserOffer)
 		return <div className={styles.content}>Пользователь не найден</div>;
@@ -91,12 +104,33 @@ export const SkillPage = () => {
 		images: currentUserOffer.skillsCanTeach[0].images,
 	};
 
+	const handleExchangeSent = () => {
+		if (id) {
+			setAllUsers((prev) =>
+				prev.map((u) => (u.id === id ? { ...u, isExchangeSent: true } : u))
+			);
+		}
+	};
+
 	return (
 		<div className={styles.content}>
 			<div className={styles.currentOffer}>
-				<SkillCard user={currentUser} />
-				<SkillExchangeCard skill={skill} />
+				<SkillCard
+					user={{
+						...currentUser,
+						description: currentUserOffer.description,
+					}}
+					hideActionButton
+				/>
+				<SkillExchangeCard
+					userId={currentUser.id}
+					skill={skill}
+					onExchangeSent={handleExchangeSent}
+					showExchangeButton={true}
+					isUserLoggedIn={isLoggedIn}
+				/>
 			</div>
+
 			{filteredOffers.length > 0 && (
 				<div className={styles.similarOffers}>
 					<h2 className={styles.similarOffersTitle}>Похожие предложения</h2>
@@ -107,13 +141,13 @@ export const SkillPage = () => {
 								className={`${styles.arrow} ${styles.arrowLeft}`}
 								onClick={handlePrev}
 							>
-								<img src={arrow} alt='Следующая страница' />
+								<img src={arrow} alt='Предыдущая страница' />
 							</button>
 						)}
 
 						<section className={styles.offersList}>
-							{visibleOffers.map((filteredOffers) => (
-								<SkillCard key={filteredOffers.id} user={filteredOffers} />
+							{visibleOffers.map((offer) => (
+								<SkillCard key={offer.id} user={offer} />
 							))}
 						</section>
 

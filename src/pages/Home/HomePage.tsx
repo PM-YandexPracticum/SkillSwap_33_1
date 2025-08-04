@@ -37,6 +37,86 @@ export const HomePage = () => {
 	const observerRef = useRef<IntersectionObserver | null>(null);
 	const loadMoreRef = useRef<HTMLDivElement>(null);
 
+	const skillIdToName = useMemo(() => {
+		const map = new Map<number, string>();
+		skills.forEach((category) => {
+			category.skills.forEach((skill) => {
+				map.set(skill.id, skill.name);
+			});
+		});
+		return map;
+	}, [skills]);
+
+	const filterUsers = useCallback(
+		(users: UserCardData[]) => {
+			return users.filter((user) => {
+				if (
+					filters.gender !== 'Не имеет значения' &&
+					user.gender !== filters.gender
+				) {
+					return false;
+				}
+
+				if (
+					filters.cities.length > 0 &&
+					!filters.cities.includes(user.location)
+				) {
+					return false;
+				}
+
+				if (filters.skills.length > 0) {
+					const selectedSkillNames = filters.skills
+						.map((id) => skillIdToName.get(id))
+						.filter(Boolean) as string[];
+
+					const hasTeach = selectedSkillNames.some((name) =>
+						user.skillsCanTeach.includes(name)
+					);
+					const hasLearn = selectedSkillNames.some((name) =>
+						user.skillsWantToLearn.includes(name)
+					);
+
+					switch (filters.type) {
+						case 'Могу научить':
+							if (!hasTeach) return false;
+							break;
+						case 'Хочу научиться':
+							if (!hasLearn) return false;
+							break;
+						default:
+							if (!hasTeach && !hasLearn) return false;
+					}
+				}
+
+				if (filters.search) {
+					const search = filters.search.toLowerCase();
+					const inName = user.name.toLowerCase().includes(search);
+					const inSkills = [
+						...user.skillsCanTeach,
+						...user.skillsWantToLearn,
+					].some((s) => s.toLowerCase().includes(search));
+					if (!inName && !inSkills) return false;
+				}
+
+				return true;
+			});
+		},
+		[filters, skillIdToName]
+	);
+
+	const filteredPopularUsers = useMemo(
+		() => filterUsers(popularUsers),
+		[popularUsers, filterUsers]
+	);
+	const filteredNewUsers = useMemo(
+		() => filterUsers(newUsers),
+		[newUsers, filterUsers]
+	);
+	const filteredRecommendedUsers = useMemo(
+		() => filterUsers(recommendedUsers),
+		[recommendedUsers, filterUsers]
+	);
+
 	// Загрузка данных при монтировании
 	useEffect(() => {
 		const loadInitialData = async () => {
@@ -241,7 +321,7 @@ export const HomePage = () => {
 
 				<SkillSection
 					title='Популярное'
-					users={popularUsers}
+					users={filteredPopularUsers}
 					showViewAllButton={true}
 					onViewAllClick={handleViewAllPopular}
 					onCardDetailsClick={handleCardDetailsClick}
@@ -250,7 +330,7 @@ export const HomePage = () => {
 
 				<SkillSection
 					title='Новое'
-					users={newUsers}
+					users={filteredNewUsers}
 					showViewAllButton={true}
 					onViewAllClick={handleViewAllNew}
 					onCardDetailsClick={handleCardDetailsClick}
@@ -259,7 +339,7 @@ export const HomePage = () => {
 
 				<SkillSection
 					title='Рекомендуем'
-					users={recommendedUsers}
+					users={filteredRecommendedUsers}
 					showViewAllButton={false}
 					onCardDetailsClick={handleCardDetailsClick}
 					onFavoriteToggle={handleFavoriteToggle}

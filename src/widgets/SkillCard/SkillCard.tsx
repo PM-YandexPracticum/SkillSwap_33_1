@@ -30,12 +30,14 @@ interface SkillCardProps {
 	user: UserCardData;
 	onDetailsClick?: (userId: string) => void;
 	onFavoriteToggle?: (userId: string, isFavorite: boolean) => void;
+	hideActionButton?: boolean;
 }
 
 export const SkillCard: React.FC<SkillCardProps> = ({
 	user,
 	onDetailsClick,
 	onFavoriteToggle,
+	hideActionButton = false,
 }) => {
 	const [isFavorite, setIsFavorite] = useState(user.isFavorite || false);
 	const { theme } = useTheme();
@@ -127,7 +129,11 @@ export const SkillCard: React.FC<SkillCardProps> = ({
 					)}
 				</button>
 			</div>
-
+			{hideActionButton && user.description && (
+				<div className={styles.userDescription}>
+					<p>{user.description}</p>
+				</div>
+			)}
 			<div className={styles.skillsSection}>
 				<div className={styles.skillGroup}>
 					<h4 className={styles.skillGroupTitle}>Может научить:</h4>
@@ -139,13 +145,18 @@ export const SkillCard: React.FC<SkillCardProps> = ({
 					{renderSkillTags(user.skillsWantToLearn, 2)}
 				</div>
 
-				<Button
-					className={styles.detailsButton}
-					onClick={handleDetailsClick}
-					fullWidth
-				>
-					Подробнее
-				</Button>
+				{!hideActionButton && (
+					<Button
+						className={
+							user.isExchangeSent ? styles.exchangeButton : styles.detailsButton
+						}
+						onClick={handleDetailsClick}
+						variant={user.isExchangeSent ? 'outlined' : 'primary'}
+						fullWidth
+					>
+						{user.isExchangeSent ? 'Обмен предложен' : 'Подробнее'}
+					</Button>
+				)}
 			</div>
 		</div>
 	);

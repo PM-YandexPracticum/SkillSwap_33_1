@@ -6,6 +6,7 @@ import GalleryAddIcon from '@icons/gallery-add.svg?react';
 import OfferPreviewModal from './OfferPreviewModal';
 import SuccessModal from './SuccessModal';
 import { useAuth } from '@/features/auth/AuthForm.model';
+import { DEFAULT_AVATAR } from '@/shared/hooks/useUser';
 
 const RegisterStep3 = () => {
 	const navigate = useNavigate();
@@ -114,7 +115,6 @@ const RegisterStep3 = () => {
 	const handleSuccessConfirm = () => {
 		setIsSuccessModalOpen(false);
 
-		// Регистрируем пользователя
 		const stepData = {
 			skillName,
 			description,
@@ -122,14 +122,24 @@ const RegisterStep3 = () => {
 			canTeachSubcategories: subcategoryIds,
 		};
 
-		const success = register({ ...data, ...stepData });
+		const finalize = (avatarUrl?: string) => {
+			const success = register({ ...data, ...stepData, avatarUrl });
 
-		if (success) {
-			// Переход на страницу созданного навыка
-			// TODO: Заменить 'usr_1' на реальный ID созданного навыка после интеграции с API
-			navigate('/skills/usr_1');
+			if (success) {
+				navigate('/skills/usr_1');
+			} else {
+				setError('Пользователь с таким email уже зарегистрирован');
+			}
+		};
+
+		if (data.avatar) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				finalize(reader.result as string);
+			};
+			reader.readAsDataURL(data.avatar);
 		} else {
-			setError('Пользователь с таким email уже зарегистрирован');
+			finalize(DEFAULT_AVATAR);
 		}
 	};
 

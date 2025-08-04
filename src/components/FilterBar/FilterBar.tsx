@@ -8,7 +8,10 @@ import {
 	unmarkCategorySkills,
 } from '../../entities/slices/filtersSlice';
 import { selectAllSkills } from '../../entities/slices/skillsSlice';
-import { selectAllUsersCity } from '../../entities/slices/usersSlice';
+import {
+	selectAllCities,
+	fetchCities,
+} from '../../entities/slices/citiesSlice';
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -22,11 +25,13 @@ const FilterBar = () => {
 	const filters = useAppSelector(selectFilters);
 	const mainFilter = ['Всё', 'Хочу научиться', 'Могу научить'];
 	const sexFilter = ['Не имеет значения', 'Мужской', 'Женский'];
-	const cityFilter = useAppSelector(selectAllUsersCity);
+	const cities = useAppSelector(selectAllCities);
+	const cityFilter = cities.map((c) => c['city-name']);
 	const skills = useAppSelector(selectAllSkills);
 	// console.log('skills from selector:', skills);
 	useEffect(() => {
 		dispatch(fetchSkills());
+		dispatch(fetchCities());
 	}, [dispatch]);
 
 	const handleMainFilterChange = (value: string) => {
