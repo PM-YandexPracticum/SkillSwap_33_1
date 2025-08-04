@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import SearchIcon from '../../shared/assets/icons/search.svg?react';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import NotificationIcon from '../../shared/assets/icons/notification.svg?react';
@@ -7,6 +8,7 @@ import './Header.css';
 import Logo from '../Logo/Logo';
 import ThemeToggleButton from '@/app/styles/ThemeToggleButton';
 import { DEFAULT_AVATAR } from '@/shared/hooks/useUser';
+import { setSearchFilter } from '@/entities/slices/filtersSlice';
 
 interface HeaderProps {
 	variant?: 'guest' | 'user';
@@ -17,6 +19,12 @@ interface HeaderProps {
 }
 
 export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
+	const dispatch = useDispatch();
+
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		dispatch(setSearchFilter(e.target.value));
+	};
+
 	return (
 		<header className='header'>
 			<div className='header-container'>
@@ -42,6 +50,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 							type='text'
 							placeholder='Искать навык'
 							className='search-input'
+							onChange={handleSearchChange}
 						/>
 					</div>
 				</div>
