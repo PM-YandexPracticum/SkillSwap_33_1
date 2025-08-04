@@ -14,10 +14,19 @@ type UsersState = {
 	error: string | undefined;
 };
 
+function isValidUser(user: unknown): user is User {
+	return typeof user === 'object' && user !== null && 'id' in user;
+}
+
+function validateUsers(data: unknown): Users {
+	if (Array.isArray(data) && data.every(isValidUser)) return data;
+	return [];
+}
+
 const savedUsers = localStorage.getItem('users');
 
 const initialState: UsersState = {
-	users: savedUsers ? (JSON.parse(savedUsers) as Users) : [],
+	users: savedUsers ? validateUsers(JSON.parse(savedUsers)) : [],
 	isLoading: false,
 	error: undefined,
 };
@@ -127,7 +136,7 @@ export const getFilteredUsers = createSelector(
 
 			if (filters.skills.length > 0) {
 				const skillsToTeachIds = user.skillCanTeach.map((s) => s.subcategory);
-				const skillsToLearnIds = user.skillCanTeach.map((s) => s.subcategory);
+				const skillsToLearnIds = user.skillCanLearn.map((s) => s.subcategory);
 
 				const hasSkill = (skillIdStr: number) => {
 					const skillId = Number(skillIdStr);
@@ -191,7 +200,7 @@ export const getFilteredUsers = createSelector(
 		});
 	}
 );
+
 export const { getUserById } = usersSlice.selectors;
 export const { setUserSkillToTeach, addUser, updateUser } = usersSlice.actions;
-
 export default usersSlice.reducer;
