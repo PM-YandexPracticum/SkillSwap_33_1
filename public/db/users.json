@@ -299,9 +299,9 @@
 				"subcategoryId": 209,
 				"description": "Я — ударница в музыкальной группе с многолетним стажем: сцена, репетиции, запись альбомов — всё это мой каждый день. За годы игры научилась не просто чётко держать ритм, но и чувствовать настроение песни, поддерживать энергию коллектива и звучать мощно в любом жанре — от рока до инди и фанка. Теперь делюсь опытом: помогу освоить основы, улучшить технику, играть в команде и уверенно чувствовать себя за установкой — даже на сцене. Уроки практические, без лишней теории: разбираем реальные треки, работаем с битами, переходим к импровизации. Если хочешь не просто бить по тарелкам, а *играть* — приходи, будем расти вместе!",
 				"images": [
-					"https://images.pexels.com/photos/3018064/pexels-photo-3018064.jpeg",
-					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg",
-					"https://images.pexels.com/photos/4087997/pexels-photo-4087997.jpeg"
+					"https://i.ibb.co/4RfKXLMH/m1000x1000.jpg",
+					"https://i.ibb.co/mV1FCK5v/2.png",
+					"https://i.ibb.co/35trKbLs/3.png"
 				]
 			}
 		],
@@ -328,5 +328,335 @@
 			}
 		],
 		"skillsWantToLearn": [106, 601, 306, 405]
+	},
+	{
+		"id": "usr_16",
+		"name": "Александр",
+		"avatarUrl": "/public/db/profile-pictures/Maxim.png",
+		"birthDate": "1989-03-15",
+		"genderId": "male",
+		"locationId": "city16",
+		"description": "Профессиональный фотограф с 8-летним опытом.",
+		"createdAt": "2024-04-01T10:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 202,
+				"description": "Профессиональный фотограф с 8-летним опытом — от первых снимков на телефон до работы с крупными брендами и публикаций в ведущих изданиях. Специализируюсь на портретной, свадебной и коммерческой фотографии. Научу основам композиции, работе со светом, настройкам камеры и постобработке. Помогу найти свой стиль и развить творческое видение.",
+				"images": [
+					"https://i.ibb.co/S4QgtTgp/anton-shakirov-Duzr5-I-ssq-U-unsplash.jpg",
+					"https://i.ibb.co/jk4YDgg7/lilly-rum-8xmckj-Cmq-RA-unsplash.jpg",
+					"https://i.ibb.co/rGGM42DF/nicolas-i-az-PNN8-Rcr48-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 601, 503, 405]
+	},
+	{
+		"id": "usr_17",
+		"name": "Ольга",
+		"avatarUrl": "/public/db/profile-pictures/Anna.png",
+		"birthDate": "1994-08-22",
+		"genderId": "female",
+		"locationId": "city17",
+		"description": "Художник-иллюстратор и дизайнер.",
+		"createdAt": "2024-05-01T11:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 201,
+				"description": "Художник-иллюстратор с 6-летним опытом работы в дизайне и иллюстрации. Создаю иллюстрации для книг, журналов и цифровых продуктов. Научу основам рисунка, работе с цветом, композиции и различным техникам — от карандаша до цифровых инструментов. Помогу развить творческое мышление и найти свой уникальный стиль.",
+				"images": [
+					"https://i.ibb.co/Vp0zDdJx/ashley-byrd-PHe6-JCZCx-Y-unsplash.jpg",
+					"https://i.ibb.co/zhXFPnYY/ashe-walker-91st-Dm-TERL4-unsplash.jpg",
+					"https://i.ibb.co/MDzzDbNW/egor-myznik-JYi-N6-LCrs-GU-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 602, 403, 104]
+	},
+	{
+		"id": "usr_18",
+		"name": "Дмитрий",
+		"avatarUrl": "/public/db/profile-pictures/Ivan.png",
+		"birthDate": "1991-12-08",
+		"genderId": "male",
+		"locationId": "city18",
+		"description": "Видеомонтажер и режиссер.",
+		"createdAt": "2024-06-01T12:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 203,
+				"description": "Видеомонтажер с 7-летним опытом работы в кино и рекламе. Создаю видеоконтент для YouTube, рекламных роликов и короткометражных фильмов. Научу основам монтажа, работе с программами, созданию динамичных переходов и цветокоррекции. Помогу освоить storytelling и создавать engaging контент.",
+				"images": [
+					"https://i.ibb.co/Q3T6zJG5/finde-zukunft-07nxiszm-G9-Q-unsplash.jpg",
+					"https://i.ibb.co/YFVhKJkL/martin-marek-u-J0wzeknhk-E-unsplash.jpg",
+					"https://i.ibb.co/zTwJT9Ng/kyle-loftus-MVG4z-NNTrjk-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 601, 208, 405]
+	},
+	{
+		"id": "usr_19",
+		"name": "Наталья",
+		"avatarUrl": "/public/db/profile-pictures/Maria.png",
+		"birthDate": "1996-05-14",
+		"genderId": "female",
+		"locationId": "city19",
+		"description": "Актриса театра и кино.",
+		"createdAt": "2024-07-01T13:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 205,
+				"description": "Актриса театра и кино с 5-летним опытом работы на сцене и в кино. Играла в спектаклях, сериалах и короткометражных фильмах. Научу основам актерского мастерства, работе с эмоциями, сценической речи и пластике. Помогу раскрыть творческий потенциал и преодолеть страх публичных выступлений.",
+				"images": [
+					"https://i.ibb.co/PGrWHmXQ/zhenyu-luo-lh-KGXN6uhf-M-unsplash.jpg",
+					"https://i.ibb.co/xKzcNp2K/phil-hearing-x-Z4bi-Lc9b-MY-unsplash.jpg",
+					"https://i.ibb.co/B5ZjfXjN/karen-zhao-j-LRIsfk-WRGo-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 602, 403, 104]
+	},
+	{
+		"id": "usr_20",
+		"name": "Сергей",
+		"avatarUrl": "/public/db/profile-pictures/Maxim.png",
+		"birthDate": "1987-09-30",
+		"genderId": "male",
+		"locationId": "city20",
+		"description": "Писатель и копирайтер.",
+		"createdAt": "2024-08-01T14:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 206,
+				"description": "Писатель и копирайтер с 10-летним опытом создания текстов. Пишу статьи, рассказы, сценарии и рекламные тексты. Научу основам писательского мастерства, созданию интересных сюжетов, работе с персонажами и стилистике. Помогу развить креативное мышление и найти свой голос в литературе.",
+				"images": [
+					"https://i.ibb.co/C5G4fS3y/lucas-mendes-5-CAfhkd-Ssf-A-unsplash.jpg",
+					"https://i.ibb.co/v6m2dW6V/kira-auf-der-heide-9-P7-WD1d-U5-VQ-unsplash.jpg",
+					"https://i.ibb.co/ynz7M45m/patrick-fore-59l-C6-Tg-ZAb-Q-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 601, 503, 405]
+	},
+	{
+		"id": "usr_21",
+		"name": "Анна",
+		"avatarUrl": "/public/db/profile-pictures/Anna.png",
+		"birthDate": "1993-11-12",
+		"genderId": "female",
+		"locationId": "city21",
+		"description": "Арт-терапевт и психолог.",
+		"createdAt": "2024-09-01T15:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 207,
+				"description": "Арт-терапевт и психолог с 4-летним опытом работы с детьми и взрослыми. Использую творчество как инструмент для самопознания и исцеления. Научу техникам арт-терапии, работе с эмоциями через искусство, медитативному рисованию и самовыражению. Помогу найти внутреннюю гармонию и справиться со стрессом через творчество.",
+				"images": [
+					"https://i.ibb.co/Vp0zDdJx/ashley-byrd-PHe6-JCZCx-Y-unsplash.jpg",
+					"https://i.ibb.co/zhXFPnYY/ashe-walker-91st-Dm-TERL4-unsplash.jpg",
+					"https://i.ibb.co/MDzzDbNW/egor-myznik-JYi-N6-LCrs-GU-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 602, 403, 104]
+	},
+	{
+		"id": "usr_22",
+		"name": "Михаил",
+		"avatarUrl": "/public/db/profile-pictures/Mihail.png",
+		"birthDate": "1990-06-25",
+		"genderId": "male",
+		"locationId": "city22",
+		"description": "Дизайнер интерьеров и декоратор.",
+		"createdAt": "2024-10-01T16:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 208,
+				"description": "Дизайнер интерьеров с 8-летним опытом создания уютных пространств. Специализируюсь на современном минимализме и скандинавском стиле. Научу основам дизайна интерьера, работе с цветом и фактурами, созданию DIY-декора и организации пространства. Помогу превратить любой дом в уютное гнездышко.",
+				"images": [
+					"https://i.ibb.co/R4vkdSK1/ryan-ancill-eeu-Pt-EVuof-Q-unsplash.jpg",
+					"https://i.ibb.co/hFyRY4yr/michael-oxendine-Bfk-TFeysp34-unsplash.jpg",
+					"https://i.ibb.co/R4vkdSK1/ryan-ancill-eeu-Pt-EVuof-Q-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 601, 503, 405]
+	},
+	{
+		"id": "usr_23",
+		"name": "Елена",
+		"avatarUrl": "/public/db/profile-pictures/Elena.png",
+		"birthDate": "1995-02-18",
+		"genderId": "female",
+		"locationId": "city23",
+		"description": "Преподаватель испанского языка.",
+		"createdAt": "2024-11-01T17:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 302,
+				"description": "Преподаватель испанского языка с 6-летним опытом. Жила в Испании 3 года, свободно владею языком и культурой. Научу разговорному испанскому, грамматике, произношению и пониманию на слух. Помогу освоить язык через музыку, фильмы и реальные ситуации общения.",
+				"images": [
+					"https://i.ibb.co/rGKcmVB7/matheus-farias-Tf-F9it7bidc-unsplash.jpg",
+					"https://i.ibb.co/dwn6c1bp/ling-app-IBCr-Gev2-Dck-unsplash.jpg",
+					"https://i.ibb.co/LhbfcJR6/aedrian-salazar-a-NVx2-Fp-KAF8-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [601, 505, 403, 104]
+	},
+	{
+		"id": "usr_24",
+		"name": "Андрей",
+		"avatarUrl": "/public/db/profile-pictures/Ivan.png",
+		"birthDate": "1988-12-03",
+		"genderId": "male",
+		"locationId": "city1",
+		"description": "Преподаватель французского языка.",
+		"createdAt": "2024-12-01T18:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 303,
+				"description": "Преподаватель французского языка с 7-летним опытом. Учился в Париже, владею языком на уровне носителя. Научу красивому французскому произношению, грамматике, разговорной речи и пониманию французской культуры. Помогу полюбить этот прекрасный язык.",
+				"images": [
+					"https://i.ibb.co/rGKcmVB7/matheus-farias-Tf-F9it7bidc-unsplash.jpg",
+					"https://i.ibb.co/dwn6c1bp/ling-app-IBCr-Gev2-Dck-unsplash.jpg",
+					"https://i.ibb.co/LhbfcJR6/aedrian-salazar-a-NVx2-Fp-KAF8-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [602, 503, 403, 104]
+	},
+	{
+		"id": "usr_25",
+		"name": "Татьяна",
+		"avatarUrl": "/public/db/profile-pictures/Maria.png",
+		"birthDate": "1992-07-09",
+		"genderId": "female",
+		"locationId": "city2",
+		"description": "Преподаватель немецкого языка.",
+		"createdAt": "2025-01-01T19:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 304,
+				"description": "Преподаватель немецкого языка с 5-летним опытом. Жила в Германии 2 года, владею языком свободно. Научу немецкой грамматике, произношению, разговорной речи и деловому немецкому. Помогу подготовиться к экзаменам и освоить язык для работы или учебы.",
+				"images": [
+					"https://i.ibb.co/rGKcmVB7/matheus-farias-Tf-F9it7bidc-unsplash.jpg",
+					"https://i.ibb.co/dwn6c1bp/ling-app-IBCr-Gev2-Dck-unsplash.jpg",
+					"https://i.ibb.co/LhbfcJR6/aedrian-salazar-a-NVx2-Fp-KAF8-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [407, 503, 403, 104]
+	},
+	{
+		"id": "usr_26",
+		"name": "Дмитрий",
+		"avatarUrl": "/public/db/profile-pictures/Maxim.png",
+		"birthDate": "1994-04-16",
+		"genderId": "male",
+		"locationId": "city3",
+		"description": "Преподаватель китайского языка.",
+		"createdAt": "2025-02-01T20:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 305,
+				"description": "Преподаватель китайского языка с 4-летним опытом. Жил в Китае 2 года, владею мандаринским диалектом. Научу китайской иероглифике, тонам, грамматике и разговорной речи. Помогу освоить один из самых сложных языков мира через простые и понятные объяснения.",
+				"images": [
+					"https://i.ibb.co/rGKcmVB7/matheus-farias-Tf-F9it7bidc-unsplash.jpg",
+					"https://i.ibb.co/dwn6c1bp/ling-app-IBCr-Gev2-Dck-unsplash.jpg",
+					"https://i.ibb.co/LhbfcJR6/aedrian-salazar-a-NVx2-Fp-KAF8-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [601, 208, 403, 104]
+	},
+	{
+		"id": "usr_27",
+		"name": "Юлия",
+		"avatarUrl": "/public/db/profile-pictures/Anna.png",
+		"birthDate": "1991-09-28",
+		"genderId": "female",
+		"locationId": "city4",
+		"description": "Преподаватель японского языка.",
+		"createdAt": "2025-03-01T21:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 306,
+				"description": "Преподаватель японского языка с 5-летним опытом. Жила в Японии 3 года, владею языком свободно. Научу японской письменности (хирагана, катакана, кандзи), грамматике, вежливой речи и пониманию японской культуры. Помогу погрузиться в удивительный мир японского языка.",
+				"images": [
+					"https://i.ibb.co/rGKcmVB7/matheus-farias-Tf-F9it7bidc-unsplash.jpg",
+					"https://i.ibb.co/dwn6c1bp/ling-app-IBCr-Gev2-Dck-unsplash.jpg",
+					"https://i.ibb.co/LhbfcJR6/aedrian-salazar-a-NVx2-Fp-KAF8-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [407, 506, 403, 104]
+	},
+	{
+		"id": "usr_28",
+		"name": "Артем",
+		"avatarUrl": "/public/db/profile-pictures/Ivan.png",
+		"birthDate": "1989-01-07",
+		"genderId": "male",
+		"locationId": "city5",
+		"description": "Тренер по йоге и медитации.",
+		"createdAt": "2025-04-01T22:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 601,
+				"description": "Сертифицированный тренер по йоге с 6-летним опытом преподавания. Изучал йогу в Индии, владею различными стилями. Научу асанам, дыхательным техникам, медитации и философии йоги. Помогу обрести внутренний покой, гибкость тела и душевное равновесие.",
+				"images": [
+					"https://i.ibb.co/YFrRPLVn/wesley-tingey-57wo9-F-r2-A-unsplash.jpg",
+					"https://i.ibb.co/fGQ1SC5s/mathilde-langevin-s-Z-WM4c-Ol-M-unsplash.jpg",
+					"https://i.ibb.co/hJjDFND3/jonathan-borba-WKm-Qhe0nb-Cc-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [202, 503, 403, 104]
+	},
+	{
+		"id": "usr_29",
+		"name": "Кристина",
+		"avatarUrl": "/public/db/profile-pictures/Maria.png",
+		"birthDate": "1996-03-20",
+		"genderId": "female",
+		"locationId": "city6",
+		"description": "Нутрициолог и тренер по ЗОЖ.",
+		"createdAt": "2025-05-01T23:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 602,
+				"description": "Сертифицированный нутрициолог с 4-летним опытом работы. Специализируюсь на здоровом питании, спортивной диетологии и формировании здоровых привычек. Научу составлять сбалансированный рацион, читать этикетки продуктов и готовить полезную еду. Помогу обрести здоровье и энергию через правильное питание.",
+				"images": [
+					"https://i.ibb.co/1YFNG0TL/kseniavisuals-BMy3-D1-Mtqgs-unsplash.jpg",
+					"https://i.ibb.co/BKwmLhtZ/jojo-yuen-sharemyfoodd-Awnn-Z-b-Ipg-E-unsplash.jpg",
+					"https://i.ibb.co/93qhZR9H/dmitriy-frantsev-eq-ZA4on50-I-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 601, 403, 104]
+	},
+	{
+		"id": "usr_30",
+		"name": "Павел",
+		"avatarUrl": "/public/db/profile-pictures/Maxim.png",
+		"birthDate": "1993-10-11",
+		"genderId": "male",
+		"locationId": "city7",
+		"description": "Шеф-повар и кулинарный блогер.",
+		"createdAt": "2025-06-01T00:00:00Z",
+		"skillsCanTeach": [
+			{
+				"subcategoryId": 503,
+				"description": "Профессиональный шеф-повар с 8-летним опытом работы в ресторанах. Ведет кулинарный блог с миллионной аудиторией. Научу основам кулинарии, работе с продуктами, созданию вкусных блюд и красивой подаче. Помогу освоить кухню от простых блюд до сложных рецептов.",
+				"images": [
+					"https://i.ibb.co/1YFNG0TL/kseniavisuals-BMy3-D1-Mtqgs-unsplash.jpg",
+					"https://i.ibb.co/BKwmLhtZ/jojo-yuen-sharemyfoodd-Awnn-Z-b-Ipg-E-unsplash.jpg",
+					"https://i.ibb.co/93qhZR9H/dmitriy-frantsev-eq-ZA4on50-I-unsplash.jpg"
+				]
+			}
+		],
+		"skillsWantToLearn": [301, 601, 403, 104]
 	}
 ]

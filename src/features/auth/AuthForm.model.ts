@@ -15,6 +15,7 @@ export interface AuthUser {
 	skillName?: string;
 	description?: string;
 	avatarUrl?: string;
+	files?: FileList | null;
 }
 
 export const USERS_KEY = 'auth_users';
@@ -55,6 +56,99 @@ const getSessionUser = (): AuthUser | null => {
 	}
 };
 
+// Вспомогательная функция для создания карточки с изображениями
+const createUserCardWithImages = (
+	userData: AuthUser,
+	skillImages: string[]
+): void => {
+	try {
+		// Создаем объект пользователя в формате users.json
+		const userCard = {
+			id: `usr_${userData.id}`,
+			name: userData.fullName || 'Пользователь',
+			avatarUrl:
+				userData.avatarUrl || '/public/db/profile-pictures/avatar-default.svg',
+			birthDate: userData.birthDate || '1990-01-01',
+			genderId: userData.gender || 'unspecified',
+			locationId: userData.city || 'city1',
+			description: userData.description || 'Новый пользователь SkillSwap',
+			createdAt: new Date().toISOString(),
+			skillsCanTeach:
+				userData.canTeachSubcategories?.map((subcategoryId) => ({
+					subcategoryId,
+					description: userData.description || 'Описание навыка',
+					images: skillImages,
+				})) || [],
+			skillsWantToLearn: userData.wantToLearnSubcategories || [],
+		};
+
+		// Сохраняем в localStorage как временное решение
+		const existingCards = JSON.parse(
+			localStorage.getItem('temp_user_cards') || '[]'
+		);
+		existingCards.push(userCard);
+		localStorage.setItem('temp_user_cards', JSON.stringify(existingCards));
+
+		// Очищаем кэш API для обновления списка пользователей
+		if (typeof window !== 'undefined' && (window as any).SkillsAPI) {
+			(window as any).SkillsAPI.clearCache();
+		}
+
+		console.log('Создана карточка пользователя:', userCard);
+	} catch (error) {
+		console.error('Ошибка при создании карточки пользователя:', error);
+	}
+};
+
+// Функция для создания карточки пользователя в формате users.json
+export const createUserCard = (userData: AuthUser): void => {
+	try {
+		// Обрабатываем загруженные изображения
+		let skillImages: string[] = [];
+
+		if (userData.files && userData.files.length > 0) {
+			// Конвертируем FileList в массив base64 строк
+			const filePromises = Array.from(userData.files).map((file: File) => {
+				return new Promise<string>((resolve) => {
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						resolve(reader.result as string);
+					};
+					reader.readAsDataURL(file);
+				});
+			});
+
+			// Ждем завершения всех чтений файлов
+			Promise.all(filePromises).then((images) => {
+				skillImages = images;
+				createUserCardWithImages(userData, skillImages);
+			});
+		} else {
+			// Если файлы не загружены, используем дефолтные изображения
+			skillImages = [
+				'https://i.ibb.co/rGKcmVB7/matheus-farias-Tf-F9it7bidc-unsplash.jpg',
+				'https://i.ibb.co/zhXFPnYY/ashe-walker-91st-Dm-TERL4-unsplash.jpg',
+				'https://i.ibb.co/fGQ1SC5s/mathilde-langevin-s-Z-WM4c-Ol-M-unsplash.jpg',
+			];
+			createUserCardWithImages(userData, skillImages);
+		}
+	} catch (error) {
+		console.error('Ошибка при создании карточки пользователя:', error);
+	}
+};
+
+// Функция для очистки временных карточек
+export const clearTempUserCards = (): void => {
+	if (typeof window !== 'undefined') {
+		localStorage.removeItem('temp_user_cards');
+		// Очищаем кэш API
+		if ((window as any).SkillsAPI) {
+			(window as any).SkillsAPI.clearCache();
+		}
+		console.log('Временные карточки пользователей очищены');
+	}
+};
+
 export const useAuth = () => {
 	const [user, setUser] = useState<AuthUser | null>(() => getSessionUser());
 
@@ -75,21 +169,30 @@ export const useAuth = () => {
 		return false;
 	};
 
-	const register = (data: AuthUser): boolean => {
+	const register = (data: AuthUser): { success: boolean; userId?: string } => {
 		const users = getStoredUsers();
 		if (users.some((u) => u.email === data.email)) {
-			return false;
+			return { success: false };
 		}
-		const newUser = { ...data, id: Date.now().toString() };
+		const userId = Date.now().toString();
+		const newUser = { ...data, id: userId };
 		users.push(newUser);
 		saveUsers(users);
 		persistSession(newUser);
-		return true;
+
+		// Создаем карточку пользователя
+		createUserCard(newUser);
+
+		return { success: true, userId };
 	};
 
 	const logout = (): void => {
 		if (typeof window !== 'undefined') {
+			// Удаляем данные сессии
 			window.localStorage.removeItem(SESSION_KEY);
+			// Очищаем временные карточки пользователей
+			clearTempUserCards();
+			// Уведомляем об изменении пользователя
 			window.dispatchEvent(new Event('userUpdated'));
 		}
 		setUser(null);

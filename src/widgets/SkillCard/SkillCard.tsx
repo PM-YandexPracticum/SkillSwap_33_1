@@ -55,17 +55,97 @@ export const SkillCard: React.FC<SkillCardProps> = ({
 	};
 
 	const getSkillTagColor = (skillName: string): string => {
-		const colorMap: Record<string, string> = {
-			'Английский язык': 'var(--color-tag-languages)',
-			'Игра на барабанах': 'var(--color-tag-art)',
-			'Бизнес-план': 'var(--color-tag-business)',
-			'Тайм-менеджмент': 'var(--color-tag-education)',
-			'Йога и медитация': 'var(--color-tag-lifestyle)',
-			Интерьер: 'var(--color-tag-home)',
-			Прочее: 'var(--color-tag-more)',
-		};
+		// Бизнес и карьера
+		const businessSkills = [
+			'Управление командой',
+			'Маркетинг и реклама',
+			'Продажи и переговоры',
+			'Личный бренд',
+			'Резюме и собеседование',
+			'Тайм-менеджмент',
+			'Проектное управление',
+			'Предпринимательство',
+			'Бизнес-план',
+		];
 
-		return colorMap[skillName] || '#E8ECF7';
+		// Творчество и искусство
+		const artSkills = [
+			'Рисование и иллюстрация',
+			'Фотография',
+			'Видеомонтаж',
+			'Музыка и звук',
+			'Актёрское мастерство',
+			'Креативное письмо',
+			'Арт-терапия',
+			'Декор и DIY',
+			'Игра на барабанах',
+		];
+
+		// Иностранные языки
+		const languageSkills = [
+			'Английский язык',
+			'Испанский язык',
+			'Французский язык',
+			'Немецкий язык',
+			'Китайский язык',
+			'Японский язык',
+			'Подготовка к экзаменам (IELTS, TOEFL)',
+		];
+
+		// Образование и развитие
+		const educationSkills = [
+			'Личностное развитие',
+			'Навыки обучения',
+			'Когнитивные техники',
+			'Скорочтение',
+			'Навыки преподавания',
+			'Коучинг',
+			'Медитация',
+		];
+
+		// Дом и уют
+		const homeSkills = [
+			'Уборка и организация',
+			'Домашние финансы',
+			'Приготовление еды',
+			'Домашние растения',
+			'Ремонт',
+			'Хранение вещей',
+			'Интерьер',
+		];
+
+		// Здоровье и лайфстайл
+		const lifestyleSkills = [
+			'Йога и медитация',
+			'Питание и ЗОЖ',
+			'Ментальное здоровье',
+			'Осознанность',
+			'Физические тренировки',
+			'Сон и восстановление',
+			'Баланс жизни и работы',
+		];
+
+		if (businessSkills.includes(skillName)) {
+			return 'var(--color-tag-business)';
+		}
+		if (artSkills.includes(skillName)) {
+			return 'var(--color-tag-art)';
+		}
+		if (languageSkills.includes(skillName)) {
+			return 'var(--color-tag-languages)';
+		}
+		if (educationSkills.includes(skillName)) {
+			return 'var(--color-tag-education)';
+		}
+		if (homeSkills.includes(skillName)) {
+			return 'var(--color-tag-home)';
+		}
+		if (lifestyleSkills.includes(skillName)) {
+			return 'var(--color-tag-lifestyle)';
+		}
+
+		// Для неизвестных навыков используем цвет "прочее"
+		return 'var(--color-tag-more)';
 	};
 
 	const renderSkillTags = (skills: string[], maxVisible = 3) => {
