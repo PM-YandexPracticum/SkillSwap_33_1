@@ -7,6 +7,7 @@ import ShareIcon from '../../shared/assets/icons/share.svg?react';
 import SkillExchangeModal from './SkillExchangeModal';
 import { addSentRequest, getSentRequests } from '@/api/requests.api';
 
+
 export type TSkillExchangeCard = {
 	skill: {
 		id: string;
@@ -43,6 +44,7 @@ export const SkillExchangeCard = ({
 	const [hasSentRequest, setHasSentRequest] = useState(() =>
 		getSentRequests().includes(userId)
 	);
+
 
 	const toggleFavorite = () => {
 		setIsFavorite(!isFavorite);
@@ -174,6 +176,7 @@ export const SkillExchangeCard = ({
 				isOpen={isExchangeModalOpen}
 				onClose={() => setIsExchangeModalOpen(false)}
 				onConfirm={handleConfirmExchange}
+
 			/>
 		</div>
 	);
