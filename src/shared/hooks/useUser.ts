@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import userData from '../../../public/db/user.json';
 
 export const DEFAULT_AVATAR =
@@ -80,10 +81,29 @@ const getLocalUser = (): LocalUser | null => {
 	}
 };
 
+const defaultUser: LocalUser = Array.isArray(userData)
+	? userData[0]
+	: (userData as LocalUser);
+
 export const useUser = () => {
-	const stored = getLocalUser();
-	const user: LocalUser =
-		stored || (Array.isArray(userData) ? userData[0] : userData);
+	const [user, setUser] = useState<LocalUser>(
+		() => getLocalUser() || defaultUser
+	);
+
+	useEffect(() => {
+		const handleChange = () => {
+			setUser(getLocalUser() || defaultUser);
+		};
+
+		window.addEventListener('userUpdated', handleChange);
+		window.addEventListener('storage', handleChange);
+
+		return () => {
+			window.removeEventListener('userUpdated', handleChange);
+			window.removeEventListener('storage', handleChange);
+		};
+	}, []);
+
 	const safeBirthDate = parseDate(user.birthDate || '');
 
 	return {

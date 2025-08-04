@@ -24,14 +24,18 @@ export interface UserCardData {
 	avatarUrl: string;
 	location: string;
 	age: number;
+	gender: string;
+	description?: string;
 	skillsCanTeach: string[];
 	skillsWantToLearn: string[];
 	isFavorite?: boolean;
+	isExchangeSent?: boolean;
 	createdAt?: string; // Дата создания аккаунта
 }
 
 export interface UserDetailData {
 	id: string;
+	description?: string;
 	skillsCanTeach: Array<{
 		subcategoryId: number;
 		title: string;

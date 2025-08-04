@@ -17,7 +17,7 @@ export interface AuthUser {
 	avatarUrl?: string;
 }
 
-export const USERS_KEY = 'users';
+export const USERS_KEY = 'auth_users';
 export const SESSION_KEY = 'currentUser';
 
 export const getStoredUsers = (): AuthUser[] => {
@@ -40,6 +40,7 @@ const saveUsers = (users: AuthUser[]) => {
 export const saveSession = (sessionUser: AuthUser) => {
 	if (typeof window !== 'undefined') {
 		window.localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
+		window.dispatchEvent(new Event('userUpdated'));
 	}
 };
 
@@ -89,6 +90,7 @@ export const useAuth = () => {
 	const logout = (): void => {
 		if (typeof window !== 'undefined') {
 			window.localStorage.removeItem(SESSION_KEY);
+			window.dispatchEvent(new Event('userUpdated'));
 		}
 		setUser(null);
 	};

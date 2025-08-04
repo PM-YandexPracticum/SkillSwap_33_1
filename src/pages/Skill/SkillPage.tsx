@@ -21,6 +21,9 @@ export const SkillPage = () => {
 	const [error, setError] = useState<string | null>(null);
 
 	const [offersListPage, setOffersListPage] = useState(0);
+	const [isLoggedIn, setIsLoggedIn] = useState(() =>
+		Boolean(localStorage.getItem('currentUser'))
+	);
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -46,6 +49,17 @@ export const SkillPage = () => {
 
 		loadData();
 	}, [id]);
+
+	useEffect(() => {
+		const updateAuth = () =>
+			setIsLoggedIn(Boolean(localStorage.getItem('currentUser')));
+		window.addEventListener('userUpdated', updateAuth);
+		window.addEventListener('storage', updateAuth);
+		return () => {
+			window.removeEventListener('userUpdated', updateAuth);
+			window.removeEventListener('storage', updateAuth);
+		};
+	}, []);
 
 	const currentUser = useMemo(() => {
 		return allUsers.find((u) => u.id === id);
@@ -91,11 +105,30 @@ export const SkillPage = () => {
 		images: currentUserOffer.skillsCanTeach[0].images,
 	};
 
+	const handleExchangeSent = () => {
+		if (id) {
+			setAllUsers((prev) =>
+				prev.map((u) => (u.id === id ? { ...u, isExchangeSent: true } : u))
+			);
+		}
+	};
+
 	return (
 		<div className={styles.content}>
 			<div className={styles.currentOffer}>
-				<SkillCard user={currentUser} />
-				<SkillExchangeCard skill={skill} />
+				<SkillCard
+					user={{
+						...currentUser!,
+						description: currentUserOffer.description,
+					}}
+					hideActionButton
+				/>
+				<SkillExchangeCard
+					userId={currentUser.id}
+					skill={skill}
+					onExchangeSent={handleExchangeSent}
+					showExchangeButton={isLoggedIn}
+				/>
 			</div>
 			{filteredOffers.length > 0 && (
 				<div className={styles.similarOffers}>

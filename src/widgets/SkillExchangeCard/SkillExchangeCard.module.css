@@ -180,6 +180,11 @@
 	background: rgb(80 136 38);
 }
 
+.disabledButton {
+	background: #e8ecf7;
+	cursor: default;
+}
+
 .secondaryButton {
 	background: #f0f0f0;
 }

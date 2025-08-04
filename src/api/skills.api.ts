@@ -1,5 +1,6 @@
 import type { UserCardData } from '@/entities/user/user';
 import type { SkillCategory, City } from '@/entities/skill/skill';
+import { getSentRequests } from './requests.api';
 
 interface UserData {
 	id: string;
@@ -39,11 +40,16 @@ interface RequestData {
 }
 
 export class SkillsAPI {
-	private static cachedUsers: UserCardData[] | null = null;
+	private static cachedUsers: Omit<UserCardData, 'isExchangeSent'>[] | null =
+		null;
 
 	static async getUsers(): Promise<UserCardData[]> {
+		const sentRequests = getSentRequests();
 		if (this.cachedUsers) {
-			return this.cachedUsers;
+			return this.cachedUsers.map((u) => ({
+				...u,
+				isExchangeSent: sentRequests.includes(u.id),
+			}));
 		}
 
 		try {
@@ -62,6 +68,13 @@ export class SkillsAPI {
 				const birthDate = new Date(user.birthDate);
 				const today = new Date();
 				const age = today.getFullYear() - birthDate.getFullYear();
+
+				const gender =
+					user.genderId === 'male'
+						? 'Мужской'
+						: user.genderId === 'female'
+							? 'Женский'
+							: 'Не указан';
 
 				const canTeachSkills = user.skillsCanTeach.map((skill) => {
 					const category = skillsData.find((cat) =>
@@ -87,6 +100,8 @@ export class SkillsAPI {
 					avatarUrl: user.avatarUrl,
 					location: city?.['city-name'] || 'Неизвестный город',
 					age,
+					gender,
+					description: user.description,
 					skillsCanTeach: canTeachSkills,
 					skillsWantToLearn: wantToLearnSkills,
 					isFavorite: false,
@@ -94,7 +109,10 @@ export class SkillsAPI {
 				};
 			});
 
-			return this.cachedUsers;
+			return this.cachedUsers.map((u) => ({
+				...u,
+				isExchangeSent: sentRequests.includes(u.id),
+			}));
 		} catch (error) {
 			console.error('Ошибка при загрузке пользователей:', error);
 			return [];
@@ -138,6 +156,7 @@ export class SkillsAPI {
 
 			return {
 				id: user.id,
+				description: user.description,
 				skillsCanTeach,
 			};
 		} catch (error) {
