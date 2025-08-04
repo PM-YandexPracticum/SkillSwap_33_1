@@ -23,6 +23,7 @@ export type TSkillExchangeCard = {
 	popUpTitle?: string;
 	popUpSubtitle?: string;
 	onExchangeSent?: () => void;
+	isUserLoggedIn?: boolean;
 };
 
 export const SkillExchangeCard = ({
@@ -35,6 +36,7 @@ export const SkillExchangeCard = ({
 	popUpTitle,
 	popUpSubtitle,
 	onExchangeSent,
+	isUserLoggedIn = false,
 }: TSkillExchangeCard) => {
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
@@ -97,10 +99,16 @@ export const SkillExchangeCard = ({
 					{showExchangeButton && (
 						<button
 							className={`${styles.button} ${
-								hasSentRequest ? styles.disabledButton : styles.primaryButton
+								hasSentRequest || !isUserLoggedIn
+									? styles.disabledButton
+									: styles.primaryButton
 							}`}
-							onClick={hasSentRequest ? undefined : handleExchangeClick}
-							disabled={hasSentRequest}
+							onClick={
+								hasSentRequest || !isUserLoggedIn
+									? undefined
+									: handleExchangeClick
+							}
+							disabled={hasSentRequest || !isUserLoggedIn}
 						>
 							{hasSentRequest ? 'Обмен предложен' : 'Предложить обмен'}
 						</button>
@@ -162,7 +170,6 @@ export const SkillExchangeCard = ({
 				</div>
 			</div>
 
-			{/* Модалка */}
 			<SkillExchangeModal
 				isOpen={isExchangeModalOpen}
 				onClose={() => setIsExchangeModalOpen(false)}
