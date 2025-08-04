@@ -8,6 +8,7 @@ import LogoutIcon from '../../shared/assets/icons/logout.svg?react'; // икон
 import Logo from '../Logo/Logo';
 import ThemeToggleButton from '@/app/styles/ThemeToggleButton';
 import { DEFAULT_AVATAR } from '@/shared/hooks/useUser';
+import { useAuth } from '@/features/auth/AuthForm.model';
 import './Header.css';
 
 interface HeaderProps {
@@ -22,6 +23,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const navigate = useNavigate();
+	const { logout } = useAuth();
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -37,7 +39,9 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 	}, []);
 
 	const handleLogout = () => {
-		// Очистка сессии
+		// Вызываем функцию выхода из аккаунта
+		logout();
+		// Перенаправляем на страницу входа
 		navigate('/login');
 	};
 

@@ -123,10 +123,12 @@ const RegisterStep3 = () => {
 		};
 
 		const finalize = (avatarUrl?: string) => {
-			const success = register({ ...data, ...stepData, avatarUrl });
+			const result = register({ ...data, ...stepData, avatarUrl, files });
 
-			if (success) {
-				navigate('/skills/usr_1');
+			if (result.success) {
+				// Перенаправляем на карточку созданного пользователя
+				const userId = `usr_${result.userId}`;
+				navigate(`/skills/${userId}`);
 			} else {
 				setError('Пользователь с таким email уже зарегистрирован');
 			}

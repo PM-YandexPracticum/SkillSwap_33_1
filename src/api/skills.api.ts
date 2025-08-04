@@ -56,13 +56,19 @@ export class SkillsAPI {
 			const usersResponse = await fetch('/db/users.json');
 			const usersData: UserData[] = await usersResponse.json();
 
+			// Получаем временные карточки из localStorage
+			const tempCards = JSON.parse(
+				localStorage.getItem('temp_user_cards') || '[]'
+			);
+			const allUsersData = [...usersData, ...tempCards];
+
 			const skillsResponse = await fetch('/db/skills.json');
 			const skillsData: SkillCategory[] = await skillsResponse.json();
 
 			const citiesResponse = await fetch('/db/city.json');
 			const citiesData: CitiesData = await citiesResponse.json();
 
-			this.cachedUsers = usersData.map((user) => {
+			this.cachedUsers = allUsersData.map((user) => {
 				const city = citiesData.cities.find((c) => c.id === user.locationId);
 
 				const birthDate = new Date(user.birthDate);
@@ -76,23 +82,27 @@ export class SkillsAPI {
 							? 'Женский'
 							: 'Не указан';
 
-				const canTeachSkills = user.skillsCanTeach.map((skill) => {
-					const category = skillsData.find((cat) =>
-						cat.skills.some((s) => s.id === skill.subcategoryId)
-					);
-					const skillName = category?.skills.find(
-						(s) => s.id === skill.subcategoryId
-					);
-					return skillName?.name || 'Неизвестный навык';
-				});
+				const canTeachSkills = user.skillsCanTeach.map(
+					(skill: { subcategoryId: number }) => {
+						const category = skillsData.find((cat) =>
+							cat.skills.some((s) => s.id === skill.subcategoryId)
+						);
+						const skillName = category?.skills.find(
+							(s) => s.id === skill.subcategoryId
+						);
+						return skillName?.name || 'Неизвестный навык';
+					}
+				);
 
-				const wantToLearnSkills = user.skillsWantToLearn.map((skillId) => {
-					const category = skillsData.find((cat) =>
-						cat.skills.some((s) => s.id === skillId)
-					);
-					const skillName = category?.skills.find((s) => s.id === skillId);
-					return skillName?.name || 'Неизвестный навык';
-				});
+				const wantToLearnSkills = user.skillsWantToLearn.map(
+					(skillId: number) => {
+						const category = skillsData.find((cat) =>
+							cat.skills.some((s) => s.id === skillId)
+						);
+						const skillName = category?.skills.find((s) => s.id === skillId);
+						return skillName?.name || 'Неизвестный навык';
+					}
+				);
 
 				return {
 					id: user.id,
@@ -127,10 +137,16 @@ export class SkillsAPI {
 			const usersResponse = await fetch('/db/users.json');
 			const usersData: UserData[] = await usersResponse.json();
 
+			// Получаем временные карточки из localStorage
+			const tempCards = JSON.parse(
+				localStorage.getItem('temp_user_cards') || '[]'
+			);
+			const allUsersData = [...usersData, ...tempCards];
+
 			const skillsResponse = await fetch('/db/skills.json');
 			const skillsData: SkillCategory[] = await skillsResponse.json();
 
-			const user = usersData.find((u) => u.id === userId);
+			const user = allUsersData.find((u) => u.id === userId);
 			if (!user) return null;
 
 			const skillMap = new Map<number, { name: string; category: string }>(
@@ -142,17 +158,23 @@ export class SkillsAPI {
 				)
 			);
 
-			const skillsCanTeach = user.skillsCanTeach.map((skill) => {
-				const skillEntry = skillMap.get(skill.subcategoryId);
+			const skillsCanTeach = user.skillsCanTeach.map(
+				(skill: {
+					subcategoryId: number;
+					description: string;
+					images: string[];
+				}) => {
+					const skillEntry = skillMap.get(skill.subcategoryId);
 
-				return {
-					subcategoryId: skill.subcategoryId,
-					title: skillEntry?.name || 'Неизвестный навык',
-					category: skillEntry?.category || 'Неизвестная категория',
-					description: skill.description,
-					images: skill.images,
-				};
-			});
+					return {
+						subcategoryId: skill.subcategoryId,
+						title: skillEntry?.name || 'Неизвестный навык',
+						category: skillEntry?.category || 'Неизвестная категория',
+						description: skill.description,
+						images: skill.images,
+					};
+				}
+			);
 
 			return {
 				id: user.id,
@@ -272,4 +294,9 @@ export class SkillsAPI {
 	static clearCache() {
 		this.cachedUsers = null;
 	}
+}
+
+// Экспортируем в глобальную область для доступа к clearCache
+if (typeof window !== 'undefined') {
+	(window as any).SkillsAPI = SkillsAPI;
 }

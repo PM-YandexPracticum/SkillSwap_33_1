@@ -35,14 +35,13 @@ const OfferPreviewModal: React.FC<OfferPreviewModalProps> = ({
 		return () => {
 			imageUrls.forEach((url) => URL.revokeObjectURL(url));
 		};
-	}, [isOpen, data.files]);
+	}, [isOpen, data.files, imageUrls]);
 
 	if (!isOpen) return null;
 
 	// Получаем названия категорий и подкатегорий
-	const selectedCategoryIds = data.skillCategory?.split(',').map(Number) || [];
-	const selectedSubcategoryIds =
-		data.skillSubcategory?.split(',').map(Number) || [];
+	const selectedCategoryIds = data.canTeachCategories || [];
+	const selectedSubcategoryIds = data.canTeachSubcategories || [];
 
 	const selectedCategories = categories
 		.filter((cat) => selectedCategoryIds.includes(cat.id))

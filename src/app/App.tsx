@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import ProfilePage from '@/pages/Profile/ProfilePage';
 import PlaceholderPage from '@/pages/Profile/PlaceholderPage';
+import MySkillsPage from '@/pages/Profile/MySkillsPage';
 
 import RegisterLayout from '@/pages/Register/RegisterLayout';
 import RegisterStep1 from '@/pages/Register/RegisterStep1';
@@ -63,15 +64,7 @@ const App = () => {
 								}
 							/>
 							<Route path='favorites' element={<FavoritesPage />} />
-							<Route
-								path='skills'
-								element={
-									<PlaceholderPage
-										title='Мои навыки'
-										description='Управление вашими навыками и их описанием'
-									/>
-								}
-							/>
+							<Route path='skills' element={<MySkillsPage />} />
 						</Route>
 					</Route>
 
