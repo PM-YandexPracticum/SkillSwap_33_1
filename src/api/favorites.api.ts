@@ -1,11 +1,12 @@
 import { APP_SETTINGS } from '@/shared/constants/global_constants';
+import { SkillsAPI } from './skills.api';
 
 // если остается основным интерфейсом то выносится в файл типов usersApi.ts
 export interface IUserApi {
 	id: string;
 	name: string;
 	avatarUrl: string;
-	birthDate: string; // день рождения формата 1900-05-12
+	age: number;
 	gender: string; // Мужской / Женский
 	location: string; // Москва / Воронеж и т.д
 	description: string;
@@ -37,25 +38,34 @@ export interface IUserSkillsCanTeachApi {
 export async function getUsersDataByIdsApi(
 	userIds: string[]
 ): Promise<IUserApi[]> {
-	const users = await fetch(APP_SETTINGS.api.getUsersById())
-		.then((response) => {
-			if (response.ok) {
-				return response.json();
-			}
-		})
-		.then((data) => {
-			return data ? (data as IUserApi[]) : [];
-		})
-		.then((users) => {
-			return users
-				? users.filter((user) => userIds.includes(String(user.id)))
-				: [];
-		})
-		.catch(() => {
-			return [];
-		});
-
-	return users;
+	const allUsers = await SkillsAPI.getUsers();
+	return allUsers
+		.filter((user) => userIds.includes(user.id))
+		.map((user) => ({
+			id: user.id,
+			name: user.name,
+			avatarUrl: user.avatarUrl,
+			age: user.age,
+			gender: user.gender,
+			location: user.location,
+			description: user.description || '',
+			createdAt: user.createdAt || new Date().toISOString(),
+			skillsCanTeach: user.skillsCanTeach.map((name) => ({
+				categoryId: 0,
+				categoryName: '',
+				subcategoryId: 0,
+				subcategoryName: name,
+				description: '',
+				images: [],
+			})),
+			skillsWantToLearn: user.skillsWantToLearn.map((name) => ({
+				categoryId: 0,
+				categoryName: '',
+				subcategoryId: 0,
+				subcategoryName: name,
+			})),
+			isExchangeSent: Boolean(user.isExchangeSent),
+		}));
 }
 
 // этот api получает всех пользователей из db/backend-users/usersV2.json типа IUserApi[]
@@ -68,8 +78,23 @@ export async function getAllUsersApi(): Promise<IUserApi[]> {
 			}
 		})
 		.then((data) => {
-			return data ? (data as IUserApi[]) : [];
+			return data ? (data as any[]) : [];
 		})
+		.then((users) =>
+			users.map((u) => ({
+				id: u.id,
+				name: u.name,
+				avatarUrl: u.avatarUrl,
+				age: new Date().getFullYear() - new Date(u.birthDate).getFullYear(),
+				gender: u.gender,
+				location: u.location,
+				description: u.description,
+				createdAt: u.createdAt,
+				skillsCanTeach: u.skillsCanTeach,
+				skillsWantToLearn: u.skillsWantToLearn,
+				isExchangeSent: u.isExchangeSent,
+			}))
+		)
 		.catch(() => {
 			return [];
 		});

@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/AuthForm.model';
+import { useDispatch } from '@/app/providers/store/StoreProvider';
+import { asyncThunkGetUsersAddedIntoFavorites } from '@/entities/slices/favoritesSlice';
 import styles from './LoginPage.module.css';
 import Logo from '@/components/Logo/Logo';
 import CrossIcon from '@icons/cross.svg?react';
@@ -18,6 +20,8 @@ import {
 const LoginPage = () => {
 	const { theme } = useTheme();
 	const navigate = useNavigate();
+	const location = useLocation();
+	const dispatch = useDispatch();
 	const { login } = useAuth();
 	const [formData, setFormData] = useState({
 		email: '',
@@ -62,7 +66,14 @@ const LoginPage = () => {
 		setIsLoading(false);
 
 		if (success) {
-			navigate('/profile');
+			dispatch(asyncThunkGetUsersAddedIntoFavorites());
+			const state = location.state as any;
+			const from = state?.from || '/profile';
+			const exchangeUserId = state?.openExchangeModalFor;
+			navigate(from, {
+				replace: true,
+				state: exchangeUserId ? { openExchangeModalFor: exchangeUserId } : {},
+			});
 		} else {
 			setError(
 				'Email или пароль введён неверно. Пожалуйста, проверьте правильность введённых данных.'

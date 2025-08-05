@@ -85,64 +85,53 @@ const MySkillsPage: React.FC = () => {
 	return (
 		<div className='my-skills-container'>
 			<div className='my-skills-content'>
-				<div className='my-skills-main'>
-					<div className='left-section'>
-						<h3 className='skill-name'>
-							{userDetail.skillsCanTeach[0]?.title || 'Название навыка'}
-						</h3>
-						<p className='category'>
-							{userDetail.skillsCanTeach[0]?.category || 'Категория'}
-						</p>
-						<p className='description'>
-							{userDetail.description || 'Описание навыка'}
-						</p>
-					</div>
-
-					<div className='right-section'>
-						{/* Изображения навыка */}
-						{userDetail.skillsCanTeach[0]?.images &&
-							userDetail.skillsCanTeach[0].images.length > 0 && (
+				{userDetail.skillsCanTeach.map((skill) => (
+					<div key={skill.subcategoryId} className='my-skills-main'>
+						<div className='left-section'>
+							<h3 className='skill-name'>{skill.title || 'Название навыка'}</h3>
+							<p className='category'>{skill.category || 'Категория'}</p>
+							<p className='description'>
+								{skill.description || 'Описание навыка'}
+							</p>
+						</div>
+						<div className='right-section'>
+							{skill.images && skill.images.length > 0 && (
 								<div className='image-grid'>
-									{userDetail.skillsCanTeach[0].images.length === 1 && (
+									{skill.images.length === 1 && (
 										<img
-											src={userDetail.skillsCanTeach[0].images[0]}
+											src={skill.images[0]}
 											className='image'
 											alt='Изображение навыка'
 										/>
 									)}
-									{userDetail.skillsCanTeach[0].images.length > 1 && (
+									{skill.images.length > 1 && (
 										<>
 											<img
-												src={userDetail.skillsCanTeach[0].images[0]}
+												src={skill.images[0]}
 												className='image'
 												alt='Основное изображение'
 											/>
-											{userDetail.skillsCanTeach[0].images
-												.slice(1, 4)
-												.map((image, idx) => (
-													<div className='small-image-wrapper' key={idx}>
-														<img
-															src={image}
-															className='image'
-															alt={`Изображение ${idx + 2}`}
-														/>
-														{idx === 2 &&
-															userDetail.skillsCanTeach[0].images.length >
-																4 && (
-																<div className='image-counter'>
-																	+
-																	{userDetail.skillsCanTeach[0].images.length -
-																		4}
-																</div>
-															)}
-													</div>
-												))}
+											{skill.images.slice(1, 4).map((image, idx) => (
+												<div className='small-image-wrapper' key={idx}>
+													<img
+														src={image}
+														className='image'
+														alt={`Изображение ${idx + 2}`}
+													/>
+													{idx === 2 && skill.images.length > 4 && (
+														<div className='image-counter'>
+															+{skill.images.length - 4}
+														</div>
+													)}
+												</div>
+											))}
 										</>
 									)}
 								</div>
 							)}
+						</div>
 					</div>
-				</div>
+				))}
 			</div>
 		</div>
 	);

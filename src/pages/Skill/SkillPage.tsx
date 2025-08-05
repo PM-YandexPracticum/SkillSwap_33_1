@@ -6,11 +6,13 @@ import { SkillExchangeCard } from '@/widgets/SkillExchangeCard/SkillExchangeCard
 import { SkillCard } from '@/widgets/SkillCard/SkillCard';
 import arrow from '../../shared/assets/icons/chevron-right.svg';
 import { SkillsAPI } from '@/api/skills.api';
+import { getCurrentUser } from '@/features/auth/AuthForm.model';
 
 const cardsPerPage = 4;
 
 export const SkillPage = () => {
 	const { id } = useParams<{ id: string }>();
+	const sessionUser = getCurrentUser();
 
 	const [allUsers, setAllUsers] = useState<UserCardData[]>([]);
 	const [currentUserOffer, setCurrentUserOffer] =
@@ -96,12 +98,17 @@ export const SkillPage = () => {
 	if (!currentUser || !currentUserOffer)
 		return <div className={styles.content}>Пользователь не найден</div>;
 
+	const primarySkill = currentUserOffer.skillsCanTeach[0];
+	if (!primarySkill)
+		return <div className={styles.content}>Навык не найден</div>;
+
 	const skill = {
-		id: currentUserOffer.id,
-		title: currentUserOffer.skillsCanTeach[0].title,
-		category: currentUserOffer.skillsCanTeach[0].category,
-		description: currentUserOffer.skillsCanTeach[0].description,
-		images: currentUserOffer.skillsCanTeach[0].images,
+		id: String(primarySkill.subcategoryId),
+		subcategoryId: primarySkill.subcategoryId,
+		title: primarySkill.title,
+		category: primarySkill.category,
+		description: primarySkill.description,
+		images: primarySkill.images,
 	};
 
 	const handleExchangeSent = () => {
@@ -126,7 +133,9 @@ export const SkillPage = () => {
 					userId={currentUser.id}
 					skill={skill}
 					onExchangeSent={handleExchangeSent}
-					showExchangeButton={true}
+					showExchangeButton={
+						!(sessionUser && `usr_${sessionUser.id}` === currentUser.id)
+					}
 					isUserLoggedIn={isLoggedIn}
 				/>
 			</div>

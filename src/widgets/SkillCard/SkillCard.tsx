@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { UserCardData } from '@/entities/user/user';
 import { Button } from '@/shared/ui/button';
@@ -40,6 +40,9 @@ export const SkillCard: React.FC<SkillCardProps> = ({
 	hideActionButton = false,
 }) => {
 	const [isFavorite, setIsFavorite] = useState(user.isFavorite || false);
+	useEffect(() => {
+		setIsFavorite(user.isFavorite || false);
+	}, [user.isFavorite]);
 	const { theme } = useTheme();
 	const navigate = useNavigate();
 

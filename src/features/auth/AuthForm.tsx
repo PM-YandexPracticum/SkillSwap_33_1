@@ -11,13 +11,14 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (mode === 'login') {
 			if (login(email, password)) onSuccess?.();
 		} else {
 			const user: AuthUser = { email, password };
-			if (register(user)) onSuccess?.();
+			const result = await register(user);
+			if (result.success) onSuccess?.();
 		}
 	};
 
