@@ -7,11 +7,19 @@ export interface AuthUser {
 	fullName?: string;
 	birthDate?: string;
 	gender?: string;
+	genderId?: string;
 	city?: string;
+	locationId?: string;
 	wantToLearnCategories?: number[];
 	wantToLearnSubcategories?: number[];
 	canTeachCategories?: number[];
 	canTeachSubcategories?: number[];
+	skillsCanTeach?: Array<{
+		subcategoryId: number;
+		description: string;
+		images: string[];
+	}>;
+	skillsWantToLearn?: number[];
 	skillImagesBySubcategory?: Record<number, string[]>;
 	skillDescriptionsBySubcategory?: Record<number, string>;
 	skillName?: string;

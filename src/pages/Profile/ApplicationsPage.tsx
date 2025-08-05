@@ -34,7 +34,8 @@ export const ApplicationsPage = () => {
 				const otherUserId = req.toUserId;
 				const offer = await SkillsAPI.getOfferById(otherUserId);
 				const skill = offer?.skillsCanTeach?.find(
-					(s) => s.subcategoryId === req.skillRequestedSubcategory
+					(s: { subcategoryId: number }) =>
+						s.subcategoryId === req.skillRequestedSubcategory
 				);
 				if (!skill) return null;
 				return {

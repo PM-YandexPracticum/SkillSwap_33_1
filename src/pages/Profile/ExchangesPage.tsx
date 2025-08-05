@@ -63,7 +63,7 @@ export const ExchangesPage = () => {
 						: req.skillOfferedSubcategory;
 			const offer = await SkillsAPI.getOfferById(otherUserId);
 			const skill = offer?.skillsCanTeach?.find(
-				(s) => s.subcategoryId === targetSubcategory
+				(s: { subcategoryId: number }) => s.subcategoryId === targetSubcategory
 			);
 			if (!skill) {
 				return { req, userId: otherUserId } as RequestCard;

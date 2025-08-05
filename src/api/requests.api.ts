@@ -101,8 +101,10 @@ export function findMutualMatches(): Array<{
 		[];
 	allIds.forEach((id) => {
 		const other = getUserSkills(id);
-		const offeredList = me.teach.filter((s) => other.learn.includes(s));
-		const requestedList = me.learn.filter((s) => other.teach.includes(s));
+		const offeredList = me.teach.filter((s: number) => other.learn.includes(s));
+		const requestedList = me.learn.filter((s: number) =>
+			other.teach.includes(s)
+		);
 		if (offeredList.length > 0 && requestedList.length > 0) {
 			matches.push({
 				userId: id,
@@ -216,7 +218,11 @@ export function finishExchange(requestId: string): void {
 				return { description: desc, images: imgs };
 			}
 			const skill = owner.skillsCanTeach?.find(
-				(s: any) => s.subcategoryId === subId
+				(s: {
+					subcategoryId: number;
+					description?: string;
+					images?: string[];
+				}) => s.subcategoryId === subId
 			);
 			return {
 				description: skill?.description || '',

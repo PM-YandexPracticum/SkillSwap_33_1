@@ -28,7 +28,9 @@ export const Layout: React.FC<LayoutProps> = ({
 		<div className={styles.layout}>
 			<Header
 				variant={isAuthenticated ? 'user' : 'guest'}
-				userInfo={isAuthenticated ? { name, avatar: avatarUrl } : undefined}
+				userInfo={
+					isAuthenticated ? { name: name || '', avatar: avatarUrl } : undefined
+				}
 			/>
 
 			<main className={styles.main}>
