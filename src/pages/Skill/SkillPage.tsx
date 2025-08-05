@@ -127,6 +127,7 @@ export const SkillPage = () => {
 					skill={skill}
 					onExchangeSent={handleExchangeSent}
 					showExchangeButton={true}
+					showHeaderButtons={true}
 					isUserLoggedIn={isLoggedIn}
 				/>
 			</div>

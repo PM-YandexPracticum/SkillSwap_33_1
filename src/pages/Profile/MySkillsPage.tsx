@@ -98,7 +98,7 @@ const MySkillsPage: React.FC = () => {
 					userId={userDetail.id}
 					skill={skill}
 					showExchangeButton={false}
-					showEditButtons={true}
+					showEditButton={true}
 					showHeaderButtons={false}
 				/>
 			</div>
