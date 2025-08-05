@@ -23,7 +23,6 @@ import { Layout } from '@/widgets/Layout/Layout';
 import { LayoutWithFilters } from '@/widgets/Layout/LayoutWithFilters';
 import { ThemeProvider } from '@app/styles/ThemeProvider';
 import { TestPage } from '@/pages/TestPage/TestPage';
-import PrivateRoute from '@/features/auth/PrivateRoute';
 
 const App = () => {
 	return (
@@ -42,7 +41,7 @@ const App = () => {
 				{/* Общий Layout с Header/Footer и условным Sidebar */}
 				<Route element={<Layout />}>
 					{/* Профиль и вложенные страницы */}
-					<Route element={<PrivateRoute />}>
+					<Route>
 						<Route path='/profile'>
 							<Route index element={<ProfilePage />} />
 							<Route
