@@ -133,9 +133,11 @@ export const SkillPage = () => {
 					userId={currentUser.id}
 					skill={skill}
 					onExchangeSent={handleExchangeSent}
+
 					showExchangeButton={
 						!(sessionUser && `usr_${sessionUser.id}` === currentUser.id)
 					}
+
 					isUserLoggedIn={isLoggedIn}
 				/>
 			</div>
