@@ -19,7 +19,8 @@ export type TSkillExchangeCard = {
 	showHeaderButtons?: boolean;
 	showPopupHeader?: boolean;
 	showExchangeButton?: boolean;
-	showEditButtons?: boolean;
+	showEditButton?: boolean;
+	showRegistrationButtons?: boolean;
 	popUpTitle?: string;
 	popUpSubtitle?: string;
 	onExchangeSent?: () => void;
@@ -29,10 +30,11 @@ export type TSkillExchangeCard = {
 export const SkillExchangeCard = ({
 	skill,
 	userId,
-	showHeaderButtons = true,
+	showHeaderButtons = false,
 	showPopupHeader = false,
-	showExchangeButton = true,
-	showEditButtons = false,
+	showExchangeButton = false,
+	showEditButton = false,
+	showRegistrationButtons = false,
 	popUpTitle,
 	popUpSubtitle,
 	onExchangeSent,
@@ -114,7 +116,18 @@ export const SkillExchangeCard = ({
 						</button>
 					)}
 
-					{showEditButtons && (
+					{showEditButton && (
+						<div className={styles.buttonsBlock}>
+							<button
+								className={`${styles.button} ${styles.secondaryButton}`}
+								onClick={() => {}}
+							>
+								Редактировать
+							</button>
+						</div>
+					)}
+
+					{showRegistrationButtons && (
 						<div className={styles.buttonsBlock}>
 							<button
 								className={`${styles.button} ${styles.secondaryButton}`}
