@@ -35,7 +35,7 @@ export const useFavoriteUsers = () => {
 	}
 
 	function loadFavoriteUsers() {
-		dispatch(asyncThunkGetUsersAddedIntoFavorites());
+		if (!isInitialLoaded) dispatch(asyncThunkGetUsersAddedIntoFavorites());
 	}
 
 	return {
