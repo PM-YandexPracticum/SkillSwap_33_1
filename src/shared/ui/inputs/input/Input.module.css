@@ -78,6 +78,7 @@
 .inputWrapper {
 	position: relative;
 	width: 100%;
+	background-color: var(--color-background);
 }
 
 .label {
