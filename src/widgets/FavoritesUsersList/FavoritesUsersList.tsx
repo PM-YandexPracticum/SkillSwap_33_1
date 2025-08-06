@@ -16,8 +16,10 @@ const FavoritesUsersList = ({ ...props }: IFavoritesUsersListProps) => {
 
 	useEffect(() => {
 		// вызывается один раз для загрузки избранных юзеров из LocalStorage и отправки api запроса на получение данных пользователей
-		initializeAndLoadFavoriteUsers();
-	}, [initializeAndLoadFavoriteUsers]);
+		if (!isInitialLoaded) {
+			initializeAndLoadFavoriteUsers();
+		}
+	}, [initializeAndLoadFavoriteUsers, isInitialLoaded]);
 
 	if (isLoading && !isInitialLoaded) {
 		return <Loader />;

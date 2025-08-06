@@ -7,11 +7,21 @@ export interface AuthUser {
 	fullName?: string;
 	birthDate?: string;
 	gender?: string;
+	genderId?: string;
 	city?: string;
+	locationId?: string;
 	wantToLearnCategories?: number[];
 	wantToLearnSubcategories?: number[];
 	canTeachCategories?: number[];
 	canTeachSubcategories?: number[];
+	skillsCanTeach?: Array<{
+		subcategoryId: number;
+		description: string;
+		images: string[];
+	}>;
+	skillsWantToLearn?: number[];
+	skillImagesBySubcategory?: Record<number, string[]>;
+	skillDescriptionsBySubcategory?: Record<number, string>;
 	skillName?: string;
 	description?: string;
 	avatarUrl?: string;
@@ -32,7 +42,7 @@ export const getStoredUsers = (): AuthUser[] => {
 	}
 };
 
-const saveUsers = (users: AuthUser[]) => {
+export const saveUsers = (users: AuthUser[]) => {
 	if (typeof window !== 'undefined') {
 		window.localStorage.setItem(USERS_KEY, JSON.stringify(users));
 	}
@@ -76,7 +86,10 @@ const createUserCardWithImages = (
 			skillsCanTeach:
 				userData.canTeachSubcategories?.map((subcategoryId) => ({
 					subcategoryId,
-					description: userData.description || 'Описание навыка',
+					description:
+						userData.skillDescriptionsBySubcategory?.[subcategoryId] ||
+						userData.description ||
+						'Описание навыка',
 					images: skillImages,
 				})) || [],
 			skillsWantToLearn: userData.wantToLearnSubcategories || [],
@@ -89,6 +102,28 @@ const createUserCardWithImages = (
 		existingCards.push(userCard);
 		localStorage.setItem('temp_user_cards', JSON.stringify(existingCards));
 
+		// persist images and descriptions to auth_users entry
+		const storedUsers = getStoredUsers();
+		const idx = storedUsers.findIndex((u) => u.id === userData.id);
+		if (idx !== -1) {
+			const u = storedUsers[idx];
+			u.skillImagesBySubcategory = u.skillImagesBySubcategory || {};
+			u.skillDescriptionsBySubcategory = u.skillDescriptionsBySubcategory || {};
+			userData.canTeachSubcategories?.forEach((subcategoryId) => {
+				(u.skillImagesBySubcategory as Record<number, string[]>)[
+					subcategoryId
+				] = skillImages;
+				(u.skillDescriptionsBySubcategory as Record<number, string>)[
+					subcategoryId
+				] =
+					userData.skillDescriptionsBySubcategory?.[subcategoryId] ||
+					userData.description ||
+					'';
+			});
+			storedUsers[idx] = u;
+			saveUsers(storedUsers);
+		}
+
 		// Очищаем кэш API для обновления списка пользователей
 		if (typeof window !== 'undefined' && (window as any).SkillsAPI) {
 			(window as any).SkillsAPI.clearCache();
@@ -100,37 +135,65 @@ const createUserCardWithImages = (
 	}
 };
 
+// Сжимает изображение и возвращает dataURL с уменьшенным размером
+const compressImage = (file: File): Promise<string> => {
+	return new Promise((resolve) => {
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			const img = new Image();
+			img.onload = () => {
+				const canvas = document.createElement('canvas');
+				const MAX_SIZE = 800;
+				let { width, height } = img;
+				if (width > height && width > MAX_SIZE) {
+					height = (height * MAX_SIZE) / width;
+					width = MAX_SIZE;
+				} else if (height > MAX_SIZE) {
+					width = (width * MAX_SIZE) / height;
+					height = MAX_SIZE;
+				}
+				canvas.width = width;
+				canvas.height = height;
+				const ctx = canvas.getContext('2d');
+				ctx?.drawImage(img, 0, 0, width, height);
+				resolve(canvas.toDataURL('image/jpeg', 0.7));
+			};
+			img.src = reader.result as string;
+		};
+		reader.readAsDataURL(file);
+	});
+};
+
 // Функция для создания карточки пользователя в формате users.json
-export const createUserCard = (userData: AuthUser): void => {
+export const createUserCard = async (initialData: AuthUser): Promise<void> => {
 	try {
+		const user = { ...initialData };
+		user.skillDescriptionsBySubcategory =
+			user.skillDescriptionsBySubcategory || {};
+		user.canTeachSubcategories?.forEach((subcategoryId) => {
+			if (!user.skillDescriptionsBySubcategory?.[subcategoryId]) {
+				(user.skillDescriptionsBySubcategory as Record<number, string>)[
+					subcategoryId
+				] = user.description || '';
+			}
+		});
+
 		// Обрабатываем загруженные изображения
 		let skillImages: string[] = [];
 
-		if (userData.files && userData.files.length > 0) {
-			// Конвертируем FileList в массив base64 строк
-			const filePromises = Array.from(userData.files).map((file: File) => {
-				return new Promise<string>((resolve) => {
-					const reader = new FileReader();
-					reader.onloadend = () => {
-						resolve(reader.result as string);
-					};
-					reader.readAsDataURL(file);
-				});
-			});
-
-			// Ждем завершения всех чтений файлов
-			Promise.all(filePromises).then((images) => {
-				skillImages = images;
-				createUserCardWithImages(userData, skillImages);
-			});
+		if (user.files && user.files.length > 0) {
+			const filePromises = Array.from(user.files).map((file: File) =>
+				compressImage(file)
+			);
+			skillImages = await Promise.all(filePromises);
+			createUserCardWithImages(user, skillImages);
 		} else {
-			// Если файлы не загружены, используем дефолтные изображения
 			skillImages = [
 				'https://i.ibb.co/rGKcmVB7/matheus-farias-Tf-F9it7bidc-unsplash.jpg',
 				'https://i.ibb.co/zhXFPnYY/ashe-walker-91st-Dm-TERL4-unsplash.jpg',
 				'https://i.ibb.co/fGQ1SC5s/mathilde-langevin-s-Z-WM4c-Ol-M-unsplash.jpg',
 			];
-			createUserCardWithImages(userData, skillImages);
+			createUserCardWithImages(user, skillImages);
 		}
 	} catch (error) {
 		console.error('Ошибка при создании карточки пользователя:', error);
@@ -169,19 +232,24 @@ export const useAuth = () => {
 		return false;
 	};
 
-	const register = (data: AuthUser): { success: boolean; userId?: string } => {
+	const register = async (
+		data: AuthUser
+	): Promise<{ success: boolean; userId?: string }> => {
 		const users = getStoredUsers();
 		if (users.some((u) => u.email === data.email)) {
 			return { success: false };
 		}
 		const userId = Date.now().toString();
-		const newUser = { ...data, id: userId };
+		const newUser: AuthUser = { ...data, id: userId };
+		if ('skillName' in newUser) {
+			delete (newUser as any).skillName;
+		}
 		users.push(newUser);
 		saveUsers(users);
 		persistSession(newUser);
 
-		// Создаем карточку пользователя
-		createUserCard(newUser);
+		// Создаем карточку пользователя и дожидаемся сохранения изображений
+		await createUserCard(newUser);
 
 		return { success: true, userId };
 	};
@@ -215,4 +283,7 @@ export const updateUser = (updatedUser: AuthUser): void => {
 		saveUsers(users);
 	}
 	saveSession(updatedUser);
+	if (typeof window !== 'undefined' && (window as any).SkillsAPI) {
+		(window as any).SkillsAPI.clearCache();
+	}
 };

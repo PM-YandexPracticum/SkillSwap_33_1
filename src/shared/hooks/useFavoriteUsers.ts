@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from '@/app/providers/store/StoreProvider';
 import { asyncThunkGetUsersAddedIntoFavorites } from '@/entities/slices/favoritesSlice';
 
@@ -34,9 +35,11 @@ export const useFavoriteUsers = () => {
 		return favoriteUsersIds.includes(userId);
 	}
 
-	function loadFavoriteUsers() {
-		if (!isInitialLoaded) dispatch(asyncThunkGetUsersAddedIntoFavorites());
-	}
+
+	const loadFavoriteUsers = useCallback(() => {
+		dispatch(asyncThunkGetUsersAddedIntoFavorites());
+	}, [dispatch]);
+
 
 	return {
 		initializeAndLoadFavoriteUsers: loadFavoriteUsers,

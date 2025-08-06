@@ -1,15 +1,25 @@
 import styles from './SkillExchangeCard.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EmptyHeartIcon from '../../shared/assets/icons/heart-outline.svg?react';
 import FilledHeartIcon from '../../shared/assets/icons/heart-filled.svg?react';
 import MoreSquareIcon from '../../shared/assets/icons/more-square.svg?react';
 import ShareIcon from '../../shared/assets/icons/share.svg?react';
 import SkillExchangeModal from './SkillExchangeModal';
-import { addSentRequest, getSentRequests } from '@/api/requests.api';
+import {
+	createExchangeRequest,
+	getSentRequests,
+	getReceivedRequests,
+	updateRequestStatus,
+	findMutualSkills,
+} from '@/api/requests.api';
+import { getCurrentUser } from '@/features/auth/AuthForm.model';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { toast } from '@/shared/lib/toast';
 
 export type TSkillExchangeCard = {
 	skill: {
 		id: string;
+		subcategoryId?: number;
 		title: string;
 		category: string;
 		description: string;
@@ -25,6 +35,7 @@ export type TSkillExchangeCard = {
 	popUpSubtitle?: string;
 	onExchangeSent?: () => void;
 	isUserLoggedIn?: boolean;
+	onStatusChange?: () => void;
 };
 
 export const SkillExchangeCard = ({
@@ -39,26 +50,83 @@ export const SkillExchangeCard = ({
 	popUpSubtitle,
 	onExchangeSent,
 	isUserLoggedIn = false,
+	onStatusChange,
 }: TSkillExchangeCard) => {
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
 	const [hasSentRequest, setHasSentRequest] = useState(() =>
 		getSentRequests().includes(userId)
 	);
+	const [hasReceivedRequest, setHasReceivedRequest] = useState(() =>
+		getReceivedRequests().includes(userId)
+	);
+	const [pendingMatch, setPendingMatch] = useState<{
+		offered: number;
+		requested: number;
+	} | null>(null);
+
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		const state = location.state as any;
+		if (state?.openExchangeModalFor === userId) {
+			setIsExchangeModalOpen(true);
+			navigate(location.pathname, { replace: true, state: {} });
+		}
+	}, [location, navigate, userId]);
 
 	const toggleFavorite = () => {
 		setIsFavorite(!isFavorite);
 	};
 
+	const currentUser = getCurrentUser();
+
 	const handleExchangeClick = () => {
+		if (!isUserLoggedIn) {
+			navigate('/login', {
+				state: { from: location.pathname, openExchangeModalFor: userId },
+			});
+			return;
+		}
+		const skillId = skill.subcategoryId ?? Number(skill.id);
+		if (Number.isNaN(skillId)) {
+			toast.error('Навык не найден');
+			return;
+		}
+		const match = findMutualSkills(userId, skillId);
+		if (!match) {
+			toast.error('Нет взаимного навыка для обмена');
+			return;
+		}
+		setPendingMatch(match);
 		setIsExchangeModalOpen(true);
 	};
 
 	const handleConfirmExchange = () => {
-		addSentRequest(userId);
+		if (!pendingMatch) return;
+		createExchangeRequest(userId, pendingMatch.offered, pendingMatch.requested);
 		setHasSentRequest(true);
 		onExchangeSent?.();
 		setIsExchangeModalOpen(false);
+	};
+
+	const handleAcceptExchange = () => {
+		if (!currentUser?.id) return;
+		updateRequestStatus(userId, `usr_${currentUser.id}`, 'inProgress');
+		setHasReceivedRequest(false);
+		setHasSentRequest(false);
+		toast.success('Заявка принята');
+		onStatusChange?.();
+	};
+
+	const handleRejectExchange = () => {
+		if (!currentUser?.id) return;
+		updateRequestStatus(userId, `usr_${currentUser.id}`, 'rejected');
+		setHasReceivedRequest(false);
+		setHasSentRequest(false);
+		toast.error('Заявка отклонена');
+		onStatusChange?.();
 	};
 
 	return (
@@ -98,23 +166,33 @@ export const SkillExchangeCard = ({
 						<p className={styles.skillDescription}>{skill.description}</p>
 					</div>
 
-					{showExchangeButton && (
-						<button
-							className={`${styles.button} ${
-								hasSentRequest || !isUserLoggedIn
-									? styles.disabledButton
-									: styles.primaryButton
-							}`}
-							onClick={
-								hasSentRequest || !isUserLoggedIn
-									? undefined
-									: handleExchangeClick
-							}
-							disabled={hasSentRequest || !isUserLoggedIn}
-						>
-							{hasSentRequest ? 'Обмен предложен' : 'Предложить обмен'}
-						</button>
-					)}
+					{showExchangeButton &&
+						(hasReceivedRequest ? (
+							<div className={styles.buttonsBlock}>
+								<button
+									className={`${styles.button} ${styles.primaryButton}`}
+									onClick={handleAcceptExchange}
+								>
+									Принять обмен
+								</button>
+								<button
+									className={`${styles.button} ${styles.secondaryButton}`}
+									onClick={handleRejectExchange}
+								>
+									Отклонить
+								</button>
+							</div>
+						) : (
+							<button
+								className={`${styles.button} ${
+									hasSentRequest ? styles.disabledButton : styles.primaryButton
+								}`}
+								onClick={hasSentRequest ? undefined : handleExchangeClick}
+								disabled={hasSentRequest}
+							>
+								{hasSentRequest ? 'Обмен предложен' : 'Предложить обмен'}
+							</button>
+						))}
 
 					{showEditButton && (
 						<div className={styles.buttonsBlock}>

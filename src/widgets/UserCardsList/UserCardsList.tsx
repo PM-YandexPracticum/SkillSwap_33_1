@@ -28,17 +28,23 @@ export default function UserCardsList({
 									id: String(user.id),
 									name: user.name,
 									avatarUrl: user.avatarUrl,
-									age: getRuUserAgeСonjugation(user.birthDate),
+									age: getRuUserAgeСonjugation(user.age),
 									location: user.location,
 									description: user.description,
-									skillsCanTeach: user.skillsCanTeach.map((skill) => ({
-										type: skill.categoryId,
-										name: skill.subcategoryName,
+									skillsCanTeach: user.skillsCanTeach.map((skill: any) => ({
+										type: typeof skill === 'string' ? 0 : skill.categoryId,
+										name:
+											typeof skill === 'string' ? skill : skill.subcategoryName,
 									})),
-									skillsWantsToLearn: user.skillsWantToLearn.map((skill) => ({
-										type: skill.categoryId,
-										name: skill.subcategoryName,
-									})),
+									skillsWantsToLearn: user.skillsWantToLearn.map(
+										(skill: any) => ({
+											type: typeof skill === 'string' ? 0 : skill.categoryId,
+											name:
+												typeof skill === 'string'
+													? skill
+													: skill.subcategoryName,
+										})
+									),
 								}}
 								onLikeButtonClicked={(liked) => {
 									dispatch(

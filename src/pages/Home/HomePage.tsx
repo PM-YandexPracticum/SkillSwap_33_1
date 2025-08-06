@@ -10,6 +10,8 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from '../../app/providers/store/hooks';
+import { useFavoriteUsers } from '@/shared/hooks';
+import { asyncThunkSetLikeUserState } from '@/entities/slices/favoritesSlice';
 import {
 	selectFilters,
 	setGender,
@@ -24,6 +26,9 @@ export const HomePage = () => {
 	const dispatch = useAppDispatch();
 	const skills = useAppSelector(selectAllSkills);
 	const filters = useAppSelector(selectFilters);
+
+	const { favoriteUsersIds, initializeAndLoadFavoriteUsers } =
+		useFavoriteUsers();
 
 	const [popularUsers, setPopularUsers] = useState<UserCardData[]>([]);
 	const [newUsers, setNewUsers] = useState<UserCardData[]>([]);
@@ -117,6 +122,19 @@ export const HomePage = () => {
 		[recommendedUsers, filterUsers]
 	);
 
+	useEffect(() => {
+		initializeAndLoadFavoriteUsers();
+	}, [initializeAndLoadFavoriteUsers]);
+
+	const applyFavorites = useCallback(
+		(users: UserCardData[]) =>
+			users.map((u) => ({
+				...u,
+				isFavorite: favoriteUsersIds.includes(u.id),
+			})),
+		[favoriteUsersIds]
+	);
+
 	// Загрузка данных при монтировании
 	useEffect(() => {
 		const loadInitialData = async () => {
@@ -130,9 +148,9 @@ export const HomePage = () => {
 					SkillsAPI.getRecommendedUsers({ offset: 0, limit: 6 }),
 				]);
 
-				setPopularUsers(popular);
-				setNewUsers(newUsersData);
-				setRecommendedUsers(recommended);
+				setPopularUsers(applyFavorites(popular));
+				setNewUsers(applyFavorites(newUsersData));
+				setRecommendedUsers(applyFavorites(recommended));
 				setHasMoreRecommended(recommended.length === 6);
 			} catch (err) {
 				console.error('Ошибка при загрузке данных:', err);
@@ -143,7 +161,13 @@ export const HomePage = () => {
 		};
 
 		loadInitialData();
-	}, []);
+	}, [applyFavorites]);
+
+	useEffect(() => {
+		setPopularUsers((prev) => applyFavorites(prev));
+		setNewUsers((prev) => applyFavorites(prev));
+		setRecommendedUsers((prev) => applyFavorites(prev));
+	}, [applyFavorites]);
 
 	const loadMoreRecommended = useCallback(async () => {
 		if (!hasMoreRecommended || isLoadingMore) return;
@@ -162,14 +186,20 @@ export const HomePage = () => {
 				return;
 			}
 
-			setRecommendedUsers((prev) => [...prev, ...newUsers]);
+			const withFav = applyFavorites(newUsers);
+			setRecommendedUsers((prev) => [...prev, ...withFav]);
 			setHasMoreRecommended(newUsers.length === 20);
 		} catch (err) {
 			console.error('Ошибка при загрузке дополнительных данных:', err);
 		} finally {
 			setIsLoadingMore(false);
 		}
-	}, [recommendedUsers.length, hasMoreRecommended, isLoadingMore]);
+	}, [
+		recommendedUsers.length,
+		hasMoreRecommended,
+		isLoadingMore,
+		applyFavorites,
+	]);
 
 	useEffect(() => {
 		if (!loadMoreRef.current) return;
@@ -278,12 +308,18 @@ export const HomePage = () => {
 	};
 
 	const handleFavoriteToggle = (userId: string, isFavorite: boolean) => {
-		console.log(
-			'Изменение избранного для пользователя:',
-			userId,
-			'Новое состояние:',
-			isFavorite
+		dispatch(
+			asyncThunkSetLikeUserState({
+				userId,
+				isLiked: !isFavorite,
+			})
 		);
+		const updateList = (list: UserCardData[]) =>
+			list.map((u) => (u.id === userId ? { ...u, isFavorite } : u));
+		setPopularUsers((prev) => updateList(prev));
+		setNewUsers((prev) => updateList(prev));
+		setRecommendedUsers((prev) => updateList(prev));
+		SkillsAPI.clearCache();
 	};
 
 	if (isLoading && recommendedUsers.length === 0) {

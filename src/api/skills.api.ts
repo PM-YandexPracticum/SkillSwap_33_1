@@ -1,6 +1,12 @@
 import type { UserCardData } from '@/entities/user/user';
 import type { SkillCategory, City } from '@/entities/skill/skill';
-import { getSentRequests } from './requests.api';
+import {
+	getSentRequests,
+	getReceivedRequests,
+	findMutualMatches,
+} from './requests.api';
+import { getCurrentUser } from '@/features/auth/AuthForm.model';
+import { LOCAL_STORAGE_PATHS } from '@/shared/constants/local_storage_paths';
 
 interface UserData {
 	id: string;
@@ -40,15 +46,32 @@ interface RequestData {
 }
 
 export class SkillsAPI {
-	private static cachedUsers: Omit<UserCardData, 'isExchangeSent'>[] | null =
-		null;
+	private static cachedUsers:
+		| Omit<UserCardData, 'isExchangeSent' | 'hasReceivedRequest'>[]
+		| null = null;
 
 	static async getUsers(): Promise<UserCardData[]> {
 		const sentRequests = getSentRequests();
+		const receivedRequests = getReceivedRequests();
+		const mutual = findMutualMatches();
+		const mutualIds = new Set(mutual.map((m) => m.userId));
+
+		const current = getCurrentUser();
+		let favoriteIds: string[] = [];
+		if (current) {
+			const store = JSON.parse(
+				localStorage.getItem(LOCAL_STORAGE_PATHS.favoriteUsers) || '{}'
+			);
+			favoriteIds = store[`usr_${current.id}`] || [];
+		}
+
 		if (this.cachedUsers) {
 			return this.cachedUsers.map((u) => ({
 				...u,
+				isFavorite: favoriteIds.includes(u.id),
 				isExchangeSent: sentRequests.includes(u.id),
+				hasReceivedRequest: receivedRequests.includes(u.id),
+				hasMutualMatch: mutualIds.has(u.id),
 			}));
 		}
 
@@ -60,7 +83,36 @@ export class SkillsAPI {
 			const tempCards = JSON.parse(
 				localStorage.getItem('temp_user_cards') || '[]'
 			);
-			const allUsersData = [...usersData, ...tempCards];
+			const authUsers = JSON.parse(
+				localStorage.getItem('auth_users') || '[]'
+			).map((u: any) => ({
+				id: `usr_${u.id}`,
+				name: u.fullName || 'Пользователь',
+				avatarUrl:
+					u.avatarUrl || '/public/db/profile-pictures/avatar-default.svg',
+				birthDate: u.birthDate || '1990-01-01',
+				genderId: u.gender || 'unspecified',
+				locationId: u.city || 'city1',
+				description: u.description || 'Новый пользователь SkillSwap',
+				createdAt: new Date().toISOString(),
+				skillsCanTeach: (u.canTeachSubcategories || []).map((id: number) => ({
+					subcategoryId: id,
+					description:
+						(u.skillDescriptionsBySubcategory &&
+							u.skillDescriptionsBySubcategory[id]) ||
+						'',
+					images:
+						(u.skillImagesBySubcategory && u.skillImagesBySubcategory[id]) ||
+						[],
+				})),
+				skillsWantToLearn: u.wantToLearnSubcategories || [],
+			}));
+
+			const userMap = new Map<string, UserData>();
+			[...usersData, ...tempCards, ...authUsers].forEach((u) => {
+				userMap.set(u.id, u);
+			});
+			const allUsersData = Array.from(userMap.values());
 
 			const skillsResponse = await fetch('/db/skills.json');
 			const skillsData: SkillCategory[] = await skillsResponse.json();
@@ -114,14 +166,17 @@ export class SkillsAPI {
 					description: user.description,
 					skillsCanTeach: canTeachSkills,
 					skillsWantToLearn: wantToLearnSkills,
-					isFavorite: false,
+					isFavorite: favoriteIds.includes(user.id),
 					createdAt: user.createdAt,
 				};
 			});
 
 			return this.cachedUsers.map((u) => ({
 				...u,
+				isFavorite: favoriteIds.includes(u.id),
 				isExchangeSent: sentRequests.includes(u.id),
+				hasReceivedRequest: receivedRequests.includes(u.id),
+				hasMutualMatch: mutualIds.has(u.id),
 			}));
 		} catch (error) {
 			console.error('Ошибка при загрузке пользователей:', error);
@@ -141,12 +196,42 @@ export class SkillsAPI {
 			const tempCards = JSON.parse(
 				localStorage.getItem('temp_user_cards') || '[]'
 			);
-			const allUsersData = [...usersData, ...tempCards];
+			const authUsers = JSON.parse(
+				localStorage.getItem('auth_users') || '[]'
+			).map((u: any) => ({
+				id: `usr_${u.id}`,
+				name: u.fullName || 'Пользователь',
+				avatarUrl:
+					u.avatarUrl || '/public/db/profile-pictures/avatar-default.svg',
+				birthDate: u.birthDate || '1990-01-01',
+				genderId: u.gender || 'unspecified',
+				locationId: u.city || 'city1',
+				description: u.description || 'Новый пользователь SkillSwap',
+				createdAt: new Date().toISOString(),
+				skillsCanTeach: (u.canTeachSubcategories || []).map((id: number) => ({
+					subcategoryId: id,
+					description:
+						(u.skillDescriptionsBySubcategory &&
+							u.skillDescriptionsBySubcategory[id]) ||
+						'',
+					images:
+						(u.skillImagesBySubcategory && u.skillImagesBySubcategory[id]) ||
+						[],
+				})),
+				skillsWantToLearn: u.wantToLearnSubcategories || [],
+			}));
+
+			// Объединяем данные и убираем дубликаты, чтобы обновлённая
+			// информация из auth_users имела приоритет
+			const userMap = new Map<string, any>();
+			[...usersData, ...tempCards, ...authUsers].forEach((u) => {
+				userMap.set(u.id, u);
+			});
 
 			const skillsResponse = await fetch('/db/skills.json');
 			const skillsData: SkillCategory[] = await skillsResponse.json();
 
-			const user = allUsersData.find((u) => u.id === userId);
+			const user = userMap.get(userId);
 			if (!user) return null;
 
 			const skillMap = new Map<number, { name: string; category: string }>(

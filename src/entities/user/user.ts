@@ -30,6 +30,8 @@ export interface UserCardData {
 	skillsWantToLearn: string[];
 	isFavorite?: boolean;
 	isExchangeSent?: boolean;
+	hasReceivedRequest?: boolean;
+	hasMutualMatch?: boolean;
 	createdAt?: string; // Дата создания аккаунта
 }
 

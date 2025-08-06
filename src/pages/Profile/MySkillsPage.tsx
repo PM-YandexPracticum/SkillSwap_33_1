@@ -94,13 +94,55 @@ const MySkillsPage: React.FC = () => {
 	return (
 		<div className='my-skills-container'>
 			<div className='my-skills-content'>
-				<SkillExchangeCard
-					userId={userDetail.id}
-					skill={skill}
-					showExchangeButton={false}
-					showEditButton={true}
-					showHeaderButtons={false}
-				/>
+
+				{userDetail.skillsCanTeach.map((skill) => (
+					<div key={skill.subcategoryId} className='my-skills-main'>
+						<div className='left-section'>
+							<h3 className='skill-name'>{skill.title || 'Название навыка'}</h3>
+							<p className='category'>{skill.category || 'Категория'}</p>
+							<p className='description'>
+								{skill.description || 'Описание навыка'}
+							</p>
+						</div>
+						<div className='right-section'>
+							{skill.images && skill.images.length > 0 && (
+								<div className='image-grid'>
+									{skill.images.length === 1 && (
+										<img
+											src={skill.images[0]}
+											className='image'
+											alt='Изображение навыка'
+										/>
+									)}
+									{skill.images.length > 1 && (
+										<>
+											<img
+												src={skill.images[0]}
+												className='image'
+												alt='Основное изображение'
+											/>
+											{skill.images.slice(1, 4).map((image, idx) => (
+												<div className='small-image-wrapper' key={idx}>
+													<img
+														src={image}
+														className='image'
+														alt={`Изображение ${idx + 2}`}
+													/>
+													{idx === 2 && skill.images.length > 4 && (
+														<div className='image-counter'>
+															+{skill.images.length - 4}
+														</div>
+													)}
+												</div>
+											))}
+										</>
+									)}
+								</div>
+							)}
+						</div>
+					</div>
+				))}
+
 			</div>
 		</div>
 	);

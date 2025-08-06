@@ -6,10 +6,15 @@ import '@appStyles/global.css';
 import '@appStyles/theme.css';
 
 import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from '@/app/providers/store/StoreProvider';
+import { asyncThunkGetUsersAddedIntoFavorites } from '@/entities/slices/favoritesSlice';
+import { getCurrentUser } from '@/features/auth/AuthForm.model';
 
 import ProfilePage from '@/pages/Profile/ProfilePage';
-import PlaceholderPage from '@/pages/Profile/PlaceholderPage';
 import MySkillsPage from '@/pages/Profile/MySkillsPage';
+import ExchangesPage from '@/pages/Profile/ExchangesPage';
+import ApplicationsPage from '@/pages/Profile/ApplicationsPage';
 
 import RegisterLayout from '@/pages/Register/RegisterLayout';
 import RegisterStep1 from '@/pages/Register/RegisterStep1';
@@ -26,6 +31,14 @@ import { TestPage } from '@/pages/TestPage/TestPage';
 import PrivateRoute from '@/features/auth/PrivateRoute';
 
 const App = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (getCurrentUser()) {
+			dispatch(asyncThunkGetUsersAddedIntoFavorites());
+		}
+	}, [dispatch]);
+
 	return (
 		<ThemeProvider>
 			<Routes>
@@ -45,24 +58,8 @@ const App = () => {
 					<Route element={<PrivateRoute />}>
 						<Route path='/profile'>
 							<Route index element={<ProfilePage />} />
-							<Route
-								path='applications'
-								element={
-									<PlaceholderPage
-										title='Заявки'
-										description='Здесь будут отображаться ваши заявки на обмен навыками'
-									/>
-								}
-							/>
-							<Route
-								path='exchanges'
-								element={
-									<PlaceholderPage
-										title='Мои обмены'
-										description='Здесь вы увидите все ваши активные и завершенные обмены'
-									/>
-								}
-							/>
+							<Route path='applications' element={<ApplicationsPage />} />
+							<Route path='exchanges' element={<ExchangesPage />} />
 							<Route path='favorites' element={<FavoritesPage />} />
 							<Route path='skills' element={<MySkillsPage />} />
 						</Route>

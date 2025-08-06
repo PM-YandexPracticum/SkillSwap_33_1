@@ -122,8 +122,13 @@ const RegisterStep3 = () => {
 			canTeachSubcategories: subcategoryIds,
 		};
 
-		const finalize = (avatarUrl?: string) => {
-			const result = register({ ...data, ...stepData, avatarUrl, files });
+		const finalize = async (avatarUrl?: string) => {
+			const result = await register({
+				...data,
+				...stepData,
+				avatarUrl,
+				files,
+			});
 
 			if (result.success) {
 				// Перенаправляем на карточку созданного пользователя

@@ -1,5 +1,6 @@
 import { getUsersDataByIdsApi, type IUserApi } from '@/api/favorites.api';
 import { LOCAL_STORAGE_PATHS } from '@/shared/constants/local_storage_paths';
+import { getCurrentUser } from '@/features/auth/AuthForm.model';
 import {
 	createAsyncThunk,
 	createSlice,
@@ -25,9 +26,17 @@ const initialState: IFavoritesState = {
 export const asyncThunkGetUsersAddedIntoFavorites = createAsyncThunk(
 	'favorites/asyncThunkGetUsersAddedIntoFavorites',
 	async () => {
-		const favoriteUsersIds: string[] = JSON.parse(
-			localStorage.getItem(LOCAL_STORAGE_PATHS.favoriteUsers) ?? '[]'
+		const user = getCurrentUser();
+		if (!user) {
+			return [] as IUserApi[];
+		}
+		const store = JSON.parse(
+			localStorage.getItem(LOCAL_STORAGE_PATHS.favoriteUsers) ?? '{}'
 		);
+		const favoriteUsersIds: string[] = store[`usr_${user.id}`] ?? [];
+		if (favoriteUsersIds.length === 0) {
+			return [] as IUserApi[];
+		}
 		return await getUsersDataByIdsApi(favoriteUsersIds);
 	}
 );
@@ -45,23 +54,32 @@ export const favoritesSlice = createSlice({
 				payload: { isUserAdded, userId },
 			}: PayloadAction<{ userId: string; isUserAdded: boolean }>
 		) => {
+			const current = getCurrentUser();
+			if (!current) return;
+
+			const store = JSON.parse(
+				localStorage.getItem(LOCAL_STORAGE_PATHS.favoriteUsers) ?? '{}'
+			);
+			const key = `usr_${current.id}`;
+			const ids: string[] = store[key] ?? [];
+
+			let newIds: string[];
 			if (isUserAdded) {
+				newIds = ids.filter((id) => id !== userId);
 				state.favoriteUsers = state.favoriteUsers.filter(
 					(selectedUser) => selectedUser.id !== userId
 				);
-				state.favoriteUsersIds = state.favoriteUsersIds.filter(
-					(id) => id !== userId
-				);
 			} else {
-				state.favoriteUsersIds.push(userId);
+				newIds = Array.from(new Set([...ids, userId]));
 			}
 
+			store[key] = newIds;
 			localStorage.setItem(
 				LOCAL_STORAGE_PATHS.favoriteUsers,
-				JSON.stringify(
-					Array.from(new Set(state.favoriteUsersIds.map((id) => id)))
-				)
+				JSON.stringify(store)
 			);
+
+			state.favoriteUsersIds = newIds;
 		},
 	},
 	extraReducers: (builder) => {

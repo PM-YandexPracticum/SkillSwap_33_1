@@ -9,6 +9,8 @@ import Logo from '../Logo/Logo';
 import ThemeToggleButton from '@/app/styles/ThemeToggleButton';
 import { DEFAULT_AVATAR } from '@/shared/hooks/useUser';
 import { useAuth } from '@/features/auth/AuthForm.model';
+import { useAppDispatch, useAppSelector } from '@/app/providers/store/hooks';
+import { setSearchFilter } from '@/entities/slices/filtersSlice';
 import './Header.css';
 
 interface HeaderProps {
@@ -24,6 +26,8 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const navigate = useNavigate();
 	const { logout } = useAuth();
+	const dispatch = useAppDispatch();
+	const search = useAppSelector((state) => state.filters.search);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -70,6 +74,8 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 							type='text'
 							placeholder='Искать навык'
 							className='search-input'
+							value={search}
+							onChange={(e) => dispatch(setSearchFilter(e.target.value))}
 						/>
 					</div>
 				</div>
