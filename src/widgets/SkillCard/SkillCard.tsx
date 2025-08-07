@@ -182,11 +182,12 @@ export const SkillCard: React.FC<SkillCardProps> = ({
 		<div className={styles.card}>
 			<div className={styles.userSection}>
 				<div className={styles.avatar}>
-					<img
-						src={user.avatarUrl}
-						alt={`Фото ${user.name}`}
-						className={styles.avatarImage}
-					/>
+                                        <img
+                                                src={user.avatarUrl}
+                                                alt={`Фото ${user.name}`}
+                                                className={styles.avatarImage}
+                                                loading='lazy'
+                                        />
 				</div>
 
 				<div className={styles.userInfo}>

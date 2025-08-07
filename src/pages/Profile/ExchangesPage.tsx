@@ -118,18 +118,19 @@ export const ExchangesPage = () => {
 				pendingCards.map(({ req, userId, skill }) => (
 					<div key={req.id} style={{ marginBottom: 16 }}>
 						{skill ? (
-							<SkillExchangeCard
-								skill={skill}
-								userId={userId}
-								showHeaderButtons={false}
-								isUserLoggedIn
-								onStatusChange={loadCards}
-							/>
-						) : (
-							<p>Пользователь {userId}</p>
-						)}
-					</div>
-				))
+                                                        <SkillExchangeCard
+                                                                skill={skill}
+                                                                userId={userId}
+                                                                showHeaderButtons={false}
+                                                                isUserLoggedIn
+                                                                onStatusChange={loadCards}
+                                                                showExchangeButton
+                                                        />
+                                                ) : (
+                                                        <p>Пользователь {userId}</p>
+                                                )}
+                                        </div>
+                                ))
 			)}
 
 			<h3>Активные</h3>
