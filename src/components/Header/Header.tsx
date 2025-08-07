@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import SearchIcon from '../../shared/assets/icons/search.svg?react';
-import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
+import SkillsDropdown from '../SkillsDropdown/SkillsDropdown';
 import NotificationIcon from '../../shared/assets/icons/notification.svg?react';
 import NotificationWithDotIcon from '../../shared/assets/icons/bell-with-dot.svg?react';
 import LikeIcon from '../../shared/assets/icons/like.svg?react';
@@ -283,10 +283,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 						<a href='#' className='nav-link'>
 							О проекте
 						</a>
-						<div className='nav-dropdown'>
-							<span>Все навыки</span>
-							<ChevronDownIcon className='w-4 h-4' />
-						</div>
+						<SkillsDropdown />
 					</nav>
 				</div>
 
