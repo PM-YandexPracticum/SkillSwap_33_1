@@ -445,23 +445,27 @@ export const HomePage = () => {
 				) : isAuthenticated ? (
 					// Разделы для авторизованных пользователей
 					<>
-						<SkillSection
-							title='Точное совпадение'
-							users={filteredExactMatchUsers}
-							showViewAllButton={true}
-							onViewAllClick={handleViewAllExactMatch}
-							onCardDetailsClick={handleCardDetailsClick}
-							onFavoriteToggle={handleFavoriteToggle}
-						/>
+						{filteredExactMatchUsers.length > 0 && (
+							<SkillSection
+								title='Точное совпадение'
+								users={filteredExactMatchUsers}
+								showViewAllButton={true}
+								onViewAllClick={handleViewAllExactMatch}
+								onCardDetailsClick={handleCardDetailsClick}
+								onFavoriteToggle={handleFavoriteToggle}
+							/>
+						)}
 
-						<SkillSection
-							title='Новые идеи'
-							users={filteredNewIdeasUsers}
-							showViewAllButton={true}
-							onViewAllClick={handleViewAllNewIdeas}
-							onCardDetailsClick={handleCardDetailsClick}
-							onFavoriteToggle={handleFavoriteToggle}
-						/>
+						{filteredNewIdeasUsers.length > 0 && (
+							<SkillSection
+								title='Новые идеи'
+								users={filteredNewIdeasUsers}
+								showViewAllButton={true}
+								onViewAllClick={handleViewAllNewIdeas}
+								onCardDetailsClick={handleCardDetailsClick}
+								onFavoriteToggle={handleFavoriteToggle}
+							/>
+						)}
 
 						<SkillSection
 							title='Рекомендуем'

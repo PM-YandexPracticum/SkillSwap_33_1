@@ -136,6 +136,7 @@ export const SkillPage = () => {
 					showExchangeButton={
 						!(sessionUser && `usr_${sessionUser.id}` === currentUser.id)
 					}
+					showHeaderButtons={true}
 					isUserLoggedIn={isLoggedIn}
 				/>
 			</div>
