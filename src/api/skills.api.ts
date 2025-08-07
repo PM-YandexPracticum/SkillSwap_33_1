@@ -79,6 +79,7 @@ export class SkillsAPI {
 		try {
 			const usersResponse = await fetch('/db/users.json');
 			const usersData: UserData[] = await usersResponse.json();
+			localStorage.setItem('db_users_cache', JSON.stringify(usersData));
 
 			// Получаем временные карточки из localStorage
 			const tempCards = JSON.parse(
@@ -383,6 +384,9 @@ export class SkillsAPI {
 
 	static clearCache() {
 		this.cachedUsers = null;
+		if (typeof window !== 'undefined') {
+			localStorage.removeItem('db_users_cache');
+		}
 	}
 }
 
