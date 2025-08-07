@@ -3,6 +3,7 @@ import { useAuth } from '@/features/auth/AuthForm.model';
 import { SkillsAPI } from '@/api/skills.api';
 import type { UserCardData, UserDetailData } from '@/entities/user/user';
 import './MySkillsPage.css';
+import { SkillExchangeCard } from '@/widgets/SkillExchangeCard/SkillExchangeCard';
 
 const MySkillsPage: React.FC = () => {
 	const { user } = useAuth();
@@ -84,59 +85,24 @@ const MySkillsPage: React.FC = () => {
 		);
 	}
 
+	const skill = {
+		id: userDetail.id,
+		title: userDetail.skillsCanTeach[0].title,
+		category: userDetail.skillsCanTeach[0].category,
+		description: userDetail.skillsCanTeach[0].description,
+		images: userDetail.skillsCanTeach[0].images,
+	};
+
 	return (
 		<div className='my-skills-container'>
 			<div className='my-skills-content'>
-				{userDetail.skillsCanTeach.map((skill) => (
-					<div key={skill.subcategoryId} className='my-skills-main'>
-						<div className='left-section'>
-							<h3 className='skill-name'>{skill.title || 'Название навыка'}</h3>
-							<p className='category'>{skill.category || 'Категория'}</p>
-							<p className='description'>
-								{skill.description || 'Описание навыка'}
-							</p>
-						</div>
-						<div className='right-section'>
-							{skill.images && skill.images.length > 0 && (
-								<div className='image-grid'>
-									{skill.images.length === 1 && (
-										<img
-											src={skill.images[0]}
-											className='image'
-											alt='Изображение навыка'
-											loading='lazy'
-										/>
-									)}
-									{skill.images.length > 1 && (
-										<>
-											<img
-												src={skill.images[0]}
-												className='image'
-												alt='Основное изображение'
-												loading='lazy'
-											/>
-											{skill.images.slice(1, 4).map((image, idx) => (
-												<div className='small-image-wrapper' key={idx}>
-													<img
-														src={image}
-														className='image'
-														alt={`Изображение ${idx + 2}`}
-														loading='lazy'
-													/>
-													{idx === 2 && skill.images.length > 4 && (
-														<div className='image-counter'>
-															+{skill.images.length - 4}
-														</div>
-													)}
-												</div>
-											))}
-										</>
-									)}
-								</div>
-							)}
-						</div>
-					</div>
-				))}
+				<SkillExchangeCard
+					userId={userDetail.id}
+					skill={skill}
+					showExchangeButton={false}
+					showEditButton={true}
+					showHeaderButtons={false}
+				/>
 			</div>
 		</div>
 	);

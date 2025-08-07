@@ -22,6 +22,7 @@ import {
 	unmarkCategorySkills,
 } from '../../entities/slices/filtersSlice';
 import { selectAllSkills } from '../../entities/slices/skillsSlice';
+import { getCurrentUser } from '@/features/auth/AuthForm.model';
 
 export const HomePage = () => {
 	const dispatch = useAppDispatch();
@@ -31,18 +32,28 @@ export const HomePage = () => {
 	const { favoriteUsersIds, favoriteUsers, initializeAndLoadFavoriteUsers } =
 		useFavoriteUsers();
 
+	// Состояние для авторизованных пользователей
+	const [exactMatchUsers, setExactMatchUsers] = useState<UserCardData[]>([]);
+	const [newIdeasUsers, setNewIdeasUsers] = useState<UserCardData[]>([]);
+	const [recommendedUsers, setRecommendedUsers] = useState<UserCardData[]>([]);
+
+	// Состояние для неавторизованных пользователей
 	const [popularUsers, setPopularUsers] = useState<UserCardData[]>([]);
 	const [newUsers, setNewUsers] = useState<UserCardData[]>([]);
-	const [recommendedUsers, setRecommendedUsers] = useState<UserCardData[]>([]);
-	const [allUsers, setAllUsers] = useState<UserCardData[]>([]);
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
 	const [hasMoreRecommended, setHasMoreRecommended] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [allUsers, setAllUsers] = useState<UserCardData[]>([]);
 
 	const observerRef = useRef<IntersectionObserver | null>(null);
 	const loadMoreRef = useRef<HTMLDivElement>(null);
+
+	// Определяем, авторизован ли пользователь
+	const isAuthenticated = useMemo(() => {
+		return Boolean(getCurrentUser());
+	}, []);
 
 	const skillIdToName = useMemo(() => {
 		const map = new Map<number, string>();
@@ -131,6 +142,18 @@ export const HomePage = () => {
 		[filters, skillIdToName]
 	);
 
+	const filteredExactMatchUsers = useMemo(
+		() => filterUsers(exactMatchUsers),
+		[exactMatchUsers, filterUsers]
+	);
+	const filteredNewIdeasUsers = useMemo(
+		() => filterUsers(newIdeasUsers),
+		[newIdeasUsers, filterUsers]
+	);
+	const filteredRecommendedUsers = useMemo(
+		() => filterUsers(recommendedUsers),
+		[recommendedUsers, filterUsers]
+	);
 	const filteredPopularUsers = useMemo(
 		() => filterUsers(popularUsers),
 		[popularUsers, filterUsers]
@@ -138,10 +161,6 @@ export const HomePage = () => {
 	const filteredNewUsers = useMemo(
 		() => filterUsers(newUsers),
 		[newUsers, filterUsers]
-	);
-	const filteredRecommendedUsers = useMemo(
-		() => filterUsers(recommendedUsers),
-		[recommendedUsers, filterUsers]
 	);
 	const filteredFavoriteUsers = useMemo(
 		() => filterUsers(favoriteUsersCardData),
@@ -168,17 +187,33 @@ export const HomePage = () => {
 				setIsLoading(true);
 				setError(null);
 
-				const [popular, newUsersData, recommended, users] = await Promise.all([
-					SkillsAPI.getPopularUsers(),
-					SkillsAPI.getNewUsers(),
-					SkillsAPI.getRecommendedUsers({ offset: 0, limit: 6 }),
-					SkillsAPI.getUsers(),
-				]);
-				setAllUsers(users);
-				setPopularUsers(applyFavorites(popular));
-				setNewUsers(applyFavorites(newUsersData));
-				setRecommendedUsers(applyFavorites(recommended));
-				setHasMoreRecommended(recommended.length === 6);
+				if (isAuthenticated) {
+					// Для авторизованных пользователей
+					const [exactMatch, newIdeas, recommended, users] = await Promise.all([
+						SkillsAPI.getExactMatchUsers({ offset: 0, limit: 3 }),
+						SkillsAPI.getNewIdeasUsers({ offset: 0, limit: 3 }),
+						SkillsAPI.getRecommendedUsers({ offset: 0, limit: 6 }),
+						SkillsAPI.getUsers(),
+					]);
+
+					setAllUsers(users);
+					setExactMatchUsers(applyFavorites(exactMatch));
+					setNewIdeasUsers(applyFavorites(newIdeas));
+					setRecommendedUsers(applyFavorites(recommended));
+					setHasMoreRecommended(recommended.length === 6);
+				} else {
+					// Для неавторизованных пользователей
+					const [popular, newUsersData, recommended] = await Promise.all([
+						SkillsAPI.getPopularUsers(),
+						SkillsAPI.getNewUsers(),
+						SkillsAPI.getRecommendedUsers({ offset: 0, limit: 6 }),
+					]);
+
+					setPopularUsers(applyFavorites(popular));
+					setNewUsers(applyFavorites(newUsersData));
+					setRecommendedUsers(applyFavorites(recommended));
+					setHasMoreRecommended(recommended.length === 6);
+				}
 			} catch (err) {
 				console.error('Ошибка при загрузке данных:', err);
 				setError('Не удалось загрузить данные. Попробуйте обновить страницу.');
@@ -188,13 +223,19 @@ export const HomePage = () => {
 		};
 
 		loadInitialData();
-	}, [applyFavorites]);
+	}, [applyFavorites, isAuthenticated]);
 
 	useEffect(() => {
-		setPopularUsers((prev) => applyFavorites(prev));
-		setNewUsers((prev) => applyFavorites(prev));
-		setRecommendedUsers((prev) => applyFavorites(prev));
-	}, [applyFavorites]);
+		if (isAuthenticated) {
+			setExactMatchUsers((prev) => applyFavorites(prev));
+			setNewIdeasUsers((prev) => applyFavorites(prev));
+			setRecommendedUsers((prev) => applyFavorites(prev));
+		} else {
+			setPopularUsers((prev) => applyFavorites(prev));
+			setNewUsers((prev) => applyFavorites(prev));
+			setRecommendedUsers((prev) => applyFavorites(prev));
+		}
+	}, [applyFavorites, isAuthenticated]);
 
 	const loadMoreRecommended = useCallback(async () => {
 		if (!hasMoreRecommended || isLoadingMore) return;
@@ -330,6 +371,14 @@ export const HomePage = () => {
 		console.log('Переход к странице всех новых пользователей');
 	};
 
+	const handleViewAllExactMatch = () => {
+		console.log('Переход к странице всех точных совпадений');
+	};
+
+	const handleViewAllNewIdeas = () => {
+		console.log('Переход к странице всех новых идей');
+	};
+
 	const handleCardDetailsClick = (userId: string) => {
 		console.log('Переход к профилю пользователя:', userId);
 	};
@@ -343,9 +392,16 @@ export const HomePage = () => {
 		);
 		const updateList = (list: UserCardData[]) =>
 			list.map((u) => (u.id === userId ? { ...u, isFavorite } : u));
-		setPopularUsers((prev) => updateList(prev));
-		setNewUsers((prev) => updateList(prev));
-		setRecommendedUsers((prev) => updateList(prev));
+
+		if (isAuthenticated) {
+			setExactMatchUsers((prev) => updateList(prev));
+			setNewIdeasUsers((prev) => updateList(prev));
+			setRecommendedUsers((prev) => updateList(prev));
+		} else {
+			setPopularUsers((prev) => updateList(prev));
+			setNewUsers((prev) => updateList(prev));
+			setRecommendedUsers((prev) => updateList(prev));
+		}
 		SkillsAPI.clearCache();
 	};
 
@@ -398,7 +454,61 @@ export const HomePage = () => {
 						onCardDetailsClick={handleCardDetailsClick}
 						onFavoriteToggle={handleFavoriteToggle}
 					/>
+				) : isAuthenticated ? (
+					// Разделы для авторизованных пользователей
+					<>
+						{filteredExactMatchUsers.length > 0 && (
+							<SkillSection
+								title='Точное совпадение'
+								users={filteredExactMatchUsers}
+								showViewAllButton={true}
+								onViewAllClick={handleViewAllExactMatch}
+								onCardDetailsClick={handleCardDetailsClick}
+								onFavoriteToggle={handleFavoriteToggle}
+							/>
+						)}
+
+						{filteredNewIdeasUsers.length > 0 && (
+							<SkillSection
+								title='Новые идеи'
+								users={filteredNewIdeasUsers}
+								showViewAllButton={true}
+								onViewAllClick={handleViewAllNewIdeas}
+								onCardDetailsClick={handleCardDetailsClick}
+								onFavoriteToggle={handleFavoriteToggle}
+							/>
+						)}
+
+						<SkillSection
+							title='Рекомендуем'
+							users={filteredRecommendedUsers}
+							showViewAllButton={false}
+							onCardDetailsClick={handleCardDetailsClick}
+							onFavoriteToggle={handleFavoriteToggle}
+							isLoadingMore={isLoadingMore}
+						/>
+
+						<div
+							ref={loadMoreRef}
+							style={{ height: '10px', width: '100%' }}
+							aria-hidden='true'
+						/>
+
+						{isLoadingMore && (
+							<div className={styles.loadingMore}>
+								<div className={styles.loadingSpinnerSmall} />
+								<p>Загрузка...</p>
+							</div>
+						)}
+
+						{!hasMoreRecommended && !isLoadingMore && (
+							<div className={styles.noMoreResults}>
+								Вы просмотрели все рекомендации
+							</div>
+						)}
+					</>
 				) : (
+					// Разделы для неавторизованных пользователей
 					<>
 						<SkillSection
 							title='Популярное'

@@ -307,7 +307,7 @@ const RegisterStep2 = () => {
 				</div>
 			</label>
 
-			<div className={styles.row}>
+			<div className={`${styles.row} ${styles.rowButton}`}>
 				<button
 					type='button'
 					onClick={handleBack}

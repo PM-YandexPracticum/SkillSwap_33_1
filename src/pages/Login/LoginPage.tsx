@@ -12,10 +12,15 @@ import AppleDarkIcon from '@icons/apple-dark.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
 import { useTheme } from '@/app/styles/ThemeProvider';
-import {
-	validateEmail,
-	validatePassword,
-} from '@/shared/lib/validation/auth.validation';
+
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginValidationSchema } from '@/shared/lib/validation/auth.validation';
+
+interface LoginFormData {
+	email: string;
+	password: string;
+}
 
 const LoginPage = () => {
 	const { theme } = useTheme();
@@ -23,47 +28,22 @@ const LoginPage = () => {
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const { login } = useAuth();
-	const [formData, setFormData] = useState({
-		email: '',
-		password: '',
-	});
+
 	const [showPassword, setShowPassword] = useState(false);
-	const [emailError, setEmailError] = useState<string | null>(null);
-	const [passwordError, setPasswordError] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
-	const [isLoading, setIsLoading] = useState(false);
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({ ...prev, [name]: value }));
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+	} = useForm<LoginFormData>({
+		resolver: yupResolver(loginValidationSchema),
+		mode: 'onChange',
+	});
+
+	const onSubmit = (data: LoginFormData) => {
 		setError(null);
-
-		if (name === 'email') {
-			setEmailError(validateEmail(value));
-		} else if (name === 'password') {
-			setPasswordError(validatePassword(value));
-		}
-	};
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-
-		const emailErr = validateEmail(formData.email);
-		const passwordErr = validatePassword(formData.password);
-
-		setEmailError(emailErr);
-		setPasswordError(passwordErr);
-
-		if (emailErr || passwordErr) {
-			setError('Пожалуйста, исправьте ошибки в форме');
-			return;
-		}
-
-		setIsLoading(true);
-		setError(null);
-
-		const success = login(formData.email, formData.password);
-		setIsLoading(false);
+		const success = login(data.email, data.password);
 
 		if (success) {
 			dispatch(asyncThunkGetUsersAddedIntoFavorites());
@@ -110,39 +90,37 @@ const LoginPage = () => {
 						<span>или</span>
 					</div>
 
-					<form className={styles.form} onSubmit={handleSubmit} noValidate>
+					<form
+						className={styles.form}
+						onSubmit={handleSubmit(onSubmit)}
+						noValidate
+					>
 						<label className={styles.inputLabel}>
 							Email
 							<input
 								type='email'
-								name='email'
-								className={`${styles.inputField} ${
-									emailError ? styles.inputInvalid : ''
-								}`}
+								{...register('email')}
+								className={`${styles.inputField} ${errors.email ? styles.inputInvalid : ''}`}
 								placeholder='Введите email'
-								value={formData.email}
-								onChange={handleChange}
 								required
 							/>
+							{errors.email && (
+								<p className={styles.errorMessage}>{errors.email.message}</p>
+							)}
 						</label>
-						{emailError && <p className={styles.errorMessage}>{emailError}</p>}
 
 						<label className={styles.inputLabel}>
 							Пароль
 							<div
 								className={`${styles.inputWithIcon} ${
-									passwordError ? styles.inputWithIconInvalid : ''
+									errors.password ? styles.inputWithIconInvalid : ''
 								}`}
 							>
 								<input
 									type={showPassword ? 'text' : 'password'}
-									name='password'
-									className={`${styles.inputField} ${
-										passwordError ? styles.inputInvalid : ''
-									}`}
+									{...register('password')}
+									className={`${styles.inputField} ${errors.password ? styles.inputInvalid : ''}`}
 									placeholder='Введите пароль'
-									value={formData.password}
-									onChange={handleChange}
 									required
 								/>
 								<button
@@ -156,20 +134,19 @@ const LoginPage = () => {
 									{showPassword ? <EyeSlashIcon /> : <EyeIcon />}
 								</button>
 							</div>
+							{errors.password && (
+								<p className={styles.errorMessage}>{errors.password.message}</p>
+							)}
+							{error && <div className={styles.errorMessage}>{error}</div>}
 						</label>
-						{passwordError && (
-							<p className={styles.errorMessage}>{passwordError}</p>
-						)}
-
-						{error && <div className={styles.errorMessage}>{error}</div>}
 
 						<div className={styles.containerBtn}>
 							<button
 								type='submit'
 								className={`${styles.button} ${styles.buttonPrimary}`}
-								disabled={isLoading}
+								disabled={isSubmitting}
 							>
-								{isLoading ? 'Загрузка...' : 'Войти'}
+								{isSubmitting ? 'Загрузка...' : 'Войти'}
 							</button>
 
 							<div style={{ textAlign: 'center', marginTop: 16 }}>

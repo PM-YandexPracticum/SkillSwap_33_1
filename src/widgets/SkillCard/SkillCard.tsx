@@ -31,6 +31,7 @@ interface SkillCardProps {
 	onDetailsClick?: (userId: string) => void;
 	onFavoriteToggle?: (userId: string, isFavorite: boolean) => void;
 	hideActionButton?: boolean;
+	hideFavoriteButton?: boolean;
 }
 
 export const SkillCard: React.FC<SkillCardProps> = ({
@@ -38,6 +39,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({
 	onDetailsClick,
 	onFavoriteToggle,
 	hideActionButton = false,
+	hideFavoriteButton = false,
 }) => {
 	const [isFavorite, setIsFavorite] = useState(user.isFavorite || false);
 	useEffect(() => {
@@ -197,21 +199,23 @@ export const SkillCard: React.FC<SkillCardProps> = ({
 					</p>
 				</div>
 
-				<button
-					className={styles.favoriteButton}
-					onClick={handleFavoriteClick}
-					aria-label={
-						isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'
-					}
-				>
-					{isFavorite ? (
-						<HeartFilledIcon />
-					) : theme === 'dark' ? (
-						<HeartOutlineDarkIcon />
-					) : (
-						<HeartOutlineIcon />
-					)}
-				</button>
+				{!hideFavoriteButton && (
+					<button
+						className={styles.favoriteButton}
+						onClick={handleFavoriteClick}
+						aria-label={
+							isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'
+						}
+					>
+						{isFavorite ? (
+							<HeartFilledIcon />
+						) : theme === 'dark' ? (
+							<HeartOutlineDarkIcon />
+						) : (
+							<HeartOutlineIcon />
+						)}
+					</button>
+				)}
 			</div>
 			{hideActionButton && user.description && (
 				<div className={styles.userDescription}>

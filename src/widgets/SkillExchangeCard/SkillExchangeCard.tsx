@@ -35,6 +35,7 @@ export type TSkillExchangeCard = {
 	popUpTitle?: string;
 	popUpSubtitle?: string;
 	onExchangeSent?: () => void;
+	onFavoriteToggle?: (userId: string, isFavorite: boolean) => void;
 	isUserLoggedIn?: boolean;
 	onStatusChange?: () => void;
 };
@@ -50,6 +51,7 @@ export const SkillExchangeCard = ({
 	popUpTitle,
 	popUpSubtitle,
 	onExchangeSent,
+	onFavoriteToggle,
 	isUserLoggedIn = false,
 	onStatusChange,
 }: TSkillExchangeCard) => {
@@ -73,7 +75,9 @@ export const SkillExchangeCard = ({
 	const location = useLocation();
 
 	const toggleFavorite = () => {
-		setIsFavorite(!isFavorite);
+		const newFavoriteState = !isFavorite;
+		setIsFavorite(newFavoriteState);
+		onFavoriteToggle?.(userId, newFavoriteState);
 	};
 
 	const currentUser = getCurrentUser();

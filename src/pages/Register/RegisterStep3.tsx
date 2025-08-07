@@ -345,7 +345,7 @@ const RegisterStep3 = () => {
 					/>
 				</div>
 
-				<div className={styles.row}>
+				<div className={`${styles.row} ${styles.rowButton}`}>
 					<button
 						type='button'
 						className={`${styles.button} ${styles.buttonBack}`}
