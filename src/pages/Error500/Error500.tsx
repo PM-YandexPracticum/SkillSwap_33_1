@@ -14,12 +14,12 @@ export const Error500 = () => {
 		<>
 			<Header variant='guest' />
 			<div className={styles.content}>
-                                <img
-                                        className={styles.image}
-                                        src={error500Image}
-                                        alt='Error 500 - Internal Server Error'
-                                        loading='lazy'
-                                />
+				<img
+					className={styles.image}
+					src={error500Image}
+					alt='Error 500 - Internal Server Error'
+					loading='lazy'
+				/>
 				<div className={styles.error}>
 					<h2 className={styles.title}>На сервере произошла ошибка</h2>
 					<p className={styles.message}>
@@ -40,7 +40,7 @@ export const Error500 = () => {
 			</div>
 			<Footer />
 		</>
-        );
+	);
 };
 
 export default Error500;

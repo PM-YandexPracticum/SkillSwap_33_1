@@ -35,11 +35,9 @@ export const useFavoriteUsers = () => {
 		return favoriteUsersIds.includes(userId);
 	}
 
-
 	const loadFavoriteUsers = useCallback(() => {
 		dispatch(asyncThunkGetUsersAddedIntoFavorites());
 	}, [dispatch]);
-
 
 	return {
 		initializeAndLoadFavoriteUsers: loadFavoriteUsers,

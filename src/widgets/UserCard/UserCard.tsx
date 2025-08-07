@@ -70,17 +70,17 @@ export const CardUser = ({
 		>
 			<div className={styles.headerWrapper}>
 				<div className={styles.headerUserInfoWrapper}>
-                                       <img
-                                                className={styles.profilePicture}
-                                                src={
-                                                        user.avatarUrl && user.avatarUrl.trim()
-                                                                ? user.avatarUrl
-                                                                : defaultUserProfileImage
-                                                }
-                                                alt={user.name}
-                                                draggable='false'
-                                                loading='lazy'
-                                        />
+					<img
+						className={styles.profilePicture}
+						src={
+							user.avatarUrl && user.avatarUrl.trim()
+								? user.avatarUrl
+								: defaultUserProfileImage
+						}
+						alt={user.name}
+						draggable='false'
+						loading='lazy'
+					/>
 					<div className={styles.userInfoBlock}>
 						{displayMode === 'default' && (
 							<button

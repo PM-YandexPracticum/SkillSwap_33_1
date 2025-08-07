@@ -6,7 +6,7 @@ export const FavoritesPage = () => {
 			<h1 className='heading-main'>Избранное</h1>
 			<FavoritesList />
 		</>
-        );
+	);
 };
 
 export default FavoritesPage;

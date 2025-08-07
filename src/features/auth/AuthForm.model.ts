@@ -33,83 +33,77 @@ export const USERS_KEY = 'auth_users';
 export const SESSION_KEY = 'currentUser';
 
 export const getStoredUsers = (): AuthUser[] => {
-        if (typeof window === 'undefined') return [];
-        const raw = window.localStorage.getItem(USERS_KEY);
-        if (!raw) return [];
-        try {
-                const users: AuthUser[] = JSON.parse(raw) as AuthUser[];
-                let migrated = false;
-               const enriched = users.map((u) => {
-                       const { avatarUrl, ...rest } = u;
-                       if (avatarUrl && rest.id) {
-                               void setAvatar(String(rest.id), avatarUrl);
-                               migrated = true;
-                       }
-                       return {
-                               ...rest,
-                               avatarUrl: rest.id
-                                       ? getAvatar(String(rest.id)) || undefined
-                                       : undefined,
-                       };
-               });
-               if (migrated) {
-                       const sanitized = users.map(({ avatarUrl: _avatarUrl, ...rest }) => rest);
-                       window.localStorage.setItem(
-                               USERS_KEY,
-                               JSON.stringify(sanitized)
-                       );
-               }
-                return enriched;
-        } catch {
-                return [];
-        }
+	if (typeof window === 'undefined') return [];
+	const raw = window.localStorage.getItem(USERS_KEY);
+	if (!raw) return [];
+	try {
+		const users: AuthUser[] = JSON.parse(raw) as AuthUser[];
+		let migrated = false;
+		const enriched = users.map((u) => {
+			const { avatarUrl, ...rest } = u;
+			if (avatarUrl && rest.id) {
+				void setAvatar(String(rest.id), avatarUrl);
+				migrated = true;
+			}
+			return {
+				...rest,
+				avatarUrl: rest.id
+					? getAvatar(String(rest.id)) || undefined
+					: undefined,
+			};
+		});
+		if (migrated) {
+			const sanitized = users.map(({ avatarUrl: _avatarUrl, ...rest }) => rest);
+			window.localStorage.setItem(USERS_KEY, JSON.stringify(sanitized));
+		}
+		return enriched;
+	} catch {
+		return [];
+	}
 };
 
 export const saveUsers = (users: AuthUser[]) => {
-        if (typeof window !== 'undefined') {
-                const sanitized = users.map((u) => {
-                        const { avatarUrl, ...rest } = u;
-                        if (avatarUrl && rest.id) {
-                                void setAvatar(String(rest.id), avatarUrl);
-                        }
-                        return rest;
-                });
-                window.localStorage.setItem(USERS_KEY, JSON.stringify(sanitized));
-        }
+	if (typeof window !== 'undefined') {
+		const sanitized = users.map((u) => {
+			const { avatarUrl, ...rest } = u;
+			if (avatarUrl && rest.id) {
+				void setAvatar(String(rest.id), avatarUrl);
+			}
+			return rest;
+		});
+		window.localStorage.setItem(USERS_KEY, JSON.stringify(sanitized));
+	}
 };
 
 export const saveSession = (sessionUser: AuthUser) => {
-        if (typeof window !== 'undefined') {
-                const { avatarUrl, ...rest } = sessionUser;
-                if (avatarUrl && rest.id) {
-                        void setAvatar(String(rest.id), avatarUrl);
-                }
-                window.localStorage.setItem(SESSION_KEY, JSON.stringify(rest));
-                window.dispatchEvent(new Event('userUpdated'));
-        }
+	if (typeof window !== 'undefined') {
+		const { avatarUrl, ...rest } = sessionUser;
+		if (avatarUrl && rest.id) {
+			void setAvatar(String(rest.id), avatarUrl);
+		}
+		window.localStorage.setItem(SESSION_KEY, JSON.stringify(rest));
+		window.dispatchEvent(new Event('userUpdated'));
+	}
 };
 
 const getSessionUser = (): AuthUser | null => {
-        if (typeof window === 'undefined') return null;
-        const raw = window.localStorage.getItem(SESSION_KEY);
-        if (!raw) return null;
-        try {
-                const user: AuthUser = JSON.parse(raw) as AuthUser;
-                if (user.avatarUrl && user.id) {
-                        void setAvatar(String(user.id), user.avatarUrl);
-                        delete user.avatarUrl;
-                        window.localStorage.setItem(
-                                SESSION_KEY,
-                                JSON.stringify(user)
-                        );
-                }
-                const avatar = user.id
-                        ? getAvatar(String(user.id)) || undefined
-                        : undefined;
-                return { ...user, avatarUrl: avatar };
-        } catch {
-                return null;
-        }
+	if (typeof window === 'undefined') return null;
+	const raw = window.localStorage.getItem(SESSION_KEY);
+	if (!raw) return null;
+	try {
+		const user: AuthUser = JSON.parse(raw) as AuthUser;
+		if (user.avatarUrl && user.id) {
+			void setAvatar(String(user.id), user.avatarUrl);
+			delete user.avatarUrl;
+			window.localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+		}
+		const avatar = user.id
+			? getAvatar(String(user.id)) || undefined
+			: undefined;
+		return { ...user, avatarUrl: avatar };
+	} catch {
+		return null;
+	}
 };
 
 // Вспомогательная функция для создания карточки с изображениями
@@ -119,24 +113,24 @@ const createUserCardWithImages = (
 ): void => {
 	try {
 		// Создаем объект пользователя в формате users.json
-                const avatar =
-                        getAvatar(String(userData.id)) ||
-                        '/db/profile-pictures/avatar-default.svg';
-                const userCard = {
-                        id: `usr_${userData.id}`,
-                        name: userData.fullName || 'Пользователь',
-                        avatarUrl: avatar,
-                        birthDate: userData.birthDate || '1990-01-01',
-                        genderId: userData.gender || 'unspecified',
-                        locationId: userData.city || 'city1',
-                        description: userData.description || 'Новый пользователь SkillSwap',
-                        createdAt: new Date().toISOString(),
-                        skillsCanTeach:
-                                userData.canTeachSubcategories?.map((subcategoryId) => ({
-                                        subcategoryId,
-                                        description:
-                                                userData.skillDescriptionsBySubcategory?.[subcategoryId] ||
-                                                userData.description ||
+		const avatar =
+			getAvatar(String(userData.id)) ||
+			'/db/profile-pictures/avatar-default.svg';
+		const userCard = {
+			id: `usr_${userData.id}`,
+			name: userData.fullName || 'Пользователь',
+			avatarUrl: avatar,
+			birthDate: userData.birthDate || '1990-01-01',
+			genderId: userData.gender || 'unspecified',
+			locationId: userData.city || 'city1',
+			description: userData.description || 'Новый пользователь SkillSwap',
+			createdAt: new Date().toISOString(),
+			skillsCanTeach:
+				userData.canTeachSubcategories?.map((subcategoryId) => ({
+					subcategoryId,
+					description:
+						userData.skillDescriptionsBySubcategory?.[subcategoryId] ||
+						userData.description ||
 						'Описание навыка',
 					images: skillImages,
 				})) || [],
@@ -280,31 +274,31 @@ export const useAuth = () => {
 		return false;
 	};
 
-        const register = async (
-                data: AuthUser
-        ): Promise<{ success: boolean; userId?: string }> => {
-                const users = getStoredUsers();
-                if (users.some((u) => u.email === data.email)) {
-                        return { success: false };
-                }
-                const userId = Date.now().toString();
-                const newUser: AuthUser = { ...data, id: userId };
-                if ('skillName' in newUser) {
-                        delete (newUser as any).skillName;
-                }
-                if (newUser.avatarUrl) {
-                        await setAvatar(userId, newUser.avatarUrl);
-                        delete newUser.avatarUrl;
-                }
-                users.push(newUser);
-                saveUsers(users);
-                persistSession({ ...newUser, avatarUrl: getAvatar(userId) || undefined });
+	const register = async (
+		data: AuthUser
+	): Promise<{ success: boolean; userId?: string }> => {
+		const users = getStoredUsers();
+		if (users.some((u) => u.email === data.email)) {
+			return { success: false };
+		}
+		const userId = Date.now().toString();
+		const newUser: AuthUser = { ...data, id: userId };
+		if ('skillName' in newUser) {
+			delete (newUser as any).skillName;
+		}
+		if (newUser.avatarUrl) {
+			await setAvatar(userId, newUser.avatarUrl);
+			delete newUser.avatarUrl;
+		}
+		users.push(newUser);
+		saveUsers(users);
+		persistSession({ ...newUser, avatarUrl: getAvatar(userId) || undefined });
 
-                // Создаем карточку пользователя и дожидаемся сохранения изображений
-                await createUserCard(newUser);
+		// Создаем карточку пользователя и дожидаемся сохранения изображений
+		await createUserCard(newUser);
 
-                return { success: true, userId };
-        };
+		return { success: true, userId };
+	};
 
 	const logout = (): void => {
 		if (typeof window !== 'undefined') {
@@ -328,30 +322,30 @@ export const useAuth = () => {
 export const getCurrentUser = (): AuthUser | null => getSessionUser();
 
 export const updateUser = async (updatedUser: AuthUser): Promise<void> => {
-        const users = getStoredUsers();
-        const index = users.findIndex((u) => String(u.id) === String(updatedUser.id));
-        if (updatedUser.avatarUrl && updatedUser.id) {
-                await setAvatar(String(updatedUser.id), updatedUser.avatarUrl);
-        }
-        const sanitized = { ...updatedUser };
-        delete sanitized.avatarUrl;
-        let merged = sanitized;
-        if (index !== -1) {
-                const existing = users[index];
-                merged = { ...existing } as AuthUser;
-                Object.entries(sanitized).forEach(([key, value]) => {
-                        if (value !== undefined) {
-                                (merged as any)[key] = value;
-                        }
-                });
-                users[index] = merged;
-                saveUsers(users);
-        }
-        saveSession({
-                ...merged,
-                avatarUrl: getAvatar(String(updatedUser.id)) || undefined,
-        });
-        if (typeof window !== 'undefined' && (window as any).SkillsAPI) {
-                (window as any).SkillsAPI.clearCache();
-        }
+	const users = getStoredUsers();
+	const index = users.findIndex((u) => String(u.id) === String(updatedUser.id));
+	if (updatedUser.avatarUrl && updatedUser.id) {
+		await setAvatar(String(updatedUser.id), updatedUser.avatarUrl);
+	}
+	const sanitized = { ...updatedUser };
+	delete sanitized.avatarUrl;
+	let merged = sanitized;
+	if (index !== -1) {
+		const existing = users[index];
+		merged = { ...existing } as AuthUser;
+		Object.entries(sanitized).forEach(([key, value]) => {
+			if (value !== undefined) {
+				(merged as any)[key] = value;
+			}
+		});
+		users[index] = merged;
+		saveUsers(users);
+	}
+	saveSession({
+		...merged,
+		avatarUrl: getAvatar(String(updatedUser.id)) || undefined,
+	});
+	if (typeof window !== 'undefined' && (window as any).SkillsAPI) {
+		(window as any).SkillsAPI.clearCache();
+	}
 };

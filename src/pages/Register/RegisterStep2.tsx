@@ -145,12 +145,12 @@ const RegisterStep2 = () => {
 		<form className={styles.form} onSubmit={handleSubmit}>
 			<div className={styles.avatarUpload} onClick={handleAvatarClick}>
 				{avatarPreview ? (
-                                        <img
-                                                src={avatarPreview}
-                                                alt='Аватар'
-                                                className={styles.avatarImage}
-                                                loading='lazy'
-                                        />
+					<img
+						src={avatarPreview}
+						alt='Аватар'
+						className={styles.avatarImage}
+						loading='lazy'
+					/>
 				) : (
 					<AddIcon />
 				)}

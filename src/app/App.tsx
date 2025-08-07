@@ -17,9 +17,9 @@ const RegisterStep1 = lazy(() => import('@/pages/Register/RegisterStep1'));
 const RegisterStep2 = lazy(() => import('@/pages/Register/RegisterStep2'));
 const RegisterStep3 = lazy(() => import('@/pages/Register/RegisterStep3'));
 const RegisterProvider = lazy(() =>
-        import('@/pages/Register/RegisterContext').then((m) => ({
-                default: m.RegisterProvider,
-        }))
+	import('@/pages/Register/RegisterContext').then((m) => ({
+		default: m.RegisterProvider,
+	}))
 );
 const LoginPage = lazy(() => import('@/pages/Login/LoginPage'));
 const SkillPage = lazy(() => import('@/pages/Skill/SkillPage'));
@@ -43,60 +43,60 @@ const App = () => {
 		}
 	}, [dispatch]);
 
-        return (
-                <ThemeProvider>
-                        <Suspense fallback={<div>Loading...</div>}>
-                                <Routes>
-				{/* страница для тестов (в конце проекта удаляется) */}
-				<Route element={<Layout />}>
-					<Route path='/test' element={<TestPage />} />
-				</Route>
-
-				{/* Главная страница с фильтрами */}
-				<Route element={<LayoutWithFilters />}>
-					<Route path='/' element={<HomePage />} />
-				</Route>
-
-				{/* Общий Layout с Header/Footer и условным Sidebar */}
-				<Route element={<Layout />}>
-					{/* Профиль и вложенные страницы */}
-					<Route element={<PrivateRoute />}>
-						<Route path='/profile'>
-							<Route index element={<ProfilePage />} />
-							<Route path='applications' element={<ApplicationsPage />} />
-							<Route path='exchanges' element={<ExchangesPage />} />
-							<Route path='favorites' element={<FavoritesPage />} />
-							<Route path='skills' element={<MySkillsPage />} />
-						</Route>
+	return (
+		<ThemeProvider>
+			<Suspense fallback={<div>Loading...</div>}>
+				<Routes>
+					{/* страница для тестов (в конце проекта удаляется) */}
+					<Route element={<Layout />}>
+						<Route path='/test' element={<TestPage />} />
 					</Route>
 
-					{/* Страницы ошибок */}
-					<Route path='/error-500' element={<Error500 />} />
-					<Route path='*' element={<NotFound404 />} />
-					<Route path='/skills/:id' element={<SkillPage />} />
-				</Route>
+					{/* Главная страница с фильтрами */}
+					<Route element={<LayoutWithFilters />}>
+						<Route path='/' element={<HomePage />} />
+					</Route>
 
-				{/* Регистрация — отдельный layout без Header/Footer */}
-                                <Route
-                                        path='/register/*'
-                                        element={
-                                                <RegisterProvider>
-                                                        <RegisterLayout />
-                                                </RegisterProvider>
-                                        }
-                                >
-					<Route index element={<RegisterStep1 />} />
-					<Route path='step-1' element={<RegisterStep1 />} />
-					<Route path='step-2' element={<RegisterStep2 />} />
-					<Route path='step-3' element={<RegisterStep3 />} />
-				</Route>
+					{/* Общий Layout с Header/Footer и условным Sidebar */}
+					<Route element={<Layout />}>
+						{/* Профиль и вложенные страницы */}
+						<Route element={<PrivateRoute />}>
+							<Route path='/profile'>
+								<Route index element={<ProfilePage />} />
+								<Route path='applications' element={<ApplicationsPage />} />
+								<Route path='exchanges' element={<ExchangesPage />} />
+								<Route path='favorites' element={<FavoritesPage />} />
+								<Route path='skills' element={<MySkillsPage />} />
+							</Route>
+						</Route>
 
-				{/* Страница логина */}
-                                <Route path='/login' element={<LoginPage />} />
-                        </Routes>
-                        </Suspense>
-                </ThemeProvider>
-        );
+						{/* Страницы ошибок */}
+						<Route path='/error-500' element={<Error500 />} />
+						<Route path='*' element={<NotFound404 />} />
+						<Route path='/skills/:id' element={<SkillPage />} />
+					</Route>
+
+					{/* Регистрация — отдельный layout без Header/Footer */}
+					<Route
+						path='/register/*'
+						element={
+							<RegisterProvider>
+								<RegisterLayout />
+							</RegisterProvider>
+						}
+					>
+						<Route index element={<RegisterStep1 />} />
+						<Route path='step-1' element={<RegisterStep1 />} />
+						<Route path='step-2' element={<RegisterStep2 />} />
+						<Route path='step-3' element={<RegisterStep3 />} />
+					</Route>
+
+					{/* Страница логина */}
+					<Route path='/login' element={<LoginPage />} />
+				</Routes>
+			</Suspense>
+		</ThemeProvider>
+	);
 };
 
 export default App;

@@ -174,3 +174,5 @@ export const SkillPage = () => {
 		</div>
 	);
 };
+
+export default SkillPage;

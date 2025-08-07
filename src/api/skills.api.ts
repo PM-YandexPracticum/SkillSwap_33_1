@@ -1,9 +1,9 @@
 import type { UserCardData } from '@/entities/user/user';
 import type { SkillCategory, City } from '@/entities/skill/skill';
 import {
-        getSentRequests,
-        getReceivedRequests,
-        findMutualMatches,
+	getSentRequests,
+	getReceivedRequests,
+	findMutualMatches,
 } from './requests.api';
 import { getCurrentUser } from '@/features/auth/AuthForm.model';
 import { LOCAL_STORAGE_PATHS } from '@/shared/constants/local_storage_paths';
@@ -89,9 +89,8 @@ export class SkillsAPI {
 			).map((u: any) => ({
 				id: `usr_${u.id}`,
 				name: u.fullName || 'Пользователь',
-                                avatarUrl:
-                                        getAvatar(String(u.id)) ||
-                                        '/db/profile-pictures/avatar-default.svg',
+				avatarUrl:
+					getAvatar(String(u.id)) || '/db/profile-pictures/avatar-default.svg',
 				birthDate: u.birthDate || '1990-01-01',
 				genderId: u.gender || 'unspecified',
 				locationId: u.city || 'city1',
@@ -158,25 +157,24 @@ export class SkillsAPI {
 					}
 				);
 
-                                const avatar =
-                                        getAvatar(user.id.replace('usr_', '')) ||
-                                        user.avatarUrl;
-                                const normalizedAvatar = avatar?.replace(/^\/public/, '') ||
-                                        '/db/profile-pictures/avatar-default.svg';
-                                return {
-                                        id: user.id,
-                                        name: user.name,
-                                        avatarUrl: normalizedAvatar,
-                                        location: city?.['city-name'] || 'Неизвестный город',
-                                        age,
-                                        gender,
-                                        description: user.description,
-                                        skillsCanTeach: canTeachSkills,
-                                        skillsWantToLearn: wantToLearnSkills,
-                                        isFavorite: favoriteIds.includes(user.id),
-                                        createdAt: user.createdAt,
-                                };
-                        });
+				const avatar = getAvatar(user.id.replace('usr_', '')) || user.avatarUrl;
+				const normalizedAvatar =
+					avatar?.replace(/^\/public/, '') ||
+					'/db/profile-pictures/avatar-default.svg';
+				return {
+					id: user.id,
+					name: user.name,
+					avatarUrl: normalizedAvatar,
+					location: city?.['city-name'] || 'Неизвестный город',
+					age,
+					gender,
+					description: user.description,
+					skillsCanTeach: canTeachSkills,
+					skillsWantToLearn: wantToLearnSkills,
+					isFavorite: favoriteIds.includes(user.id),
+					createdAt: user.createdAt,
+				};
+			});
 
 			return this.cachedUsers.map((u) => ({
 				...u,
@@ -208,9 +206,8 @@ export class SkillsAPI {
 			).map((u: any) => ({
 				id: `usr_${u.id}`,
 				name: u.fullName || 'Пользователь',
-                                avatarUrl:
-                                        getAvatar(String(u.id)) ||
-                                        '/db/profile-pictures/avatar-default.svg',
+				avatarUrl:
+					getAvatar(String(u.id)) || '/db/profile-pictures/avatar-default.svg',
 				birthDate: u.birthDate || '1990-01-01',
 				genderId: u.gender || 'unspecified',
 				locationId: u.city || 'city1',
