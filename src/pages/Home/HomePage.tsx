@@ -13,12 +13,13 @@ import {
 import { useFavoriteUsers } from '@/shared/hooks';
 import { asyncThunkSetLikeUserState } from '@/entities/slices/favoritesSlice';
 import {
-	selectFilters,
-	setGender,
-	setType,
-	toggleCity,
-	toggleSkill,
-	unmarkCategorySkills,
+        selectFilters,
+        setGender,
+        setType,
+        toggleCity,
+        toggleSkill,
+        unmarkCategorySkills,
+        toggleFavoritesOnly,
 } from '../../entities/slices/filtersSlice';
 import { selectAllSkills } from '../../entities/slices/skillsSlice';
 
@@ -52,14 +53,17 @@ export const HomePage = () => {
 		return map;
 	}, [skills]);
 
-	const filterUsers = useCallback(
-		(users: UserCardData[]) => {
-			return users.filter((user) => {
-				if (
-					filters.gender !== 'Не имеет значения' &&
-					user.gender !== filters.gender
-				) {
-					return false;
+        const filterUsers = useCallback(
+                (users: UserCardData[]) => {
+                        return users.filter((user) => {
+                                if (filters.favoritesOnly && !user.isFavorite) {
+                                        return false;
+                                }
+                                if (
+                                        filters.gender !== 'Не имеет значения' &&
+                                        user.gender !== filters.gender
+                                ) {
+                                        return false;
 				}
 
 				if (
@@ -228,17 +232,20 @@ export const HomePage = () => {
 		};
 	}, [loadMoreRecommended, hasMoreRecommended, isLoadingMore]);
 
-	const ActiveFilterButtons = useMemo((): ActiveFilterButton[] => {
-		const tags: ActiveFilterButton[] = [];
-		if (filters.type !== 'Всё') {
-			tags.push({ id: 'type', type: 'type', label: filters.type });
-		}
-		if (filters.gender !== 'Не имеет значения') {
-			tags.push({ id: 'gender', type: 'gender', label: filters.gender });
-		}
-		filters.cities.forEach((city) => {
-			tags.push({ id: city, type: 'city', label: city });
-		});
+        const ActiveFilterButtons = useMemo((): ActiveFilterButton[] => {
+                const tags: ActiveFilterButton[] = [];
+                if (filters.type !== 'Всё') {
+                        tags.push({ id: 'type', type: 'type', label: filters.type });
+                }
+                if (filters.gender !== 'Не имеет значения') {
+                        tags.push({ id: 'gender', type: 'gender', label: filters.gender });
+                }
+                filters.cities.forEach((city) => {
+                        tags.push({ id: city, type: 'city', label: city });
+                });
+                if (filters.favoritesOnly) {
+                        tags.push({ id: 'favorites', type: 'favorites', label: 'Избранное' });
+                }
 
 		const skillsSet = new Set(filters.skills);
 		const checkedSkillIDs = new Set<string>();
@@ -267,8 +274,8 @@ export const HomePage = () => {
 			}
 		});
 
-		return tags;
-	}, [filters, skills]);
+                return tags;
+        }, [filters, skills]);
 
 	const handleRemoveFilter = (filter: ActiveFilterButton) => {
 		switch (filter.type) {
@@ -289,11 +296,14 @@ export const HomePage = () => {
 				}
 				break;
 			}
-			case 'skill':
-				dispatch(toggleSkill(Number(filter.id)));
-				break;
-		}
-	};
+                        case 'skill':
+                                dispatch(toggleSkill(Number(filter.id)));
+                                break;
+                        case 'favorites':
+                                dispatch(toggleFavoritesOnly());
+                                break;
+                }
+        };
 
 	const handleViewAllPopular = () => {
 		console.log('Переход к странице всех популярных пользователей');
@@ -404,3 +414,5 @@ export const HomePage = () => {
 		</div>
 	);
 };
+
+export default HomePage;

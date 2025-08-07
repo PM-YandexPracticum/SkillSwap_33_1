@@ -272,3 +272,5 @@ export const TestPage = () => {
 		</>
 	);
 };
+
+export default TestPage;
