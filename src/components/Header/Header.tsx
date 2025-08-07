@@ -5,6 +5,7 @@ import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import NotificationIcon from '../../shared/assets/icons/notification.svg?react';
 import NotificationWithDotIcon from '../../shared/assets/icons/bell-with-dot.svg?react';
 import LikeIcon from '../../shared/assets/icons/like.svg?react';
+import LikeFilledIcon from '../../shared/assets/icons/like-filled.svg?react';
 import LogoutIcon from '../../shared/assets/icons/logout.svg?react';
 import IdeaIcon from '../../shared/assets/icons/hugeicons_idea-01.svg?react';
 import Logo from '../Logo/Logo';
@@ -13,6 +14,7 @@ import { DEFAULT_AVATAR } from '@/shared/hooks/useUser';
 import { useAuth } from '@/features/auth/AuthForm.model';
 import { useAppDispatch, useAppSelector } from '@/app/providers/store/hooks';
 import { setSearchFilter } from '@/entities/slices/filtersSlice';
+import { toggleFavoritesOnly } from '@/entities/slices/filtersSlice';
 import { getUserRequests, updateRequestStatus } from '@/api/requests.api';
 import { getCurrentUser } from '@/features/auth/AuthForm.model';
 import type { ExchangeRequest } from '@/api/requests.api';
@@ -100,6 +102,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 	const { logout } = useAuth();
 	const dispatch = useAppDispatch();
 	const search = useAppSelector((state) => state.filters.search);
+	const favoritesOnly = useAppSelector((state) => state.filters.favoritesOnly);
 
 	const loadNotifications = useCallback(() => {
 		const currentUser = getCurrentUser();
@@ -149,7 +152,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 					updatedNotifs.push({
 						id: req.id,
 						text,
-						isUnread: prevById.get(req.id)?.isUnread ?? false,
+						isUnread: prevById.get(req.id)?.isUnread ?? true,
 						fromUserId: req.fromUserId,
 						toUserId: req.toUserId,
 						status: req.status,
@@ -212,8 +215,28 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 	const newNotifications = notifications.filter((n) => n.isUnread);
 	const readNotifications = notifications.filter((n) => !n.isUnread);
 
-	const goToProfile = () => {
-		navigate('/profile');
+	const goToProfile = (n: NotificationType) => {
+		setNotifications((prev) => {
+			const updated = prev.map((notif) =>
+				notif.id === n.id ? { ...notif, isUnread: false } : notif
+			);
+			setHasUnreadNotifications(updated.some((notif) => notif.isUnread));
+			return updated;
+		});
+
+		const currentUser = getCurrentUser();
+		const myId = currentUser ? `usr_${currentUser.id}` : '';
+
+		if (n.status === 'pending' && n.toUserId === myId) {
+			navigate('/profile/exchanges');
+		} else if (n.status === 'done' && n.fromUserId === myId) {
+			navigate('/profile/exchanges');
+		} else if (n.fromUserId === myId) {
+			navigate('/profile/applications');
+		} else {
+			navigate('/profile/exchanges');
+		}
+
 		setIsNotificationOpen(false);
 	};
 
@@ -342,7 +365,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 													{n.isUnread && (
 														<button
 															className='notif-go-btn'
-															onClick={goToProfile}
+															onClick={() => goToProfile(n)}
 															type='button'
 														>
 															Перейти
@@ -359,8 +382,16 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 						</div>
 
 						{/* Лайки */}
-						<button className='action-button'>
-							<LikeIcon className='w-5 h-5' />
+						<button
+							className='action-button'
+							onClick={() => dispatch(toggleFavoritesOnly())}
+							aria-label='Фильтровать избранное'
+						>
+							{favoritesOnly ? (
+								<LikeFilledIcon className='w-5 h-5' />
+							) : (
+								<LikeIcon className='w-5 h-5' />
+							)}
 						</button>
 
 						{/* Профиль */}

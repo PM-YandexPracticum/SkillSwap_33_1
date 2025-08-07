@@ -19,7 +19,6 @@ import {
 	toggleCity,
 	toggleSkill,
 	unmarkCategorySkills,
-	toggleFavoritesOnly,
 } from '../../entities/slices/filtersSlice';
 import { selectAllSkills } from '../../entities/slices/skillsSlice';
 
@@ -28,7 +27,7 @@ export const HomePage = () => {
 	const skills = useAppSelector(selectAllSkills);
 	const filters = useAppSelector(selectFilters);
 
-	const { favoriteUsersIds, initializeAndLoadFavoriteUsers } =
+	const { favoriteUsersIds, favoriteUsers, initializeAndLoadFavoriteUsers } =
 		useFavoriteUsers();
 
 	const [popularUsers, setPopularUsers] = useState<UserCardData[]>([]);
@@ -52,6 +51,23 @@ export const HomePage = () => {
 		});
 		return map;
 	}, [skills]);
+
+	const favoriteUsersCardData = useMemo((): UserCardData[] => {
+		return favoriteUsers.map((u) => ({
+			id: u.id,
+			name: u.name,
+			avatarUrl: u.avatarUrl,
+			location: u.location,
+			age: u.age,
+			gender: u.gender,
+			description: u.description,
+			skillsCanTeach: u.skillsCanTeach.map((s) => s.subcategoryName),
+			skillsWantToLearn: u.skillsWantToLearn.map((s) => s.subcategoryName),
+			isFavorite: true,
+			isExchangeSent: u.isExchangeSent,
+			createdAt: u.createdAt,
+		}));
+	}, [favoriteUsers]);
 
 	const filterUsers = useCallback(
 		(users: UserCardData[]) => {
@@ -124,6 +140,10 @@ export const HomePage = () => {
 	const filteredRecommendedUsers = useMemo(
 		() => filterUsers(recommendedUsers),
 		[recommendedUsers, filterUsers]
+	);
+	const filteredFavoriteUsers = useMemo(
+		() => filterUsers(favoriteUsersCardData),
+		[favoriteUsersCardData, filterUsers]
 	);
 
 	useEffect(() => {
@@ -243,9 +263,6 @@ export const HomePage = () => {
 		filters.cities.forEach((city) => {
 			tags.push({ id: city, type: 'city', label: city });
 		});
-		if (filters.favoritesOnly) {
-			tags.push({ id: 'favorites', type: 'favorites', label: 'Избранное' });
-		}
 
 		const skillsSet = new Set(filters.skills);
 		const checkedSkillIDs = new Set<string>();
@@ -298,9 +315,6 @@ export const HomePage = () => {
 			}
 			case 'skill':
 				dispatch(toggleSkill(Number(filter.id)));
-				break;
-			case 'favorites':
-				dispatch(toggleFavoritesOnly());
 				break;
 		}
 	};
@@ -365,50 +379,62 @@ export const HomePage = () => {
 					onRemoveTag={handleRemoveFilter}
 				/>
 
-				<SkillSection
-					title='Популярное'
-					users={filteredPopularUsers}
-					showViewAllButton={true}
-					onViewAllClick={handleViewAllPopular}
-					onCardDetailsClick={handleCardDetailsClick}
-					onFavoriteToggle={handleFavoriteToggle}
-				/>
+				{filters.favoritesOnly ? (
+					<SkillSection
+						title='Избранные'
+						users={filteredFavoriteUsers}
+						showViewAllButton={false}
+						onCardDetailsClick={handleCardDetailsClick}
+						onFavoriteToggle={handleFavoriteToggle}
+					/>
+				) : (
+					<>
+						<SkillSection
+							title='Популярное'
+							users={filteredPopularUsers}
+							showViewAllButton={true}
+							onViewAllClick={handleViewAllPopular}
+							onCardDetailsClick={handleCardDetailsClick}
+							onFavoriteToggle={handleFavoriteToggle}
+						/>
 
-				<SkillSection
-					title='Новое'
-					users={filteredNewUsers}
-					showViewAllButton={true}
-					onViewAllClick={handleViewAllNew}
-					onCardDetailsClick={handleCardDetailsClick}
-					onFavoriteToggle={handleFavoriteToggle}
-				/>
+						<SkillSection
+							title='Новое'
+							users={filteredNewUsers}
+							showViewAllButton={true}
+							onViewAllClick={handleViewAllNew}
+							onCardDetailsClick={handleCardDetailsClick}
+							onFavoriteToggle={handleFavoriteToggle}
+						/>
 
-				<SkillSection
-					title='Рекомендуем'
-					users={filteredRecommendedUsers}
-					showViewAllButton={false}
-					onCardDetailsClick={handleCardDetailsClick}
-					onFavoriteToggle={handleFavoriteToggle}
-					isLoadingMore={isLoadingMore}
-				/>
+						<SkillSection
+							title='Рекомендуем'
+							users={filteredRecommendedUsers}
+							showViewAllButton={false}
+							onCardDetailsClick={handleCardDetailsClick}
+							onFavoriteToggle={handleFavoriteToggle}
+							isLoadingMore={isLoadingMore}
+						/>
 
-				<div
-					ref={loadMoreRef}
-					style={{ height: '10px', width: '100%' }}
-					aria-hidden='true'
-				/>
+						<div
+							ref={loadMoreRef}
+							style={{ height: '10px', width: '100%' }}
+							aria-hidden='true'
+						/>
 
-				{isLoadingMore && (
-					<div className={styles.loadingMore}>
-						<div className={styles.loadingSpinnerSmall} />
-						<p>Загрузка...</p>
-					</div>
-				)}
+						{isLoadingMore && (
+							<div className={styles.loadingMore}>
+								<div className={styles.loadingSpinnerSmall} />
+								<p>Загрузка...</p>
+							</div>
+						)}
 
-				{!hasMoreRecommended && !isLoadingMore && (
-					<div className={styles.noMoreResults}>
-						Вы просмотрели все рекомендации
-					</div>
+						{!hasMoreRecommended && !isLoadingMore && (
+							<div className={styles.noMoreResults}>
+								Вы просмотрели все рекомендации
+							</div>
+						)}
+					</>
 				)}
 			</div>
 		</div>

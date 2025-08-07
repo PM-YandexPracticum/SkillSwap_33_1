@@ -48,9 +48,17 @@ function getUserSkills(userId: string) {
 	}
 	const tempCards = JSON.parse(localStorage.getItem('temp_user_cards') || '[]');
 	const card = tempCards.find((c: any) => c.id === userId);
+	if (card) {
+		return {
+			teach: (card.skillsCanTeach || []).map((s: any) => s.subcategoryId),
+			learn: card.skillsWantToLearn || [],
+		};
+	}
+	const dbUsers = JSON.parse(localStorage.getItem('db_users_cache') || '[]');
+	const dbUser = dbUsers.find((u: any) => u.id === userId);
 	return {
-		teach: (card?.skillsCanTeach || []).map((s: any) => s.subcategoryId),
-		learn: card?.skillsWantToLearn || [],
+		teach: (dbUser?.skillsCanTeach || []).map((s: any) => s.subcategoryId),
+		learn: dbUser?.skillsWantToLearn || [],
 	};
 }
 
@@ -92,9 +100,11 @@ export function findMutualMatches(): Array<{
 		localStorage.getItem('auth_users') || '[]'
 	) as AuthUser[];
 	const tempCards = JSON.parse(localStorage.getItem('temp_user_cards') || '[]');
+	const dbUsers = JSON.parse(localStorage.getItem('db_users_cache') || '[]');
 	const allIds = [
 		...authUsers.map((u) => `usr_${u.id}`),
 		...tempCards.map((c: any) => c.id),
+		...dbUsers.map((u: any) => u.id),
 	].filter((id) => id !== currentUserId);
 
 	const matches: Array<{ userId: string; offered: number; requested: number }> =
