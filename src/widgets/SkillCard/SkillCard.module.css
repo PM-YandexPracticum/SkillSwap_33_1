@@ -3,11 +3,13 @@
 .card {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-around;
 	align-items: flex-start;
 	gap: 20px;
 	width: 324px;
-	height: 368px;
+	max-height: 456px;
 	padding: 20px;
+	overflow: hidden;
 	background-color: var(--color-surface);
 	border-radius: 12px;
 	box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
@@ -69,11 +71,13 @@
 }
 
 .userName {
-	display: flex;
+	display: block;
 	align-items: center;
 	width: auto;
+	max-width: 100%;
 	height: 24px;
 	margin: 0;
+	overflow: hidden;
 	color: var(--color-text);
 	font-weight: 600;
 	font-size: 20px;
@@ -81,6 +85,8 @@
 	font-style: normal;
 	line-height: 1.5;
 	letter-spacing: -0.01em;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .userLocation {
@@ -96,6 +102,16 @@
 	font-style: normal;
 	line-height: 1.33;
 	letter-spacing: 0.02em;
+}
+
+.userDescription {
+	display: -webkit-box;
+	overflow: hidden;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.5;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
 }
 
 /* Кнопка избранного */
@@ -128,7 +144,6 @@
 	flex-direction: column;
 	align-items: flex-start;
 	width: 284px;
-	height: 208px;
 	padding: 0;
 }
 
