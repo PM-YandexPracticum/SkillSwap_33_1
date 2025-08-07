@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import styles from './UserCard.module.css';
 import type { IUserCardProps } from './UserCard.props';
 import { Button } from '@/shared/ui/button';
-import HeartIcon from '@shared/assets/icons/heart-outline.svg?react';
+import HeartIcon from '@shared/assets/icons/heart.svg?react';
 import ClockIcon from '@shared/assets/icons/clock.svg?react';
 import HeartFilledIcon from '@shared/assets/icons/heart-filled.svg?react';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { Card } from '@/shared/ui/card/Card';
 import UserCardTagsList from './UserCardTagsList/UserCardTagsList';
 import { useSelector } from '@/app/providers/store/StoreProvider';
 import { isUserLiked } from '@/entities/slices/favoritesSlice';
+import { useTheme } from '@/app/styles/ThemeProvider';
 
 // функция helper склонения слов возраста лет/года/год getRuUserAgeСonjugation({age?: number; birthday?: string;}) - логика склонения не реализована
 // пример использования getRuUserAgeСonjugation({ birthday: '2004-02-15' }) => 21 год
@@ -35,6 +36,7 @@ export const CardUser = ({
 	onExchangeCardButtonClick,
 	...props
 }: IUserCardProps) => {
+	const { theme } = useTheme();
 	const isLiked = useSelector((state) =>
 		isUserLiked(state, { payload: user.id, type: '' })
 	);
@@ -91,7 +93,17 @@ export const CardUser = ({
 									if (event.key === 'Enter') handleLikeButtonClickHandler;
 								}}
 							>
-								{isLiked ? <HeartFilledIcon /> : <HeartIcon />}
+								{isLiked ? (
+									<HeartFilledIcon />
+								) : (
+									<HeartIcon
+										fill={
+											theme === 'light'
+												? 'var(--color-text)'
+												: 'var(--color-accent)'
+										}
+									/>
+								)}
 							</button>
 						)}
 						<div className={styles.userInfoWrapper}>
