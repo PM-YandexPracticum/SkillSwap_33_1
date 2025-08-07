@@ -167,6 +167,36 @@ export const HomePage = () => {
 		[favoriteUsersCardData, filterUsers]
 	);
 
+	const hasActiveFilters = useMemo(() => {
+		return (
+			filters.type !== 'Всё' ||
+			filters.gender !== 'Не имеет значения' ||
+			filters.cities.length > 0 ||
+			filters.skills.length > 0 ||
+			Boolean(filters.search)
+		);
+	}, [filters]);
+
+	const combinedFilteredUsers = useMemo(() => {
+		const lists = isAuthenticated
+			? [
+					filteredExactMatchUsers,
+					filteredNewIdeasUsers,
+					filteredRecommendedUsers,
+				]
+			: [filteredPopularUsers, filteredNewUsers, filteredRecommendedUsers];
+		const map = new Map<string, UserCardData>();
+		lists.flat().forEach((u) => map.set(u.id, u));
+		return Array.from(map.values());
+	}, [
+		isAuthenticated,
+		filteredExactMatchUsers,
+		filteredNewIdeasUsers,
+		filteredRecommendedUsers,
+		filteredPopularUsers,
+		filteredNewUsers,
+	]);
+
 	useEffect(() => {
 		initializeAndLoadFavoriteUsers();
 	}, [initializeAndLoadFavoriteUsers]);
@@ -440,6 +470,7 @@ export const HomePage = () => {
 					<ExchangeNotificationPopup users={incomingExchangeUsers} />
 				)}
 			</div>
+
 			<div className={styles.homePage}>
 				<ActiveFilters
 					filters={ActiveFilterButtons}
@@ -454,8 +485,15 @@ export const HomePage = () => {
 						onCardDetailsClick={handleCardDetailsClick}
 						onFavoriteToggle={handleFavoriteToggle}
 					/>
+				) : hasActiveFilters ? (
+					<SkillSection
+						title={`Подходящие предложения: ${combinedFilteredUsers.length}`}
+						users={combinedFilteredUsers}
+						showViewAllButton={false}
+						onCardDetailsClick={handleCardDetailsClick}
+						onFavoriteToggle={handleFavoriteToggle}
+					/>
 				) : isAuthenticated ? (
-					// Разделы для авторизованных пользователей
 					<>
 						{filteredExactMatchUsers.length > 0 && (
 							<SkillSection
@@ -508,7 +546,6 @@ export const HomePage = () => {
 						)}
 					</>
 				) : (
-					// Разделы для неавторизованных пользователей
 					<>
 						<SkillSection
 							title='Популярное'
