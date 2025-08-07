@@ -80,7 +80,7 @@
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	color: var(--color-text);
+	color: var(--color-text) !important;
 }
 
 @media (width <= 1342px) {
