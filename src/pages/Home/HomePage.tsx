@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { UserCardData } from '@/entities/user/user';
 import { SkillsAPI } from '@/api/skills.api';
 import { SkillSection } from '@/widgets/SkillCard/SkillSection';
+import { ExchangeNotificationPopup } from '@/widgets/ExchangeNotification/ExchangeNotification';
 import styles from './HomePage.module.css';
 import FilterBar from '@/components/FilterBar/FilterBar';
 import { ActiveFilters } from '@/shared/ui/ActiveFilters/ActiveFilters';
@@ -44,6 +45,7 @@ export const HomePage = () => {
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
 	const [hasMoreRecommended, setHasMoreRecommended] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [allUsers, setAllUsers] = useState<UserCardData[]>([]);
 
 	const observerRef = useRef<IntersectionObserver | null>(null);
 	const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -187,12 +189,14 @@ export const HomePage = () => {
 
 				if (isAuthenticated) {
 					// Для авторизованных пользователей
-					const [exactMatch, newIdeas, recommended] = await Promise.all([
+					const [exactMatch, newIdeas, recommended, users] = await Promise.all([
 						SkillsAPI.getExactMatchUsers({ offset: 0, limit: 3 }),
 						SkillsAPI.getNewIdeasUsers({ offset: 0, limit: 3 }),
 						SkillsAPI.getRecommendedUsers({ offset: 0, limit: 6 }),
+						SkillsAPI.getUsers(),
 					]);
 
+					setAllUsers(users);
 					setExactMatchUsers(applyFavorites(exactMatch));
 					setNewIdeasUsers(applyFavorites(newIdeas));
 					setRecommendedUsers(applyFavorites(recommended));
@@ -401,6 +405,10 @@ export const HomePage = () => {
 		SkillsAPI.clearCache();
 	};
 
+	const incomingExchangeUsers = allUsers.filter(
+		(user) => user.hasReceivedRequest
+	);
+
 	if (isLoading && recommendedUsers.length === 0) {
 		return (
 			<div className={styles.loadingContainer}>
@@ -426,8 +434,12 @@ export const HomePage = () => {
 
 	return (
 		<div className={styles.main}>
-			<FilterBar />
-
+			<div>
+				<FilterBar />
+				{incomingExchangeUsers.length > 0 && (
+					<ExchangeNotificationPopup users={incomingExchangeUsers} />
+				)}
+			</div>
 			<div className={styles.homePage}>
 				<ActiveFilters
 					filters={ActiveFilterButtons}
