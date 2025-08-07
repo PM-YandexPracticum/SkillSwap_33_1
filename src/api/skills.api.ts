@@ -385,14 +385,6 @@ export class SkillsAPI {
 				wantToLearn: currentUser.wantToLearnSubcategories || [],
 			};
 
-			console.log('getExactMatchUsers: Текущий пользователь:', {
-				id: currentUser.id,
-				canTeach: currentUserSkills.canTeach,
-				wantToLearn: currentUserSkills.wantToLearn,
-			});
-
-			console.log('getExactMatchUsers: Всего пользователей:', allUsers.length);
-
 			// Получаем исходные данные для сравнения навыков
 			const usersResponse = await fetch('/db/users.json');
 			const usersData: UserData[] = await usersResponse.json();
@@ -433,15 +425,6 @@ export class SkillsAPI {
 				});
 			});
 
-			console.log(
-				'getExactMatchUsers: Маппинг навыков создан для пользователей:',
-				Array.from(userSkillsMap.keys())
-			);
-			console.log(
-				'getExactMatchUsers: Пример данных навыков:',
-				Array.from(userSkillsMap.entries()).slice(0, 3)
-			);
-
 			// Фильтруем пользователей с точным совпадением
 			const exactMatches = allUsers.filter((user) => {
 				// Исключаем текущего пользователя
@@ -452,10 +435,6 @@ export class SkillsAPI {
 				// Получаем навыки пользователя из маппинга
 				const userSkills = userSkillsMap.get(user.id);
 				if (!userSkills) {
-					console.log(
-						'getExactMatchUsers: Не найдены навыки для пользователя:',
-						user.id
-					);
 					return false;
 				}
 
@@ -470,25 +449,8 @@ export class SkillsAPI {
 						userSkills.wantToLearn.includes(skill)
 					);
 
-				if (hasExchangeOpportunity) {
-					console.log(
-						'getExactMatchUsers: Найдено совпадение для пользователя:',
-						{
-							id: user.id,
-							name: user.name,
-							userSkills,
-							currentUserSkills,
-						}
-					);
-				}
-
 				return hasExchangeOpportunity;
 			});
-
-			console.log(
-				'getExactMatchUsers: Найдено точных совпадений:',
-				exactMatches.length
-			);
 
 			// Сортируем по релевантности (количество совпадающих навыков)
 			const sortedMatches = exactMatches.sort((a, b) => {
@@ -540,12 +502,6 @@ export class SkillsAPI {
 				wantToLearn: currentUser.wantToLearnSubcategories || [],
 			};
 
-			console.log('getNewIdeasUsers: Текущий пользователь:', {
-				id: currentUser.id,
-				canTeach: currentUserSkills.canTeach,
-				wantToLearn: currentUserSkills.wantToLearn,
-			});
-
 			// Получаем исходные данные для сравнения навыков
 			const usersResponse = await fetch('/db/users.json');
 			const usersData: UserData[] = await usersResponse.json();
@@ -586,11 +542,6 @@ export class SkillsAPI {
 				});
 			});
 
-			console.log(
-				'getNewIdeasUsers: Маппинг навыков создан для пользователей:',
-				Array.from(userSkillsMap.keys())
-			);
-
 			// Фильтруем пользователей без пересечения навыков
 			const newIdeas = allUsers.filter((user) => {
 				// Исключаем текущего пользователя
@@ -601,10 +552,6 @@ export class SkillsAPI {
 				// Получаем навыки пользователя из маппинга
 				const userSkills = userSkillsMap.get(user.id);
 				if (!userSkills) {
-					console.log(
-						'getNewIdeasUsers: Не найдены навыки для пользователя:',
-						user.id
-					);
 					return false;
 				}
 
@@ -623,8 +570,6 @@ export class SkillsAPI {
 
 				return hasNoOverlap;
 			});
-
-			console.log('getNewIdeasUsers: Найдено новых идей:', newIdeas.length);
 
 			// Сортируем по дате создания (новые сначала)
 			const sortedNewIdeas = newIdeas.sort((a, b) => {
