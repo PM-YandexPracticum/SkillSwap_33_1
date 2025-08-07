@@ -141,6 +141,7 @@ export const SkillPage = () => {
 						description: currentUserOffer.description,
 					}}
 					hideActionButton
+					hideFavoriteButton={true}
 				/>
 				<SkillExchangeCard
 					userId={currentUser.id}
