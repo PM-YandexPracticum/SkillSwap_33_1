@@ -7,6 +7,7 @@ import {
 } from './requests.api';
 import { getCurrentUser } from '@/features/auth/AuthForm.model';
 import { LOCAL_STORAGE_PATHS } from '@/shared/constants/local_storage_paths';
+import { getAvatar } from '@/shared/lib/avatarStorage';
 
 interface UserData {
 	id: string;
@@ -89,7 +90,7 @@ export class SkillsAPI {
 				id: `usr_${u.id}`,
 				name: u.fullName || 'Пользователь',
 				avatarUrl:
-					u.avatarUrl || '/public/db/profile-pictures/avatar-default.svg',
+					getAvatar(String(u.id)) || '/db/profile-pictures/avatar-default.svg',
 				birthDate: u.birthDate || '1990-01-01',
 				genderId: u.gender || 'unspecified',
 				locationId: u.city || 'city1',
@@ -156,10 +157,14 @@ export class SkillsAPI {
 					}
 				);
 
+				const avatar = getAvatar(user.id.replace('usr_', '')) || user.avatarUrl;
+				const normalizedAvatar =
+					avatar?.replace(/^\/public/, '') ||
+					'/db/profile-pictures/avatar-default.svg';
 				return {
 					id: user.id,
 					name: user.name,
-					avatarUrl: user.avatarUrl,
+					avatarUrl: normalizedAvatar,
 					location: city?.['city-name'] || 'Неизвестный город',
 					age,
 					gender,
@@ -202,7 +207,7 @@ export class SkillsAPI {
 				id: `usr_${u.id}`,
 				name: u.fullName || 'Пользователь',
 				avatarUrl:
-					u.avatarUrl || '/public/db/profile-pictures/avatar-default.svg',
+					getAvatar(String(u.id)) || '/db/profile-pictures/avatar-default.svg',
 				birthDate: u.birthDate || '1990-01-01',
 				genderId: u.gender || 'unspecified',
 				locationId: u.city || 'city1',

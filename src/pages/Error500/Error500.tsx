@@ -18,6 +18,7 @@ export const Error500 = () => {
 					className={styles.image}
 					src={error500Image}
 					alt='Error 500 - Internal Server Error'
+					loading='lazy'
 				/>
 				<div className={styles.error}>
 					<h2 className={styles.title}>На сервере произошла ошибка</h2>
@@ -41,3 +42,5 @@ export const Error500 = () => {
 		</>
 	);
 };
+
+export default Error500;

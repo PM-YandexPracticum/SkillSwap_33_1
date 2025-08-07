@@ -149,6 +149,7 @@ const RegisterStep2 = () => {
 						src={avatarPreview}
 						alt='Аватар'
 						className={styles.avatarImage}
+						loading='lazy'
 					/>
 				) : (
 					<AddIcon />

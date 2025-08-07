@@ -1,6 +1,6 @@
 export const APP_SETTINGS = {
 	paths: {
-		userProfilePage: (userId: string) => `/user/${userId}`,
+		userProfilePage: (userId: string) => `/skills/${userId}`,
 	},
 	api: {
 		getAllUsers: '/db/backend-users/users-v2.json',

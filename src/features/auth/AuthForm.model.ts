@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getAvatar, setAvatar } from '@/shared/lib/avatarStorage';
 
 export interface AuthUser {
 	id?: string;
@@ -36,7 +37,26 @@ export const getStoredUsers = (): AuthUser[] => {
 	const raw = window.localStorage.getItem(USERS_KEY);
 	if (!raw) return [];
 	try {
-		return JSON.parse(raw) as AuthUser[];
+		const users: AuthUser[] = JSON.parse(raw) as AuthUser[];
+		let migrated = false;
+		const enriched = users.map((u) => {
+			const { avatarUrl, ...rest } = u;
+			if (avatarUrl && rest.id) {
+				void setAvatar(String(rest.id), avatarUrl);
+				migrated = true;
+			}
+			return {
+				...rest,
+				avatarUrl: rest.id
+					? getAvatar(String(rest.id)) || undefined
+					: undefined,
+			};
+		});
+		if (migrated) {
+			const sanitized = users.map(({ avatarUrl: _avatarUrl, ...rest }) => rest);
+			window.localStorage.setItem(USERS_KEY, JSON.stringify(sanitized));
+		}
+		return enriched;
 	} catch {
 		return [];
 	}
@@ -44,13 +64,24 @@ export const getStoredUsers = (): AuthUser[] => {
 
 export const saveUsers = (users: AuthUser[]) => {
 	if (typeof window !== 'undefined') {
-		window.localStorage.setItem(USERS_KEY, JSON.stringify(users));
+		const sanitized = users.map((u) => {
+			const { avatarUrl, ...rest } = u;
+			if (avatarUrl && rest.id) {
+				void setAvatar(String(rest.id), avatarUrl);
+			}
+			return rest;
+		});
+		window.localStorage.setItem(USERS_KEY, JSON.stringify(sanitized));
 	}
 };
 
 export const saveSession = (sessionUser: AuthUser) => {
 	if (typeof window !== 'undefined') {
-		window.localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
+		const { avatarUrl, ...rest } = sessionUser;
+		if (avatarUrl && rest.id) {
+			void setAvatar(String(rest.id), avatarUrl);
+		}
+		window.localStorage.setItem(SESSION_KEY, JSON.stringify(rest));
 		window.dispatchEvent(new Event('userUpdated'));
 	}
 };
@@ -60,7 +91,16 @@ const getSessionUser = (): AuthUser | null => {
 	const raw = window.localStorage.getItem(SESSION_KEY);
 	if (!raw) return null;
 	try {
-		return JSON.parse(raw) as AuthUser;
+		const user: AuthUser = JSON.parse(raw) as AuthUser;
+		if (user.avatarUrl && user.id) {
+			void setAvatar(String(user.id), user.avatarUrl);
+			delete user.avatarUrl;
+			window.localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+		}
+		const avatar = user.id
+			? getAvatar(String(user.id)) || undefined
+			: undefined;
+		return { ...user, avatarUrl: avatar };
 	} catch {
 		return null;
 	}
@@ -73,11 +113,13 @@ const createUserCardWithImages = (
 ): void => {
 	try {
 		// Создаем объект пользователя в формате users.json
+		const avatar =
+			getAvatar(String(userData.id)) ||
+			'/db/profile-pictures/avatar-default.svg';
 		const userCard = {
 			id: `usr_${userData.id}`,
 			name: userData.fullName || 'Пользователь',
-			avatarUrl:
-				userData.avatarUrl || '/public/db/profile-pictures/avatar-default.svg',
+			avatarUrl: avatar,
 			birthDate: userData.birthDate || '1990-01-01',
 			genderId: userData.gender || 'unspecified',
 			locationId: userData.city || 'city1',
@@ -244,9 +286,13 @@ export const useAuth = () => {
 		if ('skillName' in newUser) {
 			delete (newUser as any).skillName;
 		}
+		if (newUser.avatarUrl) {
+			await setAvatar(userId, newUser.avatarUrl);
+			delete newUser.avatarUrl;
+		}
 		users.push(newUser);
 		saveUsers(users);
-		persistSession(newUser);
+		persistSession({ ...newUser, avatarUrl: getAvatar(userId) || undefined });
 
 		// Создаем карточку пользователя и дожидаемся сохранения изображений
 		await createUserCard(newUser);
@@ -275,14 +321,30 @@ export const useAuth = () => {
 
 export const getCurrentUser = (): AuthUser | null => getSessionUser();
 
-export const updateUser = (updatedUser: AuthUser): void => {
+export const updateUser = async (updatedUser: AuthUser): Promise<void> => {
 	const users = getStoredUsers();
 	const index = users.findIndex((u) => String(u.id) === String(updatedUser.id));
+	if (updatedUser.avatarUrl && updatedUser.id) {
+		await setAvatar(String(updatedUser.id), updatedUser.avatarUrl);
+	}
+	const sanitized = { ...updatedUser };
+	delete sanitized.avatarUrl;
+	let merged = sanitized;
 	if (index !== -1) {
-		users[index] = updatedUser;
+		const existing = users[index];
+		merged = { ...existing } as AuthUser;
+		Object.entries(sanitized).forEach(([key, value]) => {
+			if (value !== undefined) {
+				(merged as any)[key] = value;
+			}
+		});
+		users[index] = merged;
 		saveUsers(users);
 	}
-	saveSession(updatedUser);
+	saveSession({
+		...merged,
+		avatarUrl: getAvatar(String(updatedUser.id)) || undefined,
+	});
 	if (typeof window !== 'undefined' && (window as any).SkillsAPI) {
 		(window as any).SkillsAPI.clearCache();
 	}

@@ -14,6 +14,7 @@ export const NotFound404 = () => {
 				className={styles.image}
 				src={error404Image}
 				alt='Error 404 - Page not found'
+				loading='lazy'
 			/>
 			<div className={styles.error}>
 				<h2 className={styles.title}>Страница не найдена</h2>
@@ -36,3 +37,5 @@ export const NotFound404 = () => {
 		</div>
 	);
 };
+
+export default NotFound404;

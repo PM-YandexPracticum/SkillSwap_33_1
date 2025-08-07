@@ -124,6 +124,7 @@ export const ExchangesPage = () => {
 								showHeaderButtons={false}
 								isUserLoggedIn
 								onStatusChange={loadCards}
+								showExchangeButton
 							/>
 						) : (
 							<p>Пользователь {userId}</p>

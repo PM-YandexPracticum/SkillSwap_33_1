@@ -93,7 +93,7 @@ const ProfilePage = () => {
 		);
 	}, [formData, avatarPreview, newPassword]);
 
-	const handleSave = () => {
+	const handleSave = async () => {
 		const users = getStoredUsers();
 		if (
 			formData.email !== initialDataRef.current.email &&
@@ -121,7 +121,7 @@ const ProfilePage = () => {
 			avatarUrl: avatarPreview || currentAvatar,
 		};
 
-		updateUser(updatedUser);
+		await updateUser(updatedUser);
 		initialDataRef.current = {
 			email: updatedUser.email,
 			name: updatedUser.fullName || '',
@@ -371,6 +371,7 @@ const ProfilePage = () => {
 											src={avatarPreview || currentAvatar}
 											alt='User Avatar'
 											className='w-full h-full'
+											loading='lazy'
 											onError={(e) => {
 												const target = e.currentTarget;
 												target.onerror = null;

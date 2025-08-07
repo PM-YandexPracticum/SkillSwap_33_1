@@ -19,6 +19,7 @@ import {
 	toggleCity,
 	toggleSkill,
 	unmarkCategorySkills,
+	toggleFavoritesOnly,
 } from '../../entities/slices/filtersSlice';
 import { selectAllSkills } from '../../entities/slices/skillsSlice';
 
@@ -55,6 +56,9 @@ export const HomePage = () => {
 	const filterUsers = useCallback(
 		(users: UserCardData[]) => {
 			return users.filter((user) => {
+				if (filters.favoritesOnly && !user.isFavorite) {
+					return false;
+				}
 				if (
 					filters.gender !== 'Не имеет значения' &&
 					user.gender !== filters.gender
@@ -239,6 +243,9 @@ export const HomePage = () => {
 		filters.cities.forEach((city) => {
 			tags.push({ id: city, type: 'city', label: city });
 		});
+		if (filters.favoritesOnly) {
+			tags.push({ id: 'favorites', type: 'favorites', label: 'Избранное' });
+		}
 
 		const skillsSet = new Set(filters.skills);
 		const checkedSkillIDs = new Set<string>();
@@ -291,6 +298,9 @@ export const HomePage = () => {
 			}
 			case 'skill':
 				dispatch(toggleSkill(Number(filter.id)));
+				break;
+			case 'favorites':
+				dispatch(toggleFavoritesOnly());
 				break;
 		}
 	};
@@ -404,3 +414,5 @@ export const HomePage = () => {
 		</div>
 	);
 };
+
+export default HomePage;

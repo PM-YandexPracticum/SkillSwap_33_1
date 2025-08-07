@@ -69,11 +69,7 @@ const LoginPage = () => {
 			dispatch(asyncThunkGetUsersAddedIntoFavorites());
 			const state = location.state as any;
 			const from = state?.from || '/profile';
-			const exchangeUserId = state?.openExchangeModalFor;
-			navigate(from, {
-				replace: true,
-				state: exchangeUserId ? { openExchangeModalFor: exchangeUserId } : {},
-			});
+			navigate(from, { replace: true });
 		} else {
 			setError(
 				'Email или пароль введён неверно. Пожалуйста, проверьте правильность введённых данных.'

@@ -11,6 +11,7 @@ import {
 	getReceivedRequests,
 	updateRequestStatus,
 	findMutualSkills,
+	hasInProgressExchange,
 } from '@/api/requests.api';
 import { getCurrentUser } from '@/features/auth/AuthForm.model';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -64,17 +65,12 @@ export const SkillExchangeCard = ({
 		offered: number;
 		requested: number;
 	} | null>(null);
+	const [hasActiveExchange, setHasActiveExchange] = useState(() =>
+		hasInProgressExchange(userId)
+	);
 
 	const navigate = useNavigate();
 	const location = useLocation();
-
-	useEffect(() => {
-		const state = location.state as any;
-		if (state?.openExchangeModalFor === userId) {
-			setIsExchangeModalOpen(true);
-			navigate(location.pathname, { replace: true, state: {} });
-		}
-	}, [location, navigate, userId]);
 
 	const toggleFavorite = () => {
 		setIsFavorite(!isFavorite);
@@ -82,10 +78,14 @@ export const SkillExchangeCard = ({
 
 	const currentUser = getCurrentUser();
 
+	useEffect(() => {
+		setHasActiveExchange(hasInProgressExchange(userId));
+	}, [userId]);
+
 	const handleExchangeClick = () => {
 		if (!isUserLoggedIn) {
 			navigate('/login', {
-				state: { from: location.pathname, openExchangeModalFor: userId },
+				state: { from: location.pathname },
 			});
 			return;
 		}
@@ -117,6 +117,7 @@ export const SkillExchangeCard = ({
 		setHasReceivedRequest(false);
 		setHasSentRequest(false);
 		toast.success('Заявка принята');
+		setHasActiveExchange(true);
 		onStatusChange?.();
 	};
 
@@ -167,7 +168,14 @@ export const SkillExchangeCard = ({
 					</div>
 
 					{showExchangeButton &&
-						(hasReceivedRequest ? (
+						(hasActiveExchange ? (
+							<button
+								className={`${styles.button} ${styles.disabledButton}`}
+								disabled
+							>
+								Обмен в процессе
+							</button>
+						) : hasReceivedRequest ? (
 							<div className={styles.buttonsBlock}>
 								<button
 									className={`${styles.button} ${styles.primaryButton}`}
@@ -231,6 +239,7 @@ export const SkillExchangeCard = ({
 									src={skill.images[0]}
 									className={styles.image}
 									alt={skill.title}
+									loading='lazy'
 								/>
 							)}
 							{skill.images.length > 1 && (
@@ -239,6 +248,7 @@ export const SkillExchangeCard = ({
 										src={skill.images[0]}
 										className={styles.image}
 										alt={skill.title}
+										loading='lazy'
 									/>
 									{skill.images.slice(1, 4).map((img, idx) => (
 										<div className={styles.smallImageWrapper} key={idx}>
@@ -246,6 +256,7 @@ export const SkillExchangeCard = ({
 												src={img}
 												className={styles.image}
 												alt={skill.title}
+												loading='lazy'
 											/>
 											{idx === 2 && (skill.images?.length ?? 0) > 4 && (
 												<div className={styles.imageCounter}>

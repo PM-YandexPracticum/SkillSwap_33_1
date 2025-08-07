@@ -6,6 +6,7 @@ export type FiltersState = {
 	gender: string;
 	cities: string[];
 	search: string;
+	favoritesOnly: boolean;
 };
 
 const initialState: FiltersState = {
@@ -14,6 +15,7 @@ const initialState: FiltersState = {
 	gender: 'Не имеет значения',
 	cities: [],
 	search: '',
+	favoritesOnly: false,
 };
 
 export const filtersSlice = createSlice({
@@ -60,6 +62,9 @@ export const filtersSlice = createSlice({
 		setSearchFilter: (state, action: PayloadAction<string>) => {
 			state.search = action.payload;
 		},
+		toggleFavoritesOnly: (state) => {
+			state.favoritesOnly = !state.favoritesOnly;
+		},
 	},
 	selectors: {
 		selectFilters: (state) => state,
@@ -74,6 +79,7 @@ export const {
 	markCategorySkills,
 	unmarkCategorySkills,
 	setSearchFilter,
+	toggleFavoritesOnly,
 } = filtersSlice.actions;
 export const { selectFilters } = filtersSlice.selectors;
 export default filtersSlice.reducer;

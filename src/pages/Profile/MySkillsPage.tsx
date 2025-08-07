@@ -23,6 +23,8 @@ const MySkillsPage: React.FC = () => {
 				setIsLoading(true);
 				setError(null);
 
+				SkillsAPI.clearCache();
+
 				// Получаем данные пользователя для отображения карточки
 				const users = await SkillsAPI.getUsers();
 				const currentUser = users.find((u) => u.id === `usr_${user.id}`);
@@ -102,6 +104,7 @@ const MySkillsPage: React.FC = () => {
 											src={skill.images[0]}
 											className='image'
 											alt='Изображение навыка'
+											loading='lazy'
 										/>
 									)}
 									{skill.images.length > 1 && (
@@ -110,6 +113,7 @@ const MySkillsPage: React.FC = () => {
 												src={skill.images[0]}
 												className='image'
 												alt='Основное изображение'
+												loading='lazy'
 											/>
 											{skill.images.slice(1, 4).map((image, idx) => (
 												<div className='small-image-wrapper' key={idx}>
@@ -117,6 +121,7 @@ const MySkillsPage: React.FC = () => {
 														src={image}
 														className='image'
 														alt={`Изображение ${idx + 2}`}
+														loading='lazy'
 													/>
 													{idx === 2 && skill.images.length > 4 && (
 														<div className='image-counter'>

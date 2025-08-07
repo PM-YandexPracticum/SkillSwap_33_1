@@ -17,7 +17,7 @@ import { isUserLiked } from '@/entities/slices/favoritesSlice';
 // или
 // getRuUserAgeСonjugation({ age: 26 }) => 26 лет
 
-// APP_SETTINGS.paths.userProfilePage(user.id) - собирает путь на страницу пользователя
+// APP_SETTINGS.paths.userProfilePage(user.id) - собирает путь на страницу навыка
 
 // путь к картинке пользователя, если у пользователя фотография отсутствует
 const defaultUserProfileImage =
@@ -79,6 +79,7 @@ export const CardUser = ({
 						}
 						alt={user.name}
 						draggable='false'
+						loading='lazy'
 					/>
 					<div className={styles.userInfoBlock}>
 						{displayMode === 'default' && (

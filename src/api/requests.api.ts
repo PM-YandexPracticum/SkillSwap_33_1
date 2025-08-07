@@ -72,7 +72,7 @@ export function findMutualSkills(
 		return null;
 	}
 
-	const offered = me.teach.find((id: number) => target.learn.includes(id));
+	const offered = target.learn.find((id: number) => me.teach.includes(id));
 	if (offered === undefined) return null;
 
 	return { offered, requested: requestedSkillId };
@@ -101,9 +101,9 @@ export function findMutualMatches(): Array<{
 		[];
 	allIds.forEach((id) => {
 		const other = getUserSkills(id);
-		const offeredList = me.teach.filter((s: number) => other.learn.includes(s));
-		const requestedList = me.learn.filter((s: number) =>
-			other.teach.includes(s)
+		const offeredList = other.learn.filter((s: number) => me.teach.includes(s));
+		const requestedList = other.teach.filter((s: number) =>
+			me.learn.includes(s)
 		);
 		if (offeredList.length > 0 && requestedList.length > 0) {
 			matches.push({
@@ -164,6 +164,19 @@ export function getReceivedRequests(): string[] {
 	return readStorage()
 		.filter((r) => r.toUserId === currentUserId && r.status === 'pending')
 		.map((r) => r.fromUserId);
+}
+
+export function hasInProgressExchange(targetUserId: string): boolean {
+	const currentUser = getCurrentUser();
+	const currentUserId = currentUser?.id ? `usr_${currentUser.id}` : null;
+	if (!currentUserId) return false;
+	return readStorage().some(
+		(r) =>
+			r.status === 'inProgress' &&
+			((r.fromUserId === currentUserId &&
+				r.toUserId === String(targetUserId)) ||
+				(r.toUserId === currentUserId && r.fromUserId === String(targetUserId)))
+	);
 }
 
 export function updateRequestStatus(

@@ -100,6 +100,7 @@ const OfferPreviewModal: React.FC<OfferPreviewModalProps> = ({
 										src={imageUrls[0]}
 										className={styles.image}
 										alt='Изображение навыка'
+										loading='lazy'
 									/>
 								)}
 								{imageUrls.length > 1 && (
@@ -108,6 +109,7 @@ const OfferPreviewModal: React.FC<OfferPreviewModalProps> = ({
 											src={imageUrls[0]}
 											className={styles.image}
 											alt='Основное изображение'
+											loading='lazy'
 										/>
 										{imageUrls.slice(1, 4).map((url, idx) => (
 											<div className={styles.smallImageWrapper} key={idx}>
@@ -115,6 +117,7 @@ const OfferPreviewModal: React.FC<OfferPreviewModalProps> = ({
 													src={url}
 													className={styles.image}
 													alt={`Изображение ${idx + 2}`}
+													loading='lazy'
 												/>
 												{idx === 2 && imageUrls.length > 4 && (
 													<div className={styles.imageCounter}>
