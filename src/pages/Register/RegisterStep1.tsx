@@ -34,11 +34,13 @@ const RegisterStep1 = () => {
 		handleSubmit,
 		formState: { errors },
 		setError,
+		watch,
 	} = useForm<RegisterFormData>({
 		resolver: yupResolver(registerStep1Schema),
 		mode: 'onChange',
 	});
 
+	const passwordValue = watch('password');
 	const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
 	const onSubmit = (data: RegisterFormData) => {
@@ -86,7 +88,9 @@ const RegisterStep1 = () => {
 				<label className={styles.passwordWrapper}>
 					<span>Email</span>
 					<div
-						className={`${styles.inputWithIcon} ${errors.email ? styles.inputWithIconInvalid : ''}`}
+						className={`${styles.inputWithIcon} ${
+							errors.email ? styles.inputWithIconInvalid : ''
+						}`}
 					>
 						<input
 							type='email'
@@ -104,7 +108,9 @@ const RegisterStep1 = () => {
 				<label className={styles.passwordWrapper}>
 					<span>Пароль</span>
 					<div
-						className={`${styles.inputWithIcon} ${errors.password ? styles.inputWithIconInvalid : ''}`}
+						className={`${styles.inputWithIcon} ${
+							errors.password ? styles.inputWithIconInvalid : ''
+						}`}
 					>
 						<input
 							type={showPassword ? 'text' : 'password'}
@@ -125,8 +131,8 @@ const RegisterStep1 = () => {
 					{errors.password && (
 						<p className={styles.errorMessage}>{errors.password.message}</p>
 					)}
-					{!errors.password && (
-						<p className={styles.passwordStrength}>Надежный</p>
+					{passwordValue && !errors.password && (
+						<p className={styles.passwordStrength}>Надёжный</p>
 					)}
 				</label>
 
