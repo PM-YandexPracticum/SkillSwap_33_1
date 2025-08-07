@@ -1,6 +1,6 @@
 import styles from './SkillPage.module.css';
 import { useState, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import type { UserCardData, UserDetailData } from '@/entities/user/user';
 import { SkillExchangeCard } from '@/widgets/SkillExchangeCard/SkillExchangeCard';
 import { SkillCard } from '@/widgets/SkillCard/SkillCard';
@@ -16,6 +16,7 @@ export const SkillPage = () => {
 	const { id } = useParams<{ id: string }>();
 	const sessionUser = getCurrentUser();
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const [allUsers, setAllUsers] = useState<UserCardData[]>([]);
 	const [currentUserOffer, setCurrentUserOffer] =
@@ -96,14 +97,29 @@ export const SkillPage = () => {
 	const handleNext = () =>
 		setOffersListPage((p) => Math.min(p + 1, totalPages - 1));
 
+	useEffect(() => {
+		if (
+			!isLoading &&
+			sessionUser &&
+			id === `usr_${sessionUser.id}` &&
+			currentUserOffer &&
+			currentUserOffer.skillsCanTeach.length === 0
+		) {
+			navigate('/profile/skills');
+		}
+	}, [isLoading, sessionUser, id, currentUserOffer, navigate]);
+
 	if (isLoading) return <div className={styles.content}>Загрузка...</div>;
 	if (error) return <div className={styles.content}>{error}</div>;
 	if (!currentUser || !currentUserOffer)
 		return <div className={styles.content}>Пользователь не найден</div>;
 
+	if (currentUserOffer.skillsCanTeach.length === 0)
+		return sessionUser && id === `usr_${sessionUser.id}` ? null : (
+			<div className={styles.content}>Навык не найден</div>
+		);
+
 	const primarySkill = currentUserOffer.skillsCanTeach[0];
-	if (!primarySkill)
-		return <div className={styles.content}>Навык не найден</div>;
 
 	const skill = {
 		id: String(primarySkill.subcategoryId),

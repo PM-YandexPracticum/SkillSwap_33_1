@@ -34,19 +34,6 @@
 	color: var(--color-button-text-inverse);
 }
 
-.nav-dropdown {
-	display: flex;
-	align-items: center;
-	gap: 0.25rem;
-	color: var(--color-text-caption);
-	cursor: pointer;
-	transition: color 0.2s;
-}
-
-.nav-dropdown:hover {
-	color: var(--color-button-text-inverse);
-}
-
 .search-container {
 	flex: 1;
 	max-width: 40.5rem;

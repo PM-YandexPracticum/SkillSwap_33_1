@@ -273,6 +273,20 @@ export function finishExchange(requestId: string): void {
 			userA.skillDescriptionsBySubcategory[req.skillRequestedSubcategory] =
 				description;
 			userA.skillImagesBySubcategory[req.skillRequestedSubcategory] = images;
+			userA.skillsCanTeach = userA.skillsCanTeach || [];
+			const existingA = userA.skillsCanTeach.find(
+				(s: any) => s.subcategoryId === req.skillRequestedSubcategory
+			);
+			const newSkillA = {
+				subcategoryId: req.skillRequestedSubcategory,
+				description,
+				images,
+			};
+			if (existingA) {
+				Object.assign(existingA, newSkillA);
+			} else {
+				userA.skillsCanTeach.push(newSkillA);
+			}
 		}
 
 		if (userB) {
@@ -293,6 +307,20 @@ export function finishExchange(requestId: string): void {
 			userB.skillDescriptionsBySubcategory[req.skillOfferedSubcategory] =
 				description;
 			userB.skillImagesBySubcategory[req.skillOfferedSubcategory] = images;
+			userB.skillsCanTeach = userB.skillsCanTeach || [];
+			const existingB = userB.skillsCanTeach.find(
+				(s: any) => s.subcategoryId === req.skillOfferedSubcategory
+			);
+			const newSkillB = {
+				subcategoryId: req.skillOfferedSubcategory,
+				description,
+				images,
+			};
+			if (existingB) {
+				Object.assign(existingB, newSkillB);
+			} else {
+				userB.skillsCanTeach.push(newSkillB);
+			}
 		}
 
 		if (userA || userB) {

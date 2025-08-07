@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { UserCardData } from '@/entities/user/user';
 import { SkillsAPI } from '@/api/skills.api';
 import { SkillSection } from '@/widgets/SkillCard/SkillSection';
+import { ExchangeNotificationPopup } from '@/widgets/ExchangeNotification/ExchangeNotification';
 import styles from './HomePage.module.css';
 import FilterBar from '@/components/FilterBar/FilterBar';
 import { ActiveFilters } from '@/shared/ui/ActiveFilters/ActiveFilters';
@@ -44,6 +45,7 @@ export const HomePage = () => {
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
 	const [hasMoreRecommended, setHasMoreRecommended] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [allUsers, setAllUsers] = useState<UserCardData[]>([]);
 
 	const observerRef = useRef<IntersectionObserver | null>(null);
 	const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -165,6 +167,36 @@ export const HomePage = () => {
 		[favoriteUsersCardData, filterUsers]
 	);
 
+	const hasActiveFilters = useMemo(() => {
+		return (
+			filters.type !== 'Всё' ||
+			filters.gender !== 'Не имеет значения' ||
+			filters.cities.length > 0 ||
+			filters.skills.length > 0 ||
+			Boolean(filters.search)
+		);
+	}, [filters]);
+
+	const combinedFilteredUsers = useMemo(() => {
+		const lists = isAuthenticated
+			? [
+					filteredExactMatchUsers,
+					filteredNewIdeasUsers,
+					filteredRecommendedUsers,
+				]
+			: [filteredPopularUsers, filteredNewUsers, filteredRecommendedUsers];
+		const map = new Map<string, UserCardData>();
+		lists.flat().forEach((u) => map.set(u.id, u));
+		return Array.from(map.values());
+	}, [
+		isAuthenticated,
+		filteredExactMatchUsers,
+		filteredNewIdeasUsers,
+		filteredRecommendedUsers,
+		filteredPopularUsers,
+		filteredNewUsers,
+	]);
+
 	useEffect(() => {
 		initializeAndLoadFavoriteUsers();
 	}, [initializeAndLoadFavoriteUsers]);
@@ -187,12 +219,14 @@ export const HomePage = () => {
 
 				if (isAuthenticated) {
 					// Для авторизованных пользователей
-					const [exactMatch, newIdeas, recommended] = await Promise.all([
+					const [exactMatch, newIdeas, recommended, users] = await Promise.all([
 						SkillsAPI.getExactMatchUsers({ offset: 0, limit: 3 }),
 						SkillsAPI.getNewIdeasUsers({ offset: 0, limit: 3 }),
 						SkillsAPI.getRecommendedUsers({ offset: 0, limit: 6 }),
+						SkillsAPI.getUsers(),
 					]);
 
+					setAllUsers(users);
 					setExactMatchUsers(applyFavorites(exactMatch));
 					setNewIdeasUsers(applyFavorites(newIdeas));
 					setRecommendedUsers(applyFavorites(recommended));
@@ -401,6 +435,10 @@ export const HomePage = () => {
 		SkillsAPI.clearCache();
 	};
 
+	const incomingExchangeUsers = allUsers.filter(
+		(user) => user.hasReceivedRequest
+	);
+
 	if (isLoading && recommendedUsers.length === 0) {
 		return (
 			<div className={styles.loadingContainer}>
@@ -426,7 +464,12 @@ export const HomePage = () => {
 
 	return (
 		<div className={styles.main}>
-			<FilterBar />
+			<div>
+				<FilterBar />
+				{incomingExchangeUsers.length > 0 && (
+					<ExchangeNotificationPopup users={incomingExchangeUsers} />
+				)}
+			</div>
 
 			<div className={styles.homePage}>
 				<ActiveFilters
@@ -442,8 +485,15 @@ export const HomePage = () => {
 						onCardDetailsClick={handleCardDetailsClick}
 						onFavoriteToggle={handleFavoriteToggle}
 					/>
+				) : hasActiveFilters ? (
+					<SkillSection
+						title={`Подходящие предложения: ${combinedFilteredUsers.length}`}
+						users={combinedFilteredUsers}
+						showViewAllButton={false}
+						onCardDetailsClick={handleCardDetailsClick}
+						onFavoriteToggle={handleFavoriteToggle}
+					/>
 				) : isAuthenticated ? (
-					// Разделы для авторизованных пользователей
 					<>
 						{filteredExactMatchUsers.length > 0 && (
 							<SkillSection
@@ -496,7 +546,6 @@ export const HomePage = () => {
 						)}
 					</>
 				) : (
-					// Разделы для неавторизованных пользователей
 					<>
 						<SkillSection
 							title='Популярное'

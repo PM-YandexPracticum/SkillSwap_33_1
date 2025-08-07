@@ -1,28 +1,22 @@
 /* === Общая страница === */
 
 .page {
-	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
 	gap: 15px;
 	min-height: 100vh;
-	padding: 84px 36px 130px;
+	padding: 36px 36px 172px;
 	background-color: var(--color-background);
 }
 
 /* === Верхняя панель === */
 
 .topBar {
-	position: fixed;
-	top: 41px;
-	right: 36px;
-	left: 38px;
-	z-index: 100;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	gap: 1062px;
 	height: 40px;
 }
 
@@ -258,7 +252,6 @@
 }
 
 .errorMessage {
-	margin-top: 5px;
 	color: #bf3920; /* Красный цвет текста */
 	font-size: 12px;
 }
