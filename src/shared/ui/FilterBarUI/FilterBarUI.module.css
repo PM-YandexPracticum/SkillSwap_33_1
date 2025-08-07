@@ -4,7 +4,7 @@
 	row-gap: 32px;
 	width: 100%;
 	max-width: 324px;
-	height: inherit;
+	height: fit-content;
 	margin-left: 36px;
 	padding: 20px;
 	background-color: var(--color-surface);
