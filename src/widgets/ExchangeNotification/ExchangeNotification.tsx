@@ -37,3 +37,4 @@ export const ExchangeNotificationPopup = ({ users }: Props) => {
 };
 
 export default ExchangeNotificationPopup;
+
