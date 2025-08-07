@@ -16,7 +16,7 @@ import {
 	updateUser,
 	type AuthUser,
 } from '@/features/auth/AuthForm.model';
-import { validatePassword } from '@/shared/lib/validation/auth.validation';
+import { validatePassword } from '@/shared/lib/validation/profile.validation';
 
 const cities = (citiesData as CitiesResponse).cities;
 const genders = genderData.genders;

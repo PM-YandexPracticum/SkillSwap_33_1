@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import styles from './RegisterPage.module.css';
 import { useRegister } from './RegisterContext';
 import { getStoredUsers } from '@/features/auth/AuthForm.model';
+
+import { useTheme } from '@/app/styles/ThemeProvider';
 import GoogleIcon from '@icons/google.svg?react';
 import AppleLightIcon from '@icons/apple-light.svg?react';
 import AppleDarkIcon from '@icons/apple-dark.svg?react';
 import EyeIcon from '@icons/eye.svg?react';
 import EyeSlashIcon from '@icons/eye-slash.svg?react';
-import { useTheme } from '@/app/styles/ThemeProvider';
-import {
-	validateEmail,
-	validatePassword,
-} from '@/shared/lib/validation/reg.validation';
+
+import { registerStep1Schema } from '@/shared/lib/validation/reg.validation';
+
+interface RegisterFormData {
+	email: string;
+	password: string;
+}
 
 const RegisterStep1 = () => {
 	const { theme } = useTheme();
@@ -21,61 +28,49 @@ const RegisterStep1 = () => {
 	const { setStep1Data } = useRegister();
 
 	const [showPassword, setShowPassword] = useState(false);
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [emailError, setEmailError] = useState<string | null>(null);
-	const [passwordError, setPasswordError] = useState<string | null>(null);
-	const [passwordStrength, setPasswordStrength] = useState<string | null>(null);
 
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		setError,
+		watch,
+	} = useForm<RegisterFormData>({
+		resolver: yupResolver(registerStep1Schema),
+		mode: 'onChange',
+	});
+
+	const passwordValue = watch('password');
 	const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
-	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const newPassword = e.target.value;
-		setPassword(newPassword);
-
-		const error = validatePassword(newPassword);
-		setPasswordError(error);
-		setPasswordStrength(error ? null : 'Надежный');
-	};
-
-	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const newEmail = e.target.value;
-		setEmail(newEmail);
-
-		const error = validateEmail(newEmail);
-		setEmailError(error);
-	};
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-
-		// Повторная проверка при сабмите
-		const emailValidationResult = validateEmail(email);
-		const passwordValidationResult = validatePassword(password);
-
-		setEmailError(emailValidationResult);
-		setPasswordError(passwordValidationResult);
-		setPasswordStrength(passwordValidationResult ? null : 'Надежный');
-
-		if (!emailValidationResult && !passwordValidationResult) {
-			const users = getStoredUsers();
-			if (users.some((u) => u.email === email)) {
-				setEmailError('Пользователь с таким email уже зарегистрирован');
-				return;
-			}
-			setStep1Data({ email, password });
-			navigate('/register/step-2');
+	const onSubmit = (data: RegisterFormData) => {
+		const users = getStoredUsers();
+		if (users.some((u) => u.email === data.email)) {
+			setError('email', {
+				type: 'manual',
+				message: 'Пользователь с таким email уже зарегистрирован',
+			});
+			return;
 		}
+
+		setStep1Data(data);
+		navigate('/register/step-2');
 	};
 
 	return (
 		<>
 			<div className={styles.socialBtnContainer}>
-				<button className={`${styles.button} ${styles.socialBtn}`}>
+				<button
+					className={`${styles.button} ${styles.socialBtn}`}
+					type='button'
+				>
 					<GoogleIcon />
 					Продолжить с Google
 				</button>
-				<button className={`${styles.button} ${styles.socialBtn}`}>
+				<button
+					className={`${styles.button} ${styles.socialBtn}`}
+					type='button'
+				>
 					<AppleIcon />
 					Продолжить с Apple
 				</button>
@@ -85,36 +80,44 @@ const RegisterStep1 = () => {
 				<span>или</span>
 			</div>
 
-			<form className={styles.form} onSubmit={handleSubmit}>
+			<form
+				className={styles.form}
+				onSubmit={handleSubmit(onSubmit)}
+				noValidate
+			>
 				<label className={styles.passwordWrapper}>
 					<span>Email</span>
 					<div
-						className={`${styles.inputWithIcon} ${emailError ? styles.inputWithIconInvalid : ''}`}
+						className={`${styles.inputWithIcon} ${
+							errors.email ? styles.inputWithIconInvalid : ''
+						}`}
 					>
 						<input
 							type='email'
 							placeholder='Введите email'
+							{...register('email')}
+							className={`${styles.inputField} ${errors.email ? styles.inputInvalid : ''}`}
 							required
-							value={email}
-							onChange={handleEmailChange}
-							className={`${styles.inputField} ${emailError ? styles.inputInvalid : ''}`}
 						/>
 					</div>
-					{emailError && <p className={styles.errorMessage}>{emailError}</p>}
+					{errors.email && (
+						<p className={styles.errorMessage}>{errors.email.message}</p>
+					)}
 				</label>
 
 				<label className={styles.passwordWrapper}>
 					<span>Пароль</span>
 					<div
-						className={`${styles.inputWithIcon} ${passwordError ? styles.inputWithIconInvalid : ''}`}
+						className={`${styles.inputWithIcon} ${
+							errors.password ? styles.inputWithIconInvalid : ''
+						}`}
 					>
 						<input
 							type={showPassword ? 'text' : 'password'}
 							placeholder='Придумайте надёжный пароль'
-							required
-							value={password}
-							onChange={handlePasswordChange}
+							{...register('password')}
 							className={styles.input}
+							required
 						/>
 						<button
 							type='button'
@@ -125,11 +128,11 @@ const RegisterStep1 = () => {
 							{showPassword ? <EyeSlashIcon /> : <EyeIcon />}
 						</button>
 					</div>
-					{passwordError && (
-						<p className={styles.errorMessage}>{passwordError}</p>
+					{errors.password && (
+						<p className={styles.errorMessage}>{errors.password.message}</p>
 					)}
-					{passwordStrength && (
-						<p className={styles.passwordStrength}>{passwordStrength}</p>
+					{passwordValue && !errors.password && (
+						<p className={styles.passwordStrength}>Надёжный</p>
 					)}
 				</label>
 
