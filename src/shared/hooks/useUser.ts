@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import userData from '../../../public/db/user.json';
+import { getAvatar } from '@/shared/lib/avatarStorage';
 
 export const DEFAULT_AVATAR =
 	'/assets/images/profile-pictures/avatar-default.svg';
@@ -71,14 +72,21 @@ export const handleAvatarError = (
 };
 
 const getLocalUser = (): LocalUser | null => {
-	if (typeof window === 'undefined') return null;
-	const raw = window.localStorage.getItem('currentUser');
-	if (!raw) return null;
-	try {
-		return JSON.parse(raw) as LocalUser;
-	} catch {
-		return null;
-	}
+        if (typeof window === 'undefined') return null;
+        const raw = window.localStorage.getItem('currentUser');
+        if (!raw) return null;
+        try {
+                const parsed = JSON.parse(raw) as LocalUser;
+                if (parsed.id) {
+                        const avatar = getAvatar(String(parsed.id));
+                        if (avatar) {
+                                parsed.avatarUrl = avatar;
+                        }
+                }
+                return parsed;
+        } catch {
+                return null;
+        }
 };
 
 const defaultUser: LocalUser = Array.isArray(userData)

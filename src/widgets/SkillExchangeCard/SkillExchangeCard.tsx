@@ -6,11 +6,12 @@ import MoreSquareIcon from '../../shared/assets/icons/more-square.svg?react';
 import ShareIcon from '../../shared/assets/icons/share.svg?react';
 import SkillExchangeModal from './SkillExchangeModal';
 import {
-	createExchangeRequest,
-	getSentRequests,
-	getReceivedRequests,
-	updateRequestStatus,
-	findMutualSkills,
+        createExchangeRequest,
+        getSentRequests,
+        getReceivedRequests,
+        updateRequestStatus,
+        findMutualSkills,
+        hasInProgressExchange,
 } from '@/api/requests.api';
 import { getCurrentUser } from '@/features/auth/AuthForm.model';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -60,35 +61,34 @@ export const SkillExchangeCard = ({
 	const [hasReceivedRequest, setHasReceivedRequest] = useState(() =>
 		getReceivedRequests().includes(userId)
 	);
-	const [pendingMatch, setPendingMatch] = useState<{
-		offered: number;
-		requested: number;
-	} | null>(null);
+        const [pendingMatch, setPendingMatch] = useState<{
+                offered: number;
+                requested: number;
+        } | null>(null);
+        const [hasActiveExchange, setHasActiveExchange] = useState(() =>
+                hasInProgressExchange(userId)
+        );
 
-	const navigate = useNavigate();
-	const location = useLocation();
-
-	useEffect(() => {
-		const state = location.state as any;
-		if (state?.openExchangeModalFor === userId) {
-			setIsExchangeModalOpen(true);
-			navigate(location.pathname, { replace: true, state: {} });
-		}
-	}, [location, navigate, userId]);
+        const navigate = useNavigate();
+        const location = useLocation();
 
 	const toggleFavorite = () => {
 		setIsFavorite(!isFavorite);
 	};
 
-	const currentUser = getCurrentUser();
+        const currentUser = getCurrentUser();
+
+        useEffect(() => {
+                setHasActiveExchange(hasInProgressExchange(userId));
+        }, [userId]);
 
 	const handleExchangeClick = () => {
-		if (!isUserLoggedIn) {
-			navigate('/login', {
-				state: { from: location.pathname, openExchangeModalFor: userId },
-			});
-			return;
-		}
+                if (!isUserLoggedIn) {
+                        navigate('/login', {
+                                state: { from: location.pathname },
+                        });
+                        return;
+                }
 		const skillId = skill.subcategoryId ?? Number(skill.id);
 		if (Number.isNaN(skillId)) {
 			toast.error('Навык не найден');
@@ -117,8 +117,9 @@ export const SkillExchangeCard = ({
 		setHasReceivedRequest(false);
 		setHasSentRequest(false);
 		toast.success('Заявка принята');
-		onStatusChange?.();
-	};
+                setHasActiveExchange(true);
+                onStatusChange?.();
+        };
 
 	const handleRejectExchange = () => {
 		if (!currentUser?.id) return;
@@ -126,8 +127,8 @@ export const SkillExchangeCard = ({
 		setHasReceivedRequest(false);
 		setHasSentRequest(false);
 		toast.error('Заявка отклонена');
-		onStatusChange?.();
-	};
+                onStatusChange?.();
+        };
 
 	return (
 		<div className={styles.card}>
@@ -166,33 +167,40 @@ export const SkillExchangeCard = ({
 						<p className={styles.skillDescription}>{skill.description}</p>
 					</div>
 
-					{showExchangeButton &&
-						(hasReceivedRequest ? (
-							<div className={styles.buttonsBlock}>
-								<button
-									className={`${styles.button} ${styles.primaryButton}`}
-									onClick={handleAcceptExchange}
-								>
-									Принять обмен
-								</button>
-								<button
-									className={`${styles.button} ${styles.secondaryButton}`}
-									onClick={handleRejectExchange}
-								>
-									Отклонить
-								</button>
-							</div>
-						) : (
-							<button
-								className={`${styles.button} ${
-									hasSentRequest ? styles.disabledButton : styles.primaryButton
-								}`}
-								onClick={hasSentRequest ? undefined : handleExchangeClick}
-								disabled={hasSentRequest}
-							>
-								{hasSentRequest ? 'Обмен предложен' : 'Предложить обмен'}
-							</button>
-						))}
+                                        {showExchangeButton &&
+                                                (hasActiveExchange ? (
+                                                        <button
+                                                                className={`${styles.button} ${styles.disabledButton}`}
+                                                                disabled
+                                                        >
+                                                                Обмен в процессе
+                                                        </button>
+                                                ) : hasReceivedRequest ? (
+                                                        <div className={styles.buttonsBlock}>
+                                                                <button
+                                                                        className={`${styles.button} ${styles.primaryButton}`}
+                                                                        onClick={handleAcceptExchange}
+                                                                >
+                                                                        Принять обмен
+                                                                </button>
+                                                                <button
+                                                                        className={`${styles.button} ${styles.secondaryButton}`}
+                                                                        onClick={handleRejectExchange}
+                                                                >
+                                                                        Отклонить
+                                                                </button>
+                                                        </div>
+                                                ) : (
+                                                        <button
+                                                                className={`${styles.button} ${
+                                                                        hasSentRequest ? styles.disabledButton : styles.primaryButton
+                                                                }`}
+                                                                onClick={hasSentRequest ? undefined : handleExchangeClick}
+                                                                disabled={hasSentRequest}
+                                                        >
+                                                                {hasSentRequest ? 'Обмен предложен' : 'Предложить обмен'}
+                                                        </button>
+                                                ))}
 
 					{showEditButton && (
 						<div className={styles.buttonsBlock}>
@@ -227,26 +235,29 @@ export const SkillExchangeCard = ({
 					{Array.isArray(skill.images) && skill.images.length > 0 && (
 						<div className={styles.imageGrid}>
 							{skill.images.length === 1 && (
-								<img
-									src={skill.images[0]}
-									className={styles.image}
-									alt={skill.title}
-								/>
+                                                                <img
+                                                                        src={skill.images[0]}
+                                                                        className={styles.image}
+                                                                        alt={skill.title}
+                                                                        loading='lazy'
+                                                                />
 							)}
 							{skill.images.length > 1 && (
 								<>
-									<img
-										src={skill.images[0]}
-										className={styles.image}
-										alt={skill.title}
-									/>
+                                                                        <img
+                                                                                src={skill.images[0]}
+                                                                                className={styles.image}
+                                                                                alt={skill.title}
+                                                                                loading='lazy'
+                                                                        />
 									{skill.images.slice(1, 4).map((img, idx) => (
 										<div className={styles.smallImageWrapper} key={idx}>
-											<img
-												src={img}
-												className={styles.image}
-												alt={skill.title}
-											/>
+                                                                                        <img
+                                                                                                src={img}
+                                                                                                className={styles.image}
+                                                                                                alt={skill.title}
+                                                                                                loading='lazy'
+                                                                                        />
 											{idx === 2 && (skill.images?.length ?? 0) > 4 && (
 												<div className={styles.imageCounter}>
 													+{(skill.images?.length ?? 0) - 4}

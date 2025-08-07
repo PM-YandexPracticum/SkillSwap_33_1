@@ -11,21 +11,23 @@ const MySkillsPage: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		const loadUserSkills = async () => {
-			if (!user?.id) {
-				setError('Пользователь не найден');
-				setIsLoading(false);
-				return;
-			}
+        useEffect(() => {
+                const loadUserSkills = async () => {
+                        if (!user?.id) {
+                                setError('Пользователь не найден');
+                                setIsLoading(false);
+                                return;
+                        }
 
-			try {
-				setIsLoading(true);
-				setError(null);
+                        try {
+                                setIsLoading(true);
+                                setError(null);
 
-				// Получаем данные пользователя для отображения карточки
-				const users = await SkillsAPI.getUsers();
-				const currentUser = users.find((u) => u.id === `usr_${user.id}`);
+                                SkillsAPI.clearCache();
+
+                                // Получаем данные пользователя для отображения карточки
+                                const users = await SkillsAPI.getUsers();
+                                const currentUser = users.find((u) => u.id === `usr_${user.id}`);
 
 				if (!currentUser) {
 					setError('Данные пользователя не найдены');
@@ -82,9 +84,11 @@ const MySkillsPage: React.FC = () => {
 		);
 	}
 
+
 	return (
 		<div className='my-skills-container'>
 			<div className='my-skills-content'>
+
 				{userDetail.skillsCanTeach.map((skill) => (
 					<div key={skill.subcategoryId} className='my-skills-main'>
 						<div className='left-section'>
@@ -98,26 +102,29 @@ const MySkillsPage: React.FC = () => {
 							{skill.images && skill.images.length > 0 && (
 								<div className='image-grid'>
 									{skill.images.length === 1 && (
-										<img
-											src={skill.images[0]}
-											className='image'
-											alt='Изображение навыка'
-										/>
+                                                                                <img
+                                                                                        src={skill.images[0]}
+                                                                                        className='image'
+                                                                                        alt='Изображение навыка'
+                                                                                        loading='lazy'
+                                                                                />
 									)}
 									{skill.images.length > 1 && (
 										<>
-											<img
-												src={skill.images[0]}
-												className='image'
-												alt='Основное изображение'
-											/>
+                                                                                        <img
+                                                                                                src={skill.images[0]}
+                                                                                                className='image'
+                                                                                                alt='Основное изображение'
+                                                                                                loading='lazy'
+                                                                                        />
 											{skill.images.slice(1, 4).map((image, idx) => (
 												<div className='small-image-wrapper' key={idx}>
-													<img
-														src={image}
-														className='image'
-														alt={`Изображение ${idx + 2}`}
-													/>
+                                                                                                        <img
+                                                                                                                src={image}
+                                                                                                                className='image'
+                                                                                                                alt={`Изображение ${idx + 2}`}
+                                                                                                                loading='lazy'
+                                                                                                        />
 													{idx === 2 && skill.images.length > 4 && (
 														<div className='image-counter'>
 															+{skill.images.length - 4}
@@ -132,6 +139,7 @@ const MySkillsPage: React.FC = () => {
 						</div>
 					</div>
 				))}
+
 			</div>
 		</div>
 	);

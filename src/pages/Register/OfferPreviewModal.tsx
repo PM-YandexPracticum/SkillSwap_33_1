@@ -96,26 +96,29 @@ const OfferPreviewModal: React.FC<OfferPreviewModalProps> = ({
 						{imageUrls.length > 0 && (
 							<div className={styles.imageGrid}>
 								{imageUrls.length === 1 && (
-									<img
-										src={imageUrls[0]}
-										className={styles.image}
-										alt='Изображение навыка'
-									/>
+                                                                        <img
+                                                                                src={imageUrls[0]}
+                                                                                className={styles.image}
+                                                                                alt='Изображение навыка'
+                                                                                loading='lazy'
+                                                                        />
 								)}
 								{imageUrls.length > 1 && (
 									<>
-										<img
-											src={imageUrls[0]}
-											className={styles.image}
-											alt='Основное изображение'
-										/>
+                                                                                <img
+                                                                                        src={imageUrls[0]}
+                                                                                        className={styles.image}
+                                                                                        alt='Основное изображение'
+                                                                                        loading='lazy'
+                                                                                />
 										{imageUrls.slice(1, 4).map((url, idx) => (
 											<div className={styles.smallImageWrapper} key={idx}>
-												<img
-													src={url}
-													className={styles.image}
-													alt={`Изображение ${idx + 2}`}
-												/>
+                                                                                                <img
+                                                                                                        src={url}
+                                                                                                        className={styles.image}
+                                                                                                        alt={`Изображение ${idx + 2}`}
+                                                                                                        loading='lazy'
+                                                                                                />
 												{idx === 2 && imageUrls.length > 4 && (
 													<div className={styles.imageCounter}>
 														+{imageUrls.length - 4}
