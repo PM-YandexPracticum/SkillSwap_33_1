@@ -7,12 +7,15 @@ import { SkillCard } from '@/widgets/SkillCard/SkillCard';
 import arrow from '../../shared/assets/icons/chevron-right.svg';
 import { SkillsAPI } from '@/api/skills.api';
 import { getCurrentUser } from '@/features/auth/AuthForm.model';
+import { useAppDispatch } from '../../app/providers/store/hooks';
+import { asyncThunkSetLikeUserState } from '@/entities/slices/favoritesSlice';
 
 const cardsPerPage = 4;
 
 export const SkillPage = () => {
 	const { id } = useParams<{ id: string }>();
 	const sessionUser = getCurrentUser();
+	const dispatch = useAppDispatch();
 
 	const [allUsers, setAllUsers] = useState<UserCardData[]>([]);
 	const [currentUserOffer, setCurrentUserOffer] =
@@ -119,6 +122,16 @@ export const SkillPage = () => {
 		}
 	};
 
+	const handleFavoriteToggle = (userId: string, isFavorite: boolean) => {
+		dispatch(
+			asyncThunkSetLikeUserState({
+				userId,
+				isLiked: !isFavorite,
+			})
+		);
+		SkillsAPI.clearCache();
+	};
+
 	return (
 		<div className={styles.content}>
 			<div className={styles.currentOffer}>
@@ -128,14 +141,17 @@ export const SkillPage = () => {
 						description: currentUserOffer.description,
 					}}
 					hideActionButton
+					hideFavoriteButton={true}
 				/>
 				<SkillExchangeCard
 					userId={currentUser.id}
 					skill={skill}
 					onExchangeSent={handleExchangeSent}
+					onFavoriteToggle={handleFavoriteToggle}
 					showExchangeButton={
 						!(sessionUser && `usr_${sessionUser.id}` === currentUser.id)
 					}
+					showHeaderButtons={true}
 					isUserLoggedIn={isLoggedIn}
 				/>
 			</div>

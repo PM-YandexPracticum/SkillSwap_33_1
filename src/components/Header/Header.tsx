@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import SearchIcon from '../../shared/assets/icons/search.svg?react';
 import ChevronDownIcon from '../../shared/assets/icons/chevron-down.svg?react';
 import NotificationIcon from '../../shared/assets/icons/notification.svg?react';
@@ -99,6 +99,7 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 	const notifRef = useRef<HTMLDivElement>(null);
 
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { logout } = useAuth();
 	const dispatch = useAppDispatch();
 	const search = useAppSelector((state) => state.filters.search);
@@ -192,6 +193,23 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 	const handleLogout = () => {
 		logout();
 		navigate('/login');
+	};
+
+	const handleFavoritesClick = () => {
+		// Если мы на главной странице, переключаем фильтр
+		if (location.pathname === '/') {
+			dispatch(toggleFavoritesOnly());
+		} else if (location.pathname === '/profile/favorites') {
+			// Если мы уже на странице избранного, возвращаемся на главную
+			navigate('/');
+		} else {
+			// Иначе переходим на страницу избранного
+			// Сбрасываем фильтр favoritesOnly при переходе на страницу избранного
+			if (favoritesOnly) {
+				dispatch(toggleFavoritesOnly());
+			}
+			navigate('/profile/favorites');
+		}
 	};
 
 	const markAllAsRead = () => {
@@ -384,10 +402,10 @@ export const Header = ({ variant = 'guest', userInfo }: HeaderProps) => {
 						{/* Лайки */}
 						<button
 							className='action-button'
-							onClick={() => dispatch(toggleFavoritesOnly())}
-							aria-label='Фильтровать избранное'
+							onClick={handleFavoritesClick}
+							aria-label='Перейти в избранное'
 						>
-							{favoritesOnly ? (
+							{favoritesOnly || location.pathname === '/profile/favorites' ? (
 								<LikeFilledIcon className='w-5 h-5' />
 							) : (
 								<LikeIcon className='w-5 h-5' />
